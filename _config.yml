@@ -16,6 +16,10 @@ sass:
 gems:
   - jekyll-sitemap
 
+collections:
+  projects:
+    output: true
+
 kramdown:
   auto_ids: true
   footnote_nr: 1
