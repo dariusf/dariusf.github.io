@@ -48,11 +48,11 @@ body {
 	ul {
 		margin: 0;
 		padding: 0;
-		clear: both;
+		/*clear: both;*/
 		list-style-type: none;
 	}
 	li {
-		display: block;
+		/*display: block;*/
 		list-style-type: none;
 		border-bottom: 1px solid lighten($black,80);
 		border-bottom: 1px solid fade($black,10);
@@ -60,20 +60,21 @@ body {
 		&:last-child {
 			border-bottom: 0 solid transparent;
 		}
-		@media #{$small} {
+		/*@media #{$small} {*/
 			display: inline;
 			margin-right: 25px;
 			white-space: nowrap;
 			border-bottom: 0 solid transparent;
-		}
+		/*}*/
 		a { 
-			display: block;
+			/*display: block;*/
+			display: inline;
 			padding: 10px 0;
 			decoration: none;
 			border-bottom: 0 solid transparent;
 			@include transition(all .2s);
 			@media #{$small} {
-				display: inline;
+				/*display: inline;*/
 				padding: 0;
 			}
 		}
