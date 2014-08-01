@@ -60,7 +60,7 @@
         <p class="byline"><strong>{{ page.title }}</strong> was published on <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.modified %} and last modified on <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time>{% endif %}.</p>
 
         <!-- Facebook button -->
-        <div class="fb-like" data-href="{{ page.url }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+        <div class="fb-like" data-href="{{ page.url }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
       </footer>
     </div><!-- /.article-wrap -->
   {% if site.owner.disqus-shortname and page.comments == true %}
