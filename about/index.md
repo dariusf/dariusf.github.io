@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About the Theme
+title: About Me
 tags: [about, Jekyll, theme, responsive]
 modified: 9-9-2013
 comments: true
