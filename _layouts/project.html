@@ -9,6 +9,16 @@
 
 <body class="post">
 
+  <!-- Include Facebook button SDK -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
 {% include _browser-upgrade.html %}
 
 {% include _navigation.html %}
@@ -47,6 +57,9 @@
         <div class="article-author-bottom">
           {% include _author-bio.html %}
         </div>
+
+        <!-- Facebook button -->
+        <div class="fb-like" data-href="{{ page.url }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
       </footer>
     </div><!-- /.article-wrap -->
   {% if site.owner.disqus-shortname and page.comments == true %}
