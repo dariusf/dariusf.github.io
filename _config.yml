@@ -27,7 +27,6 @@ kramdown:
   toc_levels: 1..6
   use_coderay: false
 
-
 # Site owner
 owner:
   name: Darius Foo
@@ -45,6 +44,7 @@ owner:
     ad-slot: 
   bing-verify: 
   github: dariusf
+  bitbucket: darius_foo
   stackoverflow:
   linkedin:
   instagram: 
