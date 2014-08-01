@@ -1,28 +1,17 @@
 ---
 layout: page
 title: About Me
-tags: [about, Jekyll, theme, responsive]
-modified: 9-9-2013
-comments: true
+tags: [dariusf, identity]
 image:
   feature: texture-feature-02.jpg
   credit: Texture Lovers
   creditlink: http://texturelovers.com
 ---
 
-Minimal Mistakes is responsive Jekyll theme with large featured images and solid typography. As the name implies the styling is fairly minimal to make it easier for you to build on top of.
+Darius is a third-year Computer Science undergraduate at the National University of Singapore (NUS).
 
-## Minimal Mistakes is all about:
+He was an intern at the [SUTD Game Innovation Programme](http://gamelab.sutd.edu.sg/gip/) and is currently working part-time as a teaching assistant for [a freshman course in functional programming](http://jedi.ddns.comp.nus.edu.sg/).
 
-* Responsive templates. Looking good on mobile, tablet, and desktop.
-* Gracefully degrading in older browsers. Compatible with Internet Explorer 8+ and all modern browsers. 
-* Minimal embellishments --- content first.
-* Large feature images for posts and pages.
-* Author sidebar to pimp your bio, photo[^2], and social media links.
-* Simple and clear permalink structure *(ie: domain.com/category/post-title)*
+He relishes the experience of programming and its medium, programming languages, and can usually be found writing compilers for [obscure languages](http://blog.codecombat.com/new-experimental-languages-python-lua-clojure-and-io) and small DSLs. He also enjoys designing hipster games and writing fiction in his spare time.
 
-<a markdown="0" href="{{ site.url }}/theme-setup" class="btn">Install Minimal Mistakes Theme</a>
-
-[^1]: Since open sourcing this theme I have released several more Jekyll themes. My website [Made Mistakes](http://mademistakes.com) is currently using a modified version of my [Skinny Bones Starter](http://mmistakes.github.io/skinny-bones-jekyll/).
-
-[^2]: Fancy avatars provided by [Brandon Mathis](http://brandonmathis.com/projects/fancy-avatars/demo/) under a [Creative Commons Attribution 3.0 License](http://creativecommons.org/licenses/by/3.0/).
+He thought that this exposition would be less awkward if written in the third person.
