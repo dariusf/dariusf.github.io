@@ -1,7 +1,7 @@
 ---
 layout: project
 title: Getzapp
-excerpt: Puzzle platformer
+excerpt: Puzzle platformer (Desktop, Web)
 date: 2013-08-01
 tags: [unity, orthello, c#, 2d, game, puzzle]
 link: http://gamelab.sutd.edu.sg/training/project/getzapp/

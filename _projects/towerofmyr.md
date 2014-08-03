@@ -1,7 +1,7 @@
 ---
 layout: project
 title: "Tower of Myr: Crystal Stream"
-excerpt: Turn-based strategy game for Android
+excerpt: Turn-based strategy game (Android)
 date: 2013-05-01
 tags: [unity, futile, c#, grid, 2d, game, strategy]
 link: http://gamelab.sutd.edu.sg/training/project/tom-crystalstream/

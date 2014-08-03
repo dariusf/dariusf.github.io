@@ -1,7 +1,7 @@
 ---
 layout: project
 title: Vigilante
-excerpt: Immersive platform game
+excerpt: Immersive platformer (Desktop)
 date: 2014-01-01
 featured: false
 tags: [unity, c#, ggj]
