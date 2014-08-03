@@ -57,8 +57,8 @@
   {% endfor %}
 
   <!-- Show the rest, sorted by date -->
-
-  {% for project in site.projects | sort: 'date' %}
+  {% assign projects = site.projects | sort: 'date'  %}
+  {% for project in projects reversed %}
     {% unless project.featured %}
 
       <!-- Put headings only before those which change year -->
