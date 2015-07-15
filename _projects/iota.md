@@ -6,6 +6,7 @@ date: 2014-05-01
 featured: true
 tags: [javascript, io, compiler, transpiler, parser]
 link: http://dariusf.github.io/iota
+thumbnail: io.svg
 ---
 {% highlight js %}
 fact := method(n, if (n == 0, 1, n * fact (n - 1)))

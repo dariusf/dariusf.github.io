@@ -6,7 +6,7 @@ date: 2014-01-01
 featured: false
 tags: [unity, c#, ggj]
 link: http://globalgamejam.org/2014/games/vigilante
-image: vigilante
+thumbnail: vigilante.png
 ---
 <figure>
     <a href="http://globalgamejam.org/2014/games/vigilante"><img src="/images/projects/vigilante.png" /></a>

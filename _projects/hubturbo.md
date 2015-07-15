@@ -6,7 +6,7 @@ date: 2014-06-01
 tags: [java, javafx, desktop, github, issues]
 link: https://github.com/HubTurbo/HubTurbo
 featured: true
-image: hubturbo
+thumbnail: hubturbo.png
 ---
 <figure>
     <a href="https://github.com/HubTurbo/HubTurbo"><img src="/images/projects/hubturbo.png" /></a>

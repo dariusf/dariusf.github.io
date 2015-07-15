@@ -5,7 +5,7 @@ excerpt: Puzzle platformer (Desktop, Web)
 date: 2013-08-01
 tags: [unity, orthello, c#, 2d, game, puzzle]
 link: http://gamelab.sutd.edu.sg/training/project/getzapp/
-image: getzapp
+thumbnail: getzapp.png
 ---
 <figure>
     <a href="http://gamelab.sutd.edu.sg/training/project/getzapp/"><img src="/images/projects/getzapp.png" /></a>
