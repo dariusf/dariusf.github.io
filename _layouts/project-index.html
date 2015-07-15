@@ -40,19 +40,7 @@
   <h3>Featured</h3>
   {% for project in site.projects %}
     {% if project.featured %}
-      <article>
-        {% if project.link %}
-          <h2>
-            <a href="{{ site.url }}{{ project.url }}" title="{{ project.title }}">{{ project.title }}</a>
-            <a href="{{ project.link }}" target="_blank" title="{{ project.title }}"><i class="fa fa-link"></i></a>
-          </h2>
-        {% else %}
-          <h2>
-            <a href="{{ site.url }}{{ project.url }}" title="{{ project.title }}">{{ project.title }}</a>
-          </h2>
-        {% endif %}
-        <p>{{ project.excerpt | strip_html | truncate: 160 }}</p>
-      </article>
+      {% include _project-row.html %}
     {% endif %}
   {% endfor %}
 
@@ -65,22 +53,11 @@
       {% capture currentyear %}{{ project.date | date: "%Y" }}{% endcapture %}
       {% if currentyear != year %}
         <h3>{{ currentyear }}</h3>
-        {% capture year %}{{currentyear}}{% endcapture %} 
+        {% capture year %}{{currentyear}}{% endcapture %}
       {% endif %}
 
-      <article>
-        {% if project.link %}
-          <h2>
-            <a href="{{ site.url }}{{ project.url }}" title="{{ project.title }}">{{ project.title }}</a>
-            <a href="{{ project.link }}" target="_blank" title="{{ project.title }}"><i class="fa fa-link"></i></a>
-          </h2>
-        {% else %}
-          <h2>
-            <a href="{{ site.url }}{{ project.url }}" title="{{ project.title }}">{{ project.title }}</a>
-          </h2>
-        {% endif %}
-        <p>{{ project.excerpt | strip_html | truncate: 160 }}</p>
-      </article>
+      {% include _project-row.html %}
+
     {% endunless %}
   {% endfor %}
 </div><!-- /#index -->
@@ -92,6 +69,6 @@
 </div><!-- /.footer-wrap -->
 
 {% include _scripts.html %}
-  
+
 </body>
 </html>

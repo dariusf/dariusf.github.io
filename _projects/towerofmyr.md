@@ -6,6 +6,7 @@ date: 2013-05-01
 tags: [unity, futile, c#, grid, 2d, game, strategy]
 link: http://gamelab.sutd.edu.sg/training/project/tom-crystalstream/
 featured: true
+image: towerofmyr
 ---
 <figure>
     <a href="http://gamelab.sutd.edu.sg/training/project/tom-crystalstream/"><img src="/images/projects/towerofmyr.png" /></a>

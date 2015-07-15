@@ -6,6 +6,7 @@ date: 2013-05-01
 featured: false
 tags: [recursion, javascript, mindmap, google app engine, raphaeljs]
 link: http://orbital-dendryte.appspot.com
+image: dendryte
 ---
 <figure>
     <a href="http://orbital-dendryte.appspot.com"><img src="/images/projects/dendryte.png" /></a>

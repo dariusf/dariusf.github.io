@@ -1,0 +1,16 @@
+<article>
+  {% if project.image %}
+    <div class="project-image-container project-block">
+      <img src="/images/projects/{{ project.image }}.png"></img>
+    </div>
+  {% endif %}
+  <div class="project-block">
+    <h2>
+      <a href="{{ site.url }}{{ project.url }}" title="{{ project.title }}">{{ project.title }}</a>
+      {% if project.link %}
+        <a href="{{ project.link }}" target="_blank" title="{{ project.title }}"><i class="fa fa-link"></i></a>
+      {% endif %}
+    </h2>
+    <p>{{ project.excerpt | strip_html | truncate: 160 }}</p>
+  </div>
+</article>

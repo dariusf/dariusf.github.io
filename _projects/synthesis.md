@@ -6,6 +6,7 @@ date: 2012-12-01
 featured: false
 tags: [java, swing, writing]
 link: https://github.com/dariusf/synthesis
+image: synthesis
 ---
 <figure>
     <a href="https://github.com/dariusf/synthesis"><img src="/images/projects/synthesis.png" /></a>
