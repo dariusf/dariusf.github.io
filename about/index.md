@@ -3,9 +3,7 @@ layout: page
 title: About Me
 tags: [dariusf, identity]
 image:
-  feature: texture-feature-02.jpg
-  credit: Texture Lovers
-  creditlink: http://texturelovers.com
+  feature: black-hdb.jpg
 ---
 
 Darius is a third-year Computer Science undergraduate at the National University of Singapore (NUS).
