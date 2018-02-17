@@ -16,10 +16,6 @@
   color: #4d4d4c;
   @extend %vertical-rhythm;
 
-  .highlighter-rouge & {
-    background: #eef;
-  }
-
   .hll { background-color: #d6d6d6 }
   .c { color: #8e908c } /* Comment */
   .err { color: #c82829 } /* Error */
