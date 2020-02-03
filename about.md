@@ -4,6 +4,10 @@ title: About
 permalink: /about/
 ---
 
-I'm interested in functional programming languages and formal systems, as I believe they enable more principled ways of solving problems. I'm also a big fan of declarative paradigms like logic programming and ASP.
+I'm all about finding principled ways to solve problems (with computers) and making people around me more productive. To that end, I'm interested in functional programming, formal systems, program analysis, and declarative paradigms such as logic programming and ASP; powerful tools are essential if we wish to tackle more complex problems.
 
-Outside of work, I dabble in game design and music, and occasionally read and write fiction.
+I am an occasional game developer and also enjoy building and working with interactive systems; a tight feedback loop does wonders for productivity and UX.
+
+On weekends, I sing with [The Crescendos](https://www.instagram.com/the_crescendos/) and [Acappella Anonymous](https://www.instagram.com/acappellaanonymous/).
+
+I've participated in [NaNoWriMo](https://www.nanowrimo.org/) several times but have never won. My most stubborn attempt saw me continue writing for the next 13 months, producing 110K words of rambling prose which I never looked at again.

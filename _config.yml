@@ -16,9 +16,8 @@
 title: dariusf
 email: darius.foo.tw at gmail
 description: >- # this means to ignore newlines until "baseurl:"
-  Something something types and programming languages
 # baseurl: "/blog"
-url: "http://dariusf.me"
+url: "https://dariusf.github.io/"
 github_username:  dariusf
 # gitlab_username:  dariusf
 # bitbucket_username:  dariusf
