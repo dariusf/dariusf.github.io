@@ -1,8 +1,9 @@
 <ul class="social-media-list">
   {%- if site.github_username -%}<li><a href="https://github.com/{{ site.github_username| cgi_escape | escape }}"><span class="username">GitHub</span></a></li>{%- endif -%}
+  {%- if site.twitter_username -%}<li><a href="https://scholar.google.com/citations?user=5x9STk4AAAAJ"><span class="username">Google Scholar</span></a></li>{%- endif -%}
   {%- if site.gitlab_username -%}<li><a href="https://gitlab.com/{{ site.gitlab_username| cgi_escape | escape }}"><span class="username">GitLab</span></a></li>{%- endif -%}
   {%- if site.bitbucket_username -%}<li><a href="https://github.com/{{ site.bitbucket_username| cgi_escape | escape }}"><span class="username">Bitbucket</span></a></li>{%- endif -%}
+  {%- if site.twitter_username -%}<li><a href="https://www.twitter.com/{{ site.twitter_username| cgi_escape | escape }}"><span class="username">Twitter</span></a></li>{%- endif -%}
   {%- if site.linkedin_username -%}<li><a href="https://sg.linkedin.com/in/{{ site.linkedin_username| cgi_escape | escape }}"><span class="username">LinkedIn</span></a></li>{%- endif -%}
-  {%- if site.twitter_username -%}<li><a href="https://www.twitter.com/{{ site.twitter_username| cgi_escape | escape }}"><svg class="svg-icon"><use xlink:href="{{ '/assets/minima-social-icons.svg#twitter' | relative_url }}"></use></svg> <span class="username">{{ site.twitter_username| escape }}</span></a></li>{%- endif -%}
   {%- if site.rss -%}<li><a href="{{ 'feed.xml' | relative_url }}"><span>RSS</span></a></li>{%- endif -%}
 </ul>
