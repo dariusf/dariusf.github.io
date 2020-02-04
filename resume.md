@@ -27,9 +27,9 @@ permalink: /resume/
 </style>
 
 <div class="bio">
-    <p class="name">Darius Foo</p>
-    darius.foo.tw at gmail<br/>
-    {{ site.url }}<br/>
+  <p class="name">Darius Foo</p>
+  darius.foo.tw at gmail<br/>
+  {{ site.url }}<br/>
 </div>
 
 # Summary
