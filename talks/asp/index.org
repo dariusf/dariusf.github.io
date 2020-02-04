@@ -1,0 +1,353 @@
+#+REVEAL_ROOT1: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_ROOT1: https://cdn.jsdelivr.net/npm/reveal.js@3.9.1/js/reveal.min.js
+#+REVEAL_ROOT1: https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/
+#+REVEAL_ROOT: https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/
+
+#+REVEAL_THEME: simple
+# serif
+# https://github.com/hakimel/reveal.js/tree/master/css/theme
+#+REVEAL_HIGHLIGHT_CSS: https://highlightjs.org/static/demo/styles/solarized-light.css
+#+REVEAL_HIGHLIGHT_CSS1: https://highlightjs.org/static/demo/styles/atelier-cave-light.css
+# %r/lib/css/solarized-light.css
+
+#+REVEAL_TRANS: linear
+# fade
+#+REVEAL_TRANS_SPEED: fast
+
+# this removes search
+#+REVEAL_PLUGINS: (markdown highlight zoom)
+
+#+REVEAL_EXTRA_CSS: default.css
+
+# #+REVEAL_EXTRA_OPTIONS: center:true, slideNumber:false
+# #+REVEAL_INIT_OPTIONS: width:1200, height:800, controlsLayout: 'edges'
+# #+REVEAL_INIT_OPTIONS: slideNumber:false, center:false
+
+# this moves level 2 headings to the top level
+# #+REVEAL_HLEVEL: 2
+
+#+OPTIONS: timestamp:nil toc:nil num:nil reveal_slide_number:nil reveal_center:nil ':t
+#+nopeOPTIONS: reveal_control:nil
+# center vertically aligns stuff, the left alignment is done with css
+# smart quotes prevents unpaired quotes
+
+# M-x org-re-reveal-export-to-html
+
+# http://jr0cket.co.uk/2017/03/org-mode-driven-presentations-with-org-reveal-spacemacs.html
+# http://jr0cket.co.uk/2013/10/create-cool-slides--Org-mode-Revealjs.html.html
+# http://jr0cket.co.uk/slides/revealjs.html
+
+#+Title: Answer Set Programming: Into the Multiverse
+#+Author:
+#+Email:
+
+* What? Why?
+- Practical logic programming
+- Expressive; easy to model search problems
+- Fast enough to be used in the Real World
+** Search problems?
+Abstractly,
+- A search space
+- A goal
+# just my interests
+** e.g. solving puzzles
+- Search space: game states
+- Goal: winning state
+#+REVEAL_HTML: <img class="stretch" style="float: right" src="8puzzle.png">
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://people.cs.pitt.edu/~milos/courses/cs1571/Lectures/Class3.pdf">Milos Hauskrecht</a></p>
+** e.g. procedural generation
+- Search space: all fully-connected maps
+- Goal: a map traversable in n steps
+# [[file:./map.png]]
+#+REVEAL_HTML: <img class="stretch" style="float: right" src="map1.png">
+# margin: auto; display: block;
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://eis-blog.soe.ucsc.edu/2011/10/map-generation-speedrun/">A Map Generation Speedrun with Answer Set Programming, 2011</a></p>
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://course.ccs.neu.edu/cs5150f13/readings/smith_asp4pcg.pdf">Answer Set Programming for Procedural Content Generation: A Design Space Approach, 2011</a></p>
+** e.g. high-quality procedural generation
+1. generate a puzzle
+2. generate a puzzle that is solvable (i.e. generator is a solver)
+3. generate a puzzle where there exists a solution of length n
+4. generate a puzzle where /all solutions are of length n/
+#+REVEAL_HTML: <img class="stretch" style="float: right" src="https://ayumilove.files.wordpress.com/2010/09/refraction-2-1.jpg">
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://www.ericbutler.net/assets/papers/fdg2013_shortcuts.pdf">Quantifying over Play: Constraining Undesirable Solutions in Puzzle Design, 2013</a></p>
+** e.g. algorithmic composition
+- Search space: all sequences of notes
+- Goal: melodies which abide by the so-called "Palestrina rules" for Renaissance music
+#+REVEAL_HTML: <blockquote>The composition of most styles of music is governed by rules... by formalising these rules in a suitable logical language, powerful and expressive intelligent composition tools can be easily built.</blockquote>
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://arxiv.org/abs/1006.4948">Automatic Music Composition using Answer Set Programming, 2010</a></p>
+** e.g. dependency resolution
+- Search space: all possible package configurations
+- Goal: a set of package versions which satisfies all dependency constraints
+#+REVEAL_HTML: <img class="stretch" style="float: right" src="https://miro.medium.com/max/1072/0*micRkkPRrafLdQNF.png">
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://potassco.org/aspcud/">aspcud</a></p>
+** e.g. PI Planning
+- Search space: all possible plans (ticket-sprint assignments)
+- Goal: a plan subject to lots of unspoken constraints...
+#+REVEAL_HTML: <img class="stretch" style="float: right" src="tool.png">
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://asankhaya.github.io/pdf/Automating-Continuous-Planning-in-SAFe.pdf">Automating Continuous Planning in SAFe, 2020</a></p>
+** "Optimized brute force"
+Appropriate when:
+
+- brute force is the best one can do (NP-hard)
+- domain isn't fully understood; rapid prototyping > asymptotics
+- constraints are nontrivial and would eventually require search
+* Programming
+"Generate and test"
+
+- Define search space
+- Remove unwanted parts
+** "Generate and Test"
+#+REVEAL_HTML: <blockquote>Trial and error is also a heuristic method of problem solving, repair, tuning, or obtaining knowledge. In the field of computer science, the method is called <b>generate and test</b> (Brute force). In elementary algebra, when solving equations, it is <b>guess and check</b>.</blockquote>
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://en.wikipedia.org/wiki/Trial_and_error">Trial and error, Wikipedia</a></p>
+** "Guess and Check"
+#+REVEAL_HTML: <blockquote>There are 15 puppies and birds at a pet shop. There are 42 legs altogether. How many puppies are there?</blockquote>
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://practicle.sg/guess-and-check/">Learn Guess and Check, practicle.sg</a></p>
+** Facts
+#+BEGIN_SRC erlang
+animal(puppy).
+animal(bird).
+
+legs(puppy,4).
+legs(bird,2).
+
+animal_n(1..15).
+#+END_SRC
+** Rules
+#+BEGIN_SRC erlang
+bipedal(A) :- animal(A), legs(A,2).
+#+END_SRC
+"A thing A is bipedal if it is a two-legged animal."
+** Answer Sets
+#+BEGIN_SRC erlang
+bipedal(A) :- animal(A), legs(A,2).
+#+END_SRC
+
+#+BEGIN_SRC
+$ clingo animals.lp
+clingo version 5.4.0
+Reading from animals.lp
+Solving...
+Answer: 1
+animal_n(1) animal_n(2) animal_n(3) animal_n(4) animal_n(5) animal_n(6) animal_n(7) animal_n(8) animal_n(9) animal_n(10) animal_n(11) animal_n(12) animal_n(13) animal_n(14) animal_n(15) legs(puppy,4) legs(bird,2) animal(puppy) animal(bird) bipedal(bird)
+SATISFIABLE
+
+Models       : 1
+Calls        : 1
+Time         : 0.024s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.001s
+#+END_SRC
+** Choice Rules
+Define search space, or "possible worlds":
+#+BEGIN_SRC erlang
+animal(bird).
+{ animal(puppy) }.
+#+END_SRC
+
+#+BEGIN_SRC
+$ clingo animals.lp
+clingo version 5.4.0
+Reading from animals.lp
+Solving...
+Answer: 1
+animal(bird)
+Answer: 2
+animal(bird) animal(puppy)
+SATISFIABLE
+
+Models       : 2
+Calls        : 1
+Time         : 0.021s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.001s
+#+END_SRC
+
+#+REVEAL_HTML: <img style="position: absolute; height: 20%; top: 50%; left: 50%;" src="dog.png">
+** Choice Rules
+Generate every possible pet shop... all $2^{15}$ of them:
+#+BEGIN_SRC erlang
+{ animal_at_shop(A, N) : animal(A) } = 1 :- animal_n(N).
+#+END_SRC
+
+#+BEGIN_SRC
+SATISFIABLE
+Models       : 32768
+Calls        : 1
+Time         : 3.294s (Solving: 3.27s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.249s
+#+END_SRC
+** Integrity Constraints
+Remove possible worlds:
+#+BEGIN_SRC erlang
+animal(bird).
+{ animal(puppy) }.
+:- animal(puppy).
+#+END_SRC
+
+#+BEGIN_SRC
+$ clingo -n 0 animals.lp
+clingo version 5.4.0
+Reading from animals.lp
+Solving...
+Answer: 1
+animal(bird)
+SATISFIABLE
+
+Models       : 1
+Calls        : 1
+Time         : 0.013s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.001s
+#+END_SRC
+** Integrity Constraints
+Remove every world without the right number of legs:
+#+BEGIN_SRC erlang
+correct_number_of_legs :- legs_total(42).
+:- not correct_number_of_legs.
+#+END_SRC
+** Aggregates
+#+BEGIN_SRC erlang
+legs_total(L) :-
+  L = #sum { N,M : animal_at_shop(A, M), legs(A, N) }.
+
+animal_count(A,N) :-
+  N = #count { M : animal_at_shop(A, M) }, animal(A).
+#+END_SRC
+** Directives
+#+BEGIN_SRC erlang
+#show animal_count/2.
+#project animal_count(A,N).
+#+END_SRC
+** Putting it all together
+#+BEGIN_SRC erlang
+animal(puppy;bird).
+legs(puppy,4).
+legs(bird,2).
+animal_n(1..15).
+{ animal_at_shop(A, N) : animal(A) } = 1 :- animal_n(N).
+correct_number_of_legs :- legs_total(42).
+:- not correct_number_of_legs.
+legs_total(L) :- L = #sum { N,M : animal_at_shop(A, M), legs(A, N) }.
+animal_count(A,N) :- N = #count { M : animal_at_shop(A, M) }, animal(A).
+#show animal_count/2.
+#project animal_count(A,N).
+#+END_SRC
+** Running
+#+BEGIN_SRC
+$ clingo -n 0 animals.lp --project
+clingo version 5.4.0
+Reading from animals.lp
+Solving...
+Answer: 1
+animal_count(puppy,6) animal_count(bird,9)
+SATISFIABLE
+
+Models       : 1
+Calls        : 1
+Time         : 0.271s (Solving: 0.26s 1st Model: 0.00s Unsat: 0.26s)
+CPU Time     : 0.268s
+#+END_SRC
+** "Generate and Test"
+
+- Define search space using facts, rules, and aggregates
+- Remove unwanted parts using integrity constraints
+* PI Planning + ASP
+#+REVEAL_HTML: <img class="stretch" style="float: right" src="tool.png">
+** Facts
+#+BEGIN_SRC erlang
+sprint(1..1).
+task(1..2).
+
+task_weight(2,1).
+task_depends_on(1,2).
+sprint_capacity(1,1).
+#+END_SRC
+#+REVEAL_HTML: <img class="stretch" style="float: right" src="tool.png">
+** Sprint Capacity
+#+BEGIN_SRC erlang
+sprint(unassigned).
+
+{ assign(T,S) : sprint(S) } = 1 :- task(T).
+
+sprint_total(S,To) :-
+  To = #sum { W,T : task_weight(T,W), assign(T,S) }, sprint(S).
+
+:- sprint_total(S,A), sprint(S),
+  sprint_capacity(S,E), A > E, S != unassigned.
+
+unassigned_count(D) :- D = #count { T : assign(T,unassigned) }.
+#minimize { D : unassigned_count(D) }.
+#+END_SRC
+** Dependencies
+#+BEGIN_SRC erlang
+:- assign(T1,S1), assign(T2,S2), task_depends_on(T1,T2), S1 < S2.
+#+END_SRC
+** Pins
+#+BEGIN_SRC erlang
+:- not assign(1,2).
+#+END_SRC
+** Design Choices
+- Don't solve for assignments globally
+- Don't solve on keypress...
+- Where to run solver?
+- Intuitiveness of assignments?
+* Potpourri
+- Performance
+- Random sampling
+- Debugging
+- Ecosystem
+** clingo runs forever!
+- Variables are replaced with concrete values before any solving starts ("grounding")
+- Wide relations will cause blowup
+- Denormalize
+- More efficient encodings
+** Random sampling
+#+BEGIN_SRC
+--rand-freq=1 --seed=39403
+#+END_SRC
+** Debugging
+#+REVEAL_HTML: <blockquote>Removing a goal can make a predicate at most more general, never more specific.</blockquote>
+#+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://www.metalevel.at/prolog/debugging">Declarative Debugging, The Power of Prolog</a></p>
+- Bisect program!
+- Give names to integrity constraints so invalid worlds can be inspected
+- Unfortunately, have to modify program
+** Ecosystem
+- Unit tests: [[https://github.com/rndmcnlly/ansunit][AnsUnit]]
+- ORM: [[https://github.com/potassco/clorm][clorm]]
+- Visualization toolkit: [[https://github.com/idaks/PW-explorer][Possible Worlds Explorer]]
+- PCG: [[https://github.com/dariusf/exnihilo][Ex Nihilo]]
+* Limitations
+** "Declarative"
+- Small changes can drastically affect performance
+- Correctness is not obvious
+- Translations of imperative concepts can be difficult
+- Unfamiliar
+** Black box
+- By design
+- Efficient encodings are hard for non-experts
+- No e.g. global constraints
+* Conclusion
+- Useful for a class of problems
+- Rapid prototyping
+- Nice formalism that works in practice
+** Further Reading
+- [[https://www.cs.utexas.edu/users/vl/teaching/378/ASP.pdf][Answer Set Programming, Lifschitz]]
+- [[http://ceur-ws.org/Vol-546/49-63.pdf][A Pragmatic Programmer's Guide to Answer Set Programming]]
+- [[https://github.com/potassco/guide][Clingo user guide]]
+
+# Generating test data
+# Generating high quality puzzles
+
+# ** Big picture
+# - *Prolog*
+# - *Datalog*: terminating, pure Prolog subset
+# - *ASP*: Datalog + disjunction/"possible worlds"
+# # - State of the art: CDCL, propagator API for custom theories
+
+# ** "Declarative"
+# - "What", not "how"
+# - Programming without explicit control flow
+# - SQL
+# ... with caveats.
+
+# Comparison with other kinds of solvers
+# Sat. Higher level modelling language. Written directly instead of compiled to. No comment on performance. Preferences
+# Constraint solving
+# Not nearly as many global constraints
