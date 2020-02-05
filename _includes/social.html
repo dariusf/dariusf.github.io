@@ -1,4 +1,19 @@
-<ul class="social-media-list">
+
+<style type="text/css">
+  ul.antisocial {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float: right;
+  }
+
+  .antisocial > li {
+    float: left;
+    padding-left: 1em;
+  }
+</style>
+
+<ul class="antisocial">
   {%- if site.github_username -%}<li><a href="https://github.com/{{ site.github_username| cgi_escape | escape }}"><span class="username">GitHub</span></a></li>{%- endif -%}
   {%- if site.twitter_username -%}<li><a href="https://scholar.google.com/citations?user=5x9STk4AAAAJ"><span class="username">Google Scholar</span></a></li>{%- endif -%}
   {%- if site.gitlab_username -%}<li><a href="https://gitlab.com/{{ site.gitlab_username| cgi_escape | escape }}"><span class="username">GitLab</span></a></li>{%- endif -%}
