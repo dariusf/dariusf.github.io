@@ -170,7 +170,7 @@ Also notable is a project to [prettify OCaml's error messages](https://github.co
 
 reprocessing [enables](https://github.com/bsansouci/reprocessing-example) a whole new domain of applications that OCaml may be used in. It is built on [reasongl](https://github.com/bsansouci/reasongl), which abstracts over WebGL and OpenGL with a common interface.
 
-[repromise](https://github.com/aantron/repromise) is a similar abstraction which unifies lwt and JS' native promises.
+[reason-promise](https://github.com/aantron/promise) is a similar abstraction which unifies lwt and JS' native promises.
 
 GADTs can be used effectively to [model GraphQL types](https://andreas.github.io/2017/11/29/type-safe-graphql-with-ocaml-part-1/), and there are a number of [Reason](https://github.com/mhallin/graphql_ppx) [implementations](https://redex.github.io/package/regql) of GraphQL in development. OCaml's strongly-typed nature works particularly well for this sort of thing.
 
