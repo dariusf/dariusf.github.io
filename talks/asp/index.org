@@ -303,16 +303,27 @@ unassigned_count(D) :- D = #count { T : assign(T,unassigned) }.
 --rand-freq=1 --seed=39403
 #+END_SRC
 ** Debugging
+#+BEGIN_SRC
+Solving...
+UNSATISFIABLE
+
+Models       : 0
+#+END_SRC
+** Debugging
 #+REVEAL_HTML: <blockquote>Removing a goal can make a predicate at most more general, never more specific.</blockquote>
 #+REVEAL_HTML: <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://www.metalevel.at/prolog/debugging">Declarative Debugging, The Power of Prolog</a></p>
+** Debugging
 - Bisect program!
 - Give names to integrity constraints so invalid worlds can be inspected
 - Unfortunately, have to modify program
+# - Surprisingly cogent errors. need example
 ** Ecosystem
 - Unit tests: [[https://github.com/rndmcnlly/ansunit][AnsUnit]]
 - ORM: [[https://github.com/potassco/clorm][clorm]]
+- IDE: [[http://www.sealion.at/][SeaLion]]
 - Visualization toolkit: [[https://github.com/idaks/PW-explorer][Possible Worlds Explorer]]
 - PCG: [[https://github.com/dariusf/exnihilo][Ex Nihilo]]
+#+REVEAL_HTML: <img class="stretch" src="sealion.png">
 * Limitations
 ** "Declarative"
 - Small changes can drastically affect performance
