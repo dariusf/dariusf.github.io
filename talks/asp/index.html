@@ -33,8 +33,8 @@
 </section>
 
 <section>
-<section id="slide-org5564a94">
-<h2 id="org5564a94">What? Why?</h2>
+<section id="slide-orgf45d0d9">
+<h2 id="orgf45d0d9">What? Why?</h2>
 <ul>
 <li>Practical logic programming</li>
 <li>Expressive; easy to model search problems</li>
@@ -42,19 +42,19 @@
 
 </ul>
 </section>
-<section id="slide-org582a183">
-<h3 id="org582a183">Search problems?</h3>
+<section id="slide-org97db3c4">
+<h3 id="org97db3c4">Search problems?</h3>
 <p>
 Abstractly,
 </p>
 <ul>
-<li>A search space</li>
+<li>A search space (and a way to navigate it)</li>
 <li>A goal</li>
 
 </ul>
 </section>
-<section id="slide-org3515374">
-<h3 id="org3515374">e.g. solving puzzles</h3>
+<section id="slide-org24d2e3d">
+<h3 id="org24d2e3d">e.g. solving puzzles</h3>
 <ul>
 <li>Search space: game states</li>
 <li>Goal: winning state</li>
@@ -63,8 +63,8 @@ Abstractly,
 <img class="stretch" style="float: right" src="8puzzle.png">
 <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://people.cs.pitt.edu/~milos/courses/cs1571/Lectures/Class3.pdf">Milos Hauskrecht</a></p>
 </section>
-<section id="slide-orged645ad">
-<h3 id="orged645ad">e.g. procedural generation</h3>
+<section id="slide-org55f7f78">
+<h3 id="org55f7f78">e.g. procedural generation</h3>
 <ul>
 <li>Search space: all fully-connected maps</li>
 <li>Goal: a map traversable in n steps</li>
@@ -76,20 +76,8 @@ Abstractly,
 <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://eis-blog.soe.ucsc.edu/2011/10/map-generation-speedrun/">A Map Generation Speedrun with Answer Set Programming, 2011</a></p>
 <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://course.ccs.neu.edu/cs5150f13/readings/smith_asp4pcg.pdf">Answer Set Programming for Procedural Content Generation: A Design Space Approach, 2011</a></p>
 </section>
-<section id="slide-org751aec6">
-<h3 id="org751aec6">e.g. high-quality procedural generation</h3>
-<ol>
-<li>generate a puzzle</li>
-<li>generate a puzzle that is solvable (i.e. generator is a solver)</li>
-<li>generate a puzzle where there exists a solution of length n</li>
-<li>generate a puzzle where <i>all solutions are of length n</i></li>
-
-</ol>
-<img class="stretch" style="float: right" src="https://ayumilove.files.wordpress.com/2010/09/refraction-2-1.jpg">
-<p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://www.ericbutler.net/assets/papers/fdg2013_shortcuts.pdf">Quantifying over Play: Constraining Undesirable Solutions in Puzzle Design, 2013</a></p>
-</section>
-<section id="slide-org559c312">
-<h3 id="org559c312">e.g. algorithmic composition</h3>
+<section id="slide-org7c76720">
+<h3 id="org7c76720">e.g. algorithmic composition</h3>
 <ul>
 <li>Search space: all sequences of notes</li>
 <li>Goal: melodies which abide by the so-called &ldquo;Palestrina rules&rdquo; for Renaissance music</li>
@@ -98,8 +86,8 @@ Abstractly,
 <blockquote>The composition of most styles of music is governed by rules... by formalising these rules in a suitable logical language, powerful and expressive intelligent composition tools can be easily built.</blockquote>
 <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://arxiv.org/abs/1006.4948">Automatic Music Composition using Answer Set Programming, 2010</a></p>
 </section>
-<section id="slide-org6d6dcde">
-<h3 id="org6d6dcde">e.g. dependency resolution</h3>
+<section id="slide-orgbfc2475">
+<h3 id="orgbfc2475">e.g. dependency resolution</h3>
 <ul>
 <li>Search space: all possible package configurations</li>
 <li>Goal: a set of package versions which satisfies all dependency constraints</li>
@@ -108,8 +96,8 @@ Abstractly,
 <img class="stretch" style="float: right" src="https://miro.medium.com/max/1072/0*micRkkPRrafLdQNF.png">
 <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://potassco.org/aspcud/">aspcud</a></p>
 </section>
-<section id="slide-orga8a1e36">
-<h3 id="orga8a1e36">e.g. PI Planning</h3>
+<section id="slide-orgc39c65f">
+<h3 id="orgc39c65f">e.g. PI Planning</h3>
 <ul>
 <li>Search space: all possible plans (ticket-sprint assignments)</li>
 <li>Goal: a plan subject to lots of unspoken constraints&#x2026;</li>
@@ -118,8 +106,8 @@ Abstractly,
 <img class="stretch" style="float: right" src="tool.png">
 <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://asankhaya.github.io/pdf/Automating-Continuous-Planning-in-SAFe.pdf">Automating Continuous Planning in SAFe, 2020</a></p>
 </section>
-<section id="slide-org8888dd3">
-<h3 id="org8888dd3">&ldquo;Optimized brute force&rdquo;</h3>
+<section id="slide-orgdf5a534">
+<h3 id="orgdf5a534">&ldquo;Optimized brute force&rdquo;</h3>
 <p>
 Appropriate when:
 </p>
@@ -133,8 +121,8 @@ Appropriate when:
 </section>
 </section>
 <section>
-<section id="slide-orgbc5afac">
-<h2 id="orgbc5afac">Programming</h2>
+<section id="slide-org34d84f4">
+<h2 id="org34d84f4">Programming</h2>
 <p>
 &ldquo;Generate and test&rdquo;
 </p>
@@ -145,18 +133,18 @@ Appropriate when:
 
 </ul>
 </section>
-<section id="slide-orgd5d9043">
-<h3 id="orgd5d9043">&ldquo;Generate and Test&rdquo;</h3>
+<section id="slide-orgb0f4b29">
+<h3 id="orgb0f4b29">&ldquo;Generate and Test&rdquo;</h3>
 <blockquote>Trial and error is also a heuristic method of problem solving, repair, tuning, or obtaining knowledge. In the field of computer science, the method is called <b>generate and test</b> (Brute force). In elementary algebra, when solving equations, it is <b>guess and check</b>.</blockquote>
 <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://en.wikipedia.org/wiki/Trial_and_error">Trial and error, Wikipedia</a></p>
 </section>
-<section id="slide-org7ebb468">
-<h3 id="org7ebb468">&ldquo;Guess and Check&rdquo;</h3>
+<section id="slide-org45ae955">
+<h3 id="org45ae955">&ldquo;Guess and Check&rdquo;</h3>
 <blockquote>There are 15 puppies and birds at a pet shop. There are 42 legs altogether. How many puppies are there?</blockquote>
 <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://practicle.sg/guess-and-check/">Learn Guess and Check, practicle.sg</a></p>
 </section>
-<section id="slide-org000ae90">
-<h3 id="org000ae90">Facts</h3>
+<section id="slide-orgfe2dbf3">
+<h3 id="orgfe2dbf3">Facts</h3>
 <div class="org-src-container">
 
 <pre><code class=" erlang" >animal(puppy).
@@ -169,8 +157,8 @@ animal_n(1..15).
 </code></pre>
 </div>
 </section>
-<section id="slide-orgb9e8934">
-<h3 id="orgb9e8934">Rules</h3>
+<section id="slide-org93dd70e">
+<h3 id="org93dd70e">Rules</h3>
 <div class="org-src-container">
 
 <pre><code class=" erlang" >bipedal(A) :- animal(A), legs(A,2).
@@ -180,8 +168,8 @@ animal_n(1..15).
 &ldquo;A thing A is bipedal if it is a two-legged animal.&rdquo;
 </p>
 </section>
-<section id="slide-orgffa5d50">
-<h3 id="orgffa5d50">Answer Sets</h3>
+<section id="slide-org474e34f">
+<h3 id="org474e34f">Answer Sets</h3>
 <div class="org-src-container">
 
 <pre><code class=" erlang" >bipedal(A) :- animal(A), legs(A,2).
@@ -203,8 +191,8 @@ Time         : 0.024s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
 CPU Time     : 0.001s
 </pre>
 </section>
-<section id="slide-org0bbdf94">
-<h3 id="org0bbdf94">Choice Rules</h3>
+<section id="slide-org1dd9a60">
+<h3 id="org1dd9a60">Choice Rules</h3>
 <p>
 Define search space, or &ldquo;possible worlds&rdquo;:
 </p>
@@ -234,8 +222,8 @@ CPU Time     : 0.001s
 
 <img style="position: absolute; height: 20%; top: 50%; left: 50%;" src="dog.png">
 </section>
-<section id="slide-org5c0f983">
-<h3 id="org5c0f983">Choice Rules</h3>
+<section id="slide-org4bc8a01">
+<h3 id="org4bc8a01">Choice Rules</h3>
 <p>
 Generate every possible pet shop&#x2026; all \(2^{15}\) of them:
 </p>
@@ -253,8 +241,8 @@ Time         : 3.294s (Solving: 3.27s 1st Model: 0.00s Unsat: 0.00s)
 CPU Time     : 0.249s
 </pre>
 </section>
-<section id="slide-org3339cf7">
-<h3 id="org3339cf7">Integrity Constraints</h3>
+<section id="slide-orged9c062">
+<h3 id="orged9c062">Integrity Constraints</h3>
 <p>
 Remove possible worlds:
 </p>
@@ -281,8 +269,8 @@ Time         : 0.013s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
 CPU Time     : 0.001s
 </pre>
 </section>
-<section id="slide-org47e03a1">
-<h3 id="org47e03a1">Integrity Constraints</h3>
+<section id="slide-orga32b450">
+<h3 id="orga32b450">Integrity Constraints</h3>
 <p>
 Remove every world without the right number of legs:
 </p>
@@ -293,8 +281,8 @@ Remove every world without the right number of legs:
 </code></pre>
 </div>
 </section>
-<section id="slide-orgcd05aa4">
-<h3 id="orgcd05aa4">Aggregates</h3>
+<section id="slide-orgfdf0e7c">
+<h3 id="orgfdf0e7c">Aggregates</h3>
 <div class="org-src-container">
 
 <pre><code class=" erlang" >legs_total(L) :-
@@ -305,17 +293,22 @@ animal_count(A,N) :-
 </code></pre>
 </div>
 </section>
-<section id="slide-orga994c01">
-<h3 id="orga994c01">Directives</h3>
+<section id="slide-org79c997d">
+<h3 id="org79c997d">Directives</h3>
 <div class="org-src-container">
 
 <pre><code class=" erlang" >#show animal_count/2.
 #project animal_count(A,N).
 </code></pre>
 </div>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >#minimize { D : unassigned_count(D) }.
+</code></pre>
+</div>
 </section>
-<section id="slide-orgfdab24b">
-<h3 id="orgfdab24b">Putting it all together</h3>
+<section id="slide-org6ef2e09">
+<h3 id="org6ef2e09">Putting it all together</h3>
 <div class="org-src-container">
 
 <pre><code class=" erlang" >animal(puppy;bird).
@@ -332,8 +325,8 @@ animal_count(A,N) :- N = #count { M : animal_at_shop(A, M) }, animal(A).
 </code></pre>
 </div>
 </section>
-<section id="slide-orgf97a0db">
-<h3 id="orgf97a0db">Running</h3>
+<section id="slide-org594b5de">
+<h3 id="org594b5de">Running</h3>
 <pre  class="example">
 $ clingo -n 0 animals.lp --project
 clingo version 5.4.0
@@ -349,8 +342,8 @@ Time         : 0.271s (Solving: 0.26s 1st Model: 0.00s Unsat: 0.26s)
 CPU Time     : 0.268s
 </pre>
 </section>
-<section id="slide-orgb50448e">
-<h3 id="orgb50448e">&ldquo;Generate and Test&rdquo;</h3>
+<section id="slide-org006ad4d">
+<h3 id="org006ad4d">&ldquo;Generate and Test&rdquo;</h3>
 <ul>
 <li>Define search space using facts, rules, and aggregates</li>
 <li>Remove unwanted parts using integrity constraints</li>
@@ -359,73 +352,535 @@ CPU Time     : 0.268s
 </section>
 </section>
 <section>
-<section id="slide-org8c8c0d3">
-<h2 id="org8c8c0d3">PI Planning + ASP</h2>
+<section id="slide-orgccf36ae">
+<h2 id="orgccf36ae">PI Planning + ASP</h2>
 <img class="stretch" style="float: right" src="tool.png">
 </section>
-<section id="slide-org83534bb">
-<h3 id="org83534bb">Facts</h3>
+<section id="slide-org288aa61">
+<h3 id="org288aa61">Facts</h3>
 <div class="org-src-container">
 
 <pre><code class=" erlang" >sprint(1..1).
-task(1..2).
+story(1..2).
 
-task_weight(2,1).
-task_depends_on(1,2).
+story_weight(2,1).
+story_depends_on(1,2).
 sprint_capacity(1,1).
 </code></pre>
 </div>
 <img class="stretch" style="float: right" src="tool.png">
 </section>
-<section id="slide-org86256c7">
-<h3 id="org86256c7">Sprint Capacity</h3>
+<section id="slide-orgaf6d4ef">
+<h3 id="orgaf6d4ef">Assignments</h3>
+<p>
+Each story is assigned to exactly one sprint:
+</p>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >{ assign(T,S) : sprint(S) } = 1 :- story(T).
+</code></pre>
+</div>
+</section>
+<section id="slide-org95820fe">
+<h3 id="org95820fe">Sprint Capacity</h3>
+<p>
+Sum story weights, grouping by assigned sprint:
+</p>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >sprint_total(S,To) :-
+  To = #sum { W,T : story_weight(T,W), assign(T,S) }, sprint(S).
+</code></pre>
+</div>
+</section>
+<section id="slide-orga7b854b">
+<h3 id="orga7b854b">Sprint Capacity</h3>
+<p>
+The sum of story weights cannot exceed sprint capacity, unless they&rsquo;re unassigned:
+</p>
 <div class="org-src-container">
 
 <pre><code class=" erlang" >sprint(unassigned).
 
-{ assign(T,S) : sprint(S) } = 1 :- task(T).
-
-sprint_total(S,To) :-
-  To = #sum { W,T : task_weight(T,W), assign(T,S) }, sprint(S).
-
 :- sprint_total(S,A), sprint(S),
   sprint_capacity(S,E), A &gt; E, S != unassigned.
+</code></pre>
+</div>
+</section>
+<section id="slide-orgc6b3fa6">
+<h3 id="orgc6b3fa6">Optimization</h3>
+<div class="org-src-container">
 
-unassigned_count(D) :- D = #count { T : assign(T,unassigned) }.
+<pre><code class=" erlang" >unassigned_count(D) :- D = #count { T : assign(T,unassigned) }.
 #minimize { D : unassigned_count(D) }.
 </code></pre>
 </div>
 </section>
-<section id="slide-org1f7393f">
-<h3 id="org1f7393f">Dependencies</h3>
+<section id="slide-orgccb916c">
+<h3 id="orgccb916c">Dependencies</h3>
+<p>
+Given a story dependency, the dependent story cannot be assigned to a later sprint than its dependency:
+</p>
 <div class="org-src-container">
 
-<pre><code class=" erlang" >:- assign(T1,S1), assign(T2,S2), task_depends_on(T1,T2), S1 &lt; S2.
+<pre><code class=" erlang" >:- assign(T1,S1), assign(T2,S2),
+  story_depends_on(T1,T2), S1 &lt; S2.
 </code></pre>
 </div>
 </section>
-<section id="slide-orgdcb7f68">
-<h3 id="orgdcb7f68">Pins</h3>
+<section id="slide-orgf116d75">
+<h3 id="orgf116d75">Pins</h3>
+<p>
+Story 1 must always be assigned to sprint 2:
+</p>
 <div class="org-src-container">
 
 <pre><code class=" erlang" >:- not assign(1,2).
 </code></pre>
 </div>
 </section>
-<section id="slide-orgd63f41f">
-<h3 id="orgd63f41f">Design Choices</h3>
+<section id="slide-orgdafe681">
+<h3 id="orgdafe681">Design Choices</h3>
 <ul>
 <li>Don&rsquo;t solve for assignments globally</li>
 <li>Don&rsquo;t solve on keypress&#x2026;</li>
 <li>Where to run solver?</li>
 <li>Intuitiveness of assignments?</li>
+<li>Unstated constraints</li>
 
 </ul>
 </section>
 </section>
 <section>
-<section id="slide-orgfa26e10">
-<h2 id="orgfa26e10">Potpourri</h2>
+<section id="slide-orged094bc">
+<h2 id="orged094bc">Generating Stories</h2>
+<img class="stretch" style="float: right" src="https://cdn.mos.cms.futurecdn.net/fyt3DhfUxVZWvub92kx3Rg-1024-80.jpg">
+</section>
+<section id="slide-org0fabe04">
+<h3 id="org0fabe04">Generating Stories</h3>
+<blockquote style="font-size: 0.75em">Then suddenly, he was struck by a powerful but simple little truth, and it was this: That English grammar is governed by rules that are almost mathematical in their strictness! Given the words, and given the sense of what is to be said, then there is only one correct order in which those words can be arranged. Therefore, it stands to reason that an engine built along the lines of the electric computer could be adjusted to arrange words (instead of numbers) in their right order according to the rules of grammar. Then feed it with plots and leave it to write the sentences.</blockquote>
+<p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://www.doc.ic.ac.uk/~rak/papers/event%20calculus.pdf">The Great Automatic Grammatizator, 1998</a></p>
+</section>
+<section id="slide-orge8ae299">
+<h3 id="orge8ae299">The Event Calculus</h3>
+<ul>
+<li>Logical representation of actions and their effects</li>
+<li>&ldquo;How do we represent time?&rdquo;</li>
+
+</ul>
+<p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://www.doc.ic.ac.uk/~rak/papers/event%20calculus.pdf">A Logic-based Calculus of Events, 1986</a></p>
+</section>
+<section id="slide-org0a61f16">
+<h3 id="org0a61f16">Key ideas</h3>
+<ul>
+<li>Index rules by time</li>
+<li>Keep track of events which happen</li>
+<li>Keep track of the effects of events, i.e. what is now known about the world</li>
+
+</ul>
+<p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://gist.github.com/rndmcnlly/cc801233012df3cb0883">Adam's minimal event calculus formalism</a></p>
+</section>
+<section id="slide-orgb35a788">
+<h3 id="orgb35a788">Time</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >#const t_max=15.
+time(0..t_max).
+</code></pre>
+</div>
+<ul>
+<li>Abstract unit of time</li>
+<li>Simulate <code>t_max</code> time points</li>
+
+</ul>
+</section>
+<section id="slide-orgca8706e">
+<h3 id="orgca8706e">Events</h3>
+<p>
+Events <i>happen</i> only under specific conditions
+</p>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >{ happens(T,E) } :- time(T), possible(T,E).
+</code></pre>
+</div>
+<p>
+Only one event happens at a time
+</p>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >:- time(T), not { happens(T,E) } = 1.
+</code></pre>
+</div>
+</section>
+<section id="slide-org9eb91f3">
+<h3 id="org9eb91f3">Effects of Events</h3>
+<p>
+Facts hold as a result of things happening
+</p>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >initiated(T,F) :- happens(T,E), initiates(T,E,F).
+holds(T+1,F) :- time(T), happens(T,E), initiates(T,E,F).
+</code></pre>
+</div>
+<p>
+Facts are <i>inertial</i>; they continue to hold without external influence
+</p>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >terminated(T,F) :- happens(T,E), terminates(T,E,F).
+holds(T+1,F) :- time(T), holds(T,F), not terminated(T,F).
+</code></pre>
+</div>
+</section>
+<section id="slide-orgc2c6e97">
+<h3 id="orgc2c6e97">Authoring</h3>
+<ul>
+<li>Events: <code>possible</code>, <code>initiates</code>, <code>terminates</code></li>
+<li>Static knowledge</li>
+<li>Dynamic knowledge</li>
+<li>Constraints</li>
+
+</ul>
+</section>
+<section id="slide-org1060373">
+<h3 id="org1060373">Let&rsquo;s make a Disney movie</h3>
+<img class="stretch" style="float: right" src="https://media-assets-02.thedrum.com/cache/images/thedrum-prod/s3-news-tmp-77017-maxresdefault_9--2x1--940.jpg">
+</section>
+<section id="slide-org6d125a1">
+<h3 id="org6d125a1">Static Knowledge</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >character(rey).
+character(kylo).
+character(palpatine).
+</code></pre>
+</div>
+</section>
+<section id="slide-org1a256ce">
+<h3 id="org1a256ce">Places</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >place(pasaana).
+place(kijimi).
+place(endor).
+place(exegol).
+place(resistance_base).
+place(tatooine).
+
+always_reachable(resistance_base,pasaana).
+always_reachable(pasaana,kijimi).
+always_reachable(kijimi,endor).
+always_reachable(exegol,endor).
+always_reachable(exegol,kijimi).
+always_reachable(exegol,tatooine).
+</code></pre>
+</div>
+</section>
+<section id="slide-orga47b74e">
+<h3 id="orga47b74e">Dynamic Knowledge</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >holds(0,reachable(P1,P2)) :- always_reachable(P1,P2),
+  place(P1), place(P2).
+</code></pre>
+</div>
+</section>
+<section id="slide-org6bfdbd7">
+<h3 id="org6bfdbd7">Dynamic Knowledge</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >holds(0,at(kylo,exegol)).
+holds(0,at(rey,resistance_base)).
+holds(0,at(palpatine,exegol)).
+
+holds(0,alive(C)) :- character(C).
+</code></pre>
+</div>
+</section>
+<section id="slide-orge98385e">
+<h3 id="orge98385e">Moving around</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >possible(T,moves(C,P1,P2)) :-
+  holds(T,at(C,P1)), not holds(T,at(C,P2)),
+  holds(T,reachable(P1,P2)),
+  holds(T,alive(C)),
+  character(C), place(P1), place(P2).
+initiates(T,moves(C,P1,P2),at(C,P2)) :-
+  possible(T,moves(C,P1,P2)).
+terminates(T,moves(C,P1,P2),at(C,P1)) :-
+  possible(T,moves(C,P1,P2)).
+</code></pre>
+</div>
+</section>
+<section id="slide-orgac119a6">
+<h3 id="orgac119a6">Trying it out</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >$ clingo disney.lp
+clingo version 5.4.0
+Reading from disney.lp
+Solving...
+Answer: 1
+happens(0,moves(kylo,exegol,pasaana)) happens(2,moves(rey,resistance_base,pasaana)) happens(3,moves(palpatine,exegol,tatooine)) happens(1,moves(kylo,pasaana,endor)) happens(4,moves(kylo,endor,tatooine)) happens(5,moves(kylo,tatooine,exegol))
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 0.021s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.021s
+</code></pre>
+</div>
+</section>
+<section id="slide-org73f77d1">
+<h3 id="org73f77d1">Trying it out</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >happens(0,moves(rey,resistance_base,pasaana))
+happens(1,moves(rey,pasaana,kijimi))
+happens(2,moves(rey,kijimi,endor))
+happens(3,moves(palpatine,exegol,kijimi))
+happens(4,moves(kylo,exegol,kijimi))
+happens(5,moves(palpatine,kijimi,endor))
+</code></pre>
+</div>
+</section>
+<section id="slide-org7f51aed">
+<h3 id="org7f51aed">Wayfinding</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >item(wayfinder).
+
+holds(0,has(endor,wayfinder)).
+
+possible(T,finds(C,I,P)) :-
+  holds(T,at(C,P)),
+  not holds(T,has(C,I)), holds(T,has(P,I)),
+  holds(T,alive(C)),
+  character(C), item(I), place(P), time(T).
+initiates(T,finds(C,I,P),has(C,I)) :- possible(T,finds(C,I,P)).
+terminates(T,finds(C,I,P),has(P,I)) :- possible(T,finds(C,I,P)).
+</code></pre>
+</div>
+</section>
+<section id="slide-orga807d25">
+<h3 id="orga807d25">Wayfinding</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >happens(0,moves(kylo,exegol,endor))
+happens(1,moves(palpatine,exegol,endor))
+happens(2,finds(palpatine,wayfinder,endor))
+happens(3,moves(rey,resistance_base,pasaana))
+</code></pre>
+</div>
+</section>
+<section id="slide-orgce82a65">
+<h3 id="orgce82a65">MacGuffins</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >holds(T,reachable(P,exegol)) :-
+  holds(T-1, has(rey,wayfinder)), time(T), place(P).
+</code></pre>
+</div>
+<p>
+No one goes into Exegol until then&#x2026;
+</p>
+</section>
+<section id="slide-orgb445a90">
+<h3 id="orgb445a90">MacGuffins</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >happens(0,moves(rey,resistance_base,pasaana))
+happens(1,moves(rey,pasaana,kijimi))
+happens(2,moves(rey,kijimi,endor))
+happens(3,finds(rey,wayfinder,endor))
+happens(4,moves(palpatine,exegol,endor))
+happens(5,moves(rey,endor,exegol))
+</code></pre>
+</div>
+</section>
+<section id="slide-org87074c2">
+<h3 id="org87074c2">Not from a Jedi</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >side(light).
+side(dark).
+
+holds(0,alignment(rey,light)).
+holds(0,alignment(kylo,dark)).
+holds(0,alignment(palpatine,dark)).
+</code></pre>
+</div>
+</section>
+<section id="slide-orga848983">
+<h3 id="orga848983">Not from a Jedi</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >possible(T,turns(C1,C2,S1,S2)) :-
+  holds(T,alignment(C2,S1)), not holds(T,alignment(C2,S2)),
+  holds(T,at(C1,P)), holds(T,at(C2,P)),
+  holds(T,alignment(C1,S2)),
+  holds(T,alive(C1)), holds(T,alive(C2)),
+  place(P), character(C1), character(C2), side(S1), side(S2).
+initiates(T,turns(C1,C2,S1,S2),alignment(C2,S2)) :-
+  possible(T,turns(C1,C2,S1,S2)).
+terminates(T,turns(C1,C2,S1,S2),alignment(C2,S1)) :-
+  possible(T,turns(C1,C2,S1,S2)).
+</code></pre>
+</div>
+</section>
+<section id="slide-org55a26ba">
+<h3 id="org55a26ba">Not from a Jedi</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >happens(0,moves(rey,resistance_base,pasaana))
+happens(1,moves(rey,pasaana,kijimi))
+happens(2,moves(rey,kijimi,endor))
+happens(3,moves(palpatine,exegol,endor))
+happens(4,moves(kylo,exegol,endor))
+happens(5,turns(palpatine,rey,light,dark))
+</code></pre>
+</div>
+</section>
+<section id="slide-org929671f">
+<h3 id="org929671f">Lightsabers</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >possible(T,lightsaber_duel(C1,C2)) :-
+  C1 != C2,
+  holds(T,alignment(C1,S1)), holds(T,alignment(C2,S2)), S1 != S2,
+  holds(T,at(C1,P)), holds(T,at(C2,P)),
+  holds(T,alive(C1)), holds(T,alive(C2)),
+  place(P), character(C1), character(C2),
+  side(S1), side(S2), time(T).
+terminates(T,lightsaber_duel(C1,C2),alive(C2)) :-
+  possible(T,lightsaber_duel(C1,C2)).
+</code></pre>
+</div>
+</section>
+<section id="slide-orgd9282c0">
+<h3 id="orgd9282c0">Lightsabers</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >climax :- happens(T,lightsaber_duel(C1,C2)),
+  character(C1), character(C2).
+:- not climax.
+
+rey_reaches_exegol :- holds(t_max+1,at(rey,exegol)).
+:- not rey_reaches_exegol.
+
+turn :- happens(T,turns(C1,C2,S1,S2)),
+  character(C1), character(C2), side(S1), side(S2).
+:- not turn.
+</code></pre>
+</div>
+</section>
+<section id="slide-orgcde16cb">
+<h3 id="orgcde16cb">Lightsabers</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >happens(0,moves(rey,resistance_base,pasaana))
+happens(1,moves(kylo,exegol,kijimi))
+happens(2,moves(rey,pasaana,kijimi))
+happens(3,moves(palpatine,exegol,kijimi))
+happens(4,turns(rey,palpatine,dark,light))
+happens(5,lightsaber_duel(rey,kylo))
+</code></pre>
+</div>
+</section>
+<section id="slide-orgcae6701">
+<h3 id="orgcae6701">Plot Point Reversal</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >{ pick_reason(T,plot_point_reversal(C,R)) : reason(R) } = 1 :-
+  character(C), time(T).
+
+possible(T,plot_point_reversal(C,R)) :-
+  not holds(T,alive(C)),
+  pick_reason(T,plot_point_reversal(C,R)),
+  place(P), character(C), time(T).
+initiates(T,plot_point_reversal(C,R),alive(C)) :-
+  possible(T,plot_point_reversal(C,R)).
+</code></pre>
+</div>
+</section>
+<section id="slide-orgedd0b3a">
+<h3 id="orgedd0b3a">Plot Point Reversal</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >anticlimax :- happens(T,plot_point_reversal(C,R)),
+  character(C), reason(R).
+:- not anticlimax.
+</code></pre>
+</div>
+</section>
+<section id="slide-org43ba27a">
+<h3 id="org43ba27a">Generated Plot</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >happens(0,moves(palpatine,exegol,tatooine))
+happens(1,moves(kylo,exegol,endor))
+happens(2,moves(rey,resistance_base,pasaana))
+happens(3,moves(rey,pasaana,kijimi))
+happens(4,moves(rey,kijimi,endor))
+happens(5,lightsaber_duel(kylo,rey))
+happens(6,plot_point_reversal(rey,it_was_all_a_dream))
+happens(7,lightsaber_duel(kylo,rey))
+happens(8,plot_point_reversal(rey,the_dark_side_of_the_force_is_a_pathway_to_many_abilities_some_consider_to_be_unnatural))
+happens(9,finds(rey,wayfinder,endor))
+happens(10,turns(rey,kylo,dark,light))
+happens(11,moves(kylo,endor,exegol))
+happens(12,moves(kylo,exegol,tatooine))
+happens(13,lightsaber_duel(palpatine,kylo))
+happens(14,moves(rey,endor,exegol))
+happens(15,moves(palpatine,tatooine,exegol))
+</code></pre>
+</div>
+</section>
+<section id="slide-orge9fbd7b">
+<h3 id="orge9fbd7b">Another</h3>
+<div class="org-src-container">
+
+<pre><code class=" erlang" >happens(0,moves(rey,resistance_base,pasaana))
+happens(1,moves(rey,pasaana,kijimi))
+happens(2,moves(rey,kijimi,endor))
+happens(3,finds(rey,wayfinder,endor))
+happens(4,moves(kylo,exegol,endor))
+happens(5,moves(rey,endor,exegol))
+happens(6,moves(rey,exegol,kijimi))
+happens(7,moves(rey,kijimi,exegol))
+happens(8,moves(kylo,endor,exegol))
+happens(9,lightsaber_duel(rey,kylo))
+happens(10,lightsaber_duel(rey,palpatine))
+happens(11,plot_point_reversal(kylo,it_was_a_hologram))
+happens(12,moves(rey,exegol,tatooine))
+happens(13,plot_point_reversal(palpatine,it_was_a_hologram))
+happens(14,moves(rey,tatooine,exegol))
+happens(15,turns(rey,palpatine,dark,light))
+</code></pre>
+</div>
+</section>
+<section id="slide-orgf7d14f0">
+<h3 id="orgf7d14f0">Story generation + ASP</h3>
+<ul>
+<li>Tabula rasa generation: explore plot space</li>
+<li>Constrained generation: touch on given plot points</li>
+<li>Finish a partial story</li>
+
+</ul>
+<p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://adamsmith.as/papers/a17-chen.pdf">RoleModel: Towards a Formal Model of Dramatic Roles for Story Generation</a></p>
+</section>
+<section id="slide-org2eedf9b">
+<h3 id="org2eedf9b">Can we really generate stories?</h3>
+<p style="float: left; width: 45%;">Yes, but expect lots of writing...</p>
+<div style="float: right;"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">PCG promises a free lunch. <br><br>It delivers an angry cow and a small knife, and a promise that if you can make this work, you&#39;ll eat like a king.</p>&mdash; Kate Compton, actual doctor of weird ai (@GalaxyKate) <a href="https://twitter.com/GalaxyKate/status/1236883360762355712?ref_src=twsrc%5Etfw">March 9, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> </div> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+</section>
+<section>
+<section id="slide-org43f90dc">
+<h2 id="org43f90dc">Potpourri</h2>
 <ul>
 <li>Performance</li>
 <li>Random sampling</li>
@@ -434,8 +889,8 @@ unassigned_count(D) :- D = #count { T : assign(T,unassigned) }.
 
 </ul>
 </section>
-<section id="slide-orga486f77">
-<h3 id="orga486f77">clingo runs forever!</h3>
+<section id="slide-orgdcbc065">
+<h3 id="orgdcbc065">clingo runs forever!</h3>
 <ul>
 <li>Variables are replaced with concrete values before any solving starts (&ldquo;grounding&rdquo;)</li>
 <li>Wide relations will cause blowup</li>
@@ -444,14 +899,14 @@ unassigned_count(D) :- D = #count { T : assign(T,unassigned) }.
 
 </ul>
 </section>
-<section id="slide-org810e984">
-<h3 id="org810e984">Random sampling</h3>
+<section id="slide-orgb54bb41">
+<h3 id="orgb54bb41">Random sampling</h3>
 <pre  class="example">
 --rand-freq=1 --seed=39403
 </pre>
 </section>
-<section id="slide-org29f4106">
-<h3 id="org29f4106">Debugging</h3>
+<section id="slide-org0343d64">
+<h3 id="org0343d64">Debugging</h3>
 <pre  class="example">
 Solving...
 UNSATISFIABLE
@@ -459,13 +914,13 @@ UNSATISFIABLE
 Models       : 0
 </pre>
 </section>
-<section id="slide-org94d6fd9">
-<h3 id="org94d6fd9">Debugging</h3>
+<section id="slide-org7eba52b">
+<h3 id="org7eba52b">Debugging</h3>
 <blockquote>Removing a goal can make a predicate at most more general, never more specific.</blockquote>
 <p style="font-size: 0.5em; clear:right; text-align:right;"><a href="https://www.metalevel.at/prolog/debugging">Declarative Debugging, The Power of Prolog</a></p>
 </section>
-<section id="slide-orgd8b4281">
-<h3 id="orgd8b4281">Debugging</h3>
+<section id="slide-org79fc6e9">
+<h3 id="org79fc6e9">Debugging</h3>
 <ul>
 <li>Bisect program!</li>
 <li>Give names to integrity constraints so invalid worlds can be inspected</li>
@@ -473,8 +928,8 @@ Models       : 0
 
 </ul>
 </section>
-<section id="slide-org731dffe">
-<h3 id="org731dffe">Ecosystem</h3>
+<section id="slide-orgf0be851">
+<h3 id="orgf0be851">Ecosystem</h3>
 <ul>
 <li>Unit tests: <a href="https://github.com/rndmcnlly/ansunit">AnsUnit</a></li>
 <li>ORM: <a href="https://github.com/potassco/clorm">clorm</a></li>
@@ -487,13 +942,13 @@ Models       : 0
 </section>
 </section>
 <section>
-<section id="slide-org9b133aa">
-<h2 id="org9b133aa">Limitations</h2>
-<div class="outline-text-2" id="text-org9b133aa">
+<section id="slide-orgb1718e1">
+<h2 id="orgb1718e1">Limitations</h2>
+<div class="outline-text-2" id="text-orgb1718e1">
 </div>
 </section>
-<section id="slide-org6c86004">
-<h3 id="org6c86004">&ldquo;Declarative&rdquo;</h3>
+<section id="slide-orgb716d8c">
+<h3 id="orgb716d8c">&ldquo;Declarative&rdquo;</h3>
 <ul>
 <li>Small changes can drastically affect performance</li>
 <li>Correctness is not obvious</li>
@@ -502,8 +957,8 @@ Models       : 0
 
 </ul>
 </section>
-<section id="slide-orgfbe1394">
-<h3 id="orgfbe1394">Black box</h3>
+<section id="slide-org098a30d">
+<h3 id="org098a30d">Black box</h3>
 <ul>
 <li>By design</li>
 <li>Efficient encodings are hard for non-experts</li>
@@ -513,8 +968,8 @@ Models       : 0
 </section>
 </section>
 <section>
-<section id="slide-org6e9089d">
-<h2 id="org6e9089d">Conclusion</h2>
+<section id="slide-org14eed77">
+<h2 id="org14eed77">Reflection</h2>
 <ul>
 <li>Useful for a class of problems</li>
 <li>Rapid prototyping</li>
@@ -522,12 +977,13 @@ Models       : 0
 
 </ul>
 </section>
-<section id="slide-orgd06859f">
-<h3 id="orgd06859f">Further Reading</h3>
+<section id="slide-orgb439252">
+<h3 id="orgb439252">Further Reading</h3>
 <ul>
 <li><a href="https://www.cs.utexas.edu/users/vl/teaching/378/ASP.pdf">Answer Set Programming, Lifschitz</a></li>
 <li><a href="http://ceur-ws.org/Vol-546/49-63.pdf">A Pragmatic Programmer&rsquo;s Guide to Answer Set Programming</a></li>
 <li><a href="https://github.com/potassco/guide">Clingo user guide</a></li>
+<li><a href="https://www.doc.ic.ac.uk/~mpsha/ECExplained.pdf">The Event Calculus Explained</a></li>
 
 </ul>
 </section>
