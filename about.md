@@ -4,9 +4,9 @@ title: About
 permalink: /about/
 ---
 
-I'm all about finding principled ways to solve problems (with computers) and making people around me more productive. To that end, I'm interested in functional programming, formal systems, program analysis, and declarative paradigms such as logic programming and ASP; powerful tools are essential if we wish to tackle more complex problems.
+I'm all about finding principled ways to solve problems (with computers) and making people around me more productive. To that end, I'm interested in functional programming, formal systems, program analysis, and declarative paradigms such as logic programming and ASP. I believe powerful tools are essential if we wish to tackle more complex problems.
 
-I am an occasional game developer and also enjoy building and working with interactive systems; a tight feedback loop does wonders for productivity and UX.
+I am an occasional game developer and also enjoy building and working with interactive systems.
 
 On weekends, I sing with [The Crescendos](https://www.instagram.com/the_crescendos/) and [Acappella Anonymous](https://www.instagram.com/acappellaanonymous/).
 
