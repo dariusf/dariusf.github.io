@@ -20,7 +20,7 @@ Most of my projects are on [GitHub](https://github.com/dariusf). A few more clos
 
 ## Writing
 
-- [Test Lean and Ship Healthy: A Handbook on Delivering High Quality Software in the DevOps World](https://srcclr.github.io/oct-wave/)
+- [Test Lean and Ship Healthy: A Handbook on Delivering High Quality Software in the DevOps World](https://srcclr.github.io/test-lean/)
 
 ## Patents
 
