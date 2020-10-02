@@ -70,30 +70,28 @@ select * from t except select * from s;
                 ‾‾‾‾‾‾
 ```
 </script></section><section  data-markdown><script type="text/template">
-### Types
+### Relations
+
+The result of a query is a relation, i.e. a ~~set~~ bag of tuples.
 
 ```sql
 select * from t where 1=1;
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 ```
 
-Relation, i.e. ~~set~~ bag of tuples
-</script></section><section  data-markdown><script type="text/template">
-### Types
+Queries act on one or more relations.
 
 ```sql
 select * from t where 1=1;
               ‾
 ```
-
-One or more _relations_
+</script></section><section  data-markdown><script type="text/template">
+### Compositionality
 
 ```sql
 select * from (select * from t where 1=1) a where 2=2;
                ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 ```
-
-Compositional!
 
 $$
 \sigma_{2=2}(\sigma_{1=1}(t))
@@ -101,7 +99,7 @@ $$
 
 Select-from-where $\approx\rho(\pi(\sigma(\rho(\ldots\times\ldots))))$
 </script></section><section  data-markdown><script type="text/template">
-### Types
+### Where
 
 ```sql
 select * from t where 1=1;
@@ -110,7 +108,7 @@ select * from t where 1=1;
 
 Boolean
 </script></section><section  data-markdown><script type="text/template">
-### Types
+### Select
 
 ```sql
 select * from t where 1=1;
@@ -121,7 +119,77 @@ One or more...
 
 1. Constant values, e.g. integers, text
 1. Column names: ~~sets~~ bags of values
-1. Aggregates: computations on bags of values
+1. Aggregation: computations on bags of values
+</script></section><section  data-markdown><script type="text/template">
+### Aggregation
+
+```sql
+select max(a) from t;
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+Result is a singleton relation.
+
+Select-from-where, aggregation $\approx$
+
+$$a(\rho(\pi(\sigma(\rho(\ldots\times\ldots)))))$$
+</script></section><section  data-markdown><script type="text/template">
+### Having
+
+Select-from-where, aggregation, having $\approx$
+
+$$\sigma(a(\rho(\pi(\sigma(\rho(\ldots\times\ldots))))))$$
+</script></section><section  data-markdown><script type="text/template">
+### Singleton relations as values
+
+```sql
+select (select 1);
+        ‾‾‾‾‾‾‾‾
+```
+
+```sql
+select * from t where t.a = (select sum(b) from s);
+                      ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+</script></section><section  data-markdown><script type="text/template">
+### Exists
+
+```sql
+select * from t where exists (select * from s);
+                      ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+exists : Relation $\to$ Boolean
+</script></section><section  data-markdown><script type="text/template">
+### Correlated subqueries
+
+```sql
+select * from t
+  where exists (select * from s where s.a = t.a);
+               ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+```js
+t.filter(ta =>
+  s.filter(sa => sa === ta).length === 0)
+  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+</script></section><section  data-markdown><script type="text/template">
+### Correlated subqueries + exists
+
+```sql
+select * from t
+  where exists (select * from s where s.a = t.a);
+        ‾‾‾‾‾‾
+```
+
+```js
+t.filter(ta =>
+  s.filter(sa => sa === ta).length === 0)
+                           ‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+exists : ~~Array~~ Relation $\to$ Boolean
 </script></section></div>
     </div>
 
