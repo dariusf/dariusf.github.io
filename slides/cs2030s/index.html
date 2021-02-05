@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>CS2030S</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.1.0//dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.1.0//dist/reveal.css">
+  <style>
+      </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.1.0//dist/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.1.0//plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/gh/highlightjs/highlight.js/src/styles/github.css">
+  <style>
+  .slides section { text-align: left; }
+
+  /* slide titles */
+  .slides section h1 { font-weight: bold; }
+  .slides section h2 { font-weight: bold; }
+  .slides section h3 { font-weight: bold; }
+
+  /* title */
+  /* slightly smaller for long titles */
+  .slides section h1 { font-size: 2em; }
+
+  /*.slides section p { font-size: 0.8em; }*/
+  /*.slides section li { font-size: 0.8em; }*/
+
+  /* reveal defines top and bottom margins */
+  .center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block;
+  }
+
+  .credit {
+    float: right;
+    font-size: 0.7em;
+  }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">CS2030S</h1>
+</section>
+
+<section id="recitation-1" class="slide level1">
+<h1>Recitation 1</h1>
+</section>
+<section id="welcome" class="slide level1">
+<h1>Welcome!</h1>
+<p>Darius Foo</p>
+<p><a href="mailto:dariusf@comp.nus.edu.sg" class="email">dariusf@comp.nus.edu.sg</a></p>
+<p>Office hours: 11am to 12pm, Thursdays, AS3-06-09</p>
+<!--
+
+in general, feel free to reach out to me
+
+i understand some are not familiar with command line interfaces or unix, or have trouble with the programming environment, it's not as easy as the source academy was, and believe me i empathise and would like to help. so you should reach out whenever
+
+that hour, or zoom
+
+can ask me about unix and career as well
+
+i will aim to finish in 45 mins
+
+ask if anyone has any problem
+
+small class, feel free to say something
+
+15 + 10 + 10 + 10
+-->
+</section>
+<section id="recap" class="slide level1">
+<h1>Recap</h1>
+<style>
+    blockquote {
+      display: inline;
+    } 
+     
+    details {
+      display: inline;
+    }
+
+    summary {
+      display: inline;
+    }
+
+    details[open] summary {
+      display: none;
+    }
+
+    details summary::-webkit-details-marker {
+      display:none;
+    }
+
+    .blue {
+        color: blue;
+    }
+    /*
+    https://stackoverflow.com/questions/41922483/how-to-insert-details-in-one-line-with-a-sentence
+
+    https://stackoverflow.com/questions/6195329/how-can-you-hide-the-arrow-that-is-displayed-by-default-on-the-html5-details-e
+    */
+</style>
+<p>Object-oriented programming?</p>
+<ul>
+<li><details>
+<summary>
+Encapsulation
+</summary>
+Encapsulation: <span class="blue">program + data</span>
+</details>
+<ul>
+<li><details>
+<summary>
+Information hiding
+</summary>
+Information hiding: <span class="blue">private implementation</span>
+</details></li>
+<li><details>
+<summary>
+Tell, don’t ask
+</summary>
+Tell, don’t ask: <span class="blue">operations on objects</span>
+</details></li>
+</ul></li>
+<li><details>
+<summary>
+Composition
+</summary>
+Composition: <span class="blue"><em>has-a</em></span>
+</details></li>
+<li><details>
+<summary>
+Inheritance
+</summary>
+Inheritance: <span class="blue"><em>is-a</em>/more <em>specific</em></span>
+</details>
+<ul>
+<li><details>
+<summary>
+Polymorphism
+</summary>
+Polymorphism: <span class="blue">children differ/dynamic dispatch</span>
+</details></li>
+<li><details>
+<summary>
+Overriding
+</summary>
+Overriding: <span class="blue">re(de)fine parent behaviour</span>
+</details></li>
+<li><details>
+<summary>
+LSP
+</summary>
+LSP: <span class="blue">what <em>specific</em> means</span>
+</details></li>
+<li><details>
+<summary>
+Abstract class/interface
+</summary>
+Abstract class/interface: <span class="blue">let children fill in</span>
+</details></li>
+</ul></li>
+</ul>
+<!-- - Encapsulation
+    + Information hiding
+    + Tell, don't ask
+- Composition (has-a)
+- Inheritance (is-a)
+    + Polymorphism
+    + Overriding
+    + LSP
+    + Abstract class/interface
+-->
+<!--
+Mindmap
+
+record
+attendance
+
+what is oop? no right answer. the idea that programs and data should be packaged into units (classes), and these should be the building block. paradigm, way of doing things, and you should contrast this with fp
+
+what is the difference between an object and a class? a class is a stencil, an object is a drawing. blueprint
+
+- encapsulation: program + data
+- information hiding: 
+- tell don't ask. rather than expose data like in fp, define operations on object. contrast with pair object from fp. is there a clear winner?
+- composition: idea that an object contains other objects. car has wheels, could also have car inherit from wheel but that would be weird. wheeled object, maybe
+- inheritance: idea that an object can be made more specific. concrete example
+- polymorphism: subclasses can implement methods in different ways. animal, call, vocalise, bark, meow. depending on the runtime type of the object
+- overriding: subclasses can redefine parent behaviour
+- lsp: sanity check for is-a relationship, what more specific means, any property of the parent must apply to the child, so wherever the parent is accepted, the child must be too. child cannot violate. use concrete example, like animal, dog
+- abstract class: things high in the hierarchy can have holes. polymorphism lets us fill these in
+
+-->
+</section>
+<section id="today" class="slide level1">
+<h1>Today</h1>
+<ol type="1">
+<li>Encapsulation</li>
+<li><strong>Evaluation in Java</strong></li>
+<li>More practice</li>
+</ol>
+<!--
+process model and allocation
+stack stores primitives
+
+the constructor also matters
+-->
+</section>
+<section id="recitation-2-week-4" class="slide level1">
+<h1>Recitation 2 (week 4)</h1>
+</section>
+<section id="today-1" class="slide level1">
+<h1>Today</h1>
+<ul>
+<li><strong>Overriding vs overloading</strong></li>
+<li><strong>Tricky inheritance situations</strong></li>
+<li>Interfaces</li>
+</ul>
+</section>
+<section id="compile-time-vs-runtime" class="slide level1">
+<h1>Compile-time vs runtime</h1>
+<ul>
+<li>At compile-time, we can only analyze code, i.e. we can’t run it</li>
+<li>Certain information is unavailable and must be approximated, e.g. types</li>
+</ul>
+<pre ><code class="java">Animal a;
+if (scanner.nextBoolean()) {
+  a = new Dog();
+} else {
+  a = new Cat();
+}
+a.call(); // ?</code></pre>
+<ul>
+<li>aka “phase distinction”, <em>static</em> vs <em>dynamic</em></li>
+</ul>
+<!--
+we can't know which branch is taken at compile-time. so all we can say is either branch is taken, and we must consider both when thinking of what could happen at call
+
+this corresponds to us knowing that the compile-time type is animal, so it must be an animal or one of its subclasses
+-->
+</section>
+<section id="overriding" class="slide level1">
+<h1>Overriding</h1>
+<pre ><code class="java">class Dog extends Animal {
+  @Override
+  void call() {
+    System.out.println("woof!");
+  }
+}
+
+class Cat extends Animal {
+  @Override
+  void call() {
+    System.out.println("meow!");
+  }
+}</code></pre>
+<p>Which method is called depends on the runtime type of the receiver, <code>this</code>:</p>
+<pre ><code class="java">Animal a = ...;
+a.call(); // depends on ...</code></pre>
+</section>
+<section id="overloading" class="slide level1">
+<h1>Overloading</h1>
+<pre ><code class="java">static void call(Dog d) {
+  System.out.println("woof!");
+}
+
+static void call(Cat d) {
+  System.out.println("meow!");
+}</code></pre>
+<p>Which method is called depends on the compile-time types of the receiver and parameters (and not the return type):</p>
+<pre ><code class="java">Animal a = ...;
+call(a); // will not compile</code></pre>
+<pre ><code class="java">Dog d = new Dog();
+call(d); // compiles and resolves to call(Dog)</code></pre>
+</section>
+<section id="overriding-vs-overloading" class="slide level1">
+<h1>Overriding vs overloading</h1>
+<ul>
+<li>Overloading resolves at <strong>compile-time</strong>, so relies only on compile-time information</li>
+<li>Overriding resolves at <strong>runtime</strong>, so relies on run-time information (“dynamic dispatch”)</li>
+</ul>
+</section>
+<section id="overriding-vs-overloading-1" class="slide level1">
+<h1>Overriding vs overloading</h1>
+<ul>
+<li>Tradeoff between expressiveness and guarantees</li>
+<li>Bridging the gap
+<ul>
+<li><em>Casts</em> are runtime assertions that give us (shaky) compile-time guarantees</li>
+<li>We lose information when casting <em>up</em>, but gain (dubious) information when casting <em>down</em></li>
+</ul></li>
+</ul>
+<pre ><code class="java">Animal a = ...;
+Dog d = (Dog) a; // gain info, but dubious (may fail)
+Animal b = d; // lose info, but always works
+Animal c = (Animal) d; // same as previous</code></pre>
+</section>
+<section id="intuitively" class="slide level1">
+<h1>Intuitively</h1>
+<p><img data-src="inheritance1.svg" class="generate center" data-cmd="dot -Tsvg -o $out" alt="" /></p>
+<p>Inheritance creates trees</p>
+</section>
+<section id="intuitively-1" class="slide level1">
+<h1>Intuitively</h1>
+<p><img data-src="inheritance2.svg" class="generate center" data-cmd="dot -Tsvg -o $out" alt="" /></p>
+<p>Overriding arranges methods into a tree, leading to <em>lines</em> (as in <em>lineage</em>) of methods</p>
+</section>
+<section id="intuitively-2" class="slide level1">
+<h1>Intuitively</h1>
+<ul>
+<li>The <em>full name</em> of a method is actually its name + receiver and parameter types</li>
+<li>Overloading is just calling a method by its full name</li>
+</ul>
+<p><img data-src="fullname.svg" class="generate center" data-cmd="dot -Tsvg -o $out" alt="" /></p>
+</section>
+<section id="intuitively-3" class="slide level1">
+<h1>Intuitively</h1>
+<ul>
+<li>Overloading chooses a line of methods at compile-time</li>
+<li>Overriding chooses a single method on the line at runtime</li>
+</ul>
+<p><img data-src="lineage.svg" class="generate center" data-cmd="dot -Tsvg -o $out" alt="" /></p>
+</section>
+<section id="playing-compiler" class="slide level1">
+<h1>Playing compiler</h1>
+<p>How do we figure out which method is called?</p>
+<ul>
+<li>Look for the method of the same name with the <em>closest</em> receiver and parameter types (“<a href="https://docs.oracle.com/javase/specs/jls/se15/html/jls-8.html#jls-8.4.9">overload resolution</a>”)</li>
+<li>At runtime, methods which <code>@Override</code> it may instead be called</li>
+</ul>
+<p>(<code>@Override</code> is an optional assertion that may fail compilation if a method isn’t overriding anything)</p>
+</section>
+<section id="q1a" class="slide level1">
+<h1>Q1a</h1>
+<div id="one">
+<pre ><code class="java">Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = new Circle(new Point(0, 0), 10);
+Object o1 = c1;
+Object o2 = c2;</code></pre>
+</div>
+<p><img data-src="2-1a.svg" class="generate center" data-cmd="dot -Tsvg -o $out" alt="" /></p>
+</section>
+<section id="q1a-1" class="slide level1">
+<h1>Q1a</h1>
+<pre ><code class="java">Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = new Circle(new Point(0, 0), 10);
+Object o1 = c1;
+Object o2 = c2;</code></pre>
+<pre ><code class="java">jshell&gt; o1.equals(o2)
+equals(Object) called
+$.. ==&gt; false</code></pre>
+<ul>
+<li><code>o1</code> is a compile-time <code>Object</code>, so only the <code>equals(Object)</code> line is eligible</li>
+<li>The overriden <code>equals(Object)</code> is called</li>
+<li><code>Point</code> doesn’t override <code>equals</code>, so <code>false</code>.</li>
+</ul>
+</section>
+<section id="q1b" class="slide level1">
+<h1>Q1b</h1>
+<pre ><code class="java">Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = new Circle(new Point(0, 0), 10);
+Object o1 = c1;
+Object o2 = c2;</code></pre>
+<pre ><code class="java">jshell&gt; o1.equals((Circle) o2)
+equals(Object) called
+$.. ==&gt; false</code></pre>
+<p>Doesn’t change the fact that <code>o1</code> is a compile-time <code>Object</code>.</p>
+</section>
+<section id="q1c" class="slide level1">
+<h1>Q1c</h1>
+<pre ><code class="java">Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = new Circle(new Point(0, 0), 10);
+Object o1 = c1;
+Object o2 = c2;</code></pre>
+<pre ><code class="java">jshell&gt; o1.equals(c2)
+equals(Object) called
+$.. ==&gt; false</code></pre>
+<p>Same.</p>
+</section>
+<section id="q1d" class="slide level1">
+<h1>Q1d</h1>
+<pre ><code class="java">Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = new Circle(new Point(0, 0), 10);
+Object o1 = c1;
+Object o2 = c2;</code></pre>
+<pre ><code class="java">jshell&gt; o1.equals(c1)
+equals(Object) called
+$.. ==&gt; true</code></pre>
+<p>Same, but now <code>o1</code> and <code>c1</code> are the same object, so <code>true</code>.</p>
+</section>
+<section id="q1e" class="slide level1">
+<h1>Q1e</h1>
+<pre ><code class="java">Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = new Circle(new Point(0, 0), 10);
+Object o1 = c1;
+Object o2 = c2;</code></pre>
+<pre ><code class="java">jshell&gt; c1.equals(o2)
+equals(Object) called
+$.. ==&gt; false</code></pre>
+<ul>
+<li>Now both lines are eligible, but <code>o2</code> is a compile-time <code>Object</code>, so overload resolution chooses <code>equals(Object)</code>.</li>
+<li>At runtime, the overriden version is called. <code>false</code> still because <code>Point</code> doesn’t override <code>equals</code>.</li>
+</ul>
+</section>
+<section id="q1f" class="slide level1">
+<h1>Q1f</h1>
+<pre ><code class="java">Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = new Circle(new Point(0, 0), 10);
+Object o1 = c1;
+Object o2 = c2;</code></pre>
+<pre ><code class="java">jshell&gt; c1.equals((Circle) o2);
+equals(Circle) called
+$.. ==&gt; false</code></pre>
+<ul>
+<li><code>o2</code> is a compile-time <code>Circle</code> so overload resolution chooses <code>equals(Circle)</code> as it’s <em>closer</em>.</li>
+</ul>
+</section>
+<section id="q1g" class="slide level1">
+<h1>Q1g</h1>
+<pre ><code class="java">Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = new Circle(new Point(0, 0), 10);
+Object o1 = c1;
+Object o2 = c2;</code></pre>
+<pre ><code class="java">jshell&gt; c1.equals(c2)
+equals(Circle) called
+$.. ==&gt; false</code></pre>
+<p>Same as previous.</p>
+</section>
+<section id="q1h" class="slide level1">
+<h1>Q1h</h1>
+<pre ><code class="java">Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = new Circle(new Point(0, 0), 10);
+Object o1 = c1;
+Object o2 = c2;</code></pre>
+<pre ><code class="java">jshell&gt; c1.equals(o1)
+equals(Object) called
+$.. ==&gt; true</code></pre>
+<p>Same as 1e (<code>equals(Object)</code> chosen), except now we have two references to the same object, so <code>true</code>.</p>
+</section>
+<section id="a" class="slide level1">
+<h1>2a</h1>
+<pre ><code class="java">public class Rectangle {
+    private double width;
+    private double height;
+
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    public String toString() {
+        return "Height: " + this.height +  " Width: " + this.width;
+    }
+}</code></pre>
+</section>
+<section id="a-1" class="slide level1">
+<h1>2a</h1>
+<p>A <code>Square</code> <em>is a</em> <code>Rectangle</code> with equal sides.</p>
+<pre ><code class="java">public class Square extends Rectangle {
+    public Square(double length) {
+        super(length, length);
+    }
+}</code></pre>
+</section>
+<section id="b" class="slide level1">
+<h1>2b</h1>
+<p><code>Square</code> inherits <code>setWidth</code> and <code>setHeight</code>, and we can now create invalid <code>Square</code>s.</p>
+<pre ><code class="java">jshell&gt; Square s = new Square(5.0)
+s ==&gt; Height: 5.0 Width: 5.0
+jshell&gt; s.setHeight(4)
+jshell&gt; s
+s ==&gt; Height: 4.0 Width: 5.0</code></pre>
+</section>
+<section id="c" class="slide level1">
+<h1>2c</h1>
+<p>LSP: anywhere we can use a <code>Rectangle</code>, we should also be able to use a <code>Square</code>…</p>
+<pre ><code class="java">jshell&gt; Rectangle[] rects = {new Rectangle(3.0, 5.0), new Square(5.0)}
+rects ==&gt; Rectangle[2] { Height: 5.0 Width: 3.0, Height: 5.0 Width: 5.0 }
+jshell&gt; rects[0].setHeight(4.0)
+jshell&gt; rects[0].setWidth(8.0)
+jshell&gt; rects[0]
+$.. ==&gt; Height: 4.0 Width: 8.0
+jshell&gt; rects[1].setHeight(4.0)
+jshell&gt; rects[1].setWidth(8.0)
+jshell&gt; rects[1]
+$.. ==&gt; Height: 8.0 Width: 8.0</code></pre>
+<p>Now rectangles behave weirdly – we didn’t expect the call to <code>setHeight</code> to be forgotten.</p>
+</section>
+<section id="c-1" class="slide level1">
+<h1>2c</h1>
+<p>How do we get out of this?</p>
+<p>Maybe a rectangle <em>is a</em> kind of square?</p>
+<p>That doesn’t really make sense.</p>
+</section>
+<section id="c-2" class="slide level1">
+<h1>2c</h1>
+<p>It seems like <code>Square</code> and <code>Rectangle</code> should not inherit from each other.</p>
+<p>But isn’t inheritance for modelling is-a relationships? What’s the problem?</p>
+</section>
+<section id="c-3" class="slide level1">
+<h1>2c</h1>
+<p>This is a bit of a trick question because <em>adding setters allows width and height to vary independently</em>. <code>Rectangle</code> isn’t just a platonic rectangle; it includes setters!</p>
+<p>The implementation in 2a without setters models the is-a relationship just fine.</p>
+<p>Conclusion: mutability <del>ruins</del> <em>complicates</em> nice things</p>
+</section>
+<section id="c-4" class="slide level1">
+<h1>2c</h1>
+<p>Fixes:</p>
+<ul>
+<li>Immutability</li>
+<li>Add <code>setSide(double)</code> to <code>Square</code> and throw exceptions in <code>setHeight</code> and <code>setWidth</code></li>
+<li>Require <code>setHeight</code> and <code>setWidth</code> to be used together</li>
+</ul>
+</section>
+<section id="a-2" class="slide level1">
+<h1>3a</h1>
+<p><img data-src="2-3a.svg" class="generate center" data-cmd="dot -Tsvg -o $out" alt="" /></p>
+<pre ><code class="java">Circle c = new Circle(new Point(0,0), 10);
+
+// compile-time type: Shape, runtime type: Circle
+Shape s = c;
+
+// compile-time type: Printable, runtime type: Circle
+Printable p = c;</code></pre>
+<pre ><code class="java">s.print(); // no, not a compile-time Printable
+p.print(); // yes
+s.getArea(); // yes
+p.getArea(); // no, not a compile-time Shape</code></pre>
+</section>
+<section id="bc" class="slide level1">
+<h1>3b/c</h1>
+<p>No, we can’t inherit from multiple abstract classes like we can from multiple interfaces.</p>
+<p>Yes, interfaces can inherit from multiple parent interfaces.</p>
+<p><img data-src="2-3c.svg" class="generate center" data-cmd="dot -Tsvg -o $out" alt="" /></p>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@4.1.0//dist/reveal.js"></script>
+
+  <script src="https://unpkg.com/reveal.js@4.1.0//plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@4.1.0//plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@4.1.0//plugin/zoom/zoom.js"></script>
+  <script src="https://unpkg.com/reveal.js@4.1.0//plugin/highlight/highlight.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'fast', // default/fast/slow
+
+        plugins: [
+          RevealHighlight,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
