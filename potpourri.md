@@ -6,7 +6,7 @@ permalink: /potpourri/
 
 ## Talks
 
-- [Answer Set Programming: Into the Multiverse](/talks/asp), 2020
+- [Answer Set Programming: Into the Multiverse](/slides/asp), 2020
 
 ## Projects
 
