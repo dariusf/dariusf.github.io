@@ -35,8 +35,7 @@ For the reader, the problem is mostly remembering what notation the author has u
       <pubDate>Mon, 02 Aug 2021 14:18:06 +0800</pubDate>
       
       <guid>https://dariusf.github.io/drafts/menhir-tips/</guid>
-      <description>test
-OCaml has mature tools for writing parsers, but I&amp;rsquo;ve had to puzzle out more than once how to integrate and use them effectively &amp;ndash; there are a number of moving parts, each with their own documentation, and a good amount of plumbing that has to be copied into every project.
+      <description>OCaml has mature tools for writing parsers, but I&amp;rsquo;ve had to puzzle out more than once how to integrate and use them effectively &amp;ndash; there are a number of moving parts, each with their own documentation, and a good amount of plumbing that has to be copied into every project.
 This post will give a big-picture overview of how all the pieces work in concert and how to use their key features.</description>
     </item>
     
