@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on Darius Foo</title>
+    <link>https://dariusf.github.io/blog/</link>
+    <description>Recent content in Blog on Darius Foo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <copyright>Copyright © 2022, Darius Foo.</copyright>
+    <lastBuildDate>Sun, 19 Dec 2021 00:22:38 +0800</lastBuildDate><atom:link href="https://dariusf.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A collection of equations</title>
+      <link>https://dariusf.github.io/equations/</link>
+      <pubDate>Sun, 19 Dec 2021 00:22:38 +0800</pubDate>
+      
+      <guid>https://dariusf.github.io/equations/</guid>
+      <description>$$\begin{aligned} \mathit{Total\ Correctness} = \mathit{Partial\ Correctness} &amp;#43; \mathit{Termination} \end{aligned}$$ Program Verification  $$\begin{aligned} \mathit{Emacs} &amp;#43; \mathit{Go} = \mathit{Parametric\ Polymorphism} \end{aligned}$$ Fulfilling a Pikedream: the ups of downs of porting 50k lines of C&amp;#43;&amp;#43; to Go.  $$\begin{aligned} \mathit{Product} = \mathit{Customer} \times \mathit{Business} \times \mathit{Technology} \end{aligned}$$ What is a Product?  $$\begin{aligned} \mathit{Algorithm} = \mathit{Logic} &amp;#43; \mathit{Control} \end{aligned}$$ Algorithm = Logic &amp;#43; Control  $$\begin{aligned} \mathit{Cost\ of\ Delay} = &amp;amp; \mathit{User-Business\ Value} &amp;#43; \mathit{Time\ Criticality}\ &amp;#43;\\ &amp;amp; \mathit{Risk\ Reduction\ and}/\mathit{or\ Opportunity\ Enablement} \end{aligned}$$ WSJF - Scaled Agile Framework  $$\begin{aligned} \mathit{Well}\ \text{-}\mathit{founded\ Semantics} &amp;#43; \mathit{Branch\ and\ Bound} = \mathit{Stable\ Models} \end{aligned}$$ Well-founded Semantics &amp;#43; Branch and Bound = Stable Models  $$\begin{aligned} \mathit{Property\ Tests} &amp;#43; \mathit{Contracts} = \mathit{Integration\ Tests} \end{aligned}$$ Property Tests &amp;#43; Contracts = Integration Tests  $$\begin{aligned} \mathit{Compiler}(\mathit{Program}) = \mathit{Algorithms} &amp;#43; \mathit{Data\ Structures} \end{aligned}$$ Next-Paradigm Programming Languages (Wirth)  $$\begin{aligned} \mathit{Clingo} = \mathit{ASP} &amp;#43; \mathit{Control} \end{aligned}$$ Clingo = ASP &amp;#43; Control : Preliminary Report  $$\begin{aligned} \mathit{Assets} = \mathit{Liabilities} &amp;#43; \mathit{Equity} \end{aligned}$$ Balance Sheet - Definition &amp;amp; Examples  $$\begin{aligned} \mathit{Programming} = \mathit{Structure} &amp;#43; \mathit{Efficiency} \end{aligned}$$ What is the use of Continuation Passing Style (CPS)?</description>
+    </item>
+    
+    <item>
+      <title>Watching the screen for changes in macOS</title>
+      <link>https://dariusf.github.io/watch-screen/</link>
+      <pubDate>Thu, 02 Dec 2021 17:25:08 +0800</pubDate>
+      
+      <guid>https://dariusf.github.io/watch-screen/</guid>
+      <description>Sometimes all you need is for your computer to tell you when something on the screen changes. Maybe you&amp;rsquo;re invigilating an exam over Zoom and your eyes are drying out from staring at the chat window, which for some reason doesn&amp;rsquo;t have any notification settings.
+Rectangles The first piece is how to capture a small region of the screen. Interestingly, this is built into the screencapture command, which takes the coordinates and dimensions of a rectangular area to capture.</description>
+    </item>
+    
+    <item>
+      <title>From Docker to VirtualBox</title>
+      <link>https://dariusf.github.io/virtualbox/</link>
+      <pubDate>Mon, 13 Sep 2021 11:07:06 +0800</pubDate>
+      
+      <guid>https://dariusf.github.io/virtualbox/</guid>
+      <description>Docker is great for quickly dropping into a Linux environment, but isn&amp;rsquo;t compatible with certain obscure use cases (mine being testing version-locked Java GUIs).
+After a period of unsuccessfully installing random packages and toggling flags, I figured the next-easiest thing to do was to use VirtualBox. Perhaps surprisingly, it comes with an able CLI. Here&amp;rsquo;s how it compares to Docker&amp;rsquo;s.
+Getting Started brew install --cask virtualbox There&amp;rsquo;s no equivalent of docker run -it to start a VM and give me a shell; we&amp;rsquo;ll have to use ssh.</description>
+    </item>
+    
+    <item>
+      <title>Visualizing Z3&#39;s proofs</title>
+      <link>https://dariusf.github.io/z3-proofs/</link>
+      <pubDate>Sun, 21 Mar 2021 12:00:06 +0800</pubDate>
+      
+      <guid>https://dariusf.github.io/z3-proofs/</guid>
+      <description>A writeup of a presentation I gave in class.
+SMT solvers like Z3 are often also called automated theorem provers. Why? What do their proofs look like?
+An SMT solver tells us if a formula in first-order logic (augmented with various theories) is satisfiable1: there is some assignment of variables that makes the formula true. Z3 can even produce such an assignment.
+from z3 import * i = Int(&amp;#39;i&amp;#39;) solve(i &amp;gt; 0) [i = 1] Not every formula is satisfiable, though.</description>
+    </item>
+    
+    <item>
+      <title>Pretty stack-and-heap diagrams</title>
+      <link>https://dariusf.github.io/stack-heap/</link>
+      <pubDate>Sun, 07 Feb 2021 00:13:31 +0800</pubDate>
+      
+      <guid>https://dariusf.github.io/stack-heap/</guid>
+      <description>I&amp;rsquo;m teaching an introductory programming class this semester, which introduced students to the runtime stack and the heap in one of the early tutorials.
+For consistency across face-to-face and online classes, I decided to have the diagrams in my slides instead of drawing them terribly over and over.
+While there were lots of references for drawing such diagrams by hand, there didn&amp;rsquo;t seem to be any small and simple tools for generating them.</description>
+    </item>
+    
+    <item>
+      <title>Transparent iOS backups</title>
+      <link>https://dariusf.github.io/ios-backups/</link>
+      <pubDate>Thu, 30 Jul 2020 17:49:26 +0800</pubDate>
+      
+      <guid>https://dariusf.github.io/ios-backups/</guid>
+      <description>Backing up an iOS device is nice and simple: there&amp;rsquo;s iCloud, or connecting your device, opening Finder, and clicking Back Up Now. Unfortunately this process is also rather opaque: all we can do in Finder is to create and restore backups, not view their contents. I&amp;rsquo;d like to be able to extract individual files and archive them elsewhere.
+At the time of writing there are no up-to-date and polished open source apps for simply viewing backup data in an open format, so here we&amp;rsquo;ll explore how iOS backups are structured and figure out how to extract the raw files.</description>
+    </item>
+    
+    <item>
+      <title>Bags of puzzle pieces in ASP</title>
+      <link>https://dariusf.github.io/asp-puzzle-pieces/</link>
+      <pubDate>Sat, 25 Nov 2017 12:15:06 +0800</pubDate>
+      
+      <guid>https://dariusf.github.io/asp-puzzle-pieces/</guid>
+      <description>Answer set programming is an offshoot of traditional logic programming with a number of nice properties: programs always terminate, are fully declarative (i.e. clause ordering doesn&amp;rsquo;t matter and search is complete, unlike Prolog), and have a well-defined semantics. Modelling a domain with relations is a wonderfully high-level way to reason about things, allowing complex rules to be represented concisely.
+ASP is typically applied to hard search problems, but can model pretty much anything.</description>
+    </item>
+    
+  </channel>
+</rss>

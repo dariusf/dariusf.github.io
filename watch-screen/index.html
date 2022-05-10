@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="https://dariusf.github.io/images/favicon.png" />
+<title>Watching the screen for changes in macOS | Darius Foo</title>
+<meta name="title" content="Watching the screen for changes in macOS" />
+<meta name="description" content="Sometimes all you need is for your computer to tell you when something on the screen changes. Maybe you&rsquo;re invigilating an exam over Zoom and your eyes are drying out from staring at the chat window, which for some reason doesn&rsquo;t have any notification settings.
+Rectangles The first piece is how to capture a small region of the screen. Interestingly, this is built into the screencapture command, which takes the coordinates and dimensions of a rectangular area to capture." />
+<meta name="keywords" content="" />
+
+
+<meta property="og:title" content="Watching the screen for changes in macOS" />
+<meta property="og:description" content="Sometimes all you need is for your computer to tell you when something on the screen changes. Maybe you&rsquo;re invigilating an exam over Zoom and your eyes are drying out from staring at the chat window, which for some reason doesn&rsquo;t have any notification settings.
+Rectangles The first piece is how to capture a small region of the screen. Interestingly, this is built into the screencapture command, which takes the coordinates and dimensions of a rectangular area to capture." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dariusf.github.io/watch-screen/" /><meta property="og:image" content="https://dariusf.github.io/images/favicon.png"/><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2021-12-02T17:25:08+08:00" />
+<meta property="article:modified_time" content="2021-12-02T17:25:08+08:00" /><meta property="og:site_name" content="Darius Foo" />
+
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dariusf.github.io/images/favicon.png"/>
+
+<meta name="twitter:title" content="Watching the screen for changes in macOS"/>
+<meta name="twitter:description" content="Sometimes all you need is for your computer to tell you when something on the screen changes. Maybe you&rsquo;re invigilating an exam over Zoom and your eyes are drying out from staring at the chat window, which for some reason doesn&rsquo;t have any notification settings.
+Rectangles The first piece is how to capture a small region of the screen. Interestingly, this is built into the screencapture command, which takes the coordinates and dimensions of a rectangular area to capture."/>
+
+
+
+<meta itemprop="name" content="Watching the screen for changes in macOS">
+<meta itemprop="description" content="Sometimes all you need is for your computer to tell you when something on the screen changes. Maybe you&rsquo;re invigilating an exam over Zoom and your eyes are drying out from staring at the chat window, which for some reason doesn&rsquo;t have any notification settings.
+Rectangles The first piece is how to capture a small region of the screen. Interestingly, this is built into the screencapture command, which takes the coordinates and dimensions of a rectangular area to capture."><meta itemprop="datePublished" content="2021-12-02T17:25:08+08:00" />
+<meta itemprop="dateModified" content="2021-12-02T17:25:08+08:00" />
+<meta itemprop="wordCount" content="405"><meta itemprop="image" content="https://dariusf.github.io/images/favicon.png"/>
+<meta itemprop="keywords" content="" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bright-text-color: #222;
+      --link-color: #3273dc;
+       
+      --link-visited-color: #6e4bbe;
+      --background-color: #fff;
+      --text-color: #444;
+      --faded-text-color: #777;
+      --blockquote-text-color: var(--bright-text-color);
+      --faint-color: #ccc;
+    }
+
+    /* Background */ .chroma { background-color: #ffffff }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #000000 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #a90d91 }
+/* KeywordConstant */ .chroma .kc { color: #a90d91 }
+/* KeywordDeclaration */ .chroma .kd { color: #a90d91 }
+/* KeywordNamespace */ .chroma .kn { color: #a90d91 }
+/* KeywordPseudo */ .chroma .kp { color: #a90d91 }
+/* KeywordReserved */ .chroma .kr { color: #a90d91 }
+/* KeywordType */ .chroma .kt { color: #a90d91 }
+/* Name */ .chroma .n { color: #000000 }
+/* NameAttribute */ .chroma .na { color: #836c28 }
+/* NameBuiltin */ .chroma .nb { color: #a90d91 }
+/* NameBuiltinPseudo */ .chroma .bp { color: #5b269a }
+/* NameClass */ .chroma .nc { color: #3f6e75 }
+/* NameConstant */ .chroma .no { color: #000000 }
+/* NameDecorator */ .chroma .nd { color: #000000 }
+/* NameEntity */ .chroma .ni { color: #000000 }
+/* NameException */ .chroma .ne { color: #000000 }
+/* NameFunction */ .chroma .nf { color: #000000 }
+/* NameFunctionMagic */ .chroma .fm { color: #000000 }
+/* NameLabel */ .chroma .nl { color: #000000 }
+/* NameNamespace */ .chroma .nn { color: #000000 }
+/* NameOther */ .chroma .nx { color: #000000 }
+/* NameProperty */ .chroma .py { color: #000000 }
+/* NameTag */ .chroma .nt { color: #000000 }
+/* NameVariable */ .chroma .nv { color: #000000 }
+/* NameVariableClass */ .chroma .vc { color: #000000 }
+/* NameVariableGlobal */ .chroma .vg { color: #000000 }
+/* NameVariableInstance */ .chroma .vi { color: #000000 }
+/* NameVariableMagic */ .chroma .vm { color: #000000 }
+/* Literal */ .chroma .l { color: #1c01ce }
+/* LiteralDate */ .chroma .ld { color: #1c01ce }
+/* LiteralString */ .chroma .s { color: #c41a16 }
+/* LiteralStringAffix */ .chroma .sa { color: #c41a16 }
+/* LiteralStringBacktick */ .chroma .sb { color: #c41a16 }
+/* LiteralStringChar */ .chroma .sc { color: #2300ce }
+/* LiteralStringDelimiter */ .chroma .dl { color: #c41a16 }
+/* LiteralStringDoc */ .chroma .sd { color: #c41a16 }
+/* LiteralStringDouble */ .chroma .s2 { color: #c41a16 }
+/* LiteralStringEscape */ .chroma .se { color: #c41a16 }
+/* LiteralStringHeredoc */ .chroma .sh { color: #c41a16 }
+/* LiteralStringInterpol */ .chroma .si { color: #c41a16 }
+/* LiteralStringOther */ .chroma .sx { color: #c41a16 }
+/* LiteralStringRegex */ .chroma .sr { color: #c41a16 }
+/* LiteralStringSingle */ .chroma .s1 { color: #c41a16 }
+/* LiteralStringSymbol */ .chroma .ss { color: #c41a16 }
+/* LiteralNumber */ .chroma .m { color: #1c01ce }
+/* LiteralNumberBin */ .chroma .mb { color: #1c01ce }
+/* LiteralNumberFloat */ .chroma .mf { color: #1c01ce }
+/* LiteralNumberHex */ .chroma .mh { color: #1c01ce }
+/* LiteralNumberInteger */ .chroma .mi { color: #1c01ce }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #1c01ce }
+/* LiteralNumberOct */ .chroma .mo { color: #1c01ce }
+/* Operator */ .chroma .o { color: #000000 }
+/* OperatorWord */ .chroma .ow { color: #000000 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #177500 }
+/* CommentHashbang */ .chroma .ch { color: #177500 }
+/* CommentMultiline */ .chroma .cm { color: #177500 }
+/* CommentSingle */ .chroma .c1 { color: #177500 }
+/* CommentSpecial */ .chroma .cs { color: #177500 }
+/* CommentPreproc */ .chroma .cp { color: #633820 }
+/* CommentPreprocFile */ .chroma .cpf { color: #633820 }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd {  }
+/* GenericEmph */ .chroma .ge {  }
+/* GenericError */ .chroma .gr {  }
+/* GenericHeading */ .chroma .gh {  }
+/* GenericInserted */ .chroma .gi {  }
+/* GenericOutput */ .chroma .go {  }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs {  }
+/* GenericSubheading */ .chroma .gu {  }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl {  }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bright-text-color: #eee;
+      --link-color: #8cc2dd;
+      --link-visited-color: #b9a9e0;
+      --background-color: #333;
+      --text-color: #ddd;
+      --faded-text-color: #aaa;
+      --slightly-dimmer-text-color: #ccc;
+      --blockquote-text-color: var(--slightly-dimmer-text-color);
+      --faint-color: #666;
+
+      color-scheme: dark;  
+    }
+
+     
+
+    img.diagram {
+      filter: invert(.8);
+    }
+
+    /* Background */ .chroma { color: #e2e4e5; background-color: #282a36 }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #ff5c57 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #ff6ac1 }
+/* KeywordConstant */ .chroma .kc { color: #ff6ac1 }
+/* KeywordDeclaration */ .chroma .kd { color: #ff5c57 }
+/* KeywordNamespace */ .chroma .kn { color: #ff6ac1 }
+/* KeywordPseudo */ .chroma .kp { color: #ff6ac1 }
+/* KeywordReserved */ .chroma .kr { color: #ff6ac1 }
+/* KeywordType */ .chroma .kt { color: #9aedfe }
+/* Name */ .chroma .n {  }
+/* NameAttribute */ .chroma .na { color: #57c7ff }
+/* NameBuiltin */ .chroma .nb { color: #ff5c57 }
+/* NameBuiltinPseudo */ .chroma .bp {  }
+/* NameClass */ .chroma .nc { color: #f3f99d }
+/* NameConstant */ .chroma .no { color: #ff9f43 }
+/* NameDecorator */ .chroma .nd { color: #ff9f43 }
+/* NameEntity */ .chroma .ni {  }
+/* NameException */ .chroma .ne {  }
+/* NameFunction */ .chroma .nf { color: #57c7ff }
+/* NameFunctionMagic */ .chroma .fm {  }
+/* NameLabel */ .chroma .nl { color: #ff5c57 }
+/* NameNamespace */ .chroma .nn {  }
+/* NameOther */ .chroma .nx {  }
+/* NameProperty */ .chroma .py {  }
+/* NameTag */ .chroma .nt { color: #ff6ac1 }
+/* NameVariable */ .chroma .nv { color: #ff5c57 }
+/* NameVariableClass */ .chroma .vc { color: #ff5c57 }
+/* NameVariableGlobal */ .chroma .vg { color: #ff5c57 }
+/* NameVariableInstance */ .chroma .vi { color: #ff5c57 }
+/* NameVariableMagic */ .chroma .vm {  }
+/* Literal */ .chroma .l {  }
+/* LiteralDate */ .chroma .ld {  }
+/* LiteralString */ .chroma .s { color: #5af78e }
+/* LiteralStringAffix */ .chroma .sa { color: #5af78e }
+/* LiteralStringBacktick */ .chroma .sb { color: #5af78e }
+/* LiteralStringChar */ .chroma .sc { color: #5af78e }
+/* LiteralStringDelimiter */ .chroma .dl { color: #5af78e }
+/* LiteralStringDoc */ .chroma .sd { color: #5af78e }
+/* LiteralStringDouble */ .chroma .s2 { color: #5af78e }
+/* LiteralStringEscape */ .chroma .se { color: #5af78e }
+/* LiteralStringHeredoc */ .chroma .sh { color: #5af78e }
+/* LiteralStringInterpol */ .chroma .si { color: #5af78e }
+/* LiteralStringOther */ .chroma .sx { color: #5af78e }
+/* LiteralStringRegex */ .chroma .sr { color: #5af78e }
+/* LiteralStringSingle */ .chroma .s1 { color: #5af78e }
+/* LiteralStringSymbol */ .chroma .ss { color: #5af78e }
+/* LiteralNumber */ .chroma .m { color: #ff9f43 }
+/* LiteralNumberBin */ .chroma .mb { color: #ff9f43 }
+/* LiteralNumberFloat */ .chroma .mf { color: #ff9f43 }
+/* LiteralNumberHex */ .chroma .mh { color: #ff9f43 }
+/* LiteralNumberInteger */ .chroma .mi { color: #ff9f43 }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #ff9f43 }
+/* LiteralNumberOct */ .chroma .mo { color: #ff9f43 }
+/* Operator */ .chroma .o { color: #ff6ac1 }
+/* OperatorWord */ .chroma .ow { color: #ff6ac1 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #78787e }
+/* CommentHashbang */ .chroma .ch { color: #78787e }
+/* CommentMultiline */ .chroma .cm { color: #78787e }
+/* CommentSingle */ .chroma .c1 { color: #78787e }
+/* CommentSpecial */ .chroma .cs { color: #78787e }
+/* CommentPreproc */ .chroma .cp { color: #78787e }
+/* CommentPreprocFile */ .chroma .cpf { color: #78787e }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd { color: #ff5c57 }
+/* GenericEmph */ .chroma .ge { text-decoration: underline }
+/* GenericError */ .chroma .gr { color: #ff5c57 }
+/* GenericHeading */ .chroma .gh { font-weight: bold }
+/* GenericInserted */ .chroma .gi { font-weight: bold }
+/* GenericOutput */ .chroma .go { color: #43454f }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs { font-style: italic }
+/* GenericSubheading */ .chroma .gu { font-weight: bold }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl { text-decoration: underline }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: var(--bright-text-color);
+  }
+
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    font-family: Fira Code, Inconsolata, monospace;
+     
+    font-size: 14px;
+  }
+
+   
+  p code {
+     
+    border-radius: 4px;
+    border: solid var(--faint-color) 1px;
+    margin: 2px;
+    padding: 3px;
+  }
+
+   
+  pre code {
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+  }
+
+  pre {
+    border-radius: 10px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--blockquote-text-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: var(--faded-text-color);
+    font-size: small;
+  }
+
+  .deemphasize {
+    color: var(--faded-text-color);
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+    text-align: right;
+    margin-right: 20px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--link-visited-color);
+  }
+</style>
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Darius Foo</h2>
+</a>
+<nav>
+
+<a href="/blog">Blog</a>
+
+
+<a href="/research/">Research</a>
+
+<a href="/work/">Work</a>
+
+<a href="/other/">Other</a>
+
+</nav>
+</header>
+  <main>
+
+<h1>Watching the screen for changes in macOS</h1>
+<p>
+    <time datetime='2021-12-02' pubdate>
+      2 Dec, 2021
+    </time>
+</p>
+
+
+<content>
+  <p>Sometimes all you need is for your computer to tell you when something on the screen changes.
+Maybe you&rsquo;re invigilating an exam over Zoom and your eyes are drying out from staring at the chat window, which for some reason doesn&rsquo;t have any notification settings.</p>
+<h1 id="rectangles">Rectangles</h1>
+<p>The first piece is how to capture a small region of the screen.
+Interestingly, this is <a href="https://superuser.com/questions/875342/how-can-i-repeatedly-take-a-screenshot-of-a-specific-area-in-os-x">built into</a> the <code>screencapture</code> command, which takes the coordinates and dimensions of a rectangular area to capture.</p>
+<p>We could fudge around until we get the right coordinates, but there&rsquo;s a better way in AppKit.
+This tiny Objective-C program (from <a href="https://macscripter.net/viewtopic.php?pid=130549#p130549">here</a>) prints the current coordinates of the mouse (with the origin at the top-left).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-objc" data-lang="objc"><span class="cp">#import &lt;AppKit/AppKit.h&gt;
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+   <span class="n">NSAutoreleasePool</span> <span class="o">*</span> <span class="n">pool</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSAutoreleasePool</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+
+   <span class="n">NSRect</span> <span class="n">e</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">frame</span><span class="p">];</span>
+   <span class="kt">int</span> <span class="n">H</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">;</span>
+
+   <span class="n">NSPoint</span> <span class="n">mouseLoc</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSEvent</span> <span class="n">mouseLocation</span><span class="p">];</span>
+   <span class="c1">// origin is now at the top left
+</span><span class="c1"></span>   <span class="n">NSString</span><span class="o">*</span> <span class="n">locString</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&#34;%d</span><span class="se">\n</span><span class="s">%d&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">mouseLoc</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">H</span> <span class="o">-</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">mouseLoc</span><span class="p">.</span><span class="n">y</span><span class="p">];</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">[</span><span class="n">locString</span> <span class="n">UTF8String</span><span class="p">]);</span>
+
+   <span class="p">[</span><span class="n">pool</span> <span class="n">drain</span><span class="p">];</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">gcc -o MouseLocation MouseLocation.m -framework AppKit
+</code></pre></div><h1 id="notifications">Notifications</h1>
+<p>We also need a way to show a notification.
+A simple way is to use <a href="https://iterm2.com/documentation-escape-codes.html">iTerm-specific escape codes</a>; we simply surround the text we want to show with them.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">notify<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s1">$&#39;\e]9;&#39;</span><span class="nv">$1</span><span class="s1">$&#39;\007&#39;</span>
+<span class="o">}</span>
+</code></pre></div><p>We could also use <a href="https://developer.apple.com/library/archive/documentation/LanguagesUtilities/Conceptual/MacAutomationScriptingGuide/DisplayNotifications.html">AppleScript</a>, which allows us to provide a title.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">notify<span class="o">()</span> <span class="o">{</span>
+  osascript -e <span class="s2">&#34;display notification \&#34;</span><span class="nv">$2</span><span class="s2">\&#34; with title \&#34;</span><span class="nv">$1</span><span class="s2">\&#34;&#34;</span>
+<span class="o">}</span>
+</code></pre></div><h1 id="glue">Glue</h1>
+<p>Everything is glued together with this terrible script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/usr/bin/env bash
+</span><span class="cp"></span>
+<span class="nv">tlx</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">tly</span><span class="o">=</span><span class="nv">$2</span>
+<span class="nv">brx</span><span class="o">=</span><span class="nv">$3</span>
+<span class="nv">bry</span><span class="o">=</span><span class="nv">$4</span>
+
+capture<span class="o">()</span> <span class="o">{</span>
+  screencapture -x -R <span class="nv">$tlx</span>,<span class="nv">$tly</span>,<span class="k">$((</span><span class="nv">$brx</span><span class="o">-</span><span class="nv">$tlx</span><span class="k">))</span>,<span class="k">$((</span><span class="nv">$bry</span><span class="o">-</span><span class="nv">$tly</span><span class="k">))</span> /tmp/screen.png
+<span class="o">}</span>
+
+<span class="nb">set</span> -x
+
+capture
+<span class="nv">res</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>md5 /tmp/screen.png<span class="k">)</span><span class="s2">&#34;</span>
+<span class="nv">prev</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$res</span><span class="s2">&#34;</span>
+
+<span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+  sleep <span class="m">5</span>
+  capture
+  <span class="nv">res</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>md5 /tmp/screen.png<span class="k">)</span><span class="s2">&#34;</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$res</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;</span><span class="nv">$prev</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    notify <span class="s2">&#34;Something changed!&#34;</span>
+    <span class="nb">exit</span> <span class="m">0</span>
+  <span class="k">fi</span>
+  <span class="nv">prev</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$res</span><span class="s2">&#34;</span>
+<span class="k">done</span>
+</code></pre></div><p>The arguments are the coordinates we get from running <code>./MouseLocation</code> twice, with the mouse cursor at the top-left and bottom-right of the rectangle we want to watch.</p>
+<p>One thing that appears silly to do (and is very much in the spirit of this post) is the use of MD5 for comparing images.
+We want to be notified if <em>anything</em> changes, and for this use case a more sophisticated image diff like ImageMagick&rsquo;s <code>compare</code> wouldn&rsquo;t add much.
+<code>screencapture</code> is thankfully deterministic as well, so this all works.
+For something more resilient to small variations, you might want to use one of the <a href="https://imagemagick.org/script/compare.php">metrics</a> offered by ImageMagick.</p>
+<h1 id="verdict">Verdict</h1>
+<p>This is really janky but works surprisingly well.</p>
+
+</content>
+<p>
+  
+</p>
+
+  </main>
+  <footer>
+</footer>
+
+    
+</body>
+
+</html>

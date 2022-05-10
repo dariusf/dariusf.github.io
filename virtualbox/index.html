@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="https://dariusf.github.io/images/favicon.png" />
+<title>From Docker to VirtualBox | Darius Foo</title>
+<meta name="title" content="From Docker to VirtualBox" />
+<meta name="description" content="Docker is great for quickly dropping into a Linux environment, but isn&rsquo;t compatible with certain obscure use cases (mine being testing version-locked Java GUIs).
+After a period of unsuccessfully installing random packages and toggling flags, I figured the next-easiest thing to do was to use VirtualBox. Perhaps surprisingly, it comes with an able CLI. Here&rsquo;s how it compares to Docker&rsquo;s.
+Getting Started brew install --cask virtualbox There&rsquo;s no equivalent of docker run -it to start a VM and give me a shell; we&rsquo;ll have to use ssh." />
+<meta name="keywords" content="" />
+
+
+<meta property="og:title" content="From Docker to VirtualBox" />
+<meta property="og:description" content="Docker is great for quickly dropping into a Linux environment, but isn&rsquo;t compatible with certain obscure use cases (mine being testing version-locked Java GUIs).
+After a period of unsuccessfully installing random packages and toggling flags, I figured the next-easiest thing to do was to use VirtualBox. Perhaps surprisingly, it comes with an able CLI. Here&rsquo;s how it compares to Docker&rsquo;s.
+Getting Started brew install --cask virtualbox There&rsquo;s no equivalent of docker run -it to start a VM and give me a shell; we&rsquo;ll have to use ssh." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dariusf.github.io/virtualbox/" /><meta property="og:image" content="https://dariusf.github.io/images/favicon.png"/><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2021-09-13T11:07:06+08:00" />
+<meta property="article:modified_time" content="2021-09-13T11:07:06+08:00" /><meta property="og:site_name" content="Darius Foo" />
+
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dariusf.github.io/images/favicon.png"/>
+
+<meta name="twitter:title" content="From Docker to VirtualBox"/>
+<meta name="twitter:description" content="Docker is great for quickly dropping into a Linux environment, but isn&rsquo;t compatible with certain obscure use cases (mine being testing version-locked Java GUIs).
+After a period of unsuccessfully installing random packages and toggling flags, I figured the next-easiest thing to do was to use VirtualBox. Perhaps surprisingly, it comes with an able CLI. Here&rsquo;s how it compares to Docker&rsquo;s.
+Getting Started brew install --cask virtualbox There&rsquo;s no equivalent of docker run -it to start a VM and give me a shell; we&rsquo;ll have to use ssh."/>
+
+
+
+<meta itemprop="name" content="From Docker to VirtualBox">
+<meta itemprop="description" content="Docker is great for quickly dropping into a Linux environment, but isn&rsquo;t compatible with certain obscure use cases (mine being testing version-locked Java GUIs).
+After a period of unsuccessfully installing random packages and toggling flags, I figured the next-easiest thing to do was to use VirtualBox. Perhaps surprisingly, it comes with an able CLI. Here&rsquo;s how it compares to Docker&rsquo;s.
+Getting Started brew install --cask virtualbox There&rsquo;s no equivalent of docker run -it to start a VM and give me a shell; we&rsquo;ll have to use ssh."><meta itemprop="datePublished" content="2021-09-13T11:07:06+08:00" />
+<meta itemprop="dateModified" content="2021-09-13T11:07:06+08:00" />
+<meta itemprop="wordCount" content="515"><meta itemprop="image" content="https://dariusf.github.io/images/favicon.png"/>
+<meta itemprop="keywords" content="" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bright-text-color: #222;
+      --link-color: #3273dc;
+       
+      --link-visited-color: #6e4bbe;
+      --background-color: #fff;
+      --text-color: #444;
+      --faded-text-color: #777;
+      --blockquote-text-color: var(--bright-text-color);
+      --faint-color: #ccc;
+    }
+
+    /* Background */ .chroma { background-color: #ffffff }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #000000 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #a90d91 }
+/* KeywordConstant */ .chroma .kc { color: #a90d91 }
+/* KeywordDeclaration */ .chroma .kd { color: #a90d91 }
+/* KeywordNamespace */ .chroma .kn { color: #a90d91 }
+/* KeywordPseudo */ .chroma .kp { color: #a90d91 }
+/* KeywordReserved */ .chroma .kr { color: #a90d91 }
+/* KeywordType */ .chroma .kt { color: #a90d91 }
+/* Name */ .chroma .n { color: #000000 }
+/* NameAttribute */ .chroma .na { color: #836c28 }
+/* NameBuiltin */ .chroma .nb { color: #a90d91 }
+/* NameBuiltinPseudo */ .chroma .bp { color: #5b269a }
+/* NameClass */ .chroma .nc { color: #3f6e75 }
+/* NameConstant */ .chroma .no { color: #000000 }
+/* NameDecorator */ .chroma .nd { color: #000000 }
+/* NameEntity */ .chroma .ni { color: #000000 }
+/* NameException */ .chroma .ne { color: #000000 }
+/* NameFunction */ .chroma .nf { color: #000000 }
+/* NameFunctionMagic */ .chroma .fm { color: #000000 }
+/* NameLabel */ .chroma .nl { color: #000000 }
+/* NameNamespace */ .chroma .nn { color: #000000 }
+/* NameOther */ .chroma .nx { color: #000000 }
+/* NameProperty */ .chroma .py { color: #000000 }
+/* NameTag */ .chroma .nt { color: #000000 }
+/* NameVariable */ .chroma .nv { color: #000000 }
+/* NameVariableClass */ .chroma .vc { color: #000000 }
+/* NameVariableGlobal */ .chroma .vg { color: #000000 }
+/* NameVariableInstance */ .chroma .vi { color: #000000 }
+/* NameVariableMagic */ .chroma .vm { color: #000000 }
+/* Literal */ .chroma .l { color: #1c01ce }
+/* LiteralDate */ .chroma .ld { color: #1c01ce }
+/* LiteralString */ .chroma .s { color: #c41a16 }
+/* LiteralStringAffix */ .chroma .sa { color: #c41a16 }
+/* LiteralStringBacktick */ .chroma .sb { color: #c41a16 }
+/* LiteralStringChar */ .chroma .sc { color: #2300ce }
+/* LiteralStringDelimiter */ .chroma .dl { color: #c41a16 }
+/* LiteralStringDoc */ .chroma .sd { color: #c41a16 }
+/* LiteralStringDouble */ .chroma .s2 { color: #c41a16 }
+/* LiteralStringEscape */ .chroma .se { color: #c41a16 }
+/* LiteralStringHeredoc */ .chroma .sh { color: #c41a16 }
+/* LiteralStringInterpol */ .chroma .si { color: #c41a16 }
+/* LiteralStringOther */ .chroma .sx { color: #c41a16 }
+/* LiteralStringRegex */ .chroma .sr { color: #c41a16 }
+/* LiteralStringSingle */ .chroma .s1 { color: #c41a16 }
+/* LiteralStringSymbol */ .chroma .ss { color: #c41a16 }
+/* LiteralNumber */ .chroma .m { color: #1c01ce }
+/* LiteralNumberBin */ .chroma .mb { color: #1c01ce }
+/* LiteralNumberFloat */ .chroma .mf { color: #1c01ce }
+/* LiteralNumberHex */ .chroma .mh { color: #1c01ce }
+/* LiteralNumberInteger */ .chroma .mi { color: #1c01ce }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #1c01ce }
+/* LiteralNumberOct */ .chroma .mo { color: #1c01ce }
+/* Operator */ .chroma .o { color: #000000 }
+/* OperatorWord */ .chroma .ow { color: #000000 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #177500 }
+/* CommentHashbang */ .chroma .ch { color: #177500 }
+/* CommentMultiline */ .chroma .cm { color: #177500 }
+/* CommentSingle */ .chroma .c1 { color: #177500 }
+/* CommentSpecial */ .chroma .cs { color: #177500 }
+/* CommentPreproc */ .chroma .cp { color: #633820 }
+/* CommentPreprocFile */ .chroma .cpf { color: #633820 }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd {  }
+/* GenericEmph */ .chroma .ge {  }
+/* GenericError */ .chroma .gr {  }
+/* GenericHeading */ .chroma .gh {  }
+/* GenericInserted */ .chroma .gi {  }
+/* GenericOutput */ .chroma .go {  }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs {  }
+/* GenericSubheading */ .chroma .gu {  }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl {  }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bright-text-color: #eee;
+      --link-color: #8cc2dd;
+      --link-visited-color: #b9a9e0;
+      --background-color: #333;
+      --text-color: #ddd;
+      --faded-text-color: #aaa;
+      --slightly-dimmer-text-color: #ccc;
+      --blockquote-text-color: var(--slightly-dimmer-text-color);
+      --faint-color: #666;
+
+      color-scheme: dark;  
+    }
+
+     
+
+    img.diagram {
+      filter: invert(.8);
+    }
+
+    /* Background */ .chroma { color: #e2e4e5; background-color: #282a36 }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #ff5c57 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #ff6ac1 }
+/* KeywordConstant */ .chroma .kc { color: #ff6ac1 }
+/* KeywordDeclaration */ .chroma .kd { color: #ff5c57 }
+/* KeywordNamespace */ .chroma .kn { color: #ff6ac1 }
+/* KeywordPseudo */ .chroma .kp { color: #ff6ac1 }
+/* KeywordReserved */ .chroma .kr { color: #ff6ac1 }
+/* KeywordType */ .chroma .kt { color: #9aedfe }
+/* Name */ .chroma .n {  }
+/* NameAttribute */ .chroma .na { color: #57c7ff }
+/* NameBuiltin */ .chroma .nb { color: #ff5c57 }
+/* NameBuiltinPseudo */ .chroma .bp {  }
+/* NameClass */ .chroma .nc { color: #f3f99d }
+/* NameConstant */ .chroma .no { color: #ff9f43 }
+/* NameDecorator */ .chroma .nd { color: #ff9f43 }
+/* NameEntity */ .chroma .ni {  }
+/* NameException */ .chroma .ne {  }
+/* NameFunction */ .chroma .nf { color: #57c7ff }
+/* NameFunctionMagic */ .chroma .fm {  }
+/* NameLabel */ .chroma .nl { color: #ff5c57 }
+/* NameNamespace */ .chroma .nn {  }
+/* NameOther */ .chroma .nx {  }
+/* NameProperty */ .chroma .py {  }
+/* NameTag */ .chroma .nt { color: #ff6ac1 }
+/* NameVariable */ .chroma .nv { color: #ff5c57 }
+/* NameVariableClass */ .chroma .vc { color: #ff5c57 }
+/* NameVariableGlobal */ .chroma .vg { color: #ff5c57 }
+/* NameVariableInstance */ .chroma .vi { color: #ff5c57 }
+/* NameVariableMagic */ .chroma .vm {  }
+/* Literal */ .chroma .l {  }
+/* LiteralDate */ .chroma .ld {  }
+/* LiteralString */ .chroma .s { color: #5af78e }
+/* LiteralStringAffix */ .chroma .sa { color: #5af78e }
+/* LiteralStringBacktick */ .chroma .sb { color: #5af78e }
+/* LiteralStringChar */ .chroma .sc { color: #5af78e }
+/* LiteralStringDelimiter */ .chroma .dl { color: #5af78e }
+/* LiteralStringDoc */ .chroma .sd { color: #5af78e }
+/* LiteralStringDouble */ .chroma .s2 { color: #5af78e }
+/* LiteralStringEscape */ .chroma .se { color: #5af78e }
+/* LiteralStringHeredoc */ .chroma .sh { color: #5af78e }
+/* LiteralStringInterpol */ .chroma .si { color: #5af78e }
+/* LiteralStringOther */ .chroma .sx { color: #5af78e }
+/* LiteralStringRegex */ .chroma .sr { color: #5af78e }
+/* LiteralStringSingle */ .chroma .s1 { color: #5af78e }
+/* LiteralStringSymbol */ .chroma .ss { color: #5af78e }
+/* LiteralNumber */ .chroma .m { color: #ff9f43 }
+/* LiteralNumberBin */ .chroma .mb { color: #ff9f43 }
+/* LiteralNumberFloat */ .chroma .mf { color: #ff9f43 }
+/* LiteralNumberHex */ .chroma .mh { color: #ff9f43 }
+/* LiteralNumberInteger */ .chroma .mi { color: #ff9f43 }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #ff9f43 }
+/* LiteralNumberOct */ .chroma .mo { color: #ff9f43 }
+/* Operator */ .chroma .o { color: #ff6ac1 }
+/* OperatorWord */ .chroma .ow { color: #ff6ac1 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #78787e }
+/* CommentHashbang */ .chroma .ch { color: #78787e }
+/* CommentMultiline */ .chroma .cm { color: #78787e }
+/* CommentSingle */ .chroma .c1 { color: #78787e }
+/* CommentSpecial */ .chroma .cs { color: #78787e }
+/* CommentPreproc */ .chroma .cp { color: #78787e }
+/* CommentPreprocFile */ .chroma .cpf { color: #78787e }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd { color: #ff5c57 }
+/* GenericEmph */ .chroma .ge { text-decoration: underline }
+/* GenericError */ .chroma .gr { color: #ff5c57 }
+/* GenericHeading */ .chroma .gh { font-weight: bold }
+/* GenericInserted */ .chroma .gi { font-weight: bold }
+/* GenericOutput */ .chroma .go { color: #43454f }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs { font-style: italic }
+/* GenericSubheading */ .chroma .gu { font-weight: bold }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl { text-decoration: underline }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: var(--bright-text-color);
+  }
+
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    font-family: Fira Code, Inconsolata, monospace;
+     
+    font-size: 14px;
+  }
+
+   
+  p code {
+     
+    border-radius: 4px;
+    border: solid var(--faint-color) 1px;
+    margin: 2px;
+    padding: 3px;
+  }
+
+   
+  pre code {
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+  }
+
+  pre {
+    border-radius: 10px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--blockquote-text-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: var(--faded-text-color);
+    font-size: small;
+  }
+
+  .deemphasize {
+    color: var(--faded-text-color);
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+    text-align: right;
+    margin-right: 20px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--link-visited-color);
+  }
+</style>
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Darius Foo</h2>
+</a>
+<nav>
+
+<a href="/blog">Blog</a>
+
+
+<a href="/research/">Research</a>
+
+<a href="/work/">Work</a>
+
+<a href="/other/">Other</a>
+
+</nav>
+</header>
+  <main>
+
+<h1>From Docker to VirtualBox</h1>
+<p>
+    <time datetime='2021-09-13' pubdate>
+      13 Sep, 2021
+    </time>
+</p>
+
+
+<content>
+  <p>Docker is great for quickly dropping into a Linux environment, but isn&rsquo;t compatible with certain obscure use cases (mine being testing version-locked Java GUIs).</p>
+<p>After a period of unsuccessfully installing random packages and toggling flags, I figured the next-easiest thing to do was to use VirtualBox.
+Perhaps surprisingly, it comes with an able CLI.
+Here&rsquo;s how it compares to Docker&rsquo;s.</p>
+<h2 id="getting-started">Getting Started</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">brew install --cask virtualbox
+</code></pre></div><p>There&rsquo;s no equivalent of <code>docker run -it</code> to <em>start a VM and give me a shell</em>; we&rsquo;ll have to use <code>ssh</code>.</p>
+<!--
+https://www.howtogeek.com/122641/how-to-forward-ports-to-a-virtual-machine-and-use-it-as-a-server/
+https://dev.to/developertharun/easy-way-to-ssh-into-virtualbox-machine-any-os-just-x-steps-5d9i
+-->
+<p>We import the image, the equivalent of <code>docker load</code>. This takes about a minute, for a 4GB image.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">vboxmanage import vm.ova
+
+<span class="c1"># `vm` from now on is the name of our virtual machine, which we can confirm with</span>
+vboxmanage list vms
+
+<span class="c1"># port forward, so we can use ssh. the first port is the host&#39;s</span>
+vboxmanage modifyvm vm --natpf1 <span class="s2">&#34;ssh,tcp,,2222,,22&#34;</span>
+
+<span class="c1"># power it on</span>
+vboxmanage startvm vm
+vboxmanage startvm vm --type headless
+
+<span class="c1"># now it appears here</span>
+vboxmanage list runningvms
+
+<span class="c1"># wait for the VM to start, then</span>
+ssh -p <span class="m">2222</span> user@127.0.0.1
+</code></pre></div><p>At this point we can interactively get the VM into the state we want, or write a script to automate it. The subcommand for the latter is <code>guestcontrol</code>, similar to <code>docker exec</code>.</p>
+<!--
+https://apple.stackexchange.com/questions/354985/best-way-to-run-shell-commands-on-virtualbox-guest
+-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">vboxmanage guestcontrol vm run /bin/sh --username user --password pass --verbose --wait-stdout --wait-stderr -- -c <span class="s2">&#34;echo test&#34;</span>
+</code></pre></div><p>The docs say that stdin is forwarded, but it seems signals aren&rsquo;t, so I couldn&rsquo;t get a piped shell script to run. We can work around that somewhat with the <code>guestcontrol copyto</code> subcommand.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">vboxmanage guestcontrol vm copyto --verbose --username user --password pass host-dir --target-directory /home/vm
+</code></pre></div><!-- https://stackoverflow.com/questions/36662679/is-there-a-workaround-to-copy-files-to-a-vm -->
+<p>When we&rsquo;re done, we&rsquo;ll want to power the VM off, export the new state back to an ova file if necessary, then delete it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">vboxmanage controlvm vm poweroff
+vboxmanage <span class="nb">export</span> vm -o vm1.ova
+vboxmanage unregistervm vm --delete
+</code></pre></div><h2 id="mounted-volumes-aka-shared-folders">Mounted Volumes (aka Shared Folders)</h2>
+<!--
+https://askubuntu.com/questions/161759/how-to-access-a-shared-folder-in-virtualbox
+https://ryansechrest.com/2012/10/permanently-share-a-folder-between-host-mac-and-guest-linux-os-using-virtualbox/
+-->
+<p>I don&rsquo;t actually remember what the Guest Additions CD contributes to this, but it seems we don&rsquo;t need it here.</p>
+<p>First, we tell VirtualBox about the shared folder. We&rsquo;ll have to power off for this.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">vboxmanage sharedfolder add vm --name share --hostpath ~/Downloads/shared
+
+<span class="c1"># we see it here</span>
+vboxmanage showvminfo vm
+</code></pre></div><p>Inside the VM, we get to pick where we want to mount the shared folder.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># create the directory we want to mount at</span>
+mkdir /home/user/shared
+
+<span class="c1"># add ourselves to the vboxsf group</span>
+sudo usermod -a -G vboxsf user
+
+sudo mount -t vboxsf -o <span class="nv">uid</span><span class="o">=</span><span class="k">$(</span>id -u<span class="k">)</span>,gid<span class="o">=</span><span class="k">$(</span>id -g<span class="k">)</span>,rw share /home/user/shared  
+</code></pre></div><p>Powering the VM off unmounts the shared folder, but we can also do it manually.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">sudo umount /home/user/shared
+</code></pre></div><h2 id="snapshots">Snapshots</h2>
+<p>I&rsquo;ve not found many opportunities to use <a href="https://docs.docker.com/engine/reference/commandline/checkpoint/">docker checkpoint</a>, but <a href="https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/vboxmanage-snapshot.html">snapshots</a> get a special mention because they&rsquo;re a very useful part of VirtualBox, and the interface is nice and intuitive.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">vboxmanage snapshot vm list
+vboxmanage snapshot vm take s
+vboxmanage snapshot vm restore s
+vboxmanage snapshot vm delete s
+</code></pre></div><h2 id="verdict">Verdict</h2>
+<p>Certainly not as easy as Docker, but it&rsquo;s FOSS and easy enough to automate. It&rsquo;s a great alternative if you just can&rsquo;t get Docker to work or need more isolation or reproducibility.</p>
+<!-- https://superuser.com/questions/584100/why-should-i-use-vagrant-instead-of-just-virtualbox -->
+
+</content>
+<p>
+  
+</p>
+
+  </main>
+  <footer>
+</footer>
+
+    
+</body>
+
+</html>

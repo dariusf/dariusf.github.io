@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="https://dariusf.github.io/images/favicon.png" />
+<title>Menhir tips | Darius Foo</title>
+<meta name="title" content="Menhir tips" />
+<meta name="description" content="test
+OCaml has mature tools for writing parsers, but I&rsquo;ve had to puzzle out more than once how to integrate and use them effectively &ndash; there are a number of moving parts, each with their own documentation, and a good amount of plumbing that has to be copied into every project.
+This post will give a big-picture overview of how all the pieces work in concert and how to use their key features." />
+<meta name="keywords" content="" />
+
+
+<meta property="og:title" content="Menhir tips" />
+<meta property="og:description" content="test
+OCaml has mature tools for writing parsers, but I&rsquo;ve had to puzzle out more than once how to integrate and use them effectively &ndash; there are a number of moving parts, each with their own documentation, and a good amount of plumbing that has to be copied into every project.
+This post will give a big-picture overview of how all the pieces work in concert and how to use their key features." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dariusf.github.io/drafts/menhir-tips/" /><meta property="og:image" content="https://dariusf.github.io/images/favicon.png"/><meta property="article:section" content="drafts" />
+<meta property="article:published_time" content="2021-08-02T14:18:06+08:00" />
+<meta property="article:modified_time" content="2021-08-02T14:18:06+08:00" /><meta property="og:site_name" content="Darius Foo" />
+
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dariusf.github.io/images/favicon.png"/>
+
+<meta name="twitter:title" content="Menhir tips"/>
+<meta name="twitter:description" content="test
+OCaml has mature tools for writing parsers, but I&rsquo;ve had to puzzle out more than once how to integrate and use them effectively &ndash; there are a number of moving parts, each with their own documentation, and a good amount of plumbing that has to be copied into every project.
+This post will give a big-picture overview of how all the pieces work in concert and how to use their key features."/>
+
+
+
+<meta itemprop="name" content="Menhir tips">
+<meta itemprop="description" content="test
+OCaml has mature tools for writing parsers, but I&rsquo;ve had to puzzle out more than once how to integrate and use them effectively &ndash; there are a number of moving parts, each with their own documentation, and a good amount of plumbing that has to be copied into every project.
+This post will give a big-picture overview of how all the pieces work in concert and how to use their key features."><meta itemprop="datePublished" content="2021-08-02T14:18:06+08:00" />
+<meta itemprop="dateModified" content="2021-08-02T14:18:06+08:00" />
+<meta itemprop="wordCount" content="1105"><meta itemprop="image" content="https://dariusf.github.io/images/favicon.png"/>
+<meta itemprop="keywords" content="" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bright-text-color: #222;
+      --link-color: #3273dc;
+       
+      --link-visited-color: #6e4bbe;
+      --background-color: #fff;
+      --text-color: #444;
+      --faded-text-color: #777;
+      --blockquote-text-color: var(--bright-text-color);
+      --faint-color: #ccc;
+    }
+
+    /* Background */ .chroma { background-color: #ffffff }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #000000 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #a90d91 }
+/* KeywordConstant */ .chroma .kc { color: #a90d91 }
+/* KeywordDeclaration */ .chroma .kd { color: #a90d91 }
+/* KeywordNamespace */ .chroma .kn { color: #a90d91 }
+/* KeywordPseudo */ .chroma .kp { color: #a90d91 }
+/* KeywordReserved */ .chroma .kr { color: #a90d91 }
+/* KeywordType */ .chroma .kt { color: #a90d91 }
+/* Name */ .chroma .n { color: #000000 }
+/* NameAttribute */ .chroma .na { color: #836c28 }
+/* NameBuiltin */ .chroma .nb { color: #a90d91 }
+/* NameBuiltinPseudo */ .chroma .bp { color: #5b269a }
+/* NameClass */ .chroma .nc { color: #3f6e75 }
+/* NameConstant */ .chroma .no { color: #000000 }
+/* NameDecorator */ .chroma .nd { color: #000000 }
+/* NameEntity */ .chroma .ni { color: #000000 }
+/* NameException */ .chroma .ne { color: #000000 }
+/* NameFunction */ .chroma .nf { color: #000000 }
+/* NameFunctionMagic */ .chroma .fm { color: #000000 }
+/* NameLabel */ .chroma .nl { color: #000000 }
+/* NameNamespace */ .chroma .nn { color: #000000 }
+/* NameOther */ .chroma .nx { color: #000000 }
+/* NameProperty */ .chroma .py { color: #000000 }
+/* NameTag */ .chroma .nt { color: #000000 }
+/* NameVariable */ .chroma .nv { color: #000000 }
+/* NameVariableClass */ .chroma .vc { color: #000000 }
+/* NameVariableGlobal */ .chroma .vg { color: #000000 }
+/* NameVariableInstance */ .chroma .vi { color: #000000 }
+/* NameVariableMagic */ .chroma .vm { color: #000000 }
+/* Literal */ .chroma .l { color: #1c01ce }
+/* LiteralDate */ .chroma .ld { color: #1c01ce }
+/* LiteralString */ .chroma .s { color: #c41a16 }
+/* LiteralStringAffix */ .chroma .sa { color: #c41a16 }
+/* LiteralStringBacktick */ .chroma .sb { color: #c41a16 }
+/* LiteralStringChar */ .chroma .sc { color: #2300ce }
+/* LiteralStringDelimiter */ .chroma .dl { color: #c41a16 }
+/* LiteralStringDoc */ .chroma .sd { color: #c41a16 }
+/* LiteralStringDouble */ .chroma .s2 { color: #c41a16 }
+/* LiteralStringEscape */ .chroma .se { color: #c41a16 }
+/* LiteralStringHeredoc */ .chroma .sh { color: #c41a16 }
+/* LiteralStringInterpol */ .chroma .si { color: #c41a16 }
+/* LiteralStringOther */ .chroma .sx { color: #c41a16 }
+/* LiteralStringRegex */ .chroma .sr { color: #c41a16 }
+/* LiteralStringSingle */ .chroma .s1 { color: #c41a16 }
+/* LiteralStringSymbol */ .chroma .ss { color: #c41a16 }
+/* LiteralNumber */ .chroma .m { color: #1c01ce }
+/* LiteralNumberBin */ .chroma .mb { color: #1c01ce }
+/* LiteralNumberFloat */ .chroma .mf { color: #1c01ce }
+/* LiteralNumberHex */ .chroma .mh { color: #1c01ce }
+/* LiteralNumberInteger */ .chroma .mi { color: #1c01ce }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #1c01ce }
+/* LiteralNumberOct */ .chroma .mo { color: #1c01ce }
+/* Operator */ .chroma .o { color: #000000 }
+/* OperatorWord */ .chroma .ow { color: #000000 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #177500 }
+/* CommentHashbang */ .chroma .ch { color: #177500 }
+/* CommentMultiline */ .chroma .cm { color: #177500 }
+/* CommentSingle */ .chroma .c1 { color: #177500 }
+/* CommentSpecial */ .chroma .cs { color: #177500 }
+/* CommentPreproc */ .chroma .cp { color: #633820 }
+/* CommentPreprocFile */ .chroma .cpf { color: #633820 }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd {  }
+/* GenericEmph */ .chroma .ge {  }
+/* GenericError */ .chroma .gr {  }
+/* GenericHeading */ .chroma .gh {  }
+/* GenericInserted */ .chroma .gi {  }
+/* GenericOutput */ .chroma .go {  }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs {  }
+/* GenericSubheading */ .chroma .gu {  }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl {  }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bright-text-color: #eee;
+      --link-color: #8cc2dd;
+      --link-visited-color: #b9a9e0;
+      --background-color: #333;
+      --text-color: #ddd;
+      --faded-text-color: #aaa;
+      --slightly-dimmer-text-color: #ccc;
+      --blockquote-text-color: var(--slightly-dimmer-text-color);
+      --faint-color: #666;
+
+      color-scheme: dark;  
+    }
+
+     
+
+    img.diagram {
+      filter: invert(.8);
+    }
+
+    /* Background */ .chroma { color: #e2e4e5; background-color: #282a36 }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #ff5c57 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #ff6ac1 }
+/* KeywordConstant */ .chroma .kc { color: #ff6ac1 }
+/* KeywordDeclaration */ .chroma .kd { color: #ff5c57 }
+/* KeywordNamespace */ .chroma .kn { color: #ff6ac1 }
+/* KeywordPseudo */ .chroma .kp { color: #ff6ac1 }
+/* KeywordReserved */ .chroma .kr { color: #ff6ac1 }
+/* KeywordType */ .chroma .kt { color: #9aedfe }
+/* Name */ .chroma .n {  }
+/* NameAttribute */ .chroma .na { color: #57c7ff }
+/* NameBuiltin */ .chroma .nb { color: #ff5c57 }
+/* NameBuiltinPseudo */ .chroma .bp {  }
+/* NameClass */ .chroma .nc { color: #f3f99d }
+/* NameConstant */ .chroma .no { color: #ff9f43 }
+/* NameDecorator */ .chroma .nd { color: #ff9f43 }
+/* NameEntity */ .chroma .ni {  }
+/* NameException */ .chroma .ne {  }
+/* NameFunction */ .chroma .nf { color: #57c7ff }
+/* NameFunctionMagic */ .chroma .fm {  }
+/* NameLabel */ .chroma .nl { color: #ff5c57 }
+/* NameNamespace */ .chroma .nn {  }
+/* NameOther */ .chroma .nx {  }
+/* NameProperty */ .chroma .py {  }
+/* NameTag */ .chroma .nt { color: #ff6ac1 }
+/* NameVariable */ .chroma .nv { color: #ff5c57 }
+/* NameVariableClass */ .chroma .vc { color: #ff5c57 }
+/* NameVariableGlobal */ .chroma .vg { color: #ff5c57 }
+/* NameVariableInstance */ .chroma .vi { color: #ff5c57 }
+/* NameVariableMagic */ .chroma .vm {  }
+/* Literal */ .chroma .l {  }
+/* LiteralDate */ .chroma .ld {  }
+/* LiteralString */ .chroma .s { color: #5af78e }
+/* LiteralStringAffix */ .chroma .sa { color: #5af78e }
+/* LiteralStringBacktick */ .chroma .sb { color: #5af78e }
+/* LiteralStringChar */ .chroma .sc { color: #5af78e }
+/* LiteralStringDelimiter */ .chroma .dl { color: #5af78e }
+/* LiteralStringDoc */ .chroma .sd { color: #5af78e }
+/* LiteralStringDouble */ .chroma .s2 { color: #5af78e }
+/* LiteralStringEscape */ .chroma .se { color: #5af78e }
+/* LiteralStringHeredoc */ .chroma .sh { color: #5af78e }
+/* LiteralStringInterpol */ .chroma .si { color: #5af78e }
+/* LiteralStringOther */ .chroma .sx { color: #5af78e }
+/* LiteralStringRegex */ .chroma .sr { color: #5af78e }
+/* LiteralStringSingle */ .chroma .s1 { color: #5af78e }
+/* LiteralStringSymbol */ .chroma .ss { color: #5af78e }
+/* LiteralNumber */ .chroma .m { color: #ff9f43 }
+/* LiteralNumberBin */ .chroma .mb { color: #ff9f43 }
+/* LiteralNumberFloat */ .chroma .mf { color: #ff9f43 }
+/* LiteralNumberHex */ .chroma .mh { color: #ff9f43 }
+/* LiteralNumberInteger */ .chroma .mi { color: #ff9f43 }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #ff9f43 }
+/* LiteralNumberOct */ .chroma .mo { color: #ff9f43 }
+/* Operator */ .chroma .o { color: #ff6ac1 }
+/* OperatorWord */ .chroma .ow { color: #ff6ac1 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #78787e }
+/* CommentHashbang */ .chroma .ch { color: #78787e }
+/* CommentMultiline */ .chroma .cm { color: #78787e }
+/* CommentSingle */ .chroma .c1 { color: #78787e }
+/* CommentSpecial */ .chroma .cs { color: #78787e }
+/* CommentPreproc */ .chroma .cp { color: #78787e }
+/* CommentPreprocFile */ .chroma .cpf { color: #78787e }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd { color: #ff5c57 }
+/* GenericEmph */ .chroma .ge { text-decoration: underline }
+/* GenericError */ .chroma .gr { color: #ff5c57 }
+/* GenericHeading */ .chroma .gh { font-weight: bold }
+/* GenericInserted */ .chroma .gi { font-weight: bold }
+/* GenericOutput */ .chroma .go { color: #43454f }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs { font-style: italic }
+/* GenericSubheading */ .chroma .gu { font-weight: bold }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl { text-decoration: underline }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: var(--bright-text-color);
+  }
+
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    font-family: Fira Code, Inconsolata, monospace;
+     
+    font-size: 14px;
+  }
+
+   
+  p code {
+     
+    border-radius: 4px;
+    border: solid var(--faint-color) 1px;
+    margin: 2px;
+    padding: 3px;
+  }
+
+   
+  pre code {
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+  }
+
+  pre {
+    border-radius: 10px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--blockquote-text-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: var(--faded-text-color);
+    font-size: small;
+  }
+
+  .deemphasize {
+    color: var(--faded-text-color);
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+    text-align: right;
+    margin-right: 20px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--link-visited-color);
+  }
+</style>
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Darius Foo</h2>
+</a>
+<nav>
+
+<a href="/blog">Blog</a>
+
+
+<a href="/research/">Research</a>
+
+<a href="/work/">Work</a>
+
+<a href="/other/">Other</a>
+
+</nav>
+</header>
+  <main>
+
+<h1>Menhir tips</h1>
+<p>
+    <time datetime='2021-08-02' pubdate>
+      2 Aug, 2021
+    </time>
+</p>
+
+
+<content>
+  <p>test</p>
+<p>OCaml has mature tools for writing parsers, but I&rsquo;ve had to puzzle out more than once how to integrate and use them effectively &ndash; there are a number of moving parts, each with their own documentation, and a good amount of plumbing that has to be copied into every project.</p>
+<p>This post will give a big-picture overview of how all the pieces work in concert and how to use their key features.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#getting-started">Getting started</a></li>
+    <li><a href="#ocamllex">ocamllex</a>
+      <ul>
+        <li><a href="#sedlex">sedlex?</a></li>
+      </ul>
+    </li>
+    <li><a href="#menhir">Menhir</a>
+      <ul>
+        <li><a href="#error-messages">Error messages</a></li>
+        <li><a href="#source-locations">Source locations</a></li>
+        <li><a href="#lexer-debugging">Lexer debugging</a></li>
+        <li><a href="#parser-debugging">Parser debugging</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+
+<hr>
+<h2 id="getting-started">Getting started</h2>
+<p>For a tutorial, see the <a href="https://dev.realworldocaml.org/parsing-with-ocamllex-and-menhir.html">Real World OCaml chapter</a>.</p>
+<p>If you&rsquo;ve read that and just want an example project as a starting point, here are some:</p>
+<ul>
+<li><a href="https://gist.github.com/zehnpaard/124a9c6df632839d01b4fede8684ddd8">Menhir + ocamllex + indentation-sensitivity</a></li>
+<li><a href="https://github.com/amblafont/sedlex-menhir">Menhir + sedlex</a></li>
+<li><a href="https://gitlab.inria.fr/fpottier/menhir/-/tree/master/demos/calc-ast">Menhir&rsquo;s demos</a></li>
+<li><a href="https://github.com/jorisgio/menhir-workshop/">A JSON parser with custom error messages</a></li>
+</ul>
+<h2 id="ocamllex">ocamllex</h2>
+<p><a href="https://github.com/dariusf/protocol-specs/blob/master/lib/lexer.mll">Here&rsquo;s</a> an example ocamllex specification with some common use cases (whitespace, strings, comments) implemented.</p>
+<p>To summarize ocamllex, think of it as defining a state machine as a bunch of mutually tail-recursive functions which each take a <a href="https://ocaml.org/api/Lexing.html"><em>lexbuf</em></a> (even though that doesn&rsquo;t appear as a parameter).
+Each <em>rule</em> defines a state, which is a sequence of clauses saying what to do (as arbitrary OCaml code) when a particular regular expression is matched in the input stream.</p>
+<p><em>The order of clauses is significant</em>, so if token regexes could overlap, more constraining ones should be ordered first.
+Typical things to do upon regex match are to change lexer state (by invoking another rule or mutating the lexbuf) and/or produce a token.
+Each rule becomes a function with type <code>Lexing.lexbuf -&gt; Parser.token</code> in the generated lexer.</p>
+<h3 id="sedlex">sedlex?</h3>
+<p><a href="https://github.com/ocaml-community/sedlex">sedlex</a> is a Unicode-aware alternative to ocamllex.</p>
+<p>That&rsquo;s really the only functional benefit it offers, and this comes with tradeoffs, such as a separate lexbuf type and runtime library (<code>Sedlexing</code>) and the need to handle Unicode explicitly (<code>Sedlexing.lexeme</code> returns an array of code points, which have to be <a href="https://ocaml.org/api/Buffer.html">encoded into buffers</a>).
+If, say, you&rsquo;re working on a research prototype and would rather not deal with Unicode just yet, ocamllex is simpler and more feature-complete.</p>
+<h2 id="menhir">Menhir</h2>
+<p>Menhir is the parser generator with many advanced features and <a href="http://gallium.inria.fr/~fpottier/menhir/manual.html">comprehensive documentation</a>.</p>
+<p>Highlights include parameterized nonterminals (highly useful for factoring out patterns like lists), <em>readable</em> explanations of shift-reduce conflicts with examples, and an incremental API for robust parsing.</p>
+<p><a href="https://github.com/dariusf/protocol-specs/blob/master/lib/parser.mly">Here&rsquo;s</a> an example Menhir input file.
+We&rsquo;ll cover how to do common things with it next.</p>
+<!-- ### Parser combinators?
+
+[Here's](https://github.com/inhabitedtype/angstrom#comparison-to-other-libraries) a list of parser combinator libraries. There's also [containers' `Parse` module](https://c-cube.github.io/ocaml-containers/last/containers/CCParse/index.html) and the newer [Reparse](https://github.com/lemaetech/reparse).
+
+With the exception of Angstrom, which is for a very specific use case, the rest are not particularly mature and will likely require reading source and sending patches.
+If you're not sure which tools to pick, you won't go wrong with Menhir and ocamllex.
+-->
+<h3 id="error-messages">Error messages</h3>
+<!-- https://github.com/dariusf/protocol-specs/blob/master/lib/parsing.ml -->
+<p>Out of the box, Menhir fails with an opaque <code>MenhirBasics.Error</code> when given an invalid input string.
+To fix that, I use some variation of the following refrain:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">parse</span> <span class="n">file</span> <span class="n">ic</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">lexbuf</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">from_channel</span> <span class="n">ic</span> <span class="k">in</span>
+  <span class="nn">Lexing</span><span class="p">.</span><span class="n">set_filename</span> <span class="n">lexbuf</span> <span class="n">file</span><span class="o">;</span>
+  <span class="k">try</span> <span class="nc">Ok</span> <span class="o">(</span><span class="nn">Parser</span><span class="p">.</span><span class="n">program</span> <span class="nn">Lexer</span><span class="p">.</span><span class="n">token</span> <span class="n">lexbuf</span><span class="o">)</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="nn">Parser</span><span class="p">.</span><span class="nc">Error</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">lexbuf</span><span class="o">.</span><span class="nn">Lexing</span><span class="p">.</span><span class="n">lex_curr_p</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">tok</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">lexeme</span> <span class="n">lexbuf</span> <span class="k">in</span>
+    <span class="nc">Error</span>
+      <span class="o">(</span><span class="nn">Format</span><span class="p">.</span><span class="n">sprintf</span> <span class="s2">&#34;parse error near %s, %s, line %d, col %d@.&#34;</span> <span class="n">tok</span>
+         <span class="n">pos</span><span class="o">.</span><span class="n">pos_fname</span> <span class="n">pos</span><span class="o">.</span><span class="n">pos_lnum</span> <span class="o">(</span><span class="n">pos</span><span class="o">.</span><span class="n">pos_cnum</span> <span class="o">-</span> <span class="n">pos</span><span class="o">.</span><span class="n">pos_bol</span> <span class="o">+</span> <span class="n">1</span><span class="o">))</span>
+  <span class="o">|</span> <span class="nn">Lexer</span><span class="p">.</span><span class="nc">SyntaxError</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">lexbuf</span><span class="o">.</span><span class="nn">Lexing</span><span class="p">.</span><span class="n">lex_curr_p</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">tok</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">lexeme</span> <span class="n">lexbuf</span> <span class="k">in</span>
+    <span class="nc">Error</span>
+      <span class="o">(</span><span class="nn">Format</span><span class="p">.</span><span class="n">sprintf</span> <span class="s2">&#34;unrecognized token, %s, line %d, col %d@.&#34;</span> <span class="n">tok</span>
+         <span class="n">pos</span><span class="o">.</span><span class="n">pos_lnum</span> <span class="o">(</span><span class="n">pos</span><span class="o">.</span><span class="n">pos_cnum</span> <span class="o">-</span> <span class="n">pos</span><span class="o">.</span><span class="n">pos_bol</span> <span class="o">+</span> <span class="n">1</span><span class="o">))</span>
+
+</code></pre></div><p><code>Parser</code> and <code>Lexer</code> are the names of the modules generated by Menhir and ocamllex (so replace <code>program</code> and <code>token</code> with the names of your starting nonterminal and rule respectively).</p>
+<p><code>SyntaxError</code> is a custom exception thrown by us in the lexer.
+You could also throw a <code>Parser.Error</code> if you want to handle them uniformly.</p>
+<p>Also note the computation of the (1-based) column number in the error messages.</p>
+<h3 id="source-locations">Source locations</h3>
+<p>If something goes wrong during e.g. typechecking, it&rsquo;d be nice to output a useful error message pointing to the location of the problem.
+For that, the AST must have location information.</p>
+<p>Menhir provides this in semantic actions via <code>$startpos</code> and <code>$endpos</code> (or <code>$loc</code> if you want both).</p>
+<p>This goes well with <a href="http://blog.ezyang.com/2013/05/the-ast-typing-problem/">two-level syntax tree</a>.
+We define our AST so that every node is annotated with a location.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="n">expr</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">meta</span> <span class="o">:</span> <span class="n">loc</span><span class="o">;</span>
+  <span class="n">expr</span> <span class="o">:</span> <span class="n">expr_desc</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="ow">and</span> <span class="n">expr_desc</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">Int</span> <span class="k">of</span> <span class="kt">int</span>
+  <span class="o">|</span> <span class="nc">Plus</span> <span class="k">of</span> <span class="n">expr</span> <span class="o">*</span> <span class="n">expr</span>
+
+<span class="k">let</span> <span class="n">with_loc</span> <span class="o">(</span><span class="n">start</span><span class="o">,</span> <span class="n">stop</span><span class="o">)</span> <span class="n">expr</span> <span class="o">=</span>
+  <span class="nn">Lexing</span><span class="p">.</span><span class="o">{</span>
+    <span class="n">expr</span><span class="o">;</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="n">start</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">start</span><span class="o">.</span><span class="n">pos_lnum</span><span class="o">;</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="n">start</span><span class="o">.</span><span class="n">pos_cnum</span> <span class="o">-</span> <span class="n">start</span><span class="o">.</span><span class="n">pos_bol</span> <span class="o">+</span> <span class="n">1</span> <span class="o">};</span>
+      <span class="n">stop</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">stop</span><span class="o">.</span><span class="n">pos_lnum</span><span class="o">;</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="n">stop</span><span class="o">.</span><span class="n">pos_cnum</span> <span class="o">-</span> <span class="n">stop</span><span class="o">.</span><span class="n">pos_bol</span> <span class="o">+</span> <span class="n">1</span> <span class="o">};</span>
+    <span class="o">};</span>
+  <span class="o">}</span>
+</code></pre></div><p>then call <code>with_loc</code> in a semantic action.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml">  <span class="o">|</span> <span class="n">l</span> <span class="o">=</span> <span class="n">expr</span><span class="o">;</span> <span class="nc">PLUS</span><span class="o">;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">expr</span>
+    <span class="o">{</span> <span class="n">with_loc</span> <span class="o">$</span><span class="n">loc</span> <span class="o">(</span><span class="nc">Plus</span> <span class="o">(</span><span class="n">l</span><span class="o">,</span> <span class="n">r</span><span class="o">))</span> <span class="o">}</span>
+</code></pre></div><p><a href="https://discuss.ocaml.org/t/your-favorite-menhir-tricks-and-fanciness/7299/2">https://discuss.ocaml.org/t/your-favorite-menhir-tricks-and-fanciness/7299/2</a></p>
+<h3 id="lexer-debugging">Lexer debugging</h3>
+<p>Sometimes what you need to figure out why your parser is misbehaving is to see the token stream the lexer produces.</p>
+<p>Menhir uses token precedences to resolve shift/reduce conflicts.
+An unfortunate side effect of this is that the token type is generated from a definition in its input language, which isn&rsquo;t OCaml, so we can&rsquo;t annotate it with <code>[@@deriving show]</code> for debugging.</p>
+<p><a href="https://gitlab.inria.fr/fpottier/menhir/-/issues/6">This may be fixed someday</a>, but as a stopgap solution, we can generate the case splits in <code>show_token</code> using this terrible script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="k">function</span> match_token<span class="o">()</span> <span class="o">{</span>
+  grep <span class="s1">&#39;%token .&#39;</span> <span class="p">|</span> grep -v <span class="s1">&#39;/\*\|\*/&#39;</span> <span class="se">\
+</span><span class="se"></span>    <span class="p">|</span> sed -E <span class="se">\
+</span><span class="se"></span>      -e <span class="s1">&#39;s/%token //g&#39;</span> -e <span class="s1">&#39;s/&lt;.*&gt; (.*)/\1 _/g&#39;</span> <span class="se">\
+</span><span class="se"></span>      -e <span class="s1">&#39;s/([A-Z0-9]*)( .*)?/| \1\2 -&gt; &#34;\1&#34;/g&#39;</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ match_token &lt;&lt;&lt; &#39;%token &lt;int&gt; INT&#39;
+| INT _ -&gt; &#34;INT&#34;
+</code></pre></div><p>Having defined <code>show_token</code>, I usually end up using something like this to dump a sequence of tokens.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">debug_tokens</span> <span class="n">str</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">lexbuf</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">from_string</span> <span class="n">str</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">loop</span> <span class="n">tokens</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="n">tok</span> <span class="o">=</span> <span class="nn">Lexer</span><span class="p">.</span><span class="n">token</span> <span class="n">lexbuf</span> <span class="k">in</span>
+    <span class="k">match</span> <span class="n">tok</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="nc">EOF</span> <span class="o">-&gt;</span> <span class="nn">List</span><span class="p">.</span><span class="n">rev</span> <span class="o">(</span><span class="n">tok</span> <span class="o">::</span> <span class="n">tokens</span><span class="o">)</span>
+    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="n">loop</span> <span class="o">(</span><span class="n">tok</span> <span class="o">::</span> <span class="n">tokens</span><span class="o">)</span>
+  <span class="k">in</span>
+  <span class="k">let</span> <span class="n">tokens</span> <span class="o">=</span> <span class="n">loop</span> <span class="bp">[]</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">s</span> <span class="o">=</span> <span class="n">tokens</span> <span class="o">|&gt;</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="n">show_token</span> <span class="o">|&gt;</span> <span class="nn">String</span><span class="p">.</span><span class="n">concat</span> <span class="s2">&#34; &#34;</span> <span class="k">in</span>
+  <span class="nn">Format</span><span class="p">.</span><span class="n">printf</span> <span class="s2">&#34;%s@.&#34;</span> <span class="n">s</span>
+</code></pre></div><h3 id="parser-debugging">Parser debugging</h3>
+<p>This sequence of tokens can be fed into Menhir&rsquo;s <code>--interpret</code> mode, which prints a <em>concrete</em> syntax tree, containing nodes corresponding to the productions of the grammar.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ menhir --interpret --interpret-show-cst parser.mly \
+  &lt;&lt;&lt; &#39;implementation: LPAREN RPAREN&#39;
+Ready!
+ACCEPT
+[implementation:
+  [structure:
+    [seq_expr:
+      [expr:
+        [simple_expr:
+          [constr_longident: [constr_extra_nonprefix_ident: LPAREN RPAREN]]
+        ]
+      ]
+    ]
+    [list(post_item_attribute):]
+    [list(structure_element):]
+  ]
+  EOF
+]
+</code></pre></div><p>This is incredibly useful when working with a large, unfamiliar grammar, such as OCaml&rsquo;s (shown).</p>
+<p>To diagnose shift-reduce conflicts, check out the <code>-v</code> flag.
+You get the LR automaton and as much context around the conflict as you would on paper.</p>
+<p>See this for an example conflict
+<a href="https://discuss.ocaml.org/t/your-favorite-menhir-tricks-and-fanciness/7299/8">https://discuss.ocaml.org/t/your-favorite-menhir-tricks-and-fanciness/7299/8</a></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Once the rough edges are smoothed over, developing languages in OCaml is very convenient.
+It&rsquo;s great for prototyping.</p>
+<p>This isn&rsquo;t true for just parsing &ndash; there&rsquo;s a wealth of mature libraries for other stages, including <a href="https://github.com/fpottier/pprint">PPrint</a> (pretty-printing), <a href="https://gitlab.inria.fr/fpottier/inferno">inferno</a> and <a href="https://gitlab.inria.fr/fpottier/unionfind">unionFind</a> (constraint-based type inference), <a href="https://gitlab.inria.fr/fpottier/visitors">visitors</a> and <a href="https://github.com/ocaml-ppx/ppx_deriving">ppx_deriving</a> (AST traversal), <a href="https://gitlab.inria.fr/fpottier/alphaLib">alphaLib</a> and <a href="https://github.com/rlepigre/ocaml-bindlib">bindlib</a> (binding).
+I may write something about them in a future post.</p>
+<p>other tricks</p>
+<p><a href="https://discuss.ocaml.org/t/juxtaposition-in-menhir/9782">https://discuss.ocaml.org/t/juxtaposition-in-menhir/9782</a></p>
+
+</content>
+<p>
+  
+</p>
+
+  </main>
+  <footer>
+</footer>
+
+    
+</body>
+
+</html>

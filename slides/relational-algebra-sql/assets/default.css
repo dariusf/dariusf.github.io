@@ -1,0 +1,10 @@
+.reveal .slides > section { text-align: left; }
+
+/* slide titles */
+.reveal .slides > section > h1 { font-weight: bold; }
+.reveal .slides > section > h2 { font-weight: bold; }
+.reveal .slides > section > h3 { font-weight: bold; }
+
+/* title */
+/* slightly smaller for long titles */
+.reveal .slides > section > h1 { font-size: 2em; }

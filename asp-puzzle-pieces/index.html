@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="https://dariusf.github.io/images/favicon.png" />
+<title>Bags of puzzle pieces in ASP | Darius Foo</title>
+<meta name="title" content="Bags of puzzle pieces in ASP" />
+<meta name="description" content="Answer set programming is an offshoot of traditional logic programming with a number of nice properties: programs always terminate, are fully declarative (i.e. clause ordering doesn&rsquo;t matter and search is complete, unlike Prolog), and have a well-defined semantics. Modelling a domain with relations is a wonderfully high-level way to reason about things, allowing complex rules to be represented concisely.
+ASP is typically applied to hard search problems, but can model pretty much anything." />
+<meta name="keywords" content="" />
+
+
+<meta property="og:title" content="Bags of puzzle pieces in ASP" />
+<meta property="og:description" content="Answer set programming is an offshoot of traditional logic programming with a number of nice properties: programs always terminate, are fully declarative (i.e. clause ordering doesn&rsquo;t matter and search is complete, unlike Prolog), and have a well-defined semantics. Modelling a domain with relations is a wonderfully high-level way to reason about things, allowing complex rules to be represented concisely.
+ASP is typically applied to hard search problems, but can model pretty much anything." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dariusf.github.io/asp-puzzle-pieces/" /><meta property="og:image" content="https://dariusf.github.io/images/favicon.png"/><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2017-11-25T12:15:06+08:00" />
+<meta property="article:modified_time" content="2017-11-25T12:15:06+08:00" /><meta property="og:site_name" content="Darius Foo" />
+
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dariusf.github.io/images/favicon.png"/>
+
+<meta name="twitter:title" content="Bags of puzzle pieces in ASP"/>
+<meta name="twitter:description" content="Answer set programming is an offshoot of traditional logic programming with a number of nice properties: programs always terminate, are fully declarative (i.e. clause ordering doesn&rsquo;t matter and search is complete, unlike Prolog), and have a well-defined semantics. Modelling a domain with relations is a wonderfully high-level way to reason about things, allowing complex rules to be represented concisely.
+ASP is typically applied to hard search problems, but can model pretty much anything."/>
+
+
+
+<meta itemprop="name" content="Bags of puzzle pieces in ASP">
+<meta itemprop="description" content="Answer set programming is an offshoot of traditional logic programming with a number of nice properties: programs always terminate, are fully declarative (i.e. clause ordering doesn&rsquo;t matter and search is complete, unlike Prolog), and have a well-defined semantics. Modelling a domain with relations is a wonderfully high-level way to reason about things, allowing complex rules to be represented concisely.
+ASP is typically applied to hard search problems, but can model pretty much anything."><meta itemprop="datePublished" content="2017-11-25T12:15:06+08:00" />
+<meta itemprop="dateModified" content="2017-11-25T12:15:06+08:00" />
+<meta itemprop="wordCount" content="777"><meta itemprop="image" content="https://dariusf.github.io/images/favicon.png"/>
+<meta itemprop="keywords" content="" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bright-text-color: #222;
+      --link-color: #3273dc;
+       
+      --link-visited-color: #6e4bbe;
+      --background-color: #fff;
+      --text-color: #444;
+      --faded-text-color: #777;
+      --blockquote-text-color: var(--bright-text-color);
+      --faint-color: #ccc;
+    }
+
+    /* Background */ .chroma { background-color: #ffffff }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #000000 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #a90d91 }
+/* KeywordConstant */ .chroma .kc { color: #a90d91 }
+/* KeywordDeclaration */ .chroma .kd { color: #a90d91 }
+/* KeywordNamespace */ .chroma .kn { color: #a90d91 }
+/* KeywordPseudo */ .chroma .kp { color: #a90d91 }
+/* KeywordReserved */ .chroma .kr { color: #a90d91 }
+/* KeywordType */ .chroma .kt { color: #a90d91 }
+/* Name */ .chroma .n { color: #000000 }
+/* NameAttribute */ .chroma .na { color: #836c28 }
+/* NameBuiltin */ .chroma .nb { color: #a90d91 }
+/* NameBuiltinPseudo */ .chroma .bp { color: #5b269a }
+/* NameClass */ .chroma .nc { color: #3f6e75 }
+/* NameConstant */ .chroma .no { color: #000000 }
+/* NameDecorator */ .chroma .nd { color: #000000 }
+/* NameEntity */ .chroma .ni { color: #000000 }
+/* NameException */ .chroma .ne { color: #000000 }
+/* NameFunction */ .chroma .nf { color: #000000 }
+/* NameFunctionMagic */ .chroma .fm { color: #000000 }
+/* NameLabel */ .chroma .nl { color: #000000 }
+/* NameNamespace */ .chroma .nn { color: #000000 }
+/* NameOther */ .chroma .nx { color: #000000 }
+/* NameProperty */ .chroma .py { color: #000000 }
+/* NameTag */ .chroma .nt { color: #000000 }
+/* NameVariable */ .chroma .nv { color: #000000 }
+/* NameVariableClass */ .chroma .vc { color: #000000 }
+/* NameVariableGlobal */ .chroma .vg { color: #000000 }
+/* NameVariableInstance */ .chroma .vi { color: #000000 }
+/* NameVariableMagic */ .chroma .vm { color: #000000 }
+/* Literal */ .chroma .l { color: #1c01ce }
+/* LiteralDate */ .chroma .ld { color: #1c01ce }
+/* LiteralString */ .chroma .s { color: #c41a16 }
+/* LiteralStringAffix */ .chroma .sa { color: #c41a16 }
+/* LiteralStringBacktick */ .chroma .sb { color: #c41a16 }
+/* LiteralStringChar */ .chroma .sc { color: #2300ce }
+/* LiteralStringDelimiter */ .chroma .dl { color: #c41a16 }
+/* LiteralStringDoc */ .chroma .sd { color: #c41a16 }
+/* LiteralStringDouble */ .chroma .s2 { color: #c41a16 }
+/* LiteralStringEscape */ .chroma .se { color: #c41a16 }
+/* LiteralStringHeredoc */ .chroma .sh { color: #c41a16 }
+/* LiteralStringInterpol */ .chroma .si { color: #c41a16 }
+/* LiteralStringOther */ .chroma .sx { color: #c41a16 }
+/* LiteralStringRegex */ .chroma .sr { color: #c41a16 }
+/* LiteralStringSingle */ .chroma .s1 { color: #c41a16 }
+/* LiteralStringSymbol */ .chroma .ss { color: #c41a16 }
+/* LiteralNumber */ .chroma .m { color: #1c01ce }
+/* LiteralNumberBin */ .chroma .mb { color: #1c01ce }
+/* LiteralNumberFloat */ .chroma .mf { color: #1c01ce }
+/* LiteralNumberHex */ .chroma .mh { color: #1c01ce }
+/* LiteralNumberInteger */ .chroma .mi { color: #1c01ce }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #1c01ce }
+/* LiteralNumberOct */ .chroma .mo { color: #1c01ce }
+/* Operator */ .chroma .o { color: #000000 }
+/* OperatorWord */ .chroma .ow { color: #000000 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #177500 }
+/* CommentHashbang */ .chroma .ch { color: #177500 }
+/* CommentMultiline */ .chroma .cm { color: #177500 }
+/* CommentSingle */ .chroma .c1 { color: #177500 }
+/* CommentSpecial */ .chroma .cs { color: #177500 }
+/* CommentPreproc */ .chroma .cp { color: #633820 }
+/* CommentPreprocFile */ .chroma .cpf { color: #633820 }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd {  }
+/* GenericEmph */ .chroma .ge {  }
+/* GenericError */ .chroma .gr {  }
+/* GenericHeading */ .chroma .gh {  }
+/* GenericInserted */ .chroma .gi {  }
+/* GenericOutput */ .chroma .go {  }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs {  }
+/* GenericSubheading */ .chroma .gu {  }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl {  }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bright-text-color: #eee;
+      --link-color: #8cc2dd;
+      --link-visited-color: #b9a9e0;
+      --background-color: #333;
+      --text-color: #ddd;
+      --faded-text-color: #aaa;
+      --slightly-dimmer-text-color: #ccc;
+      --blockquote-text-color: var(--slightly-dimmer-text-color);
+      --faint-color: #666;
+
+      color-scheme: dark;  
+    }
+
+     
+
+    img.diagram {
+      filter: invert(.8);
+    }
+
+    /* Background */ .chroma { color: #e2e4e5; background-color: #282a36 }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #ff5c57 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #ff6ac1 }
+/* KeywordConstant */ .chroma .kc { color: #ff6ac1 }
+/* KeywordDeclaration */ .chroma .kd { color: #ff5c57 }
+/* KeywordNamespace */ .chroma .kn { color: #ff6ac1 }
+/* KeywordPseudo */ .chroma .kp { color: #ff6ac1 }
+/* KeywordReserved */ .chroma .kr { color: #ff6ac1 }
+/* KeywordType */ .chroma .kt { color: #9aedfe }
+/* Name */ .chroma .n {  }
+/* NameAttribute */ .chroma .na { color: #57c7ff }
+/* NameBuiltin */ .chroma .nb { color: #ff5c57 }
+/* NameBuiltinPseudo */ .chroma .bp {  }
+/* NameClass */ .chroma .nc { color: #f3f99d }
+/* NameConstant */ .chroma .no { color: #ff9f43 }
+/* NameDecorator */ .chroma .nd { color: #ff9f43 }
+/* NameEntity */ .chroma .ni {  }
+/* NameException */ .chroma .ne {  }
+/* NameFunction */ .chroma .nf { color: #57c7ff }
+/* NameFunctionMagic */ .chroma .fm {  }
+/* NameLabel */ .chroma .nl { color: #ff5c57 }
+/* NameNamespace */ .chroma .nn {  }
+/* NameOther */ .chroma .nx {  }
+/* NameProperty */ .chroma .py {  }
+/* NameTag */ .chroma .nt { color: #ff6ac1 }
+/* NameVariable */ .chroma .nv { color: #ff5c57 }
+/* NameVariableClass */ .chroma .vc { color: #ff5c57 }
+/* NameVariableGlobal */ .chroma .vg { color: #ff5c57 }
+/* NameVariableInstance */ .chroma .vi { color: #ff5c57 }
+/* NameVariableMagic */ .chroma .vm {  }
+/* Literal */ .chroma .l {  }
+/* LiteralDate */ .chroma .ld {  }
+/* LiteralString */ .chroma .s { color: #5af78e }
+/* LiteralStringAffix */ .chroma .sa { color: #5af78e }
+/* LiteralStringBacktick */ .chroma .sb { color: #5af78e }
+/* LiteralStringChar */ .chroma .sc { color: #5af78e }
+/* LiteralStringDelimiter */ .chroma .dl { color: #5af78e }
+/* LiteralStringDoc */ .chroma .sd { color: #5af78e }
+/* LiteralStringDouble */ .chroma .s2 { color: #5af78e }
+/* LiteralStringEscape */ .chroma .se { color: #5af78e }
+/* LiteralStringHeredoc */ .chroma .sh { color: #5af78e }
+/* LiteralStringInterpol */ .chroma .si { color: #5af78e }
+/* LiteralStringOther */ .chroma .sx { color: #5af78e }
+/* LiteralStringRegex */ .chroma .sr { color: #5af78e }
+/* LiteralStringSingle */ .chroma .s1 { color: #5af78e }
+/* LiteralStringSymbol */ .chroma .ss { color: #5af78e }
+/* LiteralNumber */ .chroma .m { color: #ff9f43 }
+/* LiteralNumberBin */ .chroma .mb { color: #ff9f43 }
+/* LiteralNumberFloat */ .chroma .mf { color: #ff9f43 }
+/* LiteralNumberHex */ .chroma .mh { color: #ff9f43 }
+/* LiteralNumberInteger */ .chroma .mi { color: #ff9f43 }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #ff9f43 }
+/* LiteralNumberOct */ .chroma .mo { color: #ff9f43 }
+/* Operator */ .chroma .o { color: #ff6ac1 }
+/* OperatorWord */ .chroma .ow { color: #ff6ac1 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #78787e }
+/* CommentHashbang */ .chroma .ch { color: #78787e }
+/* CommentMultiline */ .chroma .cm { color: #78787e }
+/* CommentSingle */ .chroma .c1 { color: #78787e }
+/* CommentSpecial */ .chroma .cs { color: #78787e }
+/* CommentPreproc */ .chroma .cp { color: #78787e }
+/* CommentPreprocFile */ .chroma .cpf { color: #78787e }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd { color: #ff5c57 }
+/* GenericEmph */ .chroma .ge { text-decoration: underline }
+/* GenericError */ .chroma .gr { color: #ff5c57 }
+/* GenericHeading */ .chroma .gh { font-weight: bold }
+/* GenericInserted */ .chroma .gi { font-weight: bold }
+/* GenericOutput */ .chroma .go { color: #43454f }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs { font-style: italic }
+/* GenericSubheading */ .chroma .gu { font-weight: bold }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl { text-decoration: underline }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: var(--bright-text-color);
+  }
+
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    font-family: Fira Code, Inconsolata, monospace;
+     
+    font-size: 14px;
+  }
+
+   
+  p code {
+     
+    border-radius: 4px;
+    border: solid var(--faint-color) 1px;
+    margin: 2px;
+    padding: 3px;
+  }
+
+   
+  pre code {
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+  }
+
+  pre {
+    border-radius: 10px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--blockquote-text-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: var(--faded-text-color);
+    font-size: small;
+  }
+
+  .deemphasize {
+    color: var(--faded-text-color);
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+    text-align: right;
+    margin-right: 20px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--link-visited-color);
+  }
+</style>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Darius Foo</h2>
+</a>
+<nav>
+
+<a href="/blog">Blog</a>
+
+
+<a href="/research/">Research</a>
+
+<a href="/work/">Work</a>
+
+<a href="/other/">Other</a>
+
+</nav>
+</header>
+  <main>
+
+<h1>Bags of puzzle pieces in ASP</h1>
+<p>
+    <time datetime='2017-11-25' pubdate>
+      25 Nov, 2017
+    </time>
+</p>
+
+
+<content>
+  <p>Answer set programming is an offshoot of traditional logic programming with a number of nice properties: programs always terminate, are fully declarative (i.e. clause ordering doesn&rsquo;t matter and search is complete, unlike Prolog), and have a <a href="https://en.wikipedia.org/wiki/Stable_model_semantics">well-defined semantics</a>. Modelling a domain with relations is a wonderfully high-level way to reason about things, allowing complex rules to be represented <a href="https://en.wikipedia.org/wiki/Answer_set_programming#Examples_of_ASP_programs">concisely</a>.</p>
+<p>ASP is typically applied to hard search problems, but can model pretty much anything. One area it&rsquo;s popular in is game design, particularly for <a href="https://adamsmith.as/papers/tciaig-asp4pcg.pdf">procedural content generation</a>: if we can write down the rules of, say, a puzzle game, we can straightforwardly sample valid puzzles (or even <a href="https://adamsmith.as/papers/fdg2013_shortcuts.pdf">solutions to puzzles</a>) with desirable properties.</p>
+<p>Here, we&rsquo;ll explore one way of sampling puzzle pieces: given an infinite bag of heterogeneous pieces, we want to grab a <em>handful</em>, put them on the game board, then rule out the worlds where the pieces don&rsquo;t form a valid puzzle.</p>
+<p>Incidentally, this is how one typically approaches problems with ASP: defining the <em>entire</em> problem space and how to prune it down to the interesting bits.</p>
+<p>By a <em>handful</em>, we intuitively mean <em>some</em> quantity of pieces with <em>some</em> types. For example, we might generate <a href="https://en.wikipedia.org/wiki/Pipe_Mania">Pipe Mania</a> or <a href="https://en.wikipedia.org/wiki/Rush_Hour_(puzzle)">Rush Hour</a> boards such that we get a puzzle of appropriate size or difficulty.</p>
+<p>Generally, the number of piece types is finite and much smaller than the size of the game board, so we&rsquo;ll want to allow duplicate pieces. We&rsquo;ll represent pieces very abstractly, indexed by an identifier and piece type.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nf">piece</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="p">).</span>
+</code></pre></div><p>We&rsquo;ll start with 4 piece types, and an upper limit on the maximum number of pieces we want per puzzle &ndash; ASP programs must terminate, so domains must be finite.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nl">#const</span> <span class="n">max_n</span><span class="o">=</span><span class="mi">4</span><span class="p">.</span>
+
+<span class="nf">piece_type</span><span class="p">(</span><span class="n">a</span><span class="p">;</span><span class="n">b</span><span class="p">;</span><span class="n">c</span><span class="p">;</span><span class="n">d</span><span class="p">).</span>
+<span class="nf">piece_n</span><span class="p">(</span><span class="mi">1</span><span class="p">..</span><span class="n">max_n</span><span class="p">).</span>
+</code></pre></div><p>Two pieces of type <code>b</code> and one piece of type <code>a</code> might be represented as follows.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nf">piece</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="p">).</span>
+<span class="nf">piece</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">b</span><span class="p">).</span>
+<span class="nf">piece</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">b</span><span class="p">).</span>
+</code></pre></div><p>Now to get our handful of pieces. There are two quantities to vary: the number of pieces and the piece types. We express this using a couple of choice rules, where one depends on the other.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="c">% guess a subset of pieces used
+</span><span class="c"></span><span class="p">{</span> <span class="n">used</span><span class="p">(</span><span class="nv">I</span><span class="p">)</span> <span class="p">:</span> <span class="n">piece_n</span><span class="p">(</span><span class="nv">I</span><span class="p">)</span> <span class="p">}.</span>
+
+<span class="c">% guess a single type for each used piece
+</span><span class="c"></span><span class="p">{</span> <span class="n">piece</span><span class="p">(</span><span class="nv">I</span><span class="p">,</span><span class="nv">T</span><span class="p">)</span> <span class="p">:</span> <span class="n">piece_type</span><span class="p">(</span><span class="nv">T</span><span class="p">)</span> <span class="p">}</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">:</span><span class="o">-</span> <span class="n">used</span><span class="p">(</span><span class="nv">I</span><span class="p">).</span>
+
+<span class="nl">#show</span> <span class="n">piece</span><span class="o">/</span><span class="mi">2</span><span class="p">.</span>
+</code></pre></div><p>Let&rsquo;s try running this with <a href="https://potassco.org/clingo/run/">clingo</a>. We&rsquo;ll generate all answer sets, which is possible because we&rsquo;re still only working with tiny puzzles.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ clingo puzzle.lp 0 -q
+clingo version 5.2.1
+Reading from puzzle.lp
+Solving...
+SATISFIABLE
+
+Models       : 625
+Calls        : 1
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
+</code></pre></div><p>We&rsquo;re getting there, but 625 models is probably too many for only 4 pieces. Looking at the generated answer sets, we see that there are many duplicates. For one, the earlier example appears again, this time represented as:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nf">piece</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="p">).</span>
+<span class="nf">piece</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">b</span><span class="p">).</span>
+<span class="nf">piece</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">b</span><span class="p">).</span>
+</code></pre></div><p>Yet another occurrence:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nf">piece</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">b</span><span class="p">).</span>
+<span class="nf">piece</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">a</span><span class="p">).</span>
+<span class="nf">piece</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">b</span><span class="p">).</span>
+</code></pre></div><p>We don&rsquo;t really gain anything from having the same handful of pieces represented multiple times, as that skews the distribution of puzzles in difficult-to-predict ways once we start sampling them randomly.</p>
+<p>In both examples above, we can see that the two arguments of <code>piece</code> are out of order and not contiguously increasing. That&rsquo;s somewhere we can start: giving pieces a canonical ordering, so it&rsquo;s easier to filter duplicates.</p>
+<p>We first define an auxiliary predicate to capture the maximum index used. This is also the number of pieces actually generated.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nf">max</span><span class="p">(</span><span class="nv">I</span><span class="p">)</span> <span class="p">:</span><span class="o">-</span> <span class="p">{</span> <span class="n">used</span><span class="p">(_)</span> <span class="p">}</span> <span class="o">=</span> <span class="nv">I</span><span class="p">.</span>
+</code></pre></div><p>We then say what it means for the piece indexes to be contiguously increasing with an inductive rule. <code>1</code> is always part of an increasing sequence, and so is <code>N+1</code> if <code>N</code> is <em>and</em> we haven&rsquo;t exceeded the maximum index.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="nf">increasing</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span>
+<span class="nf">increasing</span><span class="p">(</span><span class="nv">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">:</span><span class="o">-</span> <span class="n">increasing</span><span class="p">(</span><span class="nv">N</span><span class="p">),</span> <span class="nv">N</span> <span class="o">&lt;</span> <span class="nv">I</span><span class="p">,</span> <span class="n">max</span><span class="p">(</span><span class="nv">I</span><span class="p">).</span>
+</code></pre></div><p>Finally, we rule out cases where a piece index is selected, but isn&rsquo;t in an increasing sequence.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="p">:</span><span class="o">-</span> <span class="n">used</span><span class="p">(</span><span class="nv">I</span><span class="p">),</span> <span class="ow">not</span> <span class="n">increasing</span><span class="p">(</span><span class="nv">I</span><span class="p">).</span>
+</code></pre></div><p>This brings us down to 341 models. Next, we ensure that pieces are sorted by index and type, by ruling out cases where they appear out of order.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-erlang" data-lang="erlang"><span class="p">:</span><span class="o">-</span> <span class="n">piece</span><span class="p">(</span><span class="nv">I1</span><span class="p">,</span><span class="nv">V1</span><span class="p">),</span> <span class="n">piece</span><span class="p">(</span><span class="nv">I2</span><span class="p">,</span><span class="nv">V2</span><span class="p">),</span> <span class="nv">I1</span> <span class="o">&lt;</span> <span class="nv">I2</span><span class="p">,</span> <span class="nv">V1</span> <span class="o">&gt;</span> <span class="nv">V2</span><span class="p">.</span>
+</code></pre></div><p>We get 70 models now. A manual look at the answers seems promising, showing no obvious duplicates, but how do we know we&rsquo;re done, i.e. all answer sets are unique?</p>
+<p>It turns out that what we&rsquo;re doing &ndash; grabbing a handful of heterogeneous pieces from an infinite bag &ndash; is an instance of <a href="https://en.wikipedia.org/wiki/Combination#Number_of_combinations_with_repetition">combinations with repetition</a>. The number of ways of taking <code>k</code> pieces from a bag of <code>n</code> unique pieces is given by</p>
+<p>$$\binom{n+k-1}{k}$$</p>
+<p>For the case of 4 pieces, we&rsquo;re sampling one piece, then two, etc. We add one for the case where we pick <em>no</em> pieces.</p>
+<p>$$\binom{7}{4}+\binom{6}{3}+\binom{5}{2}+\binom{4}{1}+1=70$$</p>
+<p>Success!</p>
+
+</content>
+<p>
+  
+</p>
+
+  </main>
+  <footer>
+</footer>
+
+    
+</body>
+
+</html>

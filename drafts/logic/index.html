@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="https://dariusf.github.io/images/favicon.png" />
+<title>What is a logic? | Darius Foo</title>
+<meta name="title" content="What is a logic?" />
+<meta name="description" content="it&rsquo;s perhaps embarrassing that i couldn&rsquo;t really give a good answer for this until a while ago. i believe being able to give intuition for something is the hallmark of understanding.
+in the spirit, here&rsquo;s an informal introduction to the big picture of logic, attempting to make sense of all the pieces, and prepare you for reading a more formal and thorough textbook. the aim is to be succinct and inexhaustive, as preparation for reading a book like huth and ryan or the handbook of automated reasoning." />
+<meta name="keywords" content="" />
+
+
+<meta property="og:title" content="What is a logic?" />
+<meta property="og:description" content="it&rsquo;s perhaps embarrassing that i couldn&rsquo;t really give a good answer for this until a while ago. i believe being able to give intuition for something is the hallmark of understanding.
+in the spirit, here&rsquo;s an informal introduction to the big picture of logic, attempting to make sense of all the pieces, and prepare you for reading a more formal and thorough textbook. the aim is to be succinct and inexhaustive, as preparation for reading a book like huth and ryan or the handbook of automated reasoning." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dariusf.github.io/drafts/logic/" /><meta property="og:image" content="https://dariusf.github.io/images/favicon.png"/><meta property="article:section" content="drafts" />
+<meta property="article:published_time" content="2022-01-11T16:52:57+08:00" />
+<meta property="article:modified_time" content="2022-01-11T16:52:57+08:00" /><meta property="og:site_name" content="Darius Foo" />
+
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dariusf.github.io/images/favicon.png"/>
+
+<meta name="twitter:title" content="What is a logic?"/>
+<meta name="twitter:description" content="it&rsquo;s perhaps embarrassing that i couldn&rsquo;t really give a good answer for this until a while ago. i believe being able to give intuition for something is the hallmark of understanding.
+in the spirit, here&rsquo;s an informal introduction to the big picture of logic, attempting to make sense of all the pieces, and prepare you for reading a more formal and thorough textbook. the aim is to be succinct and inexhaustive, as preparation for reading a book like huth and ryan or the handbook of automated reasoning."/>
+
+
+
+<meta itemprop="name" content="What is a logic?">
+<meta itemprop="description" content="it&rsquo;s perhaps embarrassing that i couldn&rsquo;t really give a good answer for this until a while ago. i believe being able to give intuition for something is the hallmark of understanding.
+in the spirit, here&rsquo;s an informal introduction to the big picture of logic, attempting to make sense of all the pieces, and prepare you for reading a more formal and thorough textbook. the aim is to be succinct and inexhaustive, as preparation for reading a book like huth and ryan or the handbook of automated reasoning."><meta itemprop="datePublished" content="2022-01-11T16:52:57+08:00" />
+<meta itemprop="dateModified" content="2022-01-11T16:52:57+08:00" />
+<meta itemprop="wordCount" content="652"><meta itemprop="image" content="https://dariusf.github.io/images/favicon.png"/>
+<meta itemprop="keywords" content="" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bright-text-color: #222;
+      --link-color: #3273dc;
+       
+      --link-visited-color: #6e4bbe;
+      --background-color: #fff;
+      --text-color: #444;
+      --faded-text-color: #777;
+      --blockquote-text-color: var(--bright-text-color);
+      --faint-color: #ccc;
+    }
+
+    /* Background */ .chroma { background-color: #ffffff }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #000000 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #a90d91 }
+/* KeywordConstant */ .chroma .kc { color: #a90d91 }
+/* KeywordDeclaration */ .chroma .kd { color: #a90d91 }
+/* KeywordNamespace */ .chroma .kn { color: #a90d91 }
+/* KeywordPseudo */ .chroma .kp { color: #a90d91 }
+/* KeywordReserved */ .chroma .kr { color: #a90d91 }
+/* KeywordType */ .chroma .kt { color: #a90d91 }
+/* Name */ .chroma .n { color: #000000 }
+/* NameAttribute */ .chroma .na { color: #836c28 }
+/* NameBuiltin */ .chroma .nb { color: #a90d91 }
+/* NameBuiltinPseudo */ .chroma .bp { color: #5b269a }
+/* NameClass */ .chroma .nc { color: #3f6e75 }
+/* NameConstant */ .chroma .no { color: #000000 }
+/* NameDecorator */ .chroma .nd { color: #000000 }
+/* NameEntity */ .chroma .ni { color: #000000 }
+/* NameException */ .chroma .ne { color: #000000 }
+/* NameFunction */ .chroma .nf { color: #000000 }
+/* NameFunctionMagic */ .chroma .fm { color: #000000 }
+/* NameLabel */ .chroma .nl { color: #000000 }
+/* NameNamespace */ .chroma .nn { color: #000000 }
+/* NameOther */ .chroma .nx { color: #000000 }
+/* NameProperty */ .chroma .py { color: #000000 }
+/* NameTag */ .chroma .nt { color: #000000 }
+/* NameVariable */ .chroma .nv { color: #000000 }
+/* NameVariableClass */ .chroma .vc { color: #000000 }
+/* NameVariableGlobal */ .chroma .vg { color: #000000 }
+/* NameVariableInstance */ .chroma .vi { color: #000000 }
+/* NameVariableMagic */ .chroma .vm { color: #000000 }
+/* Literal */ .chroma .l { color: #1c01ce }
+/* LiteralDate */ .chroma .ld { color: #1c01ce }
+/* LiteralString */ .chroma .s { color: #c41a16 }
+/* LiteralStringAffix */ .chroma .sa { color: #c41a16 }
+/* LiteralStringBacktick */ .chroma .sb { color: #c41a16 }
+/* LiteralStringChar */ .chroma .sc { color: #2300ce }
+/* LiteralStringDelimiter */ .chroma .dl { color: #c41a16 }
+/* LiteralStringDoc */ .chroma .sd { color: #c41a16 }
+/* LiteralStringDouble */ .chroma .s2 { color: #c41a16 }
+/* LiteralStringEscape */ .chroma .se { color: #c41a16 }
+/* LiteralStringHeredoc */ .chroma .sh { color: #c41a16 }
+/* LiteralStringInterpol */ .chroma .si { color: #c41a16 }
+/* LiteralStringOther */ .chroma .sx { color: #c41a16 }
+/* LiteralStringRegex */ .chroma .sr { color: #c41a16 }
+/* LiteralStringSingle */ .chroma .s1 { color: #c41a16 }
+/* LiteralStringSymbol */ .chroma .ss { color: #c41a16 }
+/* LiteralNumber */ .chroma .m { color: #1c01ce }
+/* LiteralNumberBin */ .chroma .mb { color: #1c01ce }
+/* LiteralNumberFloat */ .chroma .mf { color: #1c01ce }
+/* LiteralNumberHex */ .chroma .mh { color: #1c01ce }
+/* LiteralNumberInteger */ .chroma .mi { color: #1c01ce }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #1c01ce }
+/* LiteralNumberOct */ .chroma .mo { color: #1c01ce }
+/* Operator */ .chroma .o { color: #000000 }
+/* OperatorWord */ .chroma .ow { color: #000000 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #177500 }
+/* CommentHashbang */ .chroma .ch { color: #177500 }
+/* CommentMultiline */ .chroma .cm { color: #177500 }
+/* CommentSingle */ .chroma .c1 { color: #177500 }
+/* CommentSpecial */ .chroma .cs { color: #177500 }
+/* CommentPreproc */ .chroma .cp { color: #633820 }
+/* CommentPreprocFile */ .chroma .cpf { color: #633820 }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd {  }
+/* GenericEmph */ .chroma .ge {  }
+/* GenericError */ .chroma .gr {  }
+/* GenericHeading */ .chroma .gh {  }
+/* GenericInserted */ .chroma .gi {  }
+/* GenericOutput */ .chroma .go {  }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs {  }
+/* GenericSubheading */ .chroma .gu {  }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl {  }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bright-text-color: #eee;
+      --link-color: #8cc2dd;
+      --link-visited-color: #b9a9e0;
+      --background-color: #333;
+      --text-color: #ddd;
+      --faded-text-color: #aaa;
+      --slightly-dimmer-text-color: #ccc;
+      --blockquote-text-color: var(--slightly-dimmer-text-color);
+      --faint-color: #666;
+
+      color-scheme: dark;  
+    }
+
+     
+
+    img.diagram {
+      filter: invert(.8);
+    }
+
+    /* Background */ .chroma { color: #e2e4e5; background-color: #282a36 }
+/* Other */ .chroma .x {  }
+/* Error */ .chroma .err { color: #ff5c57 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Keyword */ .chroma .k { color: #ff6ac1 }
+/* KeywordConstant */ .chroma .kc { color: #ff6ac1 }
+/* KeywordDeclaration */ .chroma .kd { color: #ff5c57 }
+/* KeywordNamespace */ .chroma .kn { color: #ff6ac1 }
+/* KeywordPseudo */ .chroma .kp { color: #ff6ac1 }
+/* KeywordReserved */ .chroma .kr { color: #ff6ac1 }
+/* KeywordType */ .chroma .kt { color: #9aedfe }
+/* Name */ .chroma .n {  }
+/* NameAttribute */ .chroma .na { color: #57c7ff }
+/* NameBuiltin */ .chroma .nb { color: #ff5c57 }
+/* NameBuiltinPseudo */ .chroma .bp {  }
+/* NameClass */ .chroma .nc { color: #f3f99d }
+/* NameConstant */ .chroma .no { color: #ff9f43 }
+/* NameDecorator */ .chroma .nd { color: #ff9f43 }
+/* NameEntity */ .chroma .ni {  }
+/* NameException */ .chroma .ne {  }
+/* NameFunction */ .chroma .nf { color: #57c7ff }
+/* NameFunctionMagic */ .chroma .fm {  }
+/* NameLabel */ .chroma .nl { color: #ff5c57 }
+/* NameNamespace */ .chroma .nn {  }
+/* NameOther */ .chroma .nx {  }
+/* NameProperty */ .chroma .py {  }
+/* NameTag */ .chroma .nt { color: #ff6ac1 }
+/* NameVariable */ .chroma .nv { color: #ff5c57 }
+/* NameVariableClass */ .chroma .vc { color: #ff5c57 }
+/* NameVariableGlobal */ .chroma .vg { color: #ff5c57 }
+/* NameVariableInstance */ .chroma .vi { color: #ff5c57 }
+/* NameVariableMagic */ .chroma .vm {  }
+/* Literal */ .chroma .l {  }
+/* LiteralDate */ .chroma .ld {  }
+/* LiteralString */ .chroma .s { color: #5af78e }
+/* LiteralStringAffix */ .chroma .sa { color: #5af78e }
+/* LiteralStringBacktick */ .chroma .sb { color: #5af78e }
+/* LiteralStringChar */ .chroma .sc { color: #5af78e }
+/* LiteralStringDelimiter */ .chroma .dl { color: #5af78e }
+/* LiteralStringDoc */ .chroma .sd { color: #5af78e }
+/* LiteralStringDouble */ .chroma .s2 { color: #5af78e }
+/* LiteralStringEscape */ .chroma .se { color: #5af78e }
+/* LiteralStringHeredoc */ .chroma .sh { color: #5af78e }
+/* LiteralStringInterpol */ .chroma .si { color: #5af78e }
+/* LiteralStringOther */ .chroma .sx { color: #5af78e }
+/* LiteralStringRegex */ .chroma .sr { color: #5af78e }
+/* LiteralStringSingle */ .chroma .s1 { color: #5af78e }
+/* LiteralStringSymbol */ .chroma .ss { color: #5af78e }
+/* LiteralNumber */ .chroma .m { color: #ff9f43 }
+/* LiteralNumberBin */ .chroma .mb { color: #ff9f43 }
+/* LiteralNumberFloat */ .chroma .mf { color: #ff9f43 }
+/* LiteralNumberHex */ .chroma .mh { color: #ff9f43 }
+/* LiteralNumberInteger */ .chroma .mi { color: #ff9f43 }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #ff9f43 }
+/* LiteralNumberOct */ .chroma .mo { color: #ff9f43 }
+/* Operator */ .chroma .o { color: #ff6ac1 }
+/* OperatorWord */ .chroma .ow { color: #ff6ac1 }
+/* Punctuation */ .chroma .p {  }
+/* Comment */ .chroma .c { color: #78787e }
+/* CommentHashbang */ .chroma .ch { color: #78787e }
+/* CommentMultiline */ .chroma .cm { color: #78787e }
+/* CommentSingle */ .chroma .c1 { color: #78787e }
+/* CommentSpecial */ .chroma .cs { color: #78787e }
+/* CommentPreproc */ .chroma .cp { color: #78787e }
+/* CommentPreprocFile */ .chroma .cpf { color: #78787e }
+/* Generic */ .chroma .g {  }
+/* GenericDeleted */ .chroma .gd { color: #ff5c57 }
+/* GenericEmph */ .chroma .ge { text-decoration: underline }
+/* GenericError */ .chroma .gr { color: #ff5c57 }
+/* GenericHeading */ .chroma .gh { font-weight: bold }
+/* GenericInserted */ .chroma .gi { font-weight: bold }
+/* GenericOutput */ .chroma .go { color: #43454f }
+/* GenericPrompt */ .chroma .gp {  }
+/* GenericStrong */ .chroma .gs { font-style: italic }
+/* GenericSubheading */ .chroma .gu { font-weight: bold }
+/* GenericTraceback */ .chroma .gt {  }
+/* GenericUnderline */ .chroma .gl { text-decoration: underline }
+/* TextWhitespace */ .chroma .w {  }
+
+  }
+
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: var(--bright-text-color);
+  }
+
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    font-family: Fira Code, Inconsolata, monospace;
+     
+    font-size: 14px;
+  }
+
+   
+  p code {
+     
+    border-radius: 4px;
+    border: solid var(--faint-color) 1px;
+    margin: 2px;
+    padding: 3px;
+  }
+
+   
+  pre code {
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+  }
+
+  pre {
+    border-radius: 10px;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: var(--blockquote-text-color);
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: var(--faded-text-color);
+    font-size: small;
+  }
+
+  .deemphasize {
+    color: var(--faded-text-color);
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+    text-align: right;
+    margin-right: 20px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--link-visited-color);
+  }
+</style>
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Darius Foo</h2>
+</a>
+<nav>
+
+<a href="/blog">Blog</a>
+
+
+<a href="/research/">Research</a>
+
+<a href="/work/">Work</a>
+
+<a href="/other/">Other</a>
+
+</nav>
+</header>
+  <main>
+
+<h1>What is a logic?</h1>
+<p>
+    <time datetime='2022-01-11' pubdate>
+      11 Jan, 2022
+    </time>
+</p>
+
+
+<content>
+  <p>it&rsquo;s perhaps embarrassing that i couldn&rsquo;t really give a good answer for this until a while ago. i believe being able to give intuition for something is the hallmark of understanding.</p>
+<p>in the spirit, here&rsquo;s an informal introduction to the big picture of logic, attempting to make sense of all the pieces, and prepare you for reading a more formal and thorough textbook. the aim is to be succinct and inexhaustive, as preparation for reading a book like huth and ryan or the handbook of automated reasoning.</p>
+<p>this is a question i take for granted. it&rsquo;s many things. wikipedia starts with it&rsquo;s a formal system with syntax and semantics, blah. but that&rsquo;s not really a satisfactory answer, because what we mean is what does it do and what is it used for. for our purposes in verification, a logic is a language for describing things of interest. specifying systems and writing properties. checking. decision procedures. but here are a few. prop, fol, ltl. expressing questions, decision problems.</p>
+<p>rambling and informal introduction trying to connect my knowledge. it&rsquo;s biased towards my areas of interest/understanding. static analysis, verification, my papers</p>
+<p>statements for making statements. approximate the world
+where it gets interesting is what this is used for determining the truth of these statements.</p>
+<p><a href="https://courses.cs.washington.edu/courses/cse473/12sp/slides/12-logic2.pdf">https://courses.cs.washington.edu/courses/cse473/12sp/slides/12-logic2.pdf</a></p>
+<p>part of the problem is that use very opaque (yet precise) terms which i&rsquo;ve just struggled to grasp</p>
+<h2 id="propositional-logic">Propositional logic</h2>
+<p>let&rsquo;s start with the basics. i assume you know what this is.</p>
+<p>syntax. the forms of logical sentences.
+semantics. the meaning</p>
+<p>ast</p>
+<p>what is truth. eval</p>
+<p>valuation. assignment of truth values to atomic props
+a row in a truth table
+context, env</p>
+<p>interpretation
+So an interpretation is just the extension of the valuation to the set of all propositional formulae.
+abused terms
+<a href="https://math.stackexchange.com/questions/2960765/how-is-interpretation-used-differently-in-propositional-vs-first-order-logic">https://math.stackexchange.com/questions/2960765/how-is-interpretation-used-differently-in-propositional-vs-first-order-logic</a></p>
+<p>model. also an assignment
+an interpretation is a model of a formula if the formula is true in that interpretation</p>
+<p>entailment/logical consequence
+relationship between statements of a logic. meta-logical
+<a href="https://en.wikipedia.org/wiki/Logical_consequence#Proofs_and_models">https://en.wikipedia.org/wiki/Logical_consequence#Proofs_and_models</a></p>
+<p>proofs: derivability/inference rules, form, syntactic consequence. can derive the right side using rules without appeal to semantics
+models: satisfiability and validity, semantic consequence. the meaning of both sides agrees?</p>
+<!-- https://www.wild-inter.net/posts/mathjax-in-jekyll -->
+<div style="display:none">
+$
+\newcommand\entails{\vdash}
+$
+</div>
+<p>$\vDash$ usually means satisfies
+$\vdash$ yields $\entails$</p>
+<p>what goes on the left is a set of axioms.
+a word/trace satisfies conteff/ltl formula
+hoare logic has nothing
+for proof, axioms, typing environment
+as far as i can tell, not consistent, just the state of the world satisfies the abstraction of the world</p>
+<p>separation logic.
+stack and heap $\vDash$ formula, points to etc
+what goes on the left is the &ldquo;semantic model&rdquo;</p>
+<p>type. syntax-directed
+left is ctx
+right is term : type
+defining a bunch of relations
+session type also</p>
+<p>hoare logic
+both, nothing on left, triple on right</p>
+<p>session logic. semantic. only proves safety, no soundness
+extension of concurrent separation logic
+protocols are heap assertions
+so on the left is a machine config. program state, channel config. which is program -&gt; logical chanels and global protocol. the thing which executes</p>
+<p>soundness and completeness</p>
+<p>static analysis</p>
+<p>algorithms. dpll. resolution. truth tables</p>
+<h2 id="first-order-logic">First-order logic</h2>
+<p>quantifier instantiation and inf domains</p>
+<h2 id="temporal-logic">Temporal logic</h2>
+<p>see here for intuition</p>
+<p><a href="https://wickstrom.tech/programming/2021/05/03/specifying-state-machines-with-temporal-logic.html">https://wickstrom.tech/programming/2021/05/03/specifying-state-machines-with-temporal-logic.html</a></p>
+<p>how can we interpret ltl?</p>
+<p>finite, we can use this silly little method.</p>
+<p>inf is harder. buchi automata.</p>
+<p>ltl&rsquo;s semantics is on sets of traces (more formal). you need to generate these traces somehow. one way is a modelling lang equipped with an operational semantics. an example is spin.</p>
+<p>so a spin program produces traces.
+what the model checker does is check $t \vDash \phi$ for every trace $t$.</p>
+<p>amounts to checking a property. ltl is a language for writing properties. abstraction of behaviour of modelling lang/program</p>
+<p>we can also do proofs in ltl. for example we can prove that. lamport tla paper gives proofs. can do in coq, one of the coinduction papers prob</p>
+<h1 id="type-systems">type systems</h1>
+<p>if you squint, the type system judgement is similar to the propositional logic valuation judgement</p>
+
+</content>
+<p>
+  
+</p>
+
+  </main>
+  <footer>
+</footer>
+
+    
+</body>
+
+</html>
