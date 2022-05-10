@@ -1,68 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Drafts on Darius Foo</title>
-    <link>https://dariusf.github.io/drafts/</link>
-    <description>Recent content in Drafts on Darius Foo</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-US</language>
-    <copyright>Copyright © 2022, Darius Foo.</copyright>
-    <lastBuildDate>Tue, 11 Jan 2022 16:52:57 +0800</lastBuildDate><atom:link href="https://dariusf.github.io/drafts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>What is a logic?</title>
-      <link>https://dariusf.github.io/drafts/logic/</link>
-      <pubDate>Tue, 11 Jan 2022 16:52:57 +0800</pubDate>
-      
-      <guid>https://dariusf.github.io/drafts/logic/</guid>
-      <description>it&amp;rsquo;s perhaps embarrassing that i couldn&amp;rsquo;t really give a good answer for this until a while ago. i believe being able to give intuition for something is the hallmark of understanding.
-in the spirit, here&amp;rsquo;s an informal introduction to the big picture of logic, attempting to make sense of all the pieces, and prepare you for reading a more formal and thorough textbook. the aim is to be succinct and inexhaustive, as preparation for reading a book like huth and ryan or the handbook of automated reasoning.</description>
-    </item>
-    
-    <item>
-      <title>Wrangling your LaTeX notation</title>
-      <link>https://dariusf.github.io/drafts/latex-notation/</link>
-      <pubDate>Sun, 29 Aug 2021 14:17:22 +0800</pubDate>
-      
-      <guid>https://dariusf.github.io/drafts/latex-notation/</guid>
-      <description>PL papers tend to define lots of notation. Has the benefit of being able to express ideas succinctly and clearly. But there are downsides
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Drafts on Darius Foo</title><link>https://dariusf.github.io/drafts/</link><description>Recent content in Drafts on Darius Foo</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><copyright>Copyright © 2022, Darius Foo.</copyright><lastBuildDate>Tue, 11 Jan 2022 16:52:57 +0800</lastBuildDate><atom:link href="https://dariusf.github.io/drafts/index.xml" rel="self" type="application/rss+xml"/><item><title>What is a logic?</title><link>https://dariusf.github.io/drafts/logic/</link><pubDate>Tue, 11 Jan 2022 16:52:57 +0800</pubDate><guid>https://dariusf.github.io/drafts/logic/</guid><description>it&amp;rsquo;s perhaps embarrassing that i couldn&amp;rsquo;t really give a good answer for this until a while ago. i believe being able to give intuition for something is the hallmark of understanding.
+in the spirit, here&amp;rsquo;s an informal introduction to the big picture of logic, attempting to make sense of all the pieces, and prepare you for reading a more formal and thorough textbook. the aim is to be succinct and inexhaustive, as preparation for reading a book like huth and ryan or the handbook of automated reasoning.</description></item><item><title>Wrangling your LaTeX notation</title><link>https://dariusf.github.io/drafts/latex-notation/</link><pubDate>Sun, 29 Aug 2021 14:17:22 +0800</pubDate><guid>https://dariusf.github.io/drafts/latex-notation/</guid><description>PL papers tend to define lots of notation. Has the benefit of being able to express ideas succinctly and clearly. But there are downsides
 If done in an ad hoc way it becomes hard to manage. For the writer,&amp;lsquo;it&amp;rsquo;s hard to spot mistakes especially when rewriting papers. And use consistent symbols. And remembering what symbols have been used
-For the reader, the problem is mostly remembering what notation the author has used.</description>
-    </item>
-    
-    <item>
-      <title>Menhir tips</title>
-      <link>https://dariusf.github.io/drafts/menhir-tips/</link>
-      <pubDate>Mon, 02 Aug 2021 14:18:06 +0800</pubDate>
-      
-      <guid>https://dariusf.github.io/drafts/menhir-tips/</guid>
-      <description>OCaml has mature tools for writing parsers, but I&amp;rsquo;ve had to puzzle out more than once how to integrate and use them effectively &amp;ndash; there are a number of moving parts, each with their own documentation, and a good amount of plumbing that has to be copied into every project.
-This post will give a big-picture overview of how all the pieces work in concert and how to use their key features.</description>
-    </item>
-    
-    <item>
-      <title>A map of the TLA&#43; ecosystem</title>
-      <link>https://dariusf.github.io/drafts/2021-06-03-tlaplus-map/</link>
-      <pubDate>Thu, 03 Jun 2021 12:15:06 +0800</pubDate>
-      
-      <guid>https://dariusf.github.io/drafts/2021-06-03-tlaplus-map/</guid>
-      <description>tla cheat sheet
+For the reader, the problem is mostly remembering what notation the author has used.</description></item><item><title>Menhir tips</title><link>https://dariusf.github.io/drafts/menhir-tips/</link><pubDate>Mon, 02 Aug 2021 14:18:06 +0800</pubDate><guid>https://dariusf.github.io/drafts/menhir-tips/</guid><description>OCaml has mature tools for writing parsers, but I&amp;rsquo;ve had to puzzle out more than once how to integrate and use them effectively &amp;ndash; there are a number of moving parts, each with their own documentation, and a good amount of plumbing that has to be copied into every project.
+This post will give a big-picture overview of how all the pieces work in concert and how to use their key features.</description></item><item><title>A map of the TLA+ ecosystem</title><link>https://dariusf.github.io/drafts/2021-06-03-tlaplus-map/</link><pubDate>Thu, 03 Jun 2021 12:15:06 +0800</pubDate><guid>https://dariusf.github.io/drafts/2021-06-03-tlaplus-map/</guid><description>tla cheat sheet
 possible blog post it&amp;rsquo;s a highly coherent, well thught and useful project. unfortunately this coherence is spread across many books and papers written over decades. even sriram says read it several different ordeers until you get it, no kidding. even the pluscal book doesn&amp;rsquo;t do it for me because it focuses too much on surface syntax and use cases, whereas this overiew is organised by concept
-a map.</description>
-    </item>
-    
-    <item>
-      <title>Mouseover Minesweeper</title>
-      <link>https://dariusf.github.io/drafts/minesweeper/</link>
-      <pubDate>Tue, 29 Sep 2020 20:03:28 +0800</pubDate>
-      
-      <guid>https://dariusf.github.io/drafts/minesweeper/</guid>
-      <description>I read an interesting article recently on automation in games.
+a map.</description></item><item><title>Mouseover Minesweeper</title><link>https://dariusf.github.io/drafts/minesweeper/</link><pubDate>Tue, 29 Sep 2020 20:03:28 +0800</pubDate><guid>https://dariusf.github.io/drafts/minesweeper/</guid><description>I read an interesting article recently on automation in games.
 minecraft bots. played factorio.
 Another game is Good Sudoku. I don&amp;rsquo;t really like playing Sudoku (solved it with a constraint solver too much!). the fun of sudoku has been kind of ruined for me
 idea is to automate the busywork.
 the problem is which parts to automate.
-this comes down to distilling the essence of a game. this is often subjective.</description>
-    </item>
-    
-  </channel>
-</rss>
+this comes down to distilling the essence of a game. this is often subjective.</description></item></channel></rss>
