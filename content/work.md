@@ -31,7 +31,7 @@ Most of my work can be found on [my GitHub profile](https://www.github.com/dariu
 
 ## Writing
 
-- [Test Lean and Ship Healthy: A Handbook on Delivering High Quality Software in the DevOps World](https://srcclr.github.io/test-lean/)
+- Test Lean and Ship Healthy: A Handbook on Delivering High Quality Software in the DevOps World ([HTML](https://srcclr.github.io/test-lean/), [Kindle](https://www.amazon.com/dp/B0CKXYG3XT))
 
 <!--
 ## Patents
