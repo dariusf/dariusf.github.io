@@ -13,6 +13,9 @@ I am more generally interested in all aspects of programming languages and forma
 Separately, [game development](/other#games).
 https://gohugo.io/content-management/cross-references/
 
+Augment creativity
+Most of my work has explored this through the lens of programming languages and logic, languages to describe interesting phenomena and mechanise reasoning about it.
+
 Create art using computers
 I am also interested in exploring how computers can support and enhance creative work. Producing programs, music, art, narratives. Both for casual creators and experts.
 
