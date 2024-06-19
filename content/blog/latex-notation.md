@@ -2,7 +2,6 @@
 layout: post
 title: "Jump-to-definition in PL papers"
 date: 2023-08-01 14:17:22 +0800
-# date: 2021-08-29 14:17:22 +0800
 ---
 
 PL papers tend to use lots of [notation](https://www.jsoftware.com/papers/tot.htm).
@@ -12,7 +11,10 @@ While notation can increase clarity, it can cause [difficulty](https://blog.sigp
 haven't had the hundreds of hours of practice the authors have had using and reading those intricate strings of symbols, and internalizing their precedences and meaning.
 Readers will forget what things denote and will have to scroll up and down repeatedly in a careful reading of the work.
 
-In an attempt to alleviate this and make my work more accessible, I've been using a small set of macros to enable jump-to-definition for the important (and obscure) symbols:
+In an attempt to alleviate this and make my work more accessible, I've been using a small set of macros to enable jump-to-definition for the important (or obscure) symbols:
+
+
+<!-- \usepackage[hidelinks]{hyperref} also works -->
 
 ```latex
 % somewhere above
@@ -28,7 +30,7 @@ In an attempt to alleviate this and make my work more accessible, I've been usin
 
 The idea is essentially to link uses of notation to their definitions. All that's really needed for that is to pepper `\hyperlink` and `\hypertarget` everywhere, and this is what people [already do](https://damaru2.github.io/general/notations_with_links/).
 
-We can be a little more structured. First, for macros.tex aficionados, we'll use the command `\notation` to define a new symbol, so all the definitions can go in one place. For example,
+We can be a little more structured. First, for macros.tex enjoyers, we'll use the command `\notation` to define a new symbol, so all the definitions can go in one place. For example,
 
 ```latex
 \notation{trace}{\tau}
@@ -139,6 +141,8 @@ If you have a mixfix judgment and want all the parts around the arguments to be 
 \newcommand*{\bigstep}[3]{#1\smodels #2 \notationlink{smodels}{\leadsto} #3}
 ```
 
+It may occasionally be helpful to explicate all uses and definitions, either to look for unlinked ones, or to ensure that definition sites are where you think they should be.
+This can be done by simply removing the unobtrusive link colour and adding `\fbox{#1Def}` before `\notationlink` in the `\notation` macro above.
 
 <!--
 
@@ -226,4 +230,3 @@ latex blog post
 % can use incrementlly. don't have to define first use. though a bit pointless without
 
 -->
-
