@@ -4,15 +4,15 @@ menu: "main"
 weight: 2
 papers:
 - title: Staged Specifications for Automated Verification of Higher-Order Imperative Programs
-  conf: Under submission (2023)
-  code: https://github.com/songyahui/AlgebraicEffect/tree/StagedSL
+  conf: FM 2024
+  code: https://github.com/songyahui/AlgebraicEffect/tree/evaluation
   pdf: https://arxiv.org/abs/2308.00988
   # conflink: a
   # video: a
   # slides: a
   # poster: a
 - title: Extending Separation Logic for Unrestricted Algebraic Effects and Handling
-  conf: Under submission (2023)
+  conf: ICFP 2024
   code: https://github.com/songyahui/AlgebraicEffect/tree/StagedSL
   # conflink: a
   # pdf: /cpluscal.pdf
@@ -88,7 +88,8 @@ papers:
 
 ## Publications
 
-[Semantic Scholar](https://www.semanticscholar.org/author/Darius-Foo/51510084), [Google Scholar](https://scholar.google.com/citations?user=5x9STk4AAAAJ), [CSAuthors](https://www.csauthors.net/darius-foo/)
-<!-- [DBLP](https://dblp.org/pid/228/5744.html) -->
+<!-- [Semantic Scholar](https://www.semanticscholar.org/author/Darius-Foo/51510084), [Google Scholar](https://scholar.google.com/citations?user=5x9STk4AAAAJ), [CSAuthors](https://www.csauthors.net/darius-foo/) -->
+[dblp](https://dblp.org/pid/228/5744.html), [Google Scholar](https://scholar.google.com/citations?user=5x9STk4AAAAJ)
+
 
 {{< papers >}}
