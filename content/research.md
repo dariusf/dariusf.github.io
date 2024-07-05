@@ -3,19 +3,19 @@ title: "Research"
 menu: "main"
 weight: 2
 papers:
-- title: Staged Specifications for Automated Verification of Higher-Order Imperative Programs
+- title: Staged Specification Logic for Verifying Higher-Order Imperative Programs
   conf: FM 2024
-  code: https://github.com/songyahui/AlgebraicEffect/tree/evaluation
-  pdf: https://arxiv.org/abs/2308.00988
-  # conflink: a
+  code: https://github.com/songyahui/AlgebraicEffect/tree/fm24
+  pdf: https://github.com/hipsleek/Heifer/blob/StagedSL/docs/FM2024_TR.pdf
+  conflink: https://www.fm24.polimi.it/?page_id=612
   # video: a
   # slides: a
   # poster: a
-- title: Extending Separation Logic for Unrestricted Algebraic Effects and Handling
+- title: Specification and Verification for Unrestricted Algebraic Effects and Handling
   conf: ICFP 2024
   code: https://github.com/songyahui/AlgebraicEffect/tree/StagedSL
-  # conflink: a
-  # pdf: /cpluscal.pdf
+  conflink: https://icfp24.sigplan.org/track/icfp-2024-papers
+  pdf: https://www.comp.nus.edu.sg/~yahuis/ICFP2024.pdf
   # video: a
   # slides: a
   # poster: a
