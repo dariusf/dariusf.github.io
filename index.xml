@@ -1,26 +1,587 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Darius Foo</title><link>https://dariusf.github.io/</link><description>Recent content on Darius Foo</description><generator>Hugo</generator><language>en-US</language><copyright>Copyright © 2022, Darius Foo.</copyright><lastBuildDate>Fri, 16 Aug 2024 11:59:39 +0800</lastBuildDate><atom:link href="https://dariusf.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Research</title><link>https://dariusf.github.io/research/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dariusf.github.io/research/</guid><description> Publications dblp, Google Scholar
-Staged Specification Logic for Verifying Higher-Order Imperative Programs FM 2024 Specification and Verification for Unrestricted Algebraic Effects and Handling ICFP 2024 Protocol Conformance with Choreographic PlusCal TASE 2023 Automated Temporal Verification for Algebraic Effects APLAS 2022 Tracing OCaml Programs OCaml 2022 Automating Continuous Planning in SAFe RCoSE 2020 The Dynamics of Software Composition Analysis ASE LBR 2019 Efficient Static Checking of Library Updates FSE 2018 SGL: A DSL for large-scale analysis of open-source code SecDev 2018 Higher-Order Debugging and Logging for OCaml Undergraduate thesis (2016)</description></item><item><title>Work</title><link>https://dariusf.github.io/work/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dariusf.github.io/work/</guid><description>Work My resume and extended CV.
-Most of my work can be found on my GitHub profile.
-Teaching CS1101S Programming Methodology, (2013-2015, 2023) CS2030S Programming Methodology II (2021, 2023) CS2102 Database Systems (2020, 2022, 2024 S2/1) CS2103T Software Engineering (2022) CS3281/CS3282 Software Engineering in Live Projects (2016) Service Artifact evaluation committee: ESOP 2022 Subreviewer: POPL 2022, CAV 2022, TASE 2024 Student volunteer: PLDI 2021, SPLASH 2022 Talks Answer Set Programming: Into the Multiverse, 2020, Veracode Coding like a DJ, 2023, BTC Writing Test Lean and Ship Healthy: A Handbook on Delivering High Quality Software in the DevOps World (HTML, Kindle)</description></item><item><title>Other</title><link>https://dariusf.github.io/other/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dariusf.github.io/other/</guid><description> Games Logophile, a small game about words Shrink Simulator, Global Game Jam 2015 Vigilante, an artsy game for Global Game Jam 2014 Getzapp, a puzzle platformer Tower of Myr: Crystal Stream, a turn-based strategy game</description></item><item><title>Verifying effectful higher-order programs with staged logic</title><link>https://dariusf.github.io/drafts/staged/</link><pubDate>Fri, 16 Aug 2024 11:59:39 +0800</pubDate><guid>https://dariusf.github.io/drafts/staged/</guid><description>Text version of a talk given at the NUS PLSE Seminar and FM 2024 in Milan.
-Effectful higher-order functions Specifying higher-order functions today Example 1: mutating the list Example 2: stronger precondition Example 3: effects outside metalogic Staged logic Effectful placeholders Recursion Re-summarization Compaction via biabduction Solutions to the problematic examples Example 1 Example 2 Example 3 Conclusion Effectful higher-order functions Programs written in mainstream languages today are rife with effectful higher-order functions: functions which take other functions as arguments, where these arguments may use primitive side effects, such as state, exceptions, or algebraic effects.</description></item><item><title>Choreographic PlusCal</title><link>https://dariusf.github.io/cpluscal/</link><pubDate>Sun, 31 Dec 2023 11:15:45 +0800</pubDate><guid>https://dariusf.github.io/cpluscal/</guid><description>Choreographic PlusCal is a new specification language for distributed protocols.
-choreography (C \in coordinators); (P \in participants); { all (c \in coordinators) { task C, &amp;#34;phase1&amp;#34; { all (p \in participants) { Transmit(c, p, &amp;#34;prepare&amp;#34;); either { Transmit(p, c, &amp;#34;prepared&amp;#34;); } or { Transmit(p, c, &amp;#34;aborted&amp;#34;); cancel &amp;#34;phase1&amp;#34;; } } }; if (aborted) { all (p \in participants) { Transmit(c, p, &amp;#34;abort&amp;#34;); Transmit(p, c, &amp;#34;aborted&amp;#34;); } } else { all (p \in participants) { Transmit(c, p, &amp;#34;commit&amp;#34;); Transmit(p, c, &amp;#34;committed&amp;#34;); } } } } Roles and parties Protocol models in Choreographic PlusCal begin with definitions of roles, parties, and their local variables.</description></item><item><title>Self-send projection</title><link>https://dariusf.github.io/selfsends/</link><pubDate>Tue, 28 Nov 2023 10:33:45 +0800</pubDate><guid>https://dariusf.github.io/selfsends/</guid><description>$\gdef\kwproj{\mathbin{\upharpoonright}}$ $\gdef\gall#1#2#3{\forall #1 : #2 \cdot #3}$ $\gdef\galls#1#2#3#4{\forall #1 : #2 \setminus #3 \cdot #4}$ $\gdef\galle#1#2#3#4{\forall #1 : #2 \setminus \{#3\} \cdot #4}$ $\gdef\gtransmit#1#2#3{#1 \to #2:#3}$ $\gdef\kwpar{\mathrel{||}}$ $\gdef\spar#1#2{#1 \kwpar #2}$ $\gdef\lsend#1#2{\mathit{send}\ #1\ #2}$ $\gdef\lrecv#1{\mathit{recv\ #1}}$
-Session types are a neat and fascinating formalism. Intuitively, they are small languages for describing communication protocols. Viewing these protocols as types, a type system may be used to check that a program implements a protocol correctly and has other nice properties, such as deadlock-freedom.</description></item><item><title>Jump-to-definition in PL papers</title><link>https://dariusf.github.io/latex-notation/</link><pubDate>Tue, 01 Aug 2023 14:17:22 +0800</pubDate><guid>https://dariusf.github.io/latex-notation/</guid><description>PL papers tend to use lots of notation. To manage this, paper sources usually include a &amp;quot;macros.tex&amp;quot; containing a slew of \newcommands, defining wonderful languages of terms and naming all the clever judgments and syntactic sugar.
-While notation can increase clarity, it can cause difficulty to readers, who haven't had the hundreds of hours of practice the authors have had using and reading those intricate strings of symbols, and internalizing their precedences and meaning.</description></item><item><title>Ordering events across live loops in Sonic Pi</title><link>https://dariusf.github.io/sonic-pi-time/</link><pubDate>Sat, 03 Jun 2023 14:50:17 +0800</pubDate><guid>https://dariusf.github.io/sonic-pi-time/</guid><description>Sonic Pi has an elegant and well-thought temporal semantics. Using the following program as an example,
-sample :drum_bass_hard play :c sleep 1 sample :drum_cowbell The drum sample and note can be thought of as starting simultaneously, and the cowbell will play precisely one second1 after. In other words, sleep there isn't actually POSIX's sleep - it can be thought of as delimiting a section on a virtual timeline, a section which does not include the time taken to start playing the sample and note.</description></item><item><title>Satisfying Music Theory</title><link>https://dariusf.github.io/drafts/satisfying-music-theory/</link><pubDate>Fri, 30 Dec 2022 10:41:06 +0800</pubDate><guid>https://dariusf.github.io/drafts/satisfying-music-theory/</guid><description>This post is about my experiments in generating music using SMT.
-As a teaser, here is a procedurally-generated harmonization of the first line of Joy to the World. Given the melody (in the soprano voice), the system produces the other three voices in a way that makes harmonic sense.
-X: 1 T: Joy to the World L: 1/16 K: C M: 4/4 Q: 1/4=110 V: sop name="S" V: alto name="</description></item><item><title>Trees with holes</title><link>https://dariusf.github.io/trees-with-holes/</link><pubDate>Mon, 16 May 2022 16:28:10 +0800</pubDate><guid>https://dariusf.github.io/trees-with-holes/</guid><description>While working on a top-down synthesis prototype, I got distracted by the issue of how to represent incomplete program fragments, with holes to be filled in.
-The simple way:
-type expr = | One | Plus of expr * expr | Hole let (__) = Hole let hypothesis = Plus (__, __) and this would probably have worked, but with quadratic-time substitution, since all the holes would be at the bottom of the tree.</description></item><item><title>Visualizing Z3's proofs</title><link>https://dariusf.github.io/z3-proofs/</link><pubDate>Sun, 21 Mar 2021 12:00:06 +0800</pubDate><guid>https://dariusf.github.io/z3-proofs/</guid><description>A writeup of a presentation I gave in class.
-SMT solvers like Z3 are often also called automated theorem provers. Why? What do their proofs look like?
-An SMT solver tells us if a formula in first-order logic (augmented with various theories) is satisfiable1: there is some assignment of variables that makes the formula true. Z3 can even produce such an assignment.
-from z3 import * i = Int(&amp;#39;i&amp;#39;) solve(i &amp;gt; 0) [i = 1] Not every formula is satisfiable, though.</description></item><item><title>Pretty stack-and-heap diagrams</title><link>https://dariusf.github.io/stack-heap/</link><pubDate>Sun, 07 Feb 2021 00:13:31 +0800</pubDate><guid>https://dariusf.github.io/stack-heap/</guid><description>I'm teaching an introductory programming class this semester, which introduced students to the runtime stack and the heap in one of the early tutorials.
-For consistency across face-to-face and online classes, I decided to have the diagrams in my slides instead of drawing them terribly over and over.
-While there were lots of references for drawing such diagrams by hand, there didn't seem to be any small and simple tools for generating them.</description></item><item><title>Mouseover Minesweeper</title><link>https://dariusf.github.io/minesweeper/</link><pubDate>Tue, 29 Sep 2020 20:03:28 +0800</pubDate><guid>https://dariusf.github.io/minesweeper/</guid><description>Automation in puzzle games is tricky to balance. The issue is that puzzle games can involve some busywork, e.g. keeping track of the possibilities for each cell in Sudoku, and that removing the tedious parts allows the player to focus on the &amp;quot;interesting&amp;quot; parts of the puzzle.
-Unfortunately, the parts of the game that are core to its experience can be quite subjective. Automation can also quickly spiral out of control, where adding a single rule (e.</description></item><item><title>Transparent iOS backups</title><link>https://dariusf.github.io/ios-backups/</link><pubDate>Thu, 30 Jul 2020 17:49:26 +0800</pubDate><guid>https://dariusf.github.io/ios-backups/</guid><description>Backing up an iOS device is nice and simple: there's iCloud, or connecting your device, opening Finder, and clicking Back Up Now. Unfortunately this process is also rather opaque: all we can do in Finder is to create and restore backups, not view their contents. I'd like to be able to extract individual files and archive them elsewhere.
-At the time of writing there are no up-to-date and polished open source apps for simply viewing backup data in an open format, so here we'll explore how iOS backups are structured and figure out how to extract the raw files.</description></item><item><title>SATB Bird</title><link>https://dariusf.github.io/drafts/bird/</link><pubDate>Thu, 24 Oct 2019 23:49:57 +0800</pubDate><guid>https://dariusf.github.io/drafts/bird/</guid><description>Flappy Bird and choral singing have a lot in common. Bird analogies, gestures, calls, and songs are common in warmups, and in both activities, you are trying to steer a small flapping thing along a fine line through (your) pipes, backed by a lush (musical) landscape.
-To make that less of a reach, I cobbled together a prototype of a singing-powered Flappy Bird, based on an open source clone of the game.</description></item><item><title>Bags of puzzle pieces in ASP</title><link>https://dariusf.github.io/asp-puzzle-pieces/</link><pubDate>Sat, 25 Nov 2017 12:15:06 +0800</pubDate><guid>https://dariusf.github.io/asp-puzzle-pieces/</guid><description>Answer set programming is an offshoot of traditional logic programming with a number of nice properties: programs always terminate, are fully declarative (i.e. clause ordering doesn't matter and search is complete, unlike Prolog), and have a well-defined semantics. Modelling a domain with relations is a wonderfully high-level way to reason about things, allowing complex rules to be represented concisely.
-ASP is typically applied to hard search problems, but can model pretty much anything.</description></item><item><title>CV</title><link>https://dariusf.github.io/cv/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dariusf.github.io/cv/</guid><description>Professional Experience National University of Singapore
-PhD Student
-Aug 2020 &amp;ndash; Present Started my PhD! SourceClear (and, by acquisition, Veracode)
-Senior Software Engineer
-May 2016 &amp;ndash; Jul 2020 Worked on the SourceClear Agent, a tool which uses a combination of static analysis and instrumentation to discover and automatically upgrade library dependencies from CI/CD pipelines. Maintained a code analysis pipeline for precomputing partial static analysis results for large numbers of open source libraries.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Darius Foo</title><link>https://dariusf.github.io/</link><description>Recent content on Darius Foo</description><generator>Hugo</generator><language>en-US</language><copyright>Copyright © 2022, Darius Foo.</copyright><lastBuildDate>Fri, 16 Aug 2024 11:59:39 +0800</lastBuildDate><atom:link href="https://dariusf.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Research</title><link>https://dariusf.github.io/research/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dariusf.github.io/research/</guid><description>&lt;!-- # Research -->
+&lt;h2 id="publications">Publications&lt;/h2>
+&lt;!-- [Semantic Scholar](https://www.semanticscholar.org/author/Darius-Foo/51510084), [Google Scholar](https://scholar.google.com/citations?user=5x9STk4AAAAJ), [CSAuthors](https://www.csauthors.net/darius-foo/) -->
+&lt;p>&lt;a href="https://dblp.org/pid/228/5744.html">dblp&lt;/a>, &lt;a href="https://scholar.google.com/citations?user=5x9STk4AAAAJ">Google Scholar&lt;/a>&lt;/p>
+ 
+&lt;div style="font-weight: normal; margin-bottom: 2px">Staged Specification Logic for Verifying Higher-Order Imperative Programs&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ 
+ &lt;a href="https://www.fm24.polimi.it/?page_id=612">FM 2024&lt;/a>
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/FM2024_TR.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Code" href="https://github.com/songyahui/AlgebraicEffect/tree/fm24"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Slides" href="https://dariusf.github.io/fm24slides.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Transcript" href="https://dariusf.github.io/staged"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div>
+
+
+&lt;div style="font-weight: normal; margin-bottom: 2px">Specification and Verification for Unrestricted Algebraic Effects and Handling&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ 
+ &lt;a href="https://icfp24.sigplan.org/track/icfp-2024-papers">ICFP 2024&lt;/a>
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/ICFP2024_TR.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Code" href="https://github.com/songyahui/AlgebraicEffect/tree/StagedSL"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Video" href="https://youtu.be/F70QZaMoYJQ?t=21565"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Slides" href="https://www.comp.nus.edu.sg/~yahuis/ICFP24/ICFP24_Slides.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div>
+
+
+&lt;div style="font-weight: normal; margin-bottom: 2px">Protocol Conformance with Choreographic PlusCal&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ 
+ &lt;a href="https://plrg-bristol.github.io/tase2023/accepted-papers.html">TASE 2023&lt;/a>
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://dariusf.github.io/cpluscal.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Code" href="https://github.com/dariusf/tlaplus/tree/cpcal"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Slides" href="https://dariusf.github.io/TASE2023-CPlusCal.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div>
+
+
+&lt;div style="font-weight: normal; margin-bottom: 2px">Automated Temporal Verification for Algebraic Effects&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ 
+ &lt;a href="https://conf.researchr.org/program/aplas-2022/program-aplas-2022/">APLAS 2022&lt;/a>
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://www.comp.nus.edu.sg/~yahuis/APLAS2022.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Code" href="https://github.com/songyahui/AlgebraicEffect/tree/main"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Video" href="https://www.youtube.com/watch?v=gAl6TP-gBYQ"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Slides" href="https://www.comp.nus.edu.sg/~yahuis/APLAS22_Effects_my.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div>
+
+
+&lt;div style="font-weight: normal; margin-bottom: 2px">Tracing OCaml Programs&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ 
+ &lt;a href="https://icfp22.sigplan.org/details/ocaml-2022-papers/2/Tracing-OCaml-Programs">OCaml 2022&lt;/a>
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://arxiv.org/abs/2304.04937"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Code" href="https://github.com/dariusf/ppx_debug"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Video" href="https://youtu.be/MwVeZrDyewU"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Slides" href="https://dariusf.github.io/tracing-ocaml22-slides.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div>
+
+
+&lt;div style="font-weight: normal; margin-bottom: 2px">Automating Continuous Planning in SAFe&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ 
+ &lt;a href="https://doi.org/10.1145/3387940.3391536">RCoSE 2020&lt;/a>
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://asankhaya.github.io/pdf/Automating-Continuous-Planning-in-SAFe.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Code" href="https://github.com/srcclr/sapling"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Poster" href="a"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Slides" href="https://dariusf.github.io/sapling-slides.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div>
+
+
+&lt;div style="font-weight: normal; margin-bottom: 2px">The Dynamics of Software Composition Analysis&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ 
+ &lt;a href="https://2019.ase-conferences.org/track/ase-2019-Late-Breaking-Results">ASE LBR 2019&lt;/a>
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://arxiv.org/abs/1909.00973"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Poster" href="https://asankhaya.github.io/pdf/The-Dynamics-of-Software-Composition-Analysis-Poster.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div>
+
+
+&lt;div style="font-weight: normal; margin-bottom: 2px">Efficient Static Checking of Library Updates&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ 
+ &lt;a href="https://dl.acm.org/doi/10.1145/3236024.3275535">FSE 2018&lt;/a>
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://asankhaya.github.io/pdf/Efficient-Static-Checking-of-Library-Updates.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Slides" href="https://dariusf.github.io/update-advisor-slides.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div>
+
+
+&lt;div style="font-weight: normal; margin-bottom: 2px">SGL: A DSL for large-scale analysis of open-source code&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ 
+ &lt;a href="https://doi.org/10.1109/SecDev.2018.00016">SecDev 2018&lt;/a>
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://asankhaya.github.io/pdf/Security-Graph-Language.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Slides" href="https://dariusf.github.io/sgl-slides.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div>
+
+
+&lt;div style="font-weight: normal; margin-bottom: 2px">Higher-Order Debugging and Logging for OCaml&lt;/div>
+&lt;div style="font-size: 0.9em">
+ &lt;span>
+ Undergraduate thesis (2016)
+ 
+ 
+ &lt;/span>
+ 
+
+ 
+ 
+ &lt;a class="paper-item" title="PDF" href="https://github.com/dariusf/ppx_polyprint/raw/master/report.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Code" href="https://github.com/dariusf/ppx_polyprint"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+&lt;/svg>
+ &lt;/a>
+ 
+ &lt;a class="paper-item" title="Slides" href="https://github.com/dariusf/ppx_polyprint/raw/master/slides.pdf"
+ >&lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+ &lt;path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+&lt;/svg>
+ &lt;/a>
+ 
+&lt;/div>
+&lt;div style="margin-bottom: 1.3em">&lt;/div></description></item><item><title>Work</title><link>https://dariusf.github.io/work/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dariusf.github.io/work/</guid><description>&lt;h2 id="work">Work&lt;/h2>
+&lt;p>My &lt;a href="https://dariusf.github.io/resume.pdf">resume&lt;/a> and extended &lt;a href="https://dariusf.github.io/cv">CV&lt;/a>.&lt;/p>
+&lt;p>Most of my work can be found on &lt;a href="https://www.github.com/dariusf">my GitHub profile&lt;/a>.&lt;/p>
+&lt;h2 id="teaching">Teaching&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.comp.nus.edu.sg/~cs1101s/">CS1101S Programming Methodology&lt;/a>, (2013-2015, 2023)&lt;/li>
+&lt;li>&lt;a href="https://nus-cs2030s.github.io/2021-s2/">CS2030S Programming Methodology II&lt;/a> (2021, 2023) &lt;!--, ([slides](/slides/cs2030s)) -->&lt;/li>
+&lt;li>&lt;a href="https://nusmods.com/modules/CS2102/database-systems">CS2102 Database Systems&lt;/a> (2020, 2022, 2024, 2024) &lt;!-- [slides](/slides/relational-algebra-sql) -->&lt;/li>
+&lt;li>&lt;a href="https://nus-cs2103-ay2122s2.github.io/website/">CS2103T Software Engineering&lt;/a> (2022)&lt;/li>
+&lt;li>&lt;a href="https://nus-cs3281.github.io/website/admin/callForApplications.html">CS3281/CS3282 Software Engineering in Live Projects&lt;/a> (2016)&lt;/li>
+&lt;/ul>
+&lt;h2 id="service">Service&lt;/h2>
+&lt;ul>
+&lt;li>Artifact evaluation committee: &lt;a href="https://etaps.org/user-profile/archive/53-etaps-2022/491-esop-2022-artifact-evaluation">ESOP 2022&lt;/a>&lt;/li>
+&lt;li>Subreviewer: POPL 2022, CAV 2022, TASE 2024&lt;/li>
+&lt;li>Student volunteer: PLDI 2021, SPLASH 2022&lt;/li>
+&lt;/ul>
+&lt;h2 id="talks">Talks&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dariusf.github.io/slides/asp">Answer Set Programming: Into the Multiverse&lt;/a>, 2020, Veracode&lt;/li>
+&lt;li>&lt;a href="https://github.com/dariusf/sonicpi-workshop">Coding like a DJ&lt;/a>, 2023, BTC&lt;/li>
+&lt;/ul>
+&lt;h2 id="writing">Writing&lt;/h2>
+&lt;ul>
+&lt;li>Test Lean and Ship Healthy: A Handbook on Delivering High Quality Software in the DevOps World (&lt;a href="https://srcclr.github.io/test-lean/">HTML&lt;/a>, &lt;a href="https://www.amazon.com/dp/B0CKXYG3XT">Kindle&lt;/a>)&lt;/li>
+&lt;/ul>
+&lt;!--
+## Patents
+
+- [US20200042628A1](https://patents.google.com/patent/US20200042628A1/en)
+- [US20200042712A1](https://patents.google.com/patent/US20200042712A1/en)
+--></description></item><item><title>Other</title><link>https://dariusf.github.io/other/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dariusf.github.io/other/</guid><description>&lt;!-- # Other -->
+&lt;h2 id="games">Games&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://play.google.com/store/apps/details?id=io.github.dariusf.logophile">Logophile&lt;/a>, a small game about words&lt;/li>
+&lt;li>&lt;a href="https://globalgamejam.org/2015/games/shrink-simulator-2015">Shrink Simulator&lt;/a>, Global Game Jam 2015&lt;/li>
+&lt;li>&lt;a href="https://globalgamejam.org/2014/games/vigilante">Vigilante&lt;/a>, an artsy game for Global Game Jam 2014&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=HjXklXXprAA">Getzapp&lt;/a>, a puzzle platformer&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=1nM9Xh58SYU">Tower of Myr: Crystal Stream&lt;/a>, a turn-based strategy game&lt;/li>
+&lt;/ul></description></item><item><title>Verifying effectful higher-order programs with staged logic</title><link>https://dariusf.github.io/staged/</link><pubDate>Fri, 16 Aug 2024 11:59:39 +0800</pubDate><guid>https://dariusf.github.io/staged/</guid><description>&lt;!-- (23 Aug 2024) -->
+&lt;!-- (13 Sep 2024) -->
+&lt;p>&lt;em>Text version of a talk given at the &lt;a href="https://nus-plse.github.io/seminars.html">NUS PLSE Seminar&lt;/a> and &lt;a href="https://www.fm24.polimi.it/?page_id=612">FM 2024&lt;/a> in Milan.&lt;/em>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#effectful-higher-order-functions">Effectful higher-order functions&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#specifying-higher-order-functions-today">Specifying higher-order functions today&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#example-1-mutating-the-list">Example 1: mutating the list&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#example-2-stronger-precondition">Example 2: stronger precondition&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#example-3-effects-outside-metalogic">Example 3: effects outside metalogic&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#staged-logic">Staged logic&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#effectful-placeholders">Effectful placeholders&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#recursion">Recursion&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#re-summarization">Re-summarization&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#compaction-via-biabduction">Compaction via biabduction&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#solutions-to-problematic-examples">Solutions to problematic examples&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#example-1">Example 1&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#example-2">Example 2&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#example-3">Example 3&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#conclusion">Conclusion&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="effectful-higher-order-functions">Effectful higher-order functions&lt;/h1>
+&lt;p>Most programming languages in use today are higher-order, and allow programmers to perform &lt;em>effects&lt;/em> (primitive state, exceptions, or algebraic effects) in any context.&lt;/p></description></item><item><title>Choreographic PlusCal</title><link>https://dariusf.github.io/cpluscal/</link><pubDate>Sun, 31 Dec 2023 11:15:45 +0800</pubDate><guid>https://dariusf.github.io/cpluscal/</guid><description>&lt;p>Choreographic PlusCal is a refinement of PlusCal with features for specifying distributed protocols.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">choreography&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="n">C&lt;/span> &lt;span class="err">\&lt;/span>&lt;span class="n">in&lt;/span> &lt;span class="n">coordinators&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="n">P&lt;/span> &lt;span class="err">\&lt;/span>&lt;span class="n">in&lt;/span> &lt;span class="n">participants&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">all&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span> &lt;span class="err">\&lt;/span>&lt;span class="n">in&lt;/span> &lt;span class="n">coordinators&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">task&lt;/span> &lt;span class="n">C&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;phase1&amp;#34;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">all&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="err">\&lt;/span>&lt;span class="n">in&lt;/span> &lt;span class="n">participants&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Transmit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;prepare&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">either&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Transmit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;prepared&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="n">or&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Transmit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;aborted&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cancel&lt;/span> &lt;span class="s">&amp;#34;phase1&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">aborted&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">all&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="err">\&lt;/span>&lt;span class="n">in&lt;/span> &lt;span class="n">participants&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Transmit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;abort&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Transmit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;aborted&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">all&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="err">\&lt;/span>&lt;span class="n">in&lt;/span> &lt;span class="n">participants&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Transmit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;commit&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Transmit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;committed&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="roles-and-parties">Roles and parties&lt;/h2>
+&lt;p>Protocol models in Choreographic PlusCal begin with definitions of &lt;em>roles&lt;/em>, &lt;em>parties&lt;/em>, and their local variables.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">choreography&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="n">F&lt;/span> &lt;span class="err">\&lt;/span>&lt;span class="n">in&lt;/span> &lt;span class="n">failure_detectors&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="n">P&lt;/span> &lt;span class="err">\&lt;/span>&lt;span class="n">in&lt;/span> &lt;span class="n">participants&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">variables&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">voted_yes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">voted_no&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">FALSE&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">outcome&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;none&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A &lt;em>party&lt;/em> is an identifier for a protocol participant, and is typically a model value.
+Protocol participants have local state and communicate via messages.
+A &lt;em>role&lt;/em> is a set of parties.&lt;/p></description></item><item><title>Self-send projection</title><link>https://dariusf.github.io/selfsends/</link><pubDate>Tue, 28 Nov 2023 10:33:45 +0800</pubDate><guid>https://dariusf.github.io/selfsends/</guid><description>&lt;p>$\gdef\kwproj{\mathbin{\upharpoonright}}$
+$\gdef\gall#1#2#3{\forall #1 : #2 \cdot #3}$
+$\gdef\galls#1#2#3#4{\forall #1 : #2 \setminus #3 \cdot #4}$
+$\gdef\galle#1#2#3#4{\forall #1 : #2 \setminus \{#3\} \cdot #4}$
+$\gdef\gtransmit#1#2#3{#1 \to #2:#3}$
+$\gdef\kwpar{\mathrel{||}}$
+$\gdef\spar#1#2{#1 \kwpar #2}$
+$\gdef\lsend#1#2{\mathit{send}\ #1\ #2}$
+$\gdef\lrecv#1{\mathit{recv\ #1}}$&lt;/p>
+&lt;p>&lt;a href="https://wen.works/2020/12/17/an-introduction-to-session-types/">Session types&lt;/a> are a neat and fascinating formalism.
+Intuitively, they are small languages for describing communication protocols.
+Viewing these protocols as types, a type system may be used to check that a program implements a protocol correctly and has other nice properties, such as deadlock-freedom.
+Unlike types which constrain data, session types are &lt;em>behavioral&lt;/em> specifications and constrain what &lt;em>programs&lt;/em> can &lt;em>do&lt;/em>.&lt;/p></description></item><item><title>Jump-to-definition in PL papers</title><link>https://dariusf.github.io/latex-notation/</link><pubDate>Tue, 01 Aug 2023 14:17:22 +0800</pubDate><guid>https://dariusf.github.io/latex-notation/</guid><description>&lt;p>PL papers tend to use lots of &lt;a href="https://www.jsoftware.com/papers/tot.htm">notation&lt;/a>.
+To manage this, paper sources usually include a &amp;quot;macros.tex&amp;quot; containing a slew of &lt;code>\newcommand&lt;/code>s, defining wonderful languages of terms and naming all the clever judgments and syntactic sugar.&lt;/p>
+&lt;p>While notation can increase clarity, it can cause &lt;a href="https://blog.sigplan.org/2020/09/29/pl-notation-is-a-barrier-to-entry/">difficulty&lt;/a> to readers, who
+haven't had the hundreds of hours of practice the authors have had using and reading those intricate strings of symbols, and internalizing their precedences and meaning.
+Readers will forget what things denote and will have to scroll up and down repeatedly in a careful reading of the work.&lt;/p></description></item><item><title>Ordering events across live loops in Sonic Pi</title><link>https://dariusf.github.io/sonic-pi-time/</link><pubDate>Sat, 03 Jun 2023 14:50:17 +0800</pubDate><guid>https://dariusf.github.io/sonic-pi-time/</guid><description>&lt;p>Sonic Pi has an elegant and well-thought &lt;a href="https://in-thread.sonic-pi.net/t/what-does-time-mean-in-sonic-pi/4509">temporal semantics&lt;/a>. Using the following program as an example,&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-ruby" data-lang="ruby">&lt;span class="line">&lt;span class="cl">&lt;span class="n">sample&lt;/span> &lt;span class="ss">:drum_bass_hard&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">play&lt;/span> &lt;span class="ss">:c&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">sleep&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">sample&lt;/span> &lt;span class="ss">:drum_cowbell&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The drum sample and note can be thought of as starting simultaneously, and the cowbell will play precisely one second&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup> after.
+In other words, &lt;code>sleep&lt;/code> there isn't actually POSIX's &lt;code>sleep&lt;/code> - it can be thought of as delimiting a section on a virtual timeline, a section which &lt;em>does not include the time taken to start playing the sample and note&lt;/em>.&lt;/p></description></item><item><title>Satisfying Music Theory</title><link>https://dariusf.github.io/drafts/satisfying-music-theory/</link><pubDate>Fri, 30 Dec 2022 10:41:06 +0800</pubDate><guid>https://dariusf.github.io/drafts/satisfying-music-theory/</guid><description>&lt;script src="https://dariusf.github.io/abcjs-basic-min.js">&lt;/script>
+&lt;link rel="stylesheet" type="text/css" href="https://dariusf.github.io/abcjs-audio.css">
+&lt;script src="https://dariusf.github.io/abcjs.js">&lt;/script>
+
+
+&lt;!-- TLDR -->
+&lt;p>This post is about my experiments in generating music using SMT.&lt;/p>
+&lt;p>As a teaser, here is a procedurally-generated harmonization of the first line of &lt;!-- the English Christmas carol -->
+&lt;em>Joy to the World&lt;/em>.
+Given the melody (in the soprano voice), the system produces the other three voices in a way that makes harmonic sense.&lt;/p>
+
+&lt;span id="joy">
+X: 1
+T: Joy to the World
+L: 1/16
+K: C
+M: 4/4
+Q: 1/4=110
+V: sop name="S"
+V: alto name="A"
+V: tenor name="T" clef=treble-8
+V: bass name="B" clef=bass middle=d transpose=-24
+%
+V: sop
+c4 B3 A1 G6 F2 E4 D4 C6 G2 A6 A2 B6 B2 c6
+V: alto
+e4 d4 G6 d2 G6 G6 c6 F4 A2 e2 e1 e4 B1 c6
+V: tenor
+A4 D4 G6 A2 E1 E3 D4 E4 E6 A6 G4 G1 G3 A6
+V: bass
+"vi" A4 "V" G3 "ii" F1 "I" G6 "ii" A1 "iii" d1 "V" G6 "I" G6 "I" c6 "vi" d6 "ii" G2 "iii" B3 "iii" G3 "vi" A6
+&lt;/span>
+&lt;script>renderMusicIn('joy')&lt;/script>
+
+
+&lt;p>More examples &lt;a href="#examples">here&lt;/a>. The rest of the post describes the journey (or at least the first part of it, since it appears to be far from over!).&lt;/p></description></item><item><title>Trees with holes</title><link>https://dariusf.github.io/trees-with-holes/</link><pubDate>Mon, 16 May 2022 16:28:10 +0800</pubDate><guid>https://dariusf.github.io/trees-with-holes/</guid><description>&lt;p>While working on a top-down synthesis prototype, I got distracted by the issue of how to represent incomplete program fragments, with holes to be filled in.&lt;/p>
+&lt;p>The simple way:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-ocaml" data-lang="ocaml">&lt;span class="line">&lt;span class="cl">&lt;span class="k">type&lt;/span> &lt;span class="n">expr&lt;/span> &lt;span class="o">=&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">|&lt;/span> &lt;span class="nc">One&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">|&lt;/span> &lt;span class="nc">Plus&lt;/span> &lt;span class="k">of&lt;/span> &lt;span class="n">expr&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">expr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">|&lt;/span> &lt;span class="nc">Hole&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">let&lt;/span> &lt;span class="o">(__)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nc">Hole&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">let&lt;/span> &lt;span class="n">hypothesis&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nc">Plus&lt;/span> &lt;span class="o">(__,&lt;/span> &lt;span class="o">__)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>and this would probably have worked, but with quadratic-time substitution, since all the holes would be at the bottom of the tree.&lt;/p>
+&lt;p>How could we do better?&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/p>
+&lt;h2 id="difference-lists">Difference lists&lt;/h2>
+&lt;p>&lt;a href="https://en.wikibooks.org/wiki/Prolog/Difference_Lists">Difference lists&lt;/a> originate in Prolog folklore.&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>
+Unlike regular lists, they end with a logic variable instead of an empty list.
+When unified, the logic variable allows something to be appended to the list quickly, without rebuilding it.&lt;/p></description></item><item><title>Visualizing Z3's proofs</title><link>https://dariusf.github.io/z3-proofs/</link><pubDate>Sun, 21 Mar 2021 12:00:06 +0800</pubDate><guid>https://dariusf.github.io/z3-proofs/</guid><description>&lt;p>&lt;em>A writeup of a presentation I gave in class.&lt;/em>&lt;/p>
+&lt;p>SMT solvers like Z3 are often also called automated theorem provers. Why? What do their proofs look like?&lt;/p>
+&lt;p>An SMT solver tells us if a formula in first-order logic (augmented with various theories) is &lt;em>satisfiable&lt;/em>&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>: there is some assignment of variables that makes the formula true. Z3 can even produce such an assignment.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">z3&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;i&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">solve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Not every formula is satisfiable, though. In that case, there are two possibilities.&lt;/p></description></item><item><title>Pretty stack-and-heap diagrams</title><link>https://dariusf.github.io/stack-heap/</link><pubDate>Sun, 07 Feb 2021 00:13:31 +0800</pubDate><guid>https://dariusf.github.io/stack-heap/</guid><description>&lt;p>I'm teaching an introductory programming class this semester, which introduced students to the runtime stack and the heap in one of the early tutorials.&lt;/p>
+&lt;p>For consistency across face-to-face and online classes, I decided to have the diagrams in my slides instead of drawing them terribly over and over.&lt;/p>
+&lt;p>While there were lots of references for drawing such diagrams by hand, there didn't seem to be any small and simple tools for &lt;em>generating&lt;/em> them.
+I only found &lt;a href="http://tug.ctan.org/tex-archive/macros/latex/contrib/drawstack/">drawstack.sty&lt;/a> (which does what it says on the box and only handles the stack), and everyone else seemed to use TikZ directly, which felt a little too low-level for this.&lt;/p></description></item><item><title>Mouseover Minesweeper</title><link>https://dariusf.github.io/minesweeper/</link><pubDate>Tue, 29 Sep 2020 20:03:28 +0800</pubDate><guid>https://dariusf.github.io/minesweeper/</guid><description>&lt;p>Automation in puzzle games is tricky to balance.
+The issue is that puzzle games can involve some busywork, e.g. keeping track of the possibilities for each cell in Sudoku, and that removing the tedious parts allows the player to &lt;a href="https://www.playgoodsudoku.com/">focus on the &amp;quot;interesting&amp;quot; parts&lt;/a> of the puzzle.&lt;/p>
+&lt;p>Unfortunately, the parts of the game that are core to its experience can be quite subjective.
+Automation can also quickly spiral out of control, where adding a single rule (e.g. transitivity) to a solver that barely helps makes it &lt;a href="https://magnushoff.com/articles/minesweeper/">practically solve the game completely&lt;/a>, making you wonder what is left to &amp;quot;play&amp;quot;.&lt;/p></description></item><item><title>Transparent iOS backups</title><link>https://dariusf.github.io/ios-backups/</link><pubDate>Thu, 30 Jul 2020 17:49:26 +0800</pubDate><guid>https://dariusf.github.io/ios-backups/</guid><description>&lt;p>Backing up an iOS device is nice and simple: there's iCloud, or connecting your device, opening Finder, and clicking &lt;em>Back Up Now&lt;/em>.
+Unfortunately this process is also rather opaque: all we can do in Finder is to create and restore backups, not view their contents.
+I'd like to be able to extract individual files and archive them elsewhere.&lt;/p>
+&lt;p>At the time of writing there are no up-to-date and polished open source apps for simply viewing backup data in an open format, so here we'll explore how iOS backups are structured and figure out how to extract the raw files.&lt;/p></description></item><item><title>SATB Bird</title><link>https://dariusf.github.io/drafts/bird/</link><pubDate>Thu, 24 Oct 2019 23:49:57 +0800</pubDate><guid>https://dariusf.github.io/drafts/bird/</guid><description>&lt;p>Flappy Bird and choral singing have a lot in common.
+Bird analogies, gestures, calls, and &lt;a href="https://www.youtube.com/watch?v=4gCI3ySNNDU">songs&lt;/a> are common in warmups, and in both activities, you are trying to steer a small flapping thing along a fine line through (your) pipes, backed by a lush (musical) landscape.&lt;/p>
+&lt;p>To make that less of a reach, I cobbled together a &lt;a href="https://github.com/dariusf/satb-bird">prototype&lt;/a> of a singing-powered Flappy Bird, based on an open source &lt;a href="https://github.com/xviniette/FlappyLearning">clone&lt;/a> of the game.
+It would have been called &lt;em>Flappy Lips&lt;/em>, but I settled on &lt;em>SATB Bird&lt;/em> to tease the upcoming multiplayer edition.&lt;/p></description></item><item><title>Bags of puzzle pieces in ASP</title><link>https://dariusf.github.io/asp-puzzle-pieces/</link><pubDate>Sat, 25 Nov 2017 12:15:06 +0800</pubDate><guid>https://dariusf.github.io/asp-puzzle-pieces/</guid><description>&lt;p>Answer set programming is an offshoot of traditional logic programming with a number of nice properties: programs always terminate, are fully declarative (i.e. clause ordering doesn't matter and search is complete, unlike Prolog), and have a &lt;a href="https://en.wikipedia.org/wiki/Stable_model_semantics">well-defined semantics&lt;/a>. Modelling a domain with relations is a wonderfully high-level way to reason about things, allowing complex rules to be represented &lt;a href="https://en.wikipedia.org/wiki/Answer_set_programming#Examples_of_ASP_programs">concisely&lt;/a>.&lt;/p>
+&lt;p>ASP is typically applied to hard search problems, but can model pretty much anything. One area it's popular in is game design, particularly for &lt;a href="https://adamsmith.as/papers/tciaig-asp4pcg.pdf">procedural content generation&lt;/a>: if we can write down the rules of, say, a puzzle game, we can straightforwardly sample valid puzzles (or even &lt;a href="https://adamsmith.as/papers/fdg2013_shortcuts.pdf">solutions to puzzles&lt;/a>) with desirable properties.&lt;/p></description></item><item><title>CV</title><link>https://dariusf.github.io/cv/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dariusf.github.io/cv/</guid><description>&lt;style>
+
+ p.company {
+ border-bottom: 1px solid var(--text-color);
+ font-weight: bold;
+ margin-bottom: 0px;
+ }
+ p.position {
+ margin-top: 0px;
+ margin-bottom: 0px;
+ font-style: italic;
+ }
+ div.bio {
+ padding: 6px 6px 6px 80px;
+ float: right;
+ border-radius: 3px;
+ }
+ p.name {
+ font-size: 1.15em;
+ font-weight: bold;
+ margin-bottom: 0px;
+ }
+&lt;/style>
+&lt;!--
+&lt;div class="bio">
+ &lt;p class="name">Darius Foo&lt;/p>
+ darius.foo.tw at gmail&lt;br/>
+ https://dariusf.github.io&lt;br/>
+&lt;/div>
+-->
+&lt;!--
+hugo doesn't render template substitutions in {{ .Site.BaseURL }} in markdown without custom shortcodes.
+also this floating bio penetrates the header boxes without a summary.
+probably not needed anyway since i'll probably want a much shorter, standalone resume for distribution in future.
+-->
+&lt;!-- # CV -->
+&lt;h2 id="professional-experience">Professional Experience&lt;/h2>
+&lt;p class="company">National University of Singapore&lt;/p></description></item></channel></rss>
