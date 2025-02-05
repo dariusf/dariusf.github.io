@@ -1,9 +1,107 @@
-{%- css %}.postlist { counter-reset: start-from {{ (postslistCounter or postslist.length) + 1 }} }{% endcss %}
-<ul class="postlist">
+{%- css %}
+{# .postlist {
+		counter-reset: start-from {{ (postslistCounter or postslist.length) + 1 }}
+} #}
+
+{# /* Posts list */ #}
+
+{# /*
+.postlist {
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+.postlist-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	counter-increment: start-from -1;
+	margin-bottom: 1em;
+}
+.postlist-item:before {
+	display: inline-block;
+	pointer-events: none;
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+.postlist-date,
+.postlist-item:before {
+	font-size: 0.8125em; /* 13px /16 */
+	color: var(--color-gray-90);
+}
+.postlist-date {
+	word-spacing: -0.5px;
+}
+
+.postlist-link {
+	font-size: 1.1875em; /* 19px /16 */
+	font-weight: 700;
+	flex-basis: calc(100% - 1.5rem);
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+*/ #}
+
+{# /*
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+*/ #}
+
+ul.blog-posts {
+	list-style-type: none;
+	padding: 0;
+	margin: 0px;
+}
+
+ul.blog-posts li {
+	display: flex;
+}
+
+ul.blog-posts li span {
+	flex: 0 0 130px;
+	text-align: right;
+	margin-right: 20px;
+}
+
+ul.blog-posts li a:visited {
+	color: var(--link-visited-color);
+}
+
+{% endcss %}
+
+{# postlist #}
+<ul class="blog-posts">
 {%- for post in postslist | reverse %}
-	<li class="postlist-item{% if post.url == url %} postlist-item-active{% endif %}">
-		<a href="{{ post.url }}" class="postlist-link">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a>
+{# {% if post.url == url %} postlist-item-active{% endif %} #}
+{# class="postlist-item" #}
+	<li>
+		<span>
 		<time class="postlist-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate("LLLL yyyy") }}</time>
+		</span>
+ {# class="postlist-link" #}
+		<a href="{{ post.url }}">{{ post.data.title }}</a>
+			{# {% if post.data.title %}{% else %}<code>{{ post.url }}</code>{% endif %} #}
 	</li>
 {%- endfor %}
 </ul>
+
+{#
+  <ul class="blog-posts">
+    {{ range .Pages }}
+    <li>
+      <span>
+          <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
+            {{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
+          </time>
+      </span>
+      <a href="{{ .Permalink }}">{{ .Title }}</a>
+    </li>
+    {{ end }}
+  </ul>
+#}

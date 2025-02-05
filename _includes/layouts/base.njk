@@ -7,6 +7,34 @@
 		<meta name="description" content="{{ description or metadata.description }}">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
 
+
+		{# <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Poppins">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Dosis">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Crimson+Text">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Quicksand">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Roboto">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Cabin">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Open+Sans">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Work+Sans">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=PT+Sans">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Varela+Round">
+		<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Noto+Serif"> #}
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito" /> -->
+		<!-- <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Lato"> -->
+		<!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400,700&display=swap" rel="stylesheet"> -->
+
+		<!-- <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet"> -->
+
+		<!-- <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Inconsolata"> -->
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css?family=Fira+Code"
+		/>
+
 		{#-
 		Plain-text bundles are provided via the `eleventy-plugin-bundle` plugin:
 		1. CSS:
@@ -29,9 +57,6 @@
 		<style>{% getBundle "css" %}</style>
 		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
 		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
-
-		{#- Add the heading-anchors web component to the JavaScript bundle #}
-		{%- js %}{% include "node_modules/@zachleat/heading-anchors/heading-anchors.js" %}{% endjs %}
 	</head>
 	<body>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
@@ -51,9 +76,7 @@
 		</header>
 
 		<main id="skip">
-			<heading-anchors>
-				{{ content | safe }}
-			</heading-anchors>
+			{{ content | safe }}
 		</main>
 
 		<footer>
