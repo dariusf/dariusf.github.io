@@ -78,6 +78,8 @@ $\newcommand{\list}{\m{List}}$
 $\newcommand{\emp}{\m{emp}}$
 $\newcommand{\req}[1]{\mathbf{req}\ &#35;1}$
 $\newcommand{\ens}[1]{\mathbf{ens}\ &#35;1}$
+$\newcommand{\s}[1]{\{ &#35;1 \}}$
+$\newcommand{\sb}[1]{\textbf{\{}&#35;1\textbf{\}}}$
 </div>
 
 We'll use the classic $\foldr$ function as a running example.
@@ -105,7 +107,7 @@ Here is a specification one might write today in a modern program logic[^1].
 $$
 \begin{array}{c}
 \forall \class{ppred}{P}, \class{foldrinv}{\inv}, f, \xs, l. \left\\{ \begin{array}{l}
-    \class{triple}{(\forall x, a', \ys.\ \\{\class{ppred}{P\ x} * \class{preserve}{\inv\ \ys\ a'} \\}\ f(x, a')\ \\{r.\ \class{preserve}{\inv\ (x::\ys)\ r} \\})} \\\\
+    \class{triple}{(\forall x, a', \ys.\ \s{\class{ppred}{P\ x} * \class{preserve}{\inv\ \ys\ a'}}\ f(x, a')\ \s{r.\ \class{preserve}{\inv\ (x::\ys)\ r}})} \\\\
     *\ \class{shape}{\islist\ l\ \xs} * \class{ppred}{\m{all}\ P\ \xs} * \class{foldrinv}{\inv\ []\ a}
  \end{array} \right\\} \\\\
  \foldr\ f\ a\ l \\\\
@@ -231,20 +233,20 @@ What is the semantics of such formulae? We defer a detailed answer to our paper[
 
 $$
 \begin{align*}
-\\{ P \\}\ e\ \\{ Q \\} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \wedge (s\vDash P) \Rightarrow \langle s',v \rangle \vDash Q \\\\
-\\{ P \\}\ e\ \\{ Q \\} \equiv & \ \textbf{\\{} \ens{\emp} \textbf{\\}}\ e\ \textbf{\\{} \req{P}; \ens{Q} \textbf{\\}} \\\\
+\s{P}\ e\ \s{Q} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \wedge (s\vDash P) \Rightarrow \langle s',v \rangle \vDash Q \\\\
+\s{P}\ e\ \s{Q} \equiv & \ \sb{\ens{\emp}}\ e\ \sb{\req{P}; \ens{Q}} \\\\
 \end{align*}
 $$
 
 Suppose we redefined Hoare triples in terms of a new "bold" kind of triple, with the new formula type on both sides.
 Intuitively, the formula on the left describes a "history", while the formula on the right describes the behavior of $e$ on top of that history.
 
-This th a specific case of this new kind of triple.
+This is a specific case of this new kind of triple.
 The more general case could have its semantics defined as follows.
 
 $$
 \begin{align*}
-\textbf{\\{} \ens{\emp} \textbf{\\}}\ e\ \textbf{\\{} \varphi \textbf{\\}} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \Rightarrow \langle s, s', v \rangle \vDash \varphi
+\sb{\ens{\emp}}\ e\\sb{\varphi} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \Rightarrow \langle s, s', v \rangle \vDash \varphi
 \end{align*}
 $$
 
@@ -253,11 +255,11 @@ Now we can clearly see how this new kind of triple generalizes the standard one:
 To give a flavour of some reasoning rules, here is the standard separation logic rule for load/deference, followed by our new one.
 
 $$
-\frac{}{\\{x \mapsto y\\}\ !x\ \\{ r.\ x\mapsto y \wedge r =y \\}} \text{\scriptsize SLDeref}
+\frac{}{\s{x \mapsto y}\ !x\ \s{ r.\ x\mapsto y \wedge r =y }} \text{\scriptsize SLDeref}
 $$
 
 $$
-\frac{}{\textbf{\\{} \varphi \textbf{\\}}\ !x\ \textbf{\\{}\varphi; \exists y, r.\ \req{x\mapsto y}; \ens{r.\ x\mapsto y \wedge r=y} \textbf{\\}}} \text{\scriptsize StDeref}
+\frac{}{\sb{\varphi}\ !x\ \sb{\varphi; \exists y, r.\ \req{x\mapsto y}; \ens{r.\ x\mapsto y \wedge r=y} }} \text{\scriptsize StDeref}
 $$
 
 <!-- https://github.com/KaTeX/KaTeX/issues/471 -->
@@ -267,11 +269,11 @@ It shouldn't be too surprising, as it mostly follows the schema we just presente
 The advantage of having the precondition on the right becomes clearer with the rule for function application, which is the first place where our new logic fundamentally differs.
 
 $$
-\frac{(\forall y.\ \\{P_f\\}\ f(y)\ \\{ r.\ Q_f \\}) \quad P \vdash P_f[x/y] * F}{\\{P\\}\ f(x)\ \\{ r.\ Q_f[x/y] * F \\} } \text{\scriptsize SLApp}
+\frac{(\forall y.\ \s{P_f}\ f(y)\ \s{ r.\ Q_f }) \quad P \vdash P_f[x/y] * F}{\s{P}\ f(x)\ \s{ r.\ Q_f[x/y] * F } } \text{\scriptsize SLApp}
 $$
 
 $$
-\frac{}{\textbf{\\{} \varphi \textbf{\\}}\ f(x)\ \textbf{\\{} \varphi; \exists r.\ f(x,r) \textbf{\\}}} \text{\scriptsize StApp}
+\frac{}{\sb{ \varphi }\ f(x)\ \sb{ \varphi; \exists r.\ f(x,r) }} \text{\scriptsize StApp}
 $$
 
 First, we have the standard separation logic rule for function application. The key part is that some *knowledge* or *specification* of $f$ is required to prove that it is safe to call in a state satisfying $P$. Once this is done via the entailment on the right, a postcondition $Q_f$ (with appropriate substitutions) and frame $F$ are produced, allowing us to continue.
@@ -561,7 +563,7 @@ The list is described using a shape predicate.
 
 $$
 \begin{array}{rl}
-& \m{foldr\_ex1}(l,\res) \\
+& \m{foldr\_ex1}(l,\res) \\\\
 \sqsubseteq & \exists \xs, \ys.\ \req{\list(l,\xs)}; \ens{\list(l,\ys){\wedge}\m{mapinc}(\xs){=}\ys{\wedge}\m{sum}(\xs){=}\res}
 \end{array}
 $$
