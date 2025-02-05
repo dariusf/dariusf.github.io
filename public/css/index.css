@@ -2,9 +2,11 @@
 /* Defaults */
 :root {
 	/* --font-family: -apple-system, system-ui, sans-serif; */
-	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace; */
+	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	*/
 
-    --font-family-monospace: Fira Code, monospace;
+    --font-family-monospace: Fira Code, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
 
   /*    --text-font: Crimson Text, serif;*/
   /*    --text-font: Poppins, Verdana, sans-serif;*/
@@ -112,6 +114,9 @@
 	margin: 0;
 
 	box-sizing: border-box;
+
+	/* enable ligatures */
+	text-rendering: optimizeLegibility;
 }
 
 /* restore some spacing after reset */
@@ -128,12 +133,6 @@ code, p, ul {
 
 p, ul {
 	margin-bottom: 1em;
-}
-
-pre {
-	/* override prism */
-	margin-top: 0 !important;
-	margin-bottom: 1em !important;
 }
 
 .blog-content h1,
@@ -275,11 +274,25 @@ table th {
 	padding-right: 1em;
 }
 
-pre,
+/* pre,
 code {
+	font-family: var(--font-family-monospace) !important;
+	font-size: 14px !important;
+} */
+
+/* override prism */
+/* https://github.com/orgs/PrismJS/discussions/2859 */
+code[class*="language-"],
+pre[class*="language-"] {
 	font-family: var(--font-family-monospace);
-	font-size: 14px !important; /* override prism */
+	font-size: 14px;
 }
+
+pre[class*="language-"] {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
 pre:not([class*="language-"]) {
 	margin: .5em 0;
 	line-height: 1.375; /* 22px /16 */

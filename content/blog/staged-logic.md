@@ -53,4 +53,4 @@ The question we're concerned with in this work is: is there a *precise* and *gen
 
 # Specifying higher-order functions today
 
-lol
+$x + 1$

@@ -61,7 +61,7 @@ export default function mathjaxPlugin(eleventyConfig, options = {}) {
 		if (!isBlogPost) {
 			return content;
 		}
-		console.log(outputPath);
+		// console.log(outputPath);
 
 		// const html = mathjax.document(content, { InputJax, OutputJax });
 		// html.render();

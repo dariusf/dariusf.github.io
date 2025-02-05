@@ -1,9 +1,17 @@
----js
+---
+eleventyNavigation:
+  key: Blog
+  order: 1
+---
+
+{# ---js
 const eleventyNavigation = {
 	key: "Blog",
-	order: 2
+	order: 1
 };
----
+const layout = 'layouts/base.njk';
+--- #}
+
 {# <h1>Blog</h1> #}
 
 {% set postslist = collections.posts %}
