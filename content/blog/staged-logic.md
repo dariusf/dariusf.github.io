@@ -52,3 +52,5 @@ A second issue is that even when higher-order functions are supported, they tend
 The question we're concerned with in this work is: is there a *precise* and *general* way to support effectful higher-order functions in *automated* program verifiers?
 
 # Specifying higher-order functions today
+
+lol

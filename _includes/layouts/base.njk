@@ -92,13 +92,14 @@
 				padding-right: 5px;
 				display: inline-block;
 			}
-			{% endcss %}
 			{# .nav-item a[href]:not(:hover) {
 				text-decoration: none;
-			}
-			.nav a[href][aria-current="page"] {
-				text-decoration: underline;
 			} #}
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}
+			{% endcss %}
 
 			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
 			<nav style="display: inline-block">
