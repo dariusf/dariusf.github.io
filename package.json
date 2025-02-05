@@ -43,9 +43,11 @@
 		"cross-env": "^7.0.3",
 		"luxon": "^3.5.0",
 		"prismjs": "^1.29.0",
+		"mathjax-full": "^3.2.2",
 		"zod": "^3.23.8",
-		"zod-validation-error": "^3.3.1",
-		"mathjax-full": "^3.2.2"
+		"zod-validation-error": "^3.3.1"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"markdown-it-footnote": "^4.0.0"
+	}
 }

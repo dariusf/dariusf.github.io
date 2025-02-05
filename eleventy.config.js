@@ -10,6 +10,8 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 
 import pluginFilters from "./_config/filters.js";
 import mathjaxPlugin from "./mathjax.js";
+import markdownItFootnote from "markdown-it-footnote";
+import markdownIt from "markdown-it";
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
@@ -120,6 +122,26 @@ export default async function (eleventyConfig) {
 	// https://www.11ty.dev/docs/copy/#emulate-passthrough-copy-during-serve
 
 	// eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
+
+	// add markdown footnotes
+	// https://github.com/11ty/eleventy-base-blog/issues/167
+	eleventyConfig.amendLibrary("md", (mdLib) => {
+		const md = markdownIt({
+			html: true,
+			linkify: true,
+		});
+		mdLib.use(markdownItFootnote);
+
+		// hides brackets for footnotes
+		mdLib.renderer.rules.footnote_caption = (tokens, idx) => {
+			let n = Number(tokens[idx].meta.id + 1).toString();
+
+			if (tokens[idx].meta.subId > 0) {
+				n += ":" + tokens[idx].meta.subId;
+			}
+			return n;
+		};
+	});
 }
 
 export const config = {
