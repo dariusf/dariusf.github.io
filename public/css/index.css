@@ -110,18 +110,49 @@
 /* select parts of https://www.joshwcomeau.com/css/custom-css-reset/ */
 	/* reset */
 	margin: 0;
-}
 
-* {
 	box-sizing: border-box;
 }
+
+/* restore some spacing after reset */
+/* prism adds this much to code already */
+/* h1, h2, h3, h4, h5, h6 {
+	margin-top: 1rem;
+} */
+	/* margin-bottom: 0.3em; */
+/* main > :first-child { margin-top: 0 !important; }
+code, p, ul {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+} */
+
+p, ul {
+	margin-bottom: 1em;
+}
+
+pre {
+	/* override prism */
+	margin-top: 0 !important;
+	margin-bottom: 1em !important;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+	/* space after paragraphs, and not before the next paragraph.
+	the spacing after is provided by having a large font size. */
+	margin-top: 0.5em;
+}
+
 
 @view-transition {
 	navigation: auto;
 }
 
-html,
-body {
+html, body {
 	padding: 0;
 	margin: 0 auto;
 	/* font-family: var(--font-family); */
@@ -134,21 +165,19 @@ body {
 	text-align: left;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	line-height: 1.5; */
+	*/
+	/* line-height: 1.5; */
 }
+
 html {
 	overflow-y: scroll;
 }
+
 body {
 	max-width: 40em;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
 	font-family: var(--heading-font);
 	color: var(--bright-text-color);
 	font-weight: normal;
@@ -204,12 +233,12 @@ a[href] {
 a[href]:visited {
 	color: var(--link-visited-color);
 }
-a[href]:hover,
-a[href]:active {
+/* a[href]:hover,
+a[href]:active { */
 	/* color: var(--text-color-link-active); */
-	text-decoration: underline;
-	text-decoration-thickness: 2px;
-}
+	/* text-decoration: underline; */
+	/* text-decoration-thickness: 2px; */
+/* } */
 
 main,
 footer {
@@ -249,13 +278,14 @@ table th {
 pre,
 code {
 	font-family: var(--font-family-monospace);
+	font-size: 14px !important; /* override prism */
 }
 pre:not([class*="language-"]) {
 	margin: .5em 0;
 	line-height: 1.375; /* 22px /16 */
-	-moz-tab-size: var(--syntax-tab-size);
-	-o-tab-size: var(--syntax-tab-size);
-	tab-size: var(--syntax-tab-size);
+	/* -moz-tab-size: var(--syntax-tab-size); */
+	/* -o-tab-size: var(--syntax-tab-size); */
+	/* tab-size: var(--syntax-tab-size); */
 	-webkit-hyphens: none;
 	-ms-hyphens: none;
 	hyphens: none;
@@ -270,73 +300,13 @@ code {
 	word-break: break-all;
 }
 
-/* Header, which contains nav */
-header {
-	display: flex;
-	gap: 1em;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-	padding-top: 1em;
-	/* padding: 1em; */
-}
-
 	/* flex-grow: 1; */
 	/* 16px /16 */
 	/* font-size: 1em; */
 	/* font-weight: 700; */
 
-.home-link {
-	color: var(--text-color);
-	font-size: 1.5em; /* matches h2  */
-	font-family: var(--heading-font);
-      /* margin-right: 10px; */
-}
 /* .home-link:link:not(:hover) {
 	text-decoration: none;
 } */
 
 /* Nav */
-.nav {
-	display: flex;
-	gap: .5em 1em;
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-.nav-item {
-	font-family: var(--heading-font);
-	display: inline-block;
-}
-.nav-item a[href]:not(:hover) {
-	text-decoration: none;
-}
-.nav a[href][aria-current="page"] {
-	text-decoration: underline;
-}
-
-/* Tags */
-/* .post-tag {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	text-transform: capitalize;
-	font-style: italic;
-}
-.postlist-item > .post-tag {
-	align-self: center;
-} */
-
-/* Tags list */
-/* .post-metadata {
-	display: inline-flex;
-	flex-wrap: wrap;
-	gap: .5em;
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-.post-metadata time {
-	margin-right: 1em;
-} */
-

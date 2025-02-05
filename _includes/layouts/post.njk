@@ -2,16 +2,48 @@
 layout: layouts/base.njk
 ---
 {# Only include the syntax highlighter CSS on blog posts, included with the CSS per-page bundle #}
-{%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %}
-{%- css %}{% include "public/css/prism-diff.css" %}{%- endcss %}
+{%- css %} @media (prefers-color-scheme: light) { {% include "node_modules/prismjs/themes/prism.css" %} } {% endcss %}
+{%- css %} @media (prefers-color-scheme: dark) { {% include "node_modules/prismjs/themes/prism-tomorrow.css" %} } {% endcss %}
+{# {%- css %}{% include "public/css/prism-diff.css" %}{%- endcss %} #}
 <h1>{{ title }}</h1>
 
-<ul class="post-metadata">
-	<li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
-	{%- for tag in tags | filterTagList %}
+{# {%- css %}
+/* Tags */
+/* .post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: capitalize;
+	font-style: italic;
+}
+.postlist-item > .post-tag {
+	align-self: center;
+} */
+
+/* Tags list */
+/* .post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-metadata time {
+	margin-right: 1em;
+} */
+{% endcss %} #}
+
+<div class="post-metadata" style="margin-bottom: 1em;">
+	{# <li> #}
+	<time style="font-size: 0.9em;" datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+	{# </li> #}
+	{# {%- for tag in tags | filterTagList %}
 	{%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
 	<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
-	{%- endfor %}
-</ul>
+	{%- endfor %} #}
+</div>
 
+<div class="blog-content">
 {{ content | safe }}
+</div>
