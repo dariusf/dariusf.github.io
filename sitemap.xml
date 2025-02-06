@@ -57,17 +57,22 @@
 	</url>
 	
 	<url>
-		<loc>https://dariusf.github.io/blog/setoid-hell/</loc>
+		<loc>https://dariusf.github.io/drafts/setoid-hell/</loc>
 		<lastmod>2024-10-04</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://dariusf.github.io/blog/mechanising-staged-logic/</loc>
+		<loc>https://dariusf.github.io/drafts/mechanising-staged-logic/</loc>
 		<lastmod>2024-12-04</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://dariusf.github.io/blog/</loc>
+		<lastmod>2025-02-06</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://dariusf.github.io/drafts/</loc>
 		<lastmod>2025-02-06</lastmod>
 	</url>
 	

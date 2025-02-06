@@ -5,237 +5,11 @@
   <subtitle>This is a longer description about your blog.</subtitle>
   <link href="https://example.com/feed/feed.xml" rel="self" />
   <link href="https://example.com/" />
-  <updated>2024-12-04T00:00:00Z</updated>
+  <updated>2024-08-16T00:00:00Z</updated>
   <id>https://example.com/</id>
   <author>
     <name>Your Name</name>
   </author>
-  <entry>
-    <title>Mechanising staged logic</title>
-    <link href="https://example.com/blog/mechanising-staged-logic/" />
-    <updated>2024-12-04T00:00:00Z</updated>
-    <id>https://example.com/blog/mechanising-staged-logic/</id>
-    <content type="html">
-&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;em&gt;Text version of a talk given at the inaugural &lt;a href=&quot;https://verse-lab.github.io/sg-pl-summit/&quot;&gt;SG Programming Languages Summit&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Hi everyone, this talk will be about mechanizing our recent work on staged logic in Coq.&lt;/p&gt;
-&lt;p&gt;To quickly introduce staged logic, it&#39;s an alternative formulation of a program logic. It&#39;s designed for automated verification of, specifically, effectful, higher-order programs. These are programs with closures, higher-order functions, and algebraic effects.&lt;/p&gt;
-&lt;p&gt;Let&#39;s start with an example of such a program.&lt;/p&gt;
-&lt;p&gt;Here we have a call to the standard foldr function, where we pass a closure as an argument, and the closure captures some location from the environment. As this program evaluates, it mutates the captured location, and also compute some result, in this case the sum of the list.&lt;/p&gt;
-&lt;p&gt;Here is the specification we would like to write for this program.&lt;/p&gt;
-&lt;p&gt;We want to say that initially there is some location x with some value a. These are both arbitrary. After the execution of this program, we have that we have prepended exactly the list xs to the value of the location.&lt;/p&gt;
-&lt;p&gt;Why is this the result? Because foldr traverses its argument from right to left, and also we are prepending each element to the front of the location there, so we end up just prepending exactly xs to x. To capture this, we would have to talk about ordering of calls to the function argument and to the recursive occurrence of foldr itself.&lt;/p&gt;
-&lt;p&gt;The question staged logic tries to answer is: how do we prove functional correctness properties like these about effectful programs automatically?&lt;/p&gt;
-&lt;p&gt;Let&#39;s start by reviewing the traditional approach to specifying such programs in an interactive setting.&lt;/p&gt;
-&lt;p&gt;The idea to write an auxiliary specification for foldr which is parameterized over an invariant and possibly other properties.&lt;/p&gt;
-&lt;p&gt;This then allows us to say that the function f preserves the invariant or strengthen the precondition.&lt;/p&gt;
-&lt;p&gt;The problem with this approach is that it&#39;s difficult to automate, because we now have lots of other parameters which we would have to instantiate at call sites. It&#39;s difficult to infer them, secondly, it&#39;s also difficult to infer the specification itself, the proxy we needed to get there, because different clients require different parameterizations. In other words, a particular specification may not be enough for another client.&lt;/p&gt;
-&lt;p&gt;Staged logic is a solution to this problem. The idea of staged logic is to natively represent effectful behavior inside the logic. And then, because we just have a recursive formula or something like that, we can just do the proof directly by induction, allowing us to use standard methods for automating inductive proof.&lt;/p&gt;
-&lt;p&gt;The rest of this talk will consist of two parts. In the first part I&#39;ll talk about the setup. How do we define staged logic and how the proofs work?&lt;/p&gt;
-&lt;p&gt;And then in the second part, I&#39;ll talk about the encoding in Coq.&lt;/p&gt;
-&lt;p&gt;Here&#39;s the syntax of staged logic. I&#39;ll just introduce bit by bit. So here we have some type of state formula, sigma. You can think of this as just a separation logic formula, and then we have requires and ensures as part of the logic. So this is something a bit unusual. It&#39;s best to think of these as just the annotations that you would write in a system like def be the typical reading of requires is as an obligation and ensures as an assumption. But this there are rows flip depending on which side of a call for an entailment we are on. So, but the default reading, by default, we are on the left, right. So this is the standard reading. And also we have the ability to talk about effects. So like, F could be some effect, foo function call or some algebraic effect. And we also have the ability to talk about the sequence of effects, right? We have sequential composition, and the other connectives are standard. So here&#39;s how a standard or triple would correspond to a formula in staged logic. So we have a relation. The triple colon there relates a program with some specification. So here we can just describe the whole triple using two requires an interest assertion, but&lt;/p&gt;
-&lt;p&gt;we can also describe programs with arbitrary effects, right? So here&#39;s a program where some arbitrary function f is called after it would be difficult to write a specification for this in whole triple, because we need to parameterize. We need to talk about the precondition and post condition and so on. But here we can just add, just talk about it directly in the logic. Okay, so. So now we going back to the example. You have a like a specification for foo R, right? And you notice that it looks exactly like the code. And this is kind of the point, right? Because you want to derive the specifications of such effect foo programs directly from the code. When there is nothing more, there&#39;s no more abstraction we can give at that point, how do we then talk about specifications? So this is done using this entailment relation here. So entailment relates to stage formulae. And here we&#39;re just giving the specification that we gave&lt;/p&gt;
-&lt;p&gt;for a particular call, right, where g is the closure we had,&lt;/p&gt;
-&lt;p&gt;okay? So I&#39;ll just quickly walk through the proof, very quickly. Here&#39;s our strategy, right? It&#39;s a standard strategy for inductive proof. First pick some argument to do induction on. Then we unfold everything we can. We rewrite everything we can, and then we have to normalize. So this is a thing which is unique to staged logic. The idea is that we can reach this syntactic form that where we have some we always have one, requires one ensures, and in a function, some normal repetitions of that, and then requires ensures at the end. And once we have this form, we can dispatch everything using the entertainment rules that we have defined. Right? So the proof goes first, it starts with induction on x the argument. Then we&#39;ll unfold folder and focus on the recursive case. So that looks like this. Then we rewrite using the induction hypothesis, unfold some functions, and then time to normalize. So here we see that we have an ensures followed by requires, why not be able to see the colors, but ensures and requires are highlighted. So at this point, we want to push the ensures to the requires, so that we get requires, requires ensures that we can pack them further right. So it&#39;s sufficient to solve this by abduction problem to do this, so I&#39;ll just show the solution. And indeed, we simplify the formula down to this.&lt;/p&gt;
-&lt;p&gt;Then we notice that
-we have requires, two requires at the start, right, and requires is contravariant in our system. So we can apply that rule to reduce this down to a separation logic obligation. So this one is easy, and then finally we have ensures and ensures and ensures is COVID, as you might have guessed, and we can again reduce this down to separation logic, then to SMT and some properties of a pen and cons to
-operate on this part,
-right? So here&#39;s the workflow we have today. We have implemented this in a tool called Heffer, which stands for high order effect, foo, imperative function, entailments and reasoning. The idea is the user just gives the program and the specification, and we prove such entailments automatically. So where do we go from here? Right? We would like to reach this workflow which is oriented around an encoding of the logic in clock. It supports two use cases, which is interactive proof, right? Sometimes, given the program and the specification, we might want to work on the harder proofs interactively. And it&#39;s hard to do that in an automated tool when the second use case is certification. So given we have some nice automation heuristics, we can generate a proof script for our encoding in Coq, and so we can validate like, not just the ideas, but the implementation. Okay, so here&#39;s what we would like. We would like some encoding of our logic in cog, where we can do all the proof steps we saw earlier using tactics.
-So this is the COC sequence and the line there,
-and our first sailor feature is a stage target sequence, so we need another sequence below the line. So how do we build that out? So it&#39;s built out of the semantics of the logic. So the models of staged logic contains four things. There are two heaps, h1, h2, which are the initial and final heaps, right? So a staged logic formula really is a behavioral specification. It talks about traces that go between some initial and some final heat. And you might want to compare the models to those are separation logic, right? So it&#39;s really a combination of the two things to talk about behavior, effectual behavior. So the two kinds of primitive effects, all right, the two kinds of primitive behavior are given by requires and ensures. So requires. Insurance just requires us to prove that the initial heat can be partitioned into some piece satisfying P and the rest can go on right. Insurance lets us assume that we can add a piece to the unit of heat to the initial do. So you might recognize the two halves of the so called baked in frame rule, right? So that&#39;s where this shows up in the system. Finally, we have an environment of unknown functions. So this is used to give meaning to the function or effect construct in our logic. So we can define the semantics by just delegating the environment, and we allow the user to provide some interpretation later on.
-So how do we encode staged logic?&lt;/p&gt;
-&lt;p&gt;So we are building on top of shallow limb data separation logic, so it might be tempting to just encode it directly. So here we have a type of uninterpreted function. So this is just a way to represent functions in our logic, and we define the formula type as just a function from the models to prop. Unfortunately, this is not well formed because it&#39;s actually cycling. So we can&#39;t actually write such a definition, at least not without a lot more sophistication. So what we do instead is we use a deep embedding, so we represent stage formula as values of this enough this type, and we define a satisfies relation, which pretty much is what is written up there. It&#39;s just a relation between the model and&lt;/p&gt;
-&lt;p&gt;values of the formula type. On&lt;/p&gt;
-&lt;p&gt;top of this, you can build entailment. So entailment uses a straightforward shadow embedding. It just universally quantify over the parts of the model and then lift implication. And this is nice, because we can stick the lemmas about entailment very directly. So this is the one we use to finish the proof. And the statement in copy is very similar to the idealized version on the left. Finally, on top of this, you build the entailment sequence, right? So this is just entailment, but we have exposed the environment inside because we need, sometimes we need to talk about things which are related through the environment, right? Like when we unfold functions.&lt;/p&gt;
-&lt;p&gt;Okay? So we&#39;ve defined a sequence.
-The next most salient feature is rewriting, right? So we did a lot of proofs by rewriting just now. So we encode that particularly. How do we rewrite using lemmas and also unfolding definitions, which are the same thing. So we use Cox satellite rewriting using entails as the equivalence relation. So it&#39;s in double quotes because it&#39;s weaker than the equivalence right? For example, we will rewrite from top to bottom. So it&#39;s actually we might weaken the formula in the process. So it&#39;s actually using generalized rewriting to justify rewrites, we have to show that n tails is proper in both arguments. So what this means is that the left side is COVID, Contra variant, and the right side is COVID. So we can specify this by providing the following type class instance, and you can see that the relation at the end is implication, not equivalents.&lt;/p&gt;
-&lt;p&gt;Okay, so that&#39;s rewriting&lt;/p&gt;
-&lt;p&gt;next. How do we so at this point, we could use the requires, requires rule to finish the proof. But let&#39;s take a different route and talk about something closer to more automated tools that would use symbolic execution as a means of proving separation logic properties. So here we have requires on the right, and we have a rule saying that we can move our requires on the right into it. We can turn that into an ensures on the left. So you can view this as some kind of spatial context right. So when we move requires on the left to something on the right, here, we now have some kind of sufficient logic assumption, or you can think of it as a current state in a symbolic execution based verifier. And after that, we have the precondition of the next call, which is an obligation. We don&#39;t have to use the current state to discharge the precondition of the next call. And similarly, we have a post condition after so we can now assume this into the spatial context. And finally, that&#39;s our final Pro application. So with everything defined like that, we can now finish the proof using the same approach as before, so reducing to heat entailment, and then to pure logic, and then we are done. Okay? So just to give an overview of the mechanization, which is still a work in progress, some other things, we have formalized programs, and also there are big steps semantics, so this part is standard. We also have a relation between programs and stage formulae, which can be used to derive specifications. We have another kind of triple, which also talks about the history of a program, also all the sums, proves all these things. So to conclude, I. Have talked about an alternative program logic formulation called staged logic is alternative because it relies on a new set of primitives, right? And there are all the things you&#39;ll find in other program logics, like once and because preconditions are not present, but I think we still managed to get a decent experience in our probe assistant a decent encoding.
-The focus is on higher order programs with effects,&lt;/p&gt;
-&lt;p&gt;another, maybe some and I take away would be how to view a staged logic formula. So you can think of the entailment relation as a refinement relation between abstract programs. So that&#39;s a view that we have kept in mind since the beginning, you can think of it as triples with some program fragments in them, so allowing some kinds of syntactic reasoning when it&#39;s hard to say what you want semantically with just one state. And also, you can think of this as manipulating the verification conditions directly. So this is similar to the CFML view, where you translate a program into some formula and then you just manipulate the formula until proof is done. So some future what we have is to add some more automation in order to support certification. So that&#39;s our main goal. And also look into some other encoding, some other applications of staged logic, right? So we have another paper on direct effects, which we could like to formalize. So all the whole formalization and the tools are open source, and they&#39;re available at that link. Thank you.&lt;/p&gt;
-&lt;/body&gt;&lt;/html&gt;</content>
-  </entry>
-  <entry>
-    <title>Getting started with setoid rewriting in Coq</title>
-    <link href="https://example.com/blog/setoid-hell/" />
-    <updated>2024-10-04T00:00:00Z</updated>
-    <id>https://example.com/blog/setoid-hell/</id>
-    <content type="html">
-&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;An intuitive look at setoid rewriting&lt;/p&gt;
-&lt;p&gt;The use case I&#39;m familiar with&lt;/p&gt;
-&lt;p&gt;When working with a deep embedding of a logic in Coq, you will probably end up needing to face the beast that is setoid rewriting.
-The use case for this is rewriting terms using your entailment relation modulo some &lt;em&gt;interpretation&lt;/em&gt;, which bridges the semantics of your logic and the logic of Coq.&lt;/p&gt;
-&lt;p&gt;Here&#39;s an example.&lt;/p&gt;
-&lt;pre class=&quot;language-coq&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-coq&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;From&lt;/span&gt; Coq &lt;span class=&quot;token keyword&quot;&gt;Require&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Import&lt;/span&gt; ZArith&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;From&lt;/span&gt; Coq &lt;span class=&quot;token keyword&quot;&gt;Require&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Import&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Setoid&lt;/span&gt; Morphisms &lt;span class=&quot;token attribute attr-name&quot;&gt;Program&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Basics&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;Inductive&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;:=&lt;/span&gt;
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; And &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; Or &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; EqI &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Z &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;Inductive&lt;/span&gt; satisfies &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; Z &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Prop&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;:=&lt;/span&gt;
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; iand &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2 m&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    satisfies f1 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt;
-    satisfies f2 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt;
-    satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;And f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; m
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; ior_l &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2 m&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    satisfies f1 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt;
-    satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; m
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; ior_r &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2 m&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    satisfies f2 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt;
-    satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; m
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; i &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;EqI i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;Definition&lt;/span&gt; entails f1 f2 &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Prop&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;:=&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; m&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; satisfies f1 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; satisfies f2 m&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;Lemma&lt;/span&gt; and_comm &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; entails &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;And f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;And f2 f1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Admitted&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;Lemma&lt;/span&gt; or_comm &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; entails &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or f2 f1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Admitted&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token attribute attr-name&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;#[&lt;/span&gt;global&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Instance&lt;/span&gt; Proper_satisfies &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Proper &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;entails &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&amp;gt;&lt;/span&gt; eq &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&amp;gt;&lt;/span&gt; impl&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; satisfies&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Proof&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-  unfold entails&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Proper&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; respectful&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; impl&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-  intros&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; subst&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; eauto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Qed&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token attribute attr-name&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;#[&lt;/span&gt;global&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Instance&lt;/span&gt; Proper_Or &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Proper &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;entails &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&amp;gt;&lt;/span&gt; entails &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&amp;gt;&lt;/span&gt; entails&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Or&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Proof&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    unfold Proper&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; entails&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; respectful&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    intros x y H1 a b H2 z H3&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; inversion H3&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;apply&lt;/span&gt; ior_l&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;apply&lt;/span&gt; H1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; auto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;apply&lt;/span&gt; ior_r&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;apply&lt;/span&gt; H2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; auto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Qed&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token attribute attr-name&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;#[&lt;/span&gt;global&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Instance&lt;/span&gt; Reflexive_entails &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Reflexive entails&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Proof&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    unfold Reflexive&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; entails&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; auto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Qed&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token comment&quot;&gt;(* note that the two branches of And need to be distinct for `and_comm` to work *)&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Goal&lt;/span&gt; satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;EqI &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;And &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;EqI &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;EqI &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Proof&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-  rewrite &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; or_comm&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;(* Uses Proper_satisfies *)&lt;/span&gt;
-  rewrite &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; and_comm&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;(* Uses Proper_satisfies, Proper_Or, and Reflexive_entails *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;setoids&quot;&gt;Setoids&lt;/h1&gt;
-&lt;p&gt;What is a setoid? Other people have explained it better, but it&#39;s a type with an equivalence&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://example.com/blog/setoid-hell/#fn1&quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; relation.&lt;/p&gt;
-&lt;p&gt;TODO li yao post, penn pl club&lt;/p&gt;
-&lt;p&gt;This relation can be used to rewrite terms deep in some context, provided the relation is &lt;em&gt;proper&lt;/em&gt; with respect to the context.
-This is easier.&lt;/p&gt;
-&lt;pre class=&quot;language-coq&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-coq&quot;&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is allowed because.&lt;/p&gt;
-&lt;p&gt;To enable rewriting, you will have to provide an instance of the &lt;code&gt;Proper&lt;/code&gt; typeclass.&lt;/p&gt;
-&lt;!-- Rewriting is accessed using the --&gt;
-&lt;!-- in Coq. --&gt;
-&lt;p&gt;Proper to show that your relation is a congruence
-How to read&lt;/p&gt;
-&lt;p&gt;Instances&lt;/p&gt;
-&lt;p&gt;An instance is needed for every enclosing constructor.
-For example,&lt;/p&gt;
-&lt;pre class=&quot;language-coq&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-coq&quot;&gt;example&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This works even if conditional.&lt;/p&gt;
-&lt;p&gt;Conditional rewriting&lt;/p&gt;
-&lt;pre class=&quot;language-coq&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-coq&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;From&lt;/span&gt; Coq &lt;span class=&quot;token keyword&quot;&gt;Require&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Import&lt;/span&gt; ZArith&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;From&lt;/span&gt; Coq &lt;span class=&quot;token keyword&quot;&gt;Require&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Import&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Setoid&lt;/span&gt; Morphisms &lt;span class=&quot;token attribute attr-name&quot;&gt;Program&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Basics&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Inductive&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;:=&lt;/span&gt;
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; And &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; Or &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; EqI &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Z &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; f&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;Inductive&lt;/span&gt; satisfies &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; Z &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Prop&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;:=&lt;/span&gt;
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; iand &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2 m&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    satisfies f1 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt;
-    satisfies f2 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt;
-    satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;And f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; m
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; ior_l &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2 m&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    satisfies f1 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt;
-    satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; m
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; ior_r &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2 m&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    satisfies f2 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt;
-    satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; m
-  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; i &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;EqI i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;Definition&lt;/span&gt; entails f1 f2 &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;Prop&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;:=&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; m&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; satisfies f1 m &lt;span class=&quot;token operator&quot;&gt;-&amp;gt;&lt;/span&gt; satisfies f2 m&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;Lemma&lt;/span&gt; and_comm &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; entails &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;And f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;And f2 f1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Admitted&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;Lemma&lt;/span&gt; or_comm &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;forall&lt;/span&gt; f1 f2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; entails &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or f1 f2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or f2 f1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Admitted&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token attribute attr-name&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;#[&lt;/span&gt;global&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Instance&lt;/span&gt; Proper_satisfies &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Proper &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;entails &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&amp;gt;&lt;/span&gt; eq &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&amp;gt;&lt;/span&gt; impl&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; satisfies&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Proof&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-  unfold entails&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Proper&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; respectful&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; impl&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-  intros&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; subst&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; eauto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Qed&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token attribute attr-name&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;#[&lt;/span&gt;global&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Instance&lt;/span&gt; Proper_Or &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Proper &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;entails &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&amp;gt;&lt;/span&gt; entails &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&amp;gt;&lt;/span&gt; entails&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; Or&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Proof&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    unfold Proper&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; entails&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; respectful&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    intros x y H1 a b H2 z H3&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; inversion H3&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;apply&lt;/span&gt; ior_l&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;apply&lt;/span&gt; H1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; auto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;apply&lt;/span&gt; ior_r&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;apply&lt;/span&gt; H2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; auto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Qed&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token attribute attr-name&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;#[&lt;/span&gt;global&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Instance&lt;/span&gt; Reflexive_entails &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Reflexive entails&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Proof&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-    unfold Reflexive&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; entails&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; auto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Qed&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token comment&quot;&gt;(* note that the two branches of And need to be distinct for `and_comm` to work *)&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Goal&lt;/span&gt; satisfies &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Or &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;EqI &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;And &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;EqI &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;EqI &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;Proof&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-  rewrite &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; or_comm&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;(* Uses Proper_satisfies *)&lt;/span&gt;
-  rewrite &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; and_comm&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;(* Uses Proper_satisfies, Proper_Or, and Reflexive_entails *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;errors-and-debugging&quot;&gt;Errors and debugging&lt;/h1&gt;
-&lt;p&gt;While futzing around defining proper instances, you will see the dreaded failed to understand&lt;/p&gt;
-&lt;p&gt;This is a known issue. Unfortunately it&#39;s been a known issue for 6 years with no resolution
-https://github.com/coq/coq/issues/6141&lt;/p&gt;
-&lt;p&gt;the typeclass errors can get really large, leaving you with no choice other than to bisect your code until you find the error.
-https://github.com/coq/coq/issues/13942&lt;/p&gt;
-&lt;h2 id=&quot;heuristics-for-understanding-errors&quot;&gt;Heuristics for understanding errors&lt;/h2&gt;
-&lt;p&gt;The Proper instances in the context give you roughly those needed on the way&lt;/p&gt;
-&lt;p&gt;However they don&#39;t give the full story. First enable debug
-Gross gives some tips.
-https://stackoverflow.com/questions/50989017/proper-instance-for-nested-matching/51015288#51015288&lt;/p&gt;
-&lt;p&gt;looking for lines with proper_subrelation immediately followed by something about a proper instance tells you when typeclass resolution failed, which typically says something about the instance you need.&lt;/p&gt;
-&lt;p&gt;unfortunately, typeclass resolution errors show up for a variety of reasons.
-it&#39;s possible such an error message doesn&#39;t occur, and the error is actually about something else.
-the worst part is that you still see the Proper instances in the initial error message (without debugging on), so at first glance it seems like it&#39;s a missing instance that&#39;s causing the problem.&lt;/p&gt;
-&lt;p&gt;in particular, you get the same error from insufficiently instantiated arguments.
-if you try to rewrite with a lemma and don&#39;t.&lt;/p&gt;
-&lt;pre class=&quot;language-coq&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-coq&quot;&gt;rewrite &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;@&lt;/span&gt;lem &lt;span class=&quot;token keyword&quot;&gt;_&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; H&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
-
-&lt;span class=&quot;token comment&quot;&gt;(* the more common form, where it&#39;s unclear *)&lt;/span&gt;
-rewrite lem &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; H&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Pass all the arguments to rewrite&lt;/p&gt;
-&lt;p&gt;as with&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&quot;what-is-happening-under-the-hood&quot;&gt;What is happening under the hood?&lt;/h1&gt;
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;despite its opaqueness and rough edges, the rewriting system is remarkably robust. i was genuinely impressed that it handled my use cases.&lt;/p&gt;
-&lt;p&gt;this is used in the formalization of staged logic&lt;/p&gt;
-&lt;p&gt;Thank you to Li Yao on the coq zhlip for patiently answering my questions.&lt;/p&gt;
-&lt;hr class=&quot;footnotes-sep&quot;&gt;
-&lt;section class=&quot;footnotes&quot;&gt;
-&lt;ol class=&quot;footnotes-list&quot;&gt;
-&lt;li id=&quot;fn1&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;Coq implements so called &lt;em&gt;generalized rewriting&lt;/em&gt;, where the relation can be weaker than an equivalence; it just has to be a &lt;a href=&quot;https://github.com/coq/coq/blob/master/theories/Classes/RelationClasses.v&quot;&gt;preorder&lt;/a&gt;, which is not symmetric. &lt;a href=&quot;https://example.com/blog/setoid-hell/#fnref1&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/section&gt;
-&lt;/body&gt;&lt;/html&gt;</content>
-  </entry>
   <entry>
     <title>Verifying effectful higher-order programs with staged logic</title>
     <link href="https://example.com/blog/staged-logic/" />
@@ -1804,6 +1578,115 @@ generate&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;stack&lt;s
   subgraph cluster_0 { ac; bc; meta; }
 &#39;&#39;&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Code available &lt;a href=&quot;https://gist.github.com/dariusf/e9b1515f59e6011d566cb6acf13f45a8&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</content>
+  </entry>
+  <entry>
+    <title>Mouseover Minesweeper</title>
+    <link href="https://example.com/blog/minesweeper/" />
+    <updated>2020-09-29T00:00:00Z</updated>
+    <id>https://example.com/blog/minesweeper/</id>
+    <content type="html">
+&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;Automation in puzzle games is tricky to balance.
+The issue is that puzzle games can involve some busywork, e.g. keeping track of the possibilities for each cell in Sudoku, and that removing the tedious parts allows the player to &lt;a href=&quot;https://www.playgoodsudoku.com/&quot;&gt;focus on the &quot;interesting&quot; parts&lt;/a&gt; of the puzzle.&lt;/p&gt;
+&lt;p&gt;Unfortunately, the parts of the game that are core to its experience can be quite subjective.
+Automation can also quickly spiral out of control, where adding a single rule (e.g. transitivity) to a solver that barely helps makes it &lt;a href=&quot;https://magnushoff.com/articles/minesweeper/&quot;&gt;practically solve the game completely&lt;/a&gt;, making you wonder what is left to &quot;play&quot;.&lt;/p&gt;
+&lt;h1 id=&quot;chording&quot;&gt;Chording&lt;/h1&gt;
+&lt;p&gt;Something distinctive about Minesweeper is the use of a mouse chord: pressing both mouse buttons reveals the tiles around if it is safe to do so, given the number under the cursor.
+If it is not safe, nothing is revealed; the player almost always then flags the tiles they think contain mines, then repeats the chord.&lt;/p&gt;
+&lt;p&gt;It&#39;s fun to chord away and perform small deductions, but on large boards, there is &lt;em&gt;a lot&lt;/em&gt; of chording and clicking, causing my hand to ache. Perhaps a justifiable example of tedium that could be removed?&lt;/p&gt;
+&lt;p&gt;To test that, I found a &lt;a href=&quot;https://github.com/amyngyn/minesweeper&quot;&gt;nice open source version&lt;/a&gt; and made a few small tweaks. Moving the mouse over a number either reveals or flags surrounding tiles automatically, whenever it is unambiguous what should be done. Try it out &lt;a href=&quot;https://dariusf.github.io/mouseover-minesweeper/&quot;&gt;here&lt;/a&gt;!&lt;/p&gt;
+&lt;h1 id=&quot;takeaways&quot;&gt;Takeaways&lt;/h1&gt;
+&lt;p&gt;Moving the mouse intentionally, the speed at which you can mow through the board is really quite thrilling.
+The busywork that is automated is the repeated clicking; &lt;em&gt;where&lt;/em&gt; to click, arguably the intentional part of the action, is still left to the player.&lt;/p&gt;
+&lt;p&gt;The downside is that it&#39;s now possible to rely too much on automation, revealing most of the board by waving the mouse mindlessly, which is not really in the spirit of this change.
+Accidental &quot;spoilers&quot; are also possible, if the mouse moves faster than you&#39;re thinking.
+However, it&#39;s no worse than a solver which applies transitivity; at least you have to point at the tiles.
+Also, how different is it really from clicking reflexively and drifting into pattern-matching mode?&lt;/p&gt;
+&lt;p&gt;While we&#39;re comparing, this does nothing about randomness (what &lt;a href=&quot;https://magnushoff.com/articles/minesweeper/&quot;&gt;Magnus&lt;/a&gt; mainly addresses), so it&#39;s still possible to lose from bad luck, e.g. in the first tile, or at the end of the game. My win rate did not improve, only my timing.&lt;/p&gt;
+&lt;p&gt;After trying it for a while, I found it difficult to play Minesweeper with the original controls and at the original speed, suggesting that this is an improvement.
+At the same time, the ease with which boards can be mostly solved now makes me wonder if something was lost.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</content>
+  </entry>
+  <entry>
+    <title>Transparent iOS backups</title>
+    <link href="https://example.com/blog/ios-backups/" />
+    <updated>2020-07-30T00:00:00Z</updated>
+    <id>https://example.com/blog/ios-backups/</id>
+    <content type="html">
+&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;Backing up an iOS device is nice and simple: there&#39;s iCloud, or connecting your device, opening Finder, and clicking &lt;em&gt;Back Up Now&lt;/em&gt;.
+Unfortunately this process is also rather opaque: all we can do in Finder is to create and restore backups, not view their contents.
+I&#39;d like to be able to extract individual files and archive them elsewhere.&lt;/p&gt;
+&lt;p&gt;At the time of writing there are no up-to-date and polished open source apps for simply viewing backup data in an open format, so here we&#39;ll explore how iOS backups are structured and figure out how to extract the raw files.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;All this applies to Big Sur + iOS 14.2&lt;/strong&gt;. Since we&#39;re depending on undocumented internals, it&#39;s entirely possible that this changes across versions&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://example.com/blog/ios-backups/#fn1&quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, in which case all this spelunking would have to be repeated.&lt;/p&gt;
+&lt;h1 id=&quot;diving-in&quot;&gt;Diving in&lt;/h1&gt;
+&lt;p&gt;To start, create an unencrypted local backup with Finder over USB. This writes to &lt;code&gt;~/Library/Application Support/MobileSync/Backup&lt;/code&gt;. To access that directory, I had to go to &lt;code&gt;System Preferences &amp;gt; Security &amp;amp; Privacy &amp;gt; Privacy &amp;gt; Full Disk Access&lt;/code&gt; and whitelist iTerm.&lt;/p&gt;
+&lt;!-- https://apple.stackexchange.com/a/390593 --&gt;
+&lt;p&gt;Each backup is contained in a single directory. Inside, we find something like the git object store: a bunch of files splayed over up to 256 directories using the first two bytes of their hashes.&lt;/p&gt;
+&lt;p&gt;The only other files in the backup are these:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ ls *.*
+Info.plist      Manifest.db     Manifest.db-shm Manifest.plist  Status.plist
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Manifest.db&lt;/code&gt; is an SQLite database which tells us how to navigate and extract data from the store.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sqlite3 Manifest.db
+SQLite version 3.31.1 2020-01-27 19:55:54
+Enter &quot;.help&quot; for usage hints.
+sqlite&amp;gt; .schema
+CREATE TABLE Files (fileID TEXT PRIMARY KEY, domain TEXT, relativePath TEXT, flags INTEGER, file BLOB);
+CREATE INDEX FilesDomainIdx ON Files(domain);
+CREATE INDEX FilesRelativePathIdx ON Files(relativePath);
+CREATE INDEX FilesFlagsIdx ON Files(flags);
+CREATE TABLE Properties (key TEXT PRIMARY KEY, value BLOB);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Looking at what &lt;code&gt;Files&lt;/code&gt; contains, only the first three columns are human-readable, and they associate file hashes with names.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; .headers on
+sqlite&amp;gt; select fileID, domain, relativePath from Files limit 1;
+fileID|domain|relativePath
+aa500a604b1acbfc35306db49185824d974b58f4|AppDomainPlugin-com.apple.quicklook.extension.previewUI|Library
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can use these to scavenge data owned by different apps.&lt;/p&gt;
+&lt;h1 id=&quot;voice-memos&quot;&gt;Voice Memos&lt;/h1&gt;
+&lt;p&gt;Let&#39;s start with Voice Memos -- a great example because it has a simple data model (audio files presumably stored as-is on disk).&lt;/p&gt;
+&lt;p&gt;After some poking around, we find the audio files under &lt;code&gt;Media/Recordings&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; select fileID, domain, relativePath from Files where relativePath like &#39;Media/Recordings/%.m4a&#39; limit 1;
+fileID|domain|relativePath
+e41d74a1b3680375ab2055a45a09053f646d1cc6|MediaDomain|Media/Recordings/20190704 231625.m4a
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We look for that object in the store and voilà:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ file e4/e41d74a1b3680375ab2055a45a09053f646d1cc6
+e4/e41d74a1b3680375ab2055a45a09053f646d1cc6: ISO Media, Apple iTunes ALAC/AAC-LC (.M4A) Audio
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A more in-depth analysis of Voice Memos&#39; data model is available &lt;a href=&quot;https://iopscience.iop.org/article/10.1088/1742-6596/1345/5/052053/pdf&quot;&gt;here&lt;/a&gt;, but given that it changes from version to version, it&#39;s probably best to keep our dependence on it to a minimum.&lt;/p&gt;
+&lt;h1 id=&quot;books&quot;&gt;Books&lt;/h1&gt;
+&lt;p&gt;Books is equally simple, so here&#39;s the query to find all PDFs.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; select fileID, domain, relativePath from Files where relativePath like &#39;%.pdf&#39; and relativePath like &#39;%iBooks%&#39;;
+fileID|domain|relativePath
+a6879231503984af93da6b4da2d1486abe251c2d|HomeDomain|Library/Mobile Documents/iCloud~com~apple~iBooks/Documents/lightweight-static-capabilities.pdf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;One difference was that not every file was present in the backup. Books likely offloads infrequently accessed files to iCloud, judging from this metadata file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; select fileID, domain, relativePath from Files where relativePath like &#39;%scalable_tr%&#39;;
+fileID|domain|relativePath
+355653fe1dc68c4565366554e4c3365ebd37bf0f|HomeDomain|Library/Mobile Documents/iCloud~com~apple~iBooks/Documents/.scalable_tr.pdf.icloud
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;whatsapp&quot;&gt;WhatsApp&lt;/h1&gt;
+&lt;p&gt;WhatsApp is notable because it only stores data locally, and thus relies on a third-party service (Google Drive or iCloud) to opaquely move data across devices.
+It also has a much more complex data model.&lt;/p&gt;
+&lt;p&gt;Most of WhatsApp&#39;s data is in an SQLite database called &lt;code&gt;ChatStorage.sqlite&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; select fileID, domain, relativePath from Files where relativePath like &#39;%ChatStorage.sqlite&#39;;
+fileID|domain|relativePath
+7c7fba66680ef796b916b067077cc246adacf01d|AppDomainGroup-group.net.whatsapp.WhatsApp.shared|ChatStorage.sqlite
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Fortunately, it&#39;s structured in a fairly standard relational manner. The main tables are &lt;code&gt;ZWAMESSAGE&lt;/code&gt; and &lt;code&gt;ZWACHATSESSION&lt;/code&gt; (representing messages and DMs/groups). Joining other tables gives us contact names and pointers to media, which are stored as paths to other files in the backup.&lt;/p&gt;
+&lt;p&gt;I&#39;ve written a &lt;a href=&quot;https://github.com/dariusf/ios-backup&quot;&gt;script&lt;/a&gt; which codifies all this and reconstructs message history as a directory of HTML files. It improves on &lt;a href=&quot;https://medium.com/@1522933668924/extracting-whatsapp-messages-from-backups-with-code-examples-49186de94ab4&quot;&gt;earlier&lt;/a&gt; &lt;a href=&quot;https://github.com/pixel3rr0r/whatsapp_chat_dump&quot;&gt;work&lt;/a&gt; by supporting groups and taking care to copy out all referenced media, so the entire directory can be archived as-is.&lt;/p&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Now we can do dead-simple manual backups, like on Android.&lt;/p&gt;
+&lt;p&gt;As this depends on the internals of iOS backups as well as of the apps involved, it&#39;ll likely bitrot quickly, but hopefully then it&#39;ll serve as a starting point for people who want to do something similar in future.&lt;/p&gt;
+&lt;hr class=&quot;footnotes-sep&quot;&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn1&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;Here&#39;s an &lt;a href=&quot;https://commons.erau.edu/cgi/viewcontent.cgi?article=1099&amp;amp;context=jdfsl&quot;&gt;example&lt;/a&gt; of a prior attempt to document this that is now out of date, though it was useful as a starting point. &lt;a href=&quot;https://example.com/blog/ios-backups/#fnref1&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
   </entry>
 </feed>

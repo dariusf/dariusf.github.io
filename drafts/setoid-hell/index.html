@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Getting started with setoid rewriting in Coq</title>
-		<meta name="description" content="I am writing about my experiences as a naval navel-gazer.">
+		<meta name="description" content="PhD student, programming languages and formal verification">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
 
 
@@ -682,26 +682,26 @@ The use case for this is rewriting terms using your entailment relation modulo s
 <span class="token keyword">From</span> Coq <span class="token keyword">Require</span> <span class="token keyword">Import</span> <span class="token keyword">Setoid</span> Morphisms <span class="token attribute attr-name">Program</span><span class="token punctuation">.</span>Basics<span class="token punctuation">.</span>
 
 <span class="token keyword">Inductive</span> f <span class="token operator">:=</span>
-  <span class="token operator">|</span> And <span class="token punctuation">:</span> f <span class="token operator">-&gt;</span> f <span class="token operator">-&gt;</span> f
-  <span class="token operator">|</span> Or <span class="token punctuation">:</span> f <span class="token operator">-&gt;</span> f <span class="token operator">-&gt;</span> f
-  <span class="token operator">|</span> EqI <span class="token punctuation">:</span> Z <span class="token operator">-&gt;</span> f<span class="token punctuation">.</span>
+  <span class="token operator">|</span> And <span class="token punctuation">:</span> f <span class="token operator">-></span> f <span class="token operator">-></span> f
+  <span class="token operator">|</span> Or <span class="token punctuation">:</span> f <span class="token operator">-></span> f <span class="token operator">-></span> f
+  <span class="token operator">|</span> EqI <span class="token punctuation">:</span> Z <span class="token operator">-></span> f<span class="token punctuation">.</span>
 
-<span class="token keyword">Inductive</span> satisfies <span class="token punctuation">:</span> f <span class="token operator">-&gt;</span> Z <span class="token operator">-&gt;</span> <span class="token keyword">Prop</span> <span class="token operator">:=</span>
+<span class="token keyword">Inductive</span> satisfies <span class="token punctuation">:</span> f <span class="token operator">-></span> Z <span class="token operator">-></span> <span class="token keyword">Prop</span> <span class="token operator">:=</span>
   <span class="token operator">|</span> iand <span class="token punctuation">:</span> <span class="token keyword">forall</span> f1 f2 m<span class="token punctuation">,</span>
-    satisfies f1 m <span class="token operator">-&gt;</span>
-    satisfies f2 m <span class="token operator">-&gt;</span>
+    satisfies f1 m <span class="token operator">-></span>
+    satisfies f2 m <span class="token operator">-></span>
     satisfies <span class="token punctuation">(</span>And f1 f2<span class="token punctuation">)</span> m
   <span class="token operator">|</span> ior_l <span class="token punctuation">:</span> <span class="token keyword">forall</span> f1 f2 m<span class="token punctuation">,</span>
-    satisfies f1 m <span class="token operator">-&gt;</span>
+    satisfies f1 m <span class="token operator">-></span>
     satisfies <span class="token punctuation">(</span>Or f1 f2<span class="token punctuation">)</span> m
   <span class="token operator">|</span> ior_r <span class="token punctuation">:</span> <span class="token keyword">forall</span> f1 f2 m<span class="token punctuation">,</span>
-    satisfies f2 m <span class="token operator">-&gt;</span>
+    satisfies f2 m <span class="token operator">-></span>
     satisfies <span class="token punctuation">(</span>Or f1 f2<span class="token punctuation">)</span> m
   <span class="token operator">|</span> i <span class="token punctuation">:</span> <span class="token keyword">forall</span> i<span class="token punctuation">,</span>
     satisfies <span class="token punctuation">(</span>EqI i<span class="token punctuation">)</span> i<span class="token punctuation">.</span>
 
 <span class="token keyword">Definition</span> entails f1 f2 <span class="token punctuation">:</span> <span class="token keyword">Prop</span> <span class="token operator">:=</span>
-  <span class="token keyword">forall</span> m<span class="token punctuation">,</span> satisfies f1 m <span class="token operator">-&gt;</span> satisfies f2 m<span class="token punctuation">.</span>
+  <span class="token keyword">forall</span> m<span class="token punctuation">,</span> satisfies f1 m <span class="token operator">-></span> satisfies f2 m<span class="token punctuation">.</span>
 
 <span class="token keyword">Lemma</span> and_comm <span class="token punctuation">:</span> <span class="token keyword">forall</span> f1 f2<span class="token punctuation">,</span> entails <span class="token punctuation">(</span>And f1 f2<span class="token punctuation">)</span> <span class="token punctuation">(</span>And f2 f1<span class="token punctuation">)</span><span class="token punctuation">.</span>
 <span class="token keyword">Admitted</span><span class="token punctuation">.</span>
@@ -710,14 +710,14 @@ The use case for this is rewriting terms using your entailment relation modulo s
 <span class="token keyword">Admitted</span><span class="token punctuation">.</span>
 
 <span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
-<span class="token keyword">Instance</span> Proper_satisfies <span class="token punctuation">:</span> Proper <span class="token punctuation">(</span>entails <span class="token operator">=</span><span class="token operator">=&gt;</span> eq <span class="token operator">=</span><span class="token operator">=&gt;</span> impl<span class="token punctuation">)</span> satisfies<span class="token punctuation">.</span>
+<span class="token keyword">Instance</span> Proper_satisfies <span class="token punctuation">:</span> Proper <span class="token punctuation">(</span>entails <span class="token operator">=</span><span class="token operator">=></span> eq <span class="token operator">=</span><span class="token operator">=></span> impl<span class="token punctuation">)</span> satisfies<span class="token punctuation">.</span>
 <span class="token keyword">Proof</span><span class="token punctuation">.</span>
   unfold entails<span class="token punctuation">,</span> Proper<span class="token punctuation">,</span> respectful<span class="token punctuation">,</span> impl<span class="token punctuation">.</span>
   intros<span class="token punctuation">;</span> subst<span class="token punctuation">;</span> eauto<span class="token punctuation">.</span>
 <span class="token keyword">Qed</span><span class="token punctuation">.</span>
 
 <span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
-<span class="token keyword">Instance</span> Proper_Or <span class="token punctuation">:</span> Proper <span class="token punctuation">(</span>entails <span class="token operator">=</span><span class="token operator">=&gt;</span> entails <span class="token operator">=</span><span class="token operator">=&gt;</span> entails<span class="token punctuation">)</span> Or<span class="token punctuation">.</span>
+<span class="token keyword">Instance</span> Proper_Or <span class="token punctuation">:</span> Proper <span class="token punctuation">(</span>entails <span class="token operator">=</span><span class="token operator">=></span> entails <span class="token operator">=</span><span class="token operator">=></span> entails<span class="token punctuation">)</span> Or<span class="token punctuation">.</span>
 <span class="token keyword">Proof</span><span class="token punctuation">.</span>
     unfold Proper<span class="token punctuation">,</span> entails<span class="token punctuation">,</span> respectful<span class="token punctuation">.</span>
     intros x y H1 a b H2 z H3<span class="token punctuation">.</span> inversion H3<span class="token punctuation">.</span>
@@ -757,26 +757,26 @@ For example,</p>
 <pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">From</span> Coq <span class="token keyword">Require</span> <span class="token keyword">Import</span> ZArith<span class="token punctuation">.</span>
 <span class="token keyword">From</span> Coq <span class="token keyword">Require</span> <span class="token keyword">Import</span> <span class="token keyword">Setoid</span> Morphisms <span class="token attribute attr-name">Program</span><span class="token punctuation">.</span>Basics<span class="token punctuation">.</span>
 <span class="token keyword">Inductive</span> f <span class="token operator">:=</span>
-  <span class="token operator">|</span> And <span class="token punctuation">:</span> f <span class="token operator">-&gt;</span> f <span class="token operator">-&gt;</span> f
-  <span class="token operator">|</span> Or <span class="token punctuation">:</span> f <span class="token operator">-&gt;</span> f <span class="token operator">-&gt;</span> f
-  <span class="token operator">|</span> EqI <span class="token punctuation">:</span> Z <span class="token operator">-&gt;</span> f<span class="token punctuation">.</span>
+  <span class="token operator">|</span> And <span class="token punctuation">:</span> f <span class="token operator">-></span> f <span class="token operator">-></span> f
+  <span class="token operator">|</span> Or <span class="token punctuation">:</span> f <span class="token operator">-></span> f <span class="token operator">-></span> f
+  <span class="token operator">|</span> EqI <span class="token punctuation">:</span> Z <span class="token operator">-></span> f<span class="token punctuation">.</span>
 
-<span class="token keyword">Inductive</span> satisfies <span class="token punctuation">:</span> f <span class="token operator">-&gt;</span> Z <span class="token operator">-&gt;</span> <span class="token keyword">Prop</span> <span class="token operator">:=</span>
+<span class="token keyword">Inductive</span> satisfies <span class="token punctuation">:</span> f <span class="token operator">-></span> Z <span class="token operator">-></span> <span class="token keyword">Prop</span> <span class="token operator">:=</span>
   <span class="token operator">|</span> iand <span class="token punctuation">:</span> <span class="token keyword">forall</span> f1 f2 m<span class="token punctuation">,</span>
-    satisfies f1 m <span class="token operator">-&gt;</span>
-    satisfies f2 m <span class="token operator">-&gt;</span>
+    satisfies f1 m <span class="token operator">-></span>
+    satisfies f2 m <span class="token operator">-></span>
     satisfies <span class="token punctuation">(</span>And f1 f2<span class="token punctuation">)</span> m
   <span class="token operator">|</span> ior_l <span class="token punctuation">:</span> <span class="token keyword">forall</span> f1 f2 m<span class="token punctuation">,</span>
-    satisfies f1 m <span class="token operator">-&gt;</span>
+    satisfies f1 m <span class="token operator">-></span>
     satisfies <span class="token punctuation">(</span>Or f1 f2<span class="token punctuation">)</span> m
   <span class="token operator">|</span> ior_r <span class="token punctuation">:</span> <span class="token keyword">forall</span> f1 f2 m<span class="token punctuation">,</span>
-    satisfies f2 m <span class="token operator">-&gt;</span>
+    satisfies f2 m <span class="token operator">-></span>
     satisfies <span class="token punctuation">(</span>Or f1 f2<span class="token punctuation">)</span> m
   <span class="token operator">|</span> i <span class="token punctuation">:</span> <span class="token keyword">forall</span> i<span class="token punctuation">,</span>
     satisfies <span class="token punctuation">(</span>EqI i<span class="token punctuation">)</span> i<span class="token punctuation">.</span>
 
 <span class="token keyword">Definition</span> entails f1 f2 <span class="token punctuation">:</span> <span class="token keyword">Prop</span> <span class="token operator">:=</span>
-  <span class="token keyword">forall</span> m<span class="token punctuation">,</span> satisfies f1 m <span class="token operator">-&gt;</span> satisfies f2 m<span class="token punctuation">.</span>
+  <span class="token keyword">forall</span> m<span class="token punctuation">,</span> satisfies f1 m <span class="token operator">-></span> satisfies f2 m<span class="token punctuation">.</span>
 
 <span class="token keyword">Lemma</span> and_comm <span class="token punctuation">:</span> <span class="token keyword">forall</span> f1 f2<span class="token punctuation">,</span> entails <span class="token punctuation">(</span>And f1 f2<span class="token punctuation">)</span> <span class="token punctuation">(</span>And f2 f1<span class="token punctuation">)</span><span class="token punctuation">.</span>
 <span class="token keyword">Admitted</span><span class="token punctuation">.</span>
@@ -785,14 +785,14 @@ For example,</p>
 <span class="token keyword">Admitted</span><span class="token punctuation">.</span>
 
 <span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
-<span class="token keyword">Instance</span> Proper_satisfies <span class="token punctuation">:</span> Proper <span class="token punctuation">(</span>entails <span class="token operator">=</span><span class="token operator">=&gt;</span> eq <span class="token operator">=</span><span class="token operator">=&gt;</span> impl<span class="token punctuation">)</span> satisfies<span class="token punctuation">.</span>
+<span class="token keyword">Instance</span> Proper_satisfies <span class="token punctuation">:</span> Proper <span class="token punctuation">(</span>entails <span class="token operator">=</span><span class="token operator">=></span> eq <span class="token operator">=</span><span class="token operator">=></span> impl<span class="token punctuation">)</span> satisfies<span class="token punctuation">.</span>
 <span class="token keyword">Proof</span><span class="token punctuation">.</span>
   unfold entails<span class="token punctuation">,</span> Proper<span class="token punctuation">,</span> respectful<span class="token punctuation">,</span> impl<span class="token punctuation">.</span>
   intros<span class="token punctuation">;</span> subst<span class="token punctuation">;</span> eauto<span class="token punctuation">.</span>
 <span class="token keyword">Qed</span><span class="token punctuation">.</span>
 
 <span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
-<span class="token keyword">Instance</span> Proper_Or <span class="token punctuation">:</span> Proper <span class="token punctuation">(</span>entails <span class="token operator">=</span><span class="token operator">=&gt;</span> entails <span class="token operator">=</span><span class="token operator">=&gt;</span> entails<span class="token punctuation">)</span> Or<span class="token punctuation">.</span>
+<span class="token keyword">Instance</span> Proper_Or <span class="token punctuation">:</span> Proper <span class="token punctuation">(</span>entails <span class="token operator">=</span><span class="token operator">=></span> entails <span class="token operator">=</span><span class="token operator">=></span> entails<span class="token punctuation">)</span> Or<span class="token punctuation">.</span>
 <span class="token keyword">Proof</span><span class="token punctuation">.</span>
     unfold Proper<span class="token punctuation">,</span> entails<span class="token punctuation">,</span> respectful<span class="token punctuation">.</span>
     intros x y H1 a b H2 z H3<span class="token punctuation">.</span> inversion H3<span class="token punctuation">.</span>
@@ -856,7 +856,7 @@ rewrite lem <span class="token keyword">in</span> H<span class="token punctuatio
 			
 		</footer>
 
-		<!-- This page `/blog/setoid-hell/` was built on 2025-02-06T03:31:23.162Z -->
+		<!-- This page `/drafts/setoid-hell/` was built on 2025-02-06T03:44:08.329Z -->
 		
 	</body>
 </html>
