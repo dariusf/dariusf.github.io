@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Ordering events across live loops in Sonic Pi</title>
+		<meta name="description" content="I am writing about my experiences as a naval navel-gazer.">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
+
+
+		
+
+		
+
+		
+
+		
+
+		
+		
+		<style>@media (prefers-color-scheme: light) { /**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+ }
+@media (prefers-color-scheme: dark) { /**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+ }
+/* This is an arbitrary CSS string added to the bundle */
+/* Defaults */
+:root {
+	/* --font-family: -apple-system, system-ui, sans-serif; */
+	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	*/
+
+    --font-family-monospace: Fira Code, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+
+  /*    --text-font: Crimson Text, serif;*/
+  /*    --text-font: Poppins, Verdana, sans-serif;*/
+  /*    --heading-font: Quicksand, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --heading-font: Open Sans, sans-serif;*/
+  /*    --text-font: Cabin, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --text-font: Roboto, sans-serif;*/
+
+  /*    --heading-font: Roboto, sans-serif;*/
+  /*    --heading-font: Cabin, sans-serif;*/
+  /*    --heading-font: Dosis, sans-serif;*/
+
+  /*    --heading-font: Work Sans, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+
+      /* --heading-font: Nunito, sans-serif; */
+      --heading-font: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+  /*    --text-font: PT Sans, sans-serif;*/
+
+  /*    --heading-font: Varela Round, sans-serif;*/
+  /*    --text-font: Noto Serif, serif;*/
+
+  /*    --text-font: Lato, sans-serif;*/
+      --text-font-size: 17px;
+
+  /*    --text-font: Merriweather, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+
+  /* https://css-tricks.com/snippets/css/system-font-stack/ */
+  /* https://systemfontstack.com/ */
+
+    /* system font on all platforms */
+  /*    --heading-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;*/
+      /* --text-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu; */
+      --text-font: -apple-system, system-ui, sans-serif;
+			/* system-ui, sans-serif; */
+
+
+/* Theme colors */
+
+	/* --color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333; */
+
+	--background-color: #fff;
+
+	/* --text-color: var(--color-gray-90); */
+	/* --text-color-link: #082840; */
+
+	/* --text-color-link: #ff0000; */
+	/* --text-color-link-active: #5f2b48; */
+	/* --text-color-link-visited: #17050F; */
+
+
+	/* --syntax-tab-size: 2; */
+
+	--bright-text-color: #222;
+	--link-color: #3273dc;
+	/* --link-color: #ff5e6c; */
+	--link-visited-color: #6e4bbe;
+	--background-color: #fff;
+	--text-color: #444;
+	--faded-text-color: #777;
+	--blockquote-text-color: var(--bright-text-color);
+	--faint-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* --color-gray-20: #e0e0e0; */
+		/* --color-gray-50: #C0C0C0; */
+		/* --color-gray-90: #dad8d8; */
+
+		/* --text-color is assigned to --color-gray-_ above */
+		/* --text-color-link: #1493fb; */
+		/* --text-color-link-active: #6969f7; */
+		/* --text-color-link-visited: #a6a6f8; */
+
+		--background-color: #15202b;
+
+		--bright-text-color: #eee;
+		--link-color: #8cc2dd;
+		--link-visited-color: #b9a9e0;
+		--background-color: #333;
+		--text-color: #ddd;
+		--faded-text-color: #aaa;
+		--slightly-dimmer-text-color: #ccc;
+		--blockquote-text-color: var(--slightly-dimmer-text-color);
+		--faint-color: #666;
+
+		color-scheme: dark; /* sets scrollbar colour */
+	}
+
+	img.theme-affected {
+		filter: invert(.8);
+	}
+}
+
+* {
+/* select parts of https://www.joshwcomeau.com/css/custom-css-reset/ */
+	/* reset */
+	margin: 0;
+
+	box-sizing: border-box;
+
+	/* enable ligatures */
+	text-rendering: optimizeLegibility;
+}
+
+/* restore some spacing after reset */
+/* prism adds this much to code already */
+/* h1, h2, h3, h4, h5, h6 {
+	margin-top: 1rem;
+} */
+	/* margin-bottom: 0.3em; */
+/* main > :first-child { margin-top: 0 !important; }
+code, p, ul {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+} */
+
+p, ul {
+	margin-bottom: 1em;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+	/* space after paragraphs, and not before the next paragraph.
+	the spacing after is provided by having a large font size. */
+	margin-top: 0.5em;
+}
+
+
+@view-transition {
+	navigation: auto;
+}
+
+html, body {
+	padding: 0;
+	margin: 0 auto;
+	/* font-family: var(--font-family); */
+	font-family: var(--text-font);
+	font-size: var(--text-font-size);
+	color: var(--text-color);
+	background-color: var(--background-color);
+
+	/*
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	*/
+	/* line-height: 1.5; */
+}
+
+html {
+	overflow-y: scroll;
+}
+
+body {
+	max-width: 40em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--heading-font);
+	color: var(--bright-text-color);
+	font-weight: normal;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--link-color);
+	text-decoration: none;
+}
+a[href]:visited {
+	color: var(--link-visited-color);
+}
+/* a[href]:hover,
+a[href]:active { */
+	/* color: var(--text-color-link-active); */
+	/* text-decoration: underline; */
+	/* text-decoration-thickness: 2px; */
+/* } */
+
+main,
+footer {
+	padding-top: 1em;
+}
+/* main :first-child {
+	margin-top: 0;
+} */
+
+/* header {
+	border-bottom: 1px dashed var(--color-gray-20);
+} */
+
+/* .links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+} */
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+/* pre,
+code {
+	font-family: var(--font-family-monospace) !important;
+	font-size: 14px !important;
+} */
+
+/* override prism */
+/* https://github.com/orgs/PrismJS/discussions/2859 */
+code[class*="language-"],
+pre[class*="language-"] {
+	font-family: var(--font-family-monospace);
+	font-size: 14px;
+}
+
+pre[class*="language-"] {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	/* -moz-tab-size: var(--syntax-tab-size); */
+	/* -o-tab-size: var(--syntax-tab-size); */
+	/* tab-size: var(--syntax-tab-size); */
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+code {
+	word-break: break-all;
+}
+
+	/* flex-grow: 1; */
+	/* 16px /16 */
+	/* font-size: 1em; */
+	/* font-weight: 700; */
+
+/* .home-link:link:not(:hover) {
+	text-decoration: none;
+} */
+
+/* Nav */
+header {
+			/* display: flex; */
+			/* gap: 2em; */
+			border-right: 10px;
+			/* flex-wrap: wrap; */
+			/* justify-content: space-between; */
+			/* align-items: center; */
+			align-items: end;
+			padding-top: 1em;
+			/* padding: 1em; */
+		}
+.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
+			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		
+
+		<header>
+
+			
+			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">Darius Foo</a>
+			
+				
+				
+				
+				
+				
+				
+			
+			
+			<nav style="display: inline-block">
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					<li class="nav-item"><a href="/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/research/">Research</a></li>
+					<li class="nav-item"><a href="/work/">Work</a></li>
+					<li class="nav-item"><a href="/other/">Other</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+
+<h1 id="ordering-events-across-live-loops-in-sonic-pi">Ordering events across live loops in Sonic Pi</h1>
+
+
+
+<div class="post-metadata" style="margin-bottom: 1em;">
+	
+	<time style="font-size: 0.9em;" datetime="2023-06-03">3 Jun 2023</time>
+	
+	
+</div>
+
+<div class="blog-content">
+<p>Sonic Pi has an elegant and well-thought <a href="https://in-thread.sonic-pi.net/t/what-does-time-mean-in-sonic-pi/4509">temporal semantics</a>. Using the following program as an example,</p>
+<pre class="language-ruby" tabindex="0"><code class="language-ruby">sample <span class="token symbol">:drum_bass_hard</span>
+play <span class="token symbol">:c</span>
+sleep <span class="token number">1</span>
+sample <span class="token symbol">:drum_cowbell</span></code></pre>
+<p>The drum sample and note can be thought of as starting simultaneously, and the cowbell will play precisely one second<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup> after.
+In other words, <code>sleep</code> there isn't actually POSIX's <code>sleep</code> - it can be thought of as delimiting a section on a virtual timeline, a section which <em>does not include the time taken to start playing the sample and note</em>.</p>
+<p>This enables a simple and declarative programming model.
+Setting up two live loops like the following works as you would expect, i.e. they won't drift out of sync. If the sound card is overloaded, some sounds may not play, but live loops will remain in phase.</p>
+<pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:hihat</span> <span class="token keyword">do</span>
+  sample <span class="token symbol">:drum_cymbal_closed</span>
+  sleep <span class="token number">0.25</span>
+<span class="token keyword">end</span>
+
+live_loop <span class="token symbol">:drums</span> <span class="token keyword">do</span>
+  sample <span class="token symbol">:drum_bass_hard</span>
+  sleep <span class="token number">1</span>
+<span class="token keyword">end</span></code></pre>
+<p>Well, mostly.
+Live loops are Ruby threads, which are scheduled nondeterministically. As a result, events across threads within one time "partition" are unordered.</p>
+<p>Consider this simplified example, which features communication across live loops. It's a fairly common scenario: we have a control loop that determines the key we're playing in, and one or more loops which adapt accordingly.</p>
+<p>We're using <code>set</code> and <code>get</code> for deterministic (timeline-synced) state updates, and the <code>sync:</code> parameter to ensure that <code>melody</code> only starts when receiving a  <em>cue</em> from <code>control</code>. Cues are sent every time a live loop begins executing its block.</p>
+<pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:control</span> <span class="token keyword">do</span>
+  set <span class="token symbol">:n</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token symbol">:c</span><span class="token punctuation">,</span> <span class="token symbol">:d</span><span class="token punctuation">,</span> <span class="token symbol">:e</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tick
+  sleep <span class="token number">1</span>
+<span class="token keyword">end</span>
+
+live_loop <span class="token symbol">:melody</span><span class="token punctuation">,</span> <span class="token symbol">sync</span><span class="token operator">:</span> <span class="token symbol">:control</span> <span class="token keyword">do</span>
+  play <span class="token punctuation">(</span>get <span class="token symbol">:n</span><span class="token punctuation">)</span>
+  sleep <span class="token number">1</span>
+<span class="token keyword">end</span></code></pre>
+<p>We observe two surprising things.</p>
+<ol>
+<li>The first note we hear is always <code>:d</code>, and always after a second of silence</li>
+<li>The notes thereafter are some random subsequence of the ring <code>[:c, :d, :e]</code></li>
+</ol>
+<p>The <a href="https://in-thread.sonic-pi.net/t/live-loops-sync-questions/1172/13">fix</a> for the first issue is to make the control loop start after a short delay.</p>
+<pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:control</span><span class="token punctuation">,</span> <span class="token symbol">delay</span><span class="token operator">:</span> <span class="token number">0.1</span> <span class="token keyword">do</span>
+  set <span class="token symbol">:n</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token symbol">:c</span><span class="token punctuation">,</span> <span class="token symbol">:d</span><span class="token punctuation">,</span> <span class="token symbol">:e</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tick
+  sleep <span class="token number">1</span>
+<span class="token keyword">end</span></code></pre>
+<p>This happens because of Ruby's imperative nature and nondeterministic thread scheduling: when the first live loop starts executing in a thread, the cue it subsequently sends is unordered with respect to the second <code>live_loop</code> call (which executes on the main thread). Most of the time the cue is sent before the melody loop starts, causing it to miss playing the first note.
+Thus the cue should be delayed until after the melody loop has (presumably<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>) started.</p>
+<!-- The referenced forum thread contains a neat metaphor: musicians in a real-life orchestra should all be ready before the conductor gives them the cue start playing. Software does allow us to do better, however... -->
+<p>To address the second issue of notes missing, we could remove the <code>sync:</code> parameter and try using <code>sync</code> instead of <code>get</code>, which makes melody loop wait for the <a href="https://in-thread.sonic-pi.net/t/a-tiny-script-for-your-hipster-lounge/4448/10">next</a> note.</p>
+<pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:melody</span> <span class="token keyword">do</span>
+  play <span class="token punctuation">(</span>sync <span class="token symbol">:n</span><span class="token punctuation">)</span>
+  sleep <span class="token number">1</span>
+<span class="token keyword">end</span></code></pre>
+<p>Now, however, we hear only every other note.
+The problem is that it is possible for the melody loop to miss cues while it is sleeping. I'm not sure if this is due to the time abstraction leaking (where we can observe one thread sleeping while another acts, despite the time "partition" being the same), or the ordering of cues not being well-defined with respect to other events in live loops.</p>
+<p>Nevertheless, the solution is to ensure that the melody loop is not asleep when control loop cues. A simple way is to make sure there is always less sleep time in the former loop.</p>
+<pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:control</span><span class="token punctuation">,</span> <span class="token symbol">delay</span><span class="token operator">:</span> <span class="token number">0.1</span> <span class="token keyword">do</span>
+  set <span class="token symbol">:n</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token symbol">:c</span><span class="token punctuation">,</span> <span class="token symbol">:d</span><span class="token punctuation">,</span> <span class="token symbol">:e</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tick
+  sleep <span class="token number">1</span>
+<span class="token keyword">end</span>
+
+live_loop <span class="token symbol">:melody</span> <span class="token keyword">do</span>
+  play <span class="token punctuation">(</span>sync <span class="token symbol">:n</span><span class="token punctuation">)</span>
+  <span class="token comment"># we can do other things here, as long as we sleep &lt; 1</span>
+<span class="token keyword">end</span></code></pre>
+<h1 id="conclusion">Conclusion</h1>
+<p>These are awfully subtle issues for beginners to debug.
+I wish Sonic Pi had a simpler, more synchronous concurrency model, or at least provided more guarantees about the interleaving of events within a time partition.
+It's quite likely that this is difficult to implement efficiently with its wealth of features, though.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>One beat, actually, but at the default BPM of 60, one beat occurs every second. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Technically we're still not guaranteed that the second loop has started. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+</div>
+
+		</main>
+
+		<footer>
+			
+		</footer>
+
+		<!-- This page `/blog/sonic-pi-time/` was built on 2025-02-06T03:31:23.163Z -->
+		
+	</body>
+</html>

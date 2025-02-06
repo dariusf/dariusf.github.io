@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Trees with holes</title>
+		<meta name="description" content="I am writing about my experiences as a naval navel-gazer.">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
+
+
+		
+
+		
+
+		
+
+		
+
+		
+		
+		<style>@media (prefers-color-scheme: light) { /**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+ }
+@media (prefers-color-scheme: dark) { /**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+ }
+/* This is an arbitrary CSS string added to the bundle */
+/* Defaults */
+:root {
+	/* --font-family: -apple-system, system-ui, sans-serif; */
+	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	*/
+
+    --font-family-monospace: Fira Code, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+
+  /*    --text-font: Crimson Text, serif;*/
+  /*    --text-font: Poppins, Verdana, sans-serif;*/
+  /*    --heading-font: Quicksand, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --heading-font: Open Sans, sans-serif;*/
+  /*    --text-font: Cabin, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --text-font: Roboto, sans-serif;*/
+
+  /*    --heading-font: Roboto, sans-serif;*/
+  /*    --heading-font: Cabin, sans-serif;*/
+  /*    --heading-font: Dosis, sans-serif;*/
+
+  /*    --heading-font: Work Sans, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+
+      /* --heading-font: Nunito, sans-serif; */
+      --heading-font: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+  /*    --text-font: PT Sans, sans-serif;*/
+
+  /*    --heading-font: Varela Round, sans-serif;*/
+  /*    --text-font: Noto Serif, serif;*/
+
+  /*    --text-font: Lato, sans-serif;*/
+      --text-font-size: 17px;
+
+  /*    --text-font: Merriweather, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+
+  /* https://css-tricks.com/snippets/css/system-font-stack/ */
+  /* https://systemfontstack.com/ */
+
+    /* system font on all platforms */
+  /*    --heading-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;*/
+      /* --text-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu; */
+      --text-font: -apple-system, system-ui, sans-serif;
+			/* system-ui, sans-serif; */
+
+
+/* Theme colors */
+
+	/* --color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333; */
+
+	--background-color: #fff;
+
+	/* --text-color: var(--color-gray-90); */
+	/* --text-color-link: #082840; */
+
+	/* --text-color-link: #ff0000; */
+	/* --text-color-link-active: #5f2b48; */
+	/* --text-color-link-visited: #17050F; */
+
+
+	/* --syntax-tab-size: 2; */
+
+	--bright-text-color: #222;
+	--link-color: #3273dc;
+	/* --link-color: #ff5e6c; */
+	--link-visited-color: #6e4bbe;
+	--background-color: #fff;
+	--text-color: #444;
+	--faded-text-color: #777;
+	--blockquote-text-color: var(--bright-text-color);
+	--faint-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* --color-gray-20: #e0e0e0; */
+		/* --color-gray-50: #C0C0C0; */
+		/* --color-gray-90: #dad8d8; */
+
+		/* --text-color is assigned to --color-gray-_ above */
+		/* --text-color-link: #1493fb; */
+		/* --text-color-link-active: #6969f7; */
+		/* --text-color-link-visited: #a6a6f8; */
+
+		--background-color: #15202b;
+
+		--bright-text-color: #eee;
+		--link-color: #8cc2dd;
+		--link-visited-color: #b9a9e0;
+		--background-color: #333;
+		--text-color: #ddd;
+		--faded-text-color: #aaa;
+		--slightly-dimmer-text-color: #ccc;
+		--blockquote-text-color: var(--slightly-dimmer-text-color);
+		--faint-color: #666;
+
+		color-scheme: dark; /* sets scrollbar colour */
+	}
+
+	img.theme-affected {
+		filter: invert(.8);
+	}
+}
+
+* {
+/* select parts of https://www.joshwcomeau.com/css/custom-css-reset/ */
+	/* reset */
+	margin: 0;
+
+	box-sizing: border-box;
+
+	/* enable ligatures */
+	text-rendering: optimizeLegibility;
+}
+
+/* restore some spacing after reset */
+/* prism adds this much to code already */
+/* h1, h2, h3, h4, h5, h6 {
+	margin-top: 1rem;
+} */
+	/* margin-bottom: 0.3em; */
+/* main > :first-child { margin-top: 0 !important; }
+code, p, ul {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+} */
+
+p, ul {
+	margin-bottom: 1em;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+	/* space after paragraphs, and not before the next paragraph.
+	the spacing after is provided by having a large font size. */
+	margin-top: 0.5em;
+}
+
+
+@view-transition {
+	navigation: auto;
+}
+
+html, body {
+	padding: 0;
+	margin: 0 auto;
+	/* font-family: var(--font-family); */
+	font-family: var(--text-font);
+	font-size: var(--text-font-size);
+	color: var(--text-color);
+	background-color: var(--background-color);
+
+	/*
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	*/
+	/* line-height: 1.5; */
+}
+
+html {
+	overflow-y: scroll;
+}
+
+body {
+	max-width: 40em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--heading-font);
+	color: var(--bright-text-color);
+	font-weight: normal;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--link-color);
+	text-decoration: none;
+}
+a[href]:visited {
+	color: var(--link-visited-color);
+}
+/* a[href]:hover,
+a[href]:active { */
+	/* color: var(--text-color-link-active); */
+	/* text-decoration: underline; */
+	/* text-decoration-thickness: 2px; */
+/* } */
+
+main,
+footer {
+	padding-top: 1em;
+}
+/* main :first-child {
+	margin-top: 0;
+} */
+
+/* header {
+	border-bottom: 1px dashed var(--color-gray-20);
+} */
+
+/* .links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+} */
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+/* pre,
+code {
+	font-family: var(--font-family-monospace) !important;
+	font-size: 14px !important;
+} */
+
+/* override prism */
+/* https://github.com/orgs/PrismJS/discussions/2859 */
+code[class*="language-"],
+pre[class*="language-"] {
+	font-family: var(--font-family-monospace);
+	font-size: 14px;
+}
+
+pre[class*="language-"] {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	/* -moz-tab-size: var(--syntax-tab-size); */
+	/* -o-tab-size: var(--syntax-tab-size); */
+	/* tab-size: var(--syntax-tab-size); */
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+code {
+	word-break: break-all;
+}
+
+	/* flex-grow: 1; */
+	/* 16px /16 */
+	/* font-size: 1em; */
+	/* font-weight: 700; */
+
+/* .home-link:link:not(:hover) {
+	text-decoration: none;
+} */
+
+/* Nav */
+header {
+			/* display: flex; */
+			/* gap: 2em; */
+			border-right: 10px;
+			/* flex-wrap: wrap; */
+			/* justify-content: space-between; */
+			/* align-items: center; */
+			align-items: end;
+			padding-top: 1em;
+			/* padding: 1em; */
+		}
+.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
+			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		
+
+		<header>
+
+			
+			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">Darius Foo</a>
+			
+				
+				
+				
+				
+				
+				
+			
+			
+			<nav style="display: inline-block">
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					<li class="nav-item"><a href="/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/research/">Research</a></li>
+					<li class="nav-item"><a href="/work/">Work</a></li>
+					<li class="nav-item"><a href="/other/">Other</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+
+<h1 id="trees-with-holes">Trees with holes</h1>
+
+
+
+<div class="post-metadata" style="margin-bottom: 1em;">
+	
+	<time style="font-size: 0.9em;" datetime="2022-05-16">16 May 2022</time>
+	
+	
+</div>
+
+<div class="blog-content">
+<p>While working on a top-down synthesis prototype, I got distracted by the issue of how to represent incomplete program fragments, with holes to be filled in.</p>
+<p>The simple way:</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">type</span> expr <span class="token operator">=</span>
+  <span class="token operator">|</span> One
+  <span class="token operator">|</span> Plus <span class="token keyword">of</span> expr <span class="token operator">*</span> expr
+  <span class="token operator">|</span> Hole
+
+<span class="token keyword">let</span> <span class="token punctuation">(</span>__<span class="token punctuation">)</span> <span class="token operator">=</span> Hole
+
+<span class="token keyword">let</span> hypothesis <span class="token operator">=</span> Plus <span class="token punctuation">(</span>__<span class="token punctuation">,</span> __<span class="token punctuation">)</span></code></pre>
+<p>and this would probably have worked, but with quadratic-time substitution, since all the holes would be at the bottom of the tree.</p>
+<p>How could we do better?<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup></p>
+<h2 id="difference-lists">Difference lists</h2>
+<p><a href="https://en.wikibooks.org/wiki/Prolog/Difference_Lists">Difference lists</a> originate in Prolog folklore.<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>
+Unlike regular lists, they end with a logic variable instead of an empty list.
+When unified, the logic variable allows something to be appended to the list quickly, without rebuilding it.</p>
+<!--
+https://swi-prolog.discourse.group/t/difference-list/959
+-->
+<pre><code>?- A = ([1,2|E],E), E = [3,4].
+A =  ([1, 2, 3, 4], [3, 4]),
+E = [3, 4].
+</code></pre>
+<p>The same idea works in functional languages:
+a list like <code>[1; 2]</code> can be represented as the function <code>(fun x -&gt; 1 :: 2 :: x)</code>.
+Appending two lists is function composition, and once we apply the difference list to <code>[]</code> to recover a regular list, we only incur the cost of building it once, regardless of how the difference list was constructed. <a href="https://github.com/batsh-dev-team/Dlist">Here</a> is an implementation where you can see how other list operations are implemented.</p>
+<!--
+http://requestforlogic.blogspot.com/2011/08/holey-data-part-13-almost-difference.html
+
+A Functional Representation of Data Structures with a Hole
+-->
+<p>What would work for us is a difference list with a variable number of holes that don't all appear at the end.</p>
+<h2 id="difference-trees">Difference trees</h2>
+<p>First, the type of our difference tree.</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">type</span> t <span class="token operator">=</span> int <span class="token operator">*</span> <span class="token punctuation">(</span>expr list <span class="token operator">-&gt;</span> expr<span class="token punctuation">)</span>
+
+<span class="token comment">(* Plus (One, __) *)</span>
+<span class="token keyword">let</span> example <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">fun</span> <span class="token punctuation">[</span>e<span class="token punctuation">]</span> <span class="token operator">-&gt;</span> Plus <span class="token punctuation">(</span>One<span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>We now have a list of holes to fill, and we keep track of how many there are, since otherwise that information would be known only upon building the tree.</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> concretize <span class="token punctuation">(</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> t<span class="token punctuation">)</span> <span class="token punctuation">:</span> t<span class="token punctuation">)</span> <span class="token punctuation">:</span> expr <span class="token operator">=</span>
+  t <span class="token punctuation">(</span>List<span class="token punctuation">.</span>init i <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">_</span> <span class="token operator">-&gt;</span> Hole<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>Finally, the main operation of substituting <em>difference trees</em> into difference trees.</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> sub dts <span class="token punctuation">(</span>i<span class="token punctuation">,</span> t<span class="token punctuation">)</span> <span class="token operator">=</span>
+  <span class="token keyword">assert</span> <span class="token punctuation">(</span>List<span class="token punctuation">.</span>length dts <span class="token operator">=</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> f r <span class="token operator">=</span>
+    <span class="token keyword">let</span> _rem<span class="token punctuation">,</span> trees <span class="token operator">=</span>
+      List<span class="token punctuation">.</span>fold_right
+        <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span>i<span class="token punctuation">,</span> ct<span class="token punctuation">)</span> <span class="token punctuation">(</span>tr<span class="token punctuation">,</span> t<span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
+          <span class="token keyword">let</span> used<span class="token punctuation">,</span> rem <span class="token operator">=</span> List<span class="token punctuation">.</span>take_drop i tr <span class="token keyword">in</span>
+          <span class="token punctuation">(</span>rem<span class="token punctuation">,</span> ct used <span class="token punctuation">::</span> t<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        dts <span class="token punctuation">(</span>r<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">in</span>
+    t trees
+  <span class="token keyword">in</span>
+  <span class="token keyword">let</span> dts_arities <span class="token operator">=</span> List<span class="token punctuation">.</span>fold_right <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token punctuation">_</span><span class="token punctuation">)</span> t <span class="token operator">-&gt;</span> i <span class="token operator">+</span> t<span class="token punctuation">)</span> dts <span class="token number">0</span> <span class="token keyword">in</span>
+  <span class="token punctuation">(</span>dts_arities<span class="token punctuation">,</span> f<span class="token punctuation">)</span></code></pre>
+<p>If we substitute two trees with m and n holes into another with just two holes, the resulting tree should have (m + n) holes.
+Furthermore, the holes <code>r</code> of the resulting tree <code>f</code> should be distributed amongst the child trees according to their arities.</p>
+<p>We try a few examples and...</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">fun</span> <span class="token punctuation">[</span>e<span class="token punctuation">]</span> <span class="token operator">-&gt;</span> Plus <span class="token punctuation">(</span>e<span class="token punctuation">,</span> One<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">fun</span> <span class="token punctuation">[</span>e<span class="token punctuation">]</span> <span class="token operator">-&gt;</span> Plus <span class="token punctuation">(</span>One<span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token keyword">fun</span> <span class="token punctuation">[</span>e1<span class="token punctuation">;</span> e2<span class="token punctuation">]</span> <span class="token operator">-&gt;</span> Plus <span class="token punctuation">(</span>e1<span class="token punctuation">,</span> e2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> c' <span class="token operator">=</span> concretize <span class="token punctuation">(</span>sub <span class="token punctuation">[</span>a<span class="token punctuation">;</span> b<span class="token punctuation">]</span> c<span class="token punctuation">)</span></code></pre>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token punctuation">#</span> c<span class="token punctuation">;;</span>
+<span class="token operator">-</span> <span class="token punctuation">:</span> int <span class="token operator">*</span> <span class="token punctuation">(</span>expr list <span class="token operator">-&gt;</span> expr<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token keyword">fun</span><span class="token operator">&gt;</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">#</span> c'<span class="token punctuation">;;</span>
+<span class="token operator">-</span> <span class="token punctuation">:</span> expr <span class="token operator">=</span> Plus <span class="token punctuation">(</span>Plus <span class="token punctuation">(</span>Hole<span class="token punctuation">,</span> One<span class="token punctuation">)</span><span class="token punctuation">,</span> Plus <span class="token punctuation">(</span>One<span class="token punctuation">,</span> Hole<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>... it works! A wrinkle is that we had to keep the <code>Hole</code> constructor around to be able to render the tree.</p>
+<h2 id="partial-application">Partial application</h2>
+<p>Holes are usually filled one by one, and it'd be nice if we didn't have to store all the arguments somewhere before using them.
+We can extend substitution so that not all arguments have to be supplied upfront, and the remaining holes are preserved in the new tree.</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> sub dts <span class="token punctuation">(</span>i<span class="token punctuation">,</span> t<span class="token punctuation">)</span> <span class="token operator">=</span>
+  <span class="token keyword">assert</span> <span class="token punctuation">(</span>List<span class="token punctuation">.</span>length dts <span class="token operator">&lt;=</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> dts_arities <span class="token operator">=</span> List<span class="token punctuation">.</span>fold_right <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token punctuation">_</span><span class="token punctuation">)</span> t <span class="token operator">-&gt;</span> i <span class="token operator">+</span> t<span class="token punctuation">)</span> dts <span class="token number">0</span> <span class="token keyword">in</span>
+  <span class="token keyword">let</span> remaining <span class="token operator">=</span> i <span class="token operator">-</span> List<span class="token punctuation">.</span>length dts <span class="token keyword">in</span>
+  <span class="token keyword">let</span> f r <span class="token operator">=</span>
+    <span class="token keyword">assert</span> <span class="token punctuation">(</span>List<span class="token punctuation">.</span>length r <span class="token operator">&lt;=</span> dts_arities <span class="token operator">+</span> remaining<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> rem_trees<span class="token punctuation">,</span> r <span class="token operator">=</span> List<span class="token punctuation">.</span>take_drop remaining r <span class="token keyword">in</span>
+    <span class="token keyword">let</span> _rem<span class="token punctuation">,</span> child_trees <span class="token operator">=</span>
+      List<span class="token punctuation">.</span>fold_right
+        <span class="token punctuation">(</span><span class="token keyword">fun</span> <span class="token punctuation">(</span>i<span class="token punctuation">,</span> ct<span class="token punctuation">)</span> <span class="token punctuation">(</span>tr<span class="token punctuation">,</span> t<span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
+          <span class="token keyword">let</span> used<span class="token punctuation">,</span> rem <span class="token operator">=</span> List<span class="token punctuation">.</span>take_drop i tr <span class="token keyword">in</span>
+          <span class="token punctuation">(</span>rem<span class="token punctuation">,</span> ct used <span class="token punctuation">::</span> t<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        dts <span class="token punctuation">(</span>r<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">in</span>
+    t <span class="token punctuation">(</span>child_trees <span class="token operator">@</span> rem_trees<span class="token punctuation">)</span>
+  <span class="token keyword">in</span>
+  <span class="token punctuation">(</span>dts_arities <span class="token operator">+</span> remaining<span class="token punctuation">,</span> f<span class="token punctuation">)</span></code></pre>
+<p>This version is rather subtle: given a difference tree <code>(i, t)</code>, it produces another difference tree which knows how to rearrange its arguments so the complete application of <code>(i, t)</code> occurs (which is why we didn't have to handle partial application of child trees).
+It also ensures that all the holes of parent trees are filled before those of child trees.<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup></p>
+<p>Now we're able to supply arguments to <code>c</code> one at a time:</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> c' <span class="token operator">=</span> concretize <span class="token punctuation">(</span>sub <span class="token punctuation">[</span>b<span class="token punctuation">]</span> <span class="token punctuation">(</span>sub <span class="token punctuation">[</span>a<span class="token punctuation">]</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token punctuation">#</span> c'<span class="token punctuation">;;</span>
+<span class="token operator">-</span> <span class="token punctuation">:</span> expr <span class="token operator">=</span> Plus <span class="token punctuation">(</span>Plus <span class="token punctuation">(</span>Hole<span class="token punctuation">,</span> One<span class="token punctuation">)</span><span class="token punctuation">,</span> Plus <span class="token punctuation">(</span>One<span class="token punctuation">,</span> Hole<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<h2 id="representing-holes-statically">Representing holes statically?</h2>
+<p>Having to write the arity separately when it could be given in the type of the function is another wrinkle.
+We could try to use a GADT to <a href="https://drup.github.io/2016/08/02/difflists/">constrain</a> the holes.
+First, a type for the number of holes that a difference tree contains.</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">type</span> z <span class="token operator">=</span> Z
+<span class="token keyword">type</span> <span class="token type-variable function">'a</span> s <span class="token operator">=</span> S <span class="token keyword">of</span> <span class="token type-variable function">'a</span>
+
+<span class="token keyword">type</span> <span class="token punctuation">_</span> holes <span class="token operator">=</span>
+  <span class="token operator">|</span> S <span class="token punctuation">:</span> <span class="token type-variable function">'a</span> holes <span class="token operator">-&gt;</span> <span class="token punctuation">(</span>expr <span class="token operator">-&gt;</span> <span class="token type-variable function">'a</span><span class="token punctuation">)</span> holes
+  <span class="token operator">|</span> Z <span class="token punctuation">:</span> expr holes
+
+<span class="token keyword">type</span> <span class="token type-variable function">'a</span> t <span class="token operator">=</span> <span class="token type-variable function">'a</span> holes <span class="token operator">*</span> <span class="token type-variable function">'a</span></code></pre>
+<p>The arity of the function is now determined by the number of holes.</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token punctuation">:</span> <span class="token punctuation">(</span>expr <span class="token operator">-&gt;</span> expr<span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token punctuation">(</span>S Z<span class="token punctuation">,</span> <span class="token keyword">fun</span> e <span class="token operator">-&gt;</span> Plus <span class="token punctuation">(</span>e<span class="token punctuation">,</span> One<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> b <span class="token punctuation">:</span> <span class="token punctuation">(</span>expr <span class="token operator">-&gt;</span> expr<span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token punctuation">(</span>S Z<span class="token punctuation">,</span> <span class="token keyword">fun</span> e <span class="token operator">-&gt;</span> Plus <span class="token punctuation">(</span>One<span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> c <span class="token punctuation">:</span> <span class="token punctuation">(</span>expr <span class="token operator">-&gt;</span> expr <span class="token operator">-&gt;</span> expr<span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token punctuation">(</span>S <span class="token punctuation">(</span>S Z<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">fun</span> e1 e2 <span class="token operator">-&gt;</span> Plus <span class="token punctuation">(</span>e1<span class="token punctuation">,</span> e2<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>We can even write <code>concretize</code>, using a locally abstract type, and pattern-matching on the number of holes remaining.</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> <span class="token keyword">rec</span> concretize <span class="token punctuation">:</span> <span class="token keyword">type</span> a<span class="token punctuation">.</span> a t <span class="token operator">-&gt;</span> expr <span class="token operator">=</span>
+  <span class="token keyword">fun</span> <span class="token punctuation">(</span>i<span class="token punctuation">,</span> t<span class="token punctuation">)</span> <span class="token operator">-&gt;</span>
+    <span class="token keyword">match</span> i <span class="token keyword">with</span>
+    <span class="token operator">|</span> S i <span class="token operator">-&gt;</span> concretize <span class="token punctuation">(</span>i<span class="token punctuation">,</span> t Hole<span class="token punctuation">)</span>
+    <span class="token operator">|</span> Z <span class="token operator">-&gt;</span> t</code></pre>
+<p>Unfortunately that was as far as I was able (and motivated) to go: it's unclear to me how to build an <code>f</code> with a number of arguments that depends on <code>(i, t)</code>, even if we change <code>dts</code> from a list to a single argument.
+Even if we overcame that, all the folding and rearranging of arguments would certainly cause difficulty down the line.</p>
+<h2 id="hoas">HOAS?</h2>
+<p>This is a much more coarse-grained notion of binding than what, say, <a href="https://github.com/rlepigre/ocaml-bindlib">bindlib</a> implements, so if your trees have not just holes but free variables, or even binders lower in the tree instead of all at the top, definitely check that out.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Code <a href="https://gist.github.com/dariusf/f22f9c121e42f5bb9c2c85520baaba52">here</a>.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Ignoring the fact that our goal with top-down synthesis is not to let the trees get too large... <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="https://www.cs.cmu.edu/~fp/courses/lp/lectures/11-diff.pdf">Difference Lists</a>, section 11.6 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>This is currently the only order we can perform substitutions in. We could allow skipping arguments positionally using a placeholder difference tree value, or some (dynamic) way to address holes. <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+</div>
+
+		</main>
+
+		<footer>
+			
+		</footer>
+
+		<!-- This page `/blog/trees-with-holes/` was built on 2025-02-06T03:31:23.163Z -->
+		
+	</body>
+</html>

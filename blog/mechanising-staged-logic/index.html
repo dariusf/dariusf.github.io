@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Mechanising staged logic</title>
+		<meta name="description" content="I am writing about my experiences as a naval navel-gazer.">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
+
+
+		
+
+		
+
+		
+
+		
+
+		
+		
+		<style>@media (prefers-color-scheme: light) { /**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+ }
+@media (prefers-color-scheme: dark) { /**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+ }
+/* This is an arbitrary CSS string added to the bundle */
+/* Defaults */
+:root {
+	/* --font-family: -apple-system, system-ui, sans-serif; */
+	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	*/
+
+    --font-family-monospace: Fira Code, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+
+  /*    --text-font: Crimson Text, serif;*/
+  /*    --text-font: Poppins, Verdana, sans-serif;*/
+  /*    --heading-font: Quicksand, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --heading-font: Open Sans, sans-serif;*/
+  /*    --text-font: Cabin, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --text-font: Roboto, sans-serif;*/
+
+  /*    --heading-font: Roboto, sans-serif;*/
+  /*    --heading-font: Cabin, sans-serif;*/
+  /*    --heading-font: Dosis, sans-serif;*/
+
+  /*    --heading-font: Work Sans, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+
+      /* --heading-font: Nunito, sans-serif; */
+      --heading-font: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+  /*    --text-font: PT Sans, sans-serif;*/
+
+  /*    --heading-font: Varela Round, sans-serif;*/
+  /*    --text-font: Noto Serif, serif;*/
+
+  /*    --text-font: Lato, sans-serif;*/
+      --text-font-size: 17px;
+
+  /*    --text-font: Merriweather, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+
+  /* https://css-tricks.com/snippets/css/system-font-stack/ */
+  /* https://systemfontstack.com/ */
+
+    /* system font on all platforms */
+  /*    --heading-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;*/
+      /* --text-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu; */
+      --text-font: -apple-system, system-ui, sans-serif;
+			/* system-ui, sans-serif; */
+
+
+/* Theme colors */
+
+	/* --color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333; */
+
+	--background-color: #fff;
+
+	/* --text-color: var(--color-gray-90); */
+	/* --text-color-link: #082840; */
+
+	/* --text-color-link: #ff0000; */
+	/* --text-color-link-active: #5f2b48; */
+	/* --text-color-link-visited: #17050F; */
+
+
+	/* --syntax-tab-size: 2; */
+
+	--bright-text-color: #222;
+	--link-color: #3273dc;
+	/* --link-color: #ff5e6c; */
+	--link-visited-color: #6e4bbe;
+	--background-color: #fff;
+	--text-color: #444;
+	--faded-text-color: #777;
+	--blockquote-text-color: var(--bright-text-color);
+	--faint-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* --color-gray-20: #e0e0e0; */
+		/* --color-gray-50: #C0C0C0; */
+		/* --color-gray-90: #dad8d8; */
+
+		/* --text-color is assigned to --color-gray-_ above */
+		/* --text-color-link: #1493fb; */
+		/* --text-color-link-active: #6969f7; */
+		/* --text-color-link-visited: #a6a6f8; */
+
+		--background-color: #15202b;
+
+		--bright-text-color: #eee;
+		--link-color: #8cc2dd;
+		--link-visited-color: #b9a9e0;
+		--background-color: #333;
+		--text-color: #ddd;
+		--faded-text-color: #aaa;
+		--slightly-dimmer-text-color: #ccc;
+		--blockquote-text-color: var(--slightly-dimmer-text-color);
+		--faint-color: #666;
+
+		color-scheme: dark; /* sets scrollbar colour */
+	}
+
+	img.theme-affected {
+		filter: invert(.8);
+	}
+}
+
+* {
+/* select parts of https://www.joshwcomeau.com/css/custom-css-reset/ */
+	/* reset */
+	margin: 0;
+
+	box-sizing: border-box;
+
+	/* enable ligatures */
+	text-rendering: optimizeLegibility;
+}
+
+/* restore some spacing after reset */
+/* prism adds this much to code already */
+/* h1, h2, h3, h4, h5, h6 {
+	margin-top: 1rem;
+} */
+	/* margin-bottom: 0.3em; */
+/* main > :first-child { margin-top: 0 !important; }
+code, p, ul {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+} */
+
+p, ul {
+	margin-bottom: 1em;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+	/* space after paragraphs, and not before the next paragraph.
+	the spacing after is provided by having a large font size. */
+	margin-top: 0.5em;
+}
+
+
+@view-transition {
+	navigation: auto;
+}
+
+html, body {
+	padding: 0;
+	margin: 0 auto;
+	/* font-family: var(--font-family); */
+	font-family: var(--text-font);
+	font-size: var(--text-font-size);
+	color: var(--text-color);
+	background-color: var(--background-color);
+
+	/*
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	*/
+	/* line-height: 1.5; */
+}
+
+html {
+	overflow-y: scroll;
+}
+
+body {
+	max-width: 40em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--heading-font);
+	color: var(--bright-text-color);
+	font-weight: normal;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--link-color);
+	text-decoration: none;
+}
+a[href]:visited {
+	color: var(--link-visited-color);
+}
+/* a[href]:hover,
+a[href]:active { */
+	/* color: var(--text-color-link-active); */
+	/* text-decoration: underline; */
+	/* text-decoration-thickness: 2px; */
+/* } */
+
+main,
+footer {
+	padding-top: 1em;
+}
+/* main :first-child {
+	margin-top: 0;
+} */
+
+/* header {
+	border-bottom: 1px dashed var(--color-gray-20);
+} */
+
+/* .links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+} */
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+/* pre,
+code {
+	font-family: var(--font-family-monospace) !important;
+	font-size: 14px !important;
+} */
+
+/* override prism */
+/* https://github.com/orgs/PrismJS/discussions/2859 */
+code[class*="language-"],
+pre[class*="language-"] {
+	font-family: var(--font-family-monospace);
+	font-size: 14px;
+}
+
+pre[class*="language-"] {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	/* -moz-tab-size: var(--syntax-tab-size); */
+	/* -o-tab-size: var(--syntax-tab-size); */
+	/* tab-size: var(--syntax-tab-size); */
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+code {
+	word-break: break-all;
+}
+
+	/* flex-grow: 1; */
+	/* 16px /16 */
+	/* font-size: 1em; */
+	/* font-weight: 700; */
+
+/* .home-link:link:not(:hover) {
+	text-decoration: none;
+} */
+
+/* Nav */
+header {
+			/* display: flex; */
+			/* gap: 2em; */
+			border-right: 10px;
+			/* flex-wrap: wrap; */
+			/* justify-content: space-between; */
+			/* align-items: center; */
+			align-items: end;
+			padding-top: 1em;
+			/* padding: 1em; */
+		}
+.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
+			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		
+
+		<header>
+
+			
+			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">Darius Foo</a>
+			
+				
+				
+				
+				
+				
+				
+			
+			
+			<nav style="display: inline-block">
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					<li class="nav-item"><a href="/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/research/">Research</a></li>
+					<li class="nav-item"><a href="/work/">Work</a></li>
+					<li class="nav-item"><a href="/other/">Other</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+
+<h1 id="mechanising-staged-logic">Mechanising staged logic</h1>
+
+
+
+<div class="post-metadata" style="margin-bottom: 1em;">
+	
+	<time style="font-size: 0.9em;" datetime="2024-12-04">4 Dec 2024</time>
+	
+	
+</div>
+
+<div class="blog-content">
+<p><em>Text version of a talk given at the inaugural <a href="https://verse-lab.github.io/sg-pl-summit/">SG Programming Languages Summit</a></em>.</p>
+<p>Hi everyone, this talk will be about mechanizing our recent work on staged logic in Coq.</p>
+<p>To quickly introduce staged logic, it's an alternative formulation of a program logic. It's designed for automated verification of, specifically, effectful, higher-order programs. These are programs with closures, higher-order functions, and algebraic effects.</p>
+<p>Let's start with an example of such a program.</p>
+<p>Here we have a call to the standard foldr function, where we pass a closure as an argument, and the closure captures some location from the environment. As this program evaluates, it mutates the captured location, and also compute some result, in this case the sum of the list.</p>
+<p>Here is the specification we would like to write for this program.</p>
+<p>We want to say that initially there is some location x with some value a. These are both arbitrary. After the execution of this program, we have that we have prepended exactly the list xs to the value of the location.</p>
+<p>Why is this the result? Because foldr traverses its argument from right to left, and also we are prepending each element to the front of the location there, so we end up just prepending exactly xs to x. To capture this, we would have to talk about ordering of calls to the function argument and to the recursive occurrence of foldr itself.</p>
+<p>The question staged logic tries to answer is: how do we prove functional correctness properties like these about effectful programs automatically?</p>
+<p>Let's start by reviewing the traditional approach to specifying such programs in an interactive setting.</p>
+<p>The idea to write an auxiliary specification for foldr which is parameterized over an invariant and possibly other properties.</p>
+<p>This then allows us to say that the function f preserves the invariant or strengthen the precondition.</p>
+<p>The problem with this approach is that it's difficult to automate, because we now have lots of other parameters which we would have to instantiate at call sites. It's difficult to infer them, secondly, it's also difficult to infer the specification itself, the proxy we needed to get there, because different clients require different parameterizations. In other words, a particular specification may not be enough for another client.</p>
+<p>Staged logic is a solution to this problem. The idea of staged logic is to natively represent effectful behavior inside the logic. And then, because we just have a recursive formula or something like that, we can just do the proof directly by induction, allowing us to use standard methods for automating inductive proof.</p>
+<p>The rest of this talk will consist of two parts. In the first part I'll talk about the setup. How do we define staged logic and how the proofs work?</p>
+<p>And then in the second part, I'll talk about the encoding in Coq.</p>
+<p>Here's the syntax of staged logic. I'll just introduce bit by bit. So here we have some type of state formula, sigma. You can think of this as just a separation logic formula, and then we have requires and ensures as part of the logic. So this is something a bit unusual. It's best to think of these as just the annotations that you would write in a system like def be the typical reading of requires is as an obligation and ensures as an assumption. But this there are rows flip depending on which side of a call for an entailment we are on. So, but the default reading, by default, we are on the left, right. So this is the standard reading. And also we have the ability to talk about effects. So like, F could be some effect, foo function call or some algebraic effect. And we also have the ability to talk about the sequence of effects, right? We have sequential composition, and the other connectives are standard. So here's how a standard or triple would correspond to a formula in staged logic. So we have a relation. The triple colon there relates a program with some specification. So here we can just describe the whole triple using two requires an interest assertion, but</p>
+<p>we can also describe programs with arbitrary effects, right? So here's a program where some arbitrary function f is called after it would be difficult to write a specification for this in whole triple, because we need to parameterize. We need to talk about the precondition and post condition and so on. But here we can just add, just talk about it directly in the logic. Okay, so. So now we going back to the example. You have a like a specification for foo R, right? And you notice that it looks exactly like the code. And this is kind of the point, right? Because you want to derive the specifications of such effect foo programs directly from the code. When there is nothing more, there's no more abstraction we can give at that point, how do we then talk about specifications? So this is done using this entailment relation here. So entailment relates to stage formulae. And here we're just giving the specification that we gave</p>
+<p>for a particular call, right, where g is the closure we had,</p>
+<p>okay? So I'll just quickly walk through the proof, very quickly. Here's our strategy, right? It's a standard strategy for inductive proof. First pick some argument to do induction on. Then we unfold everything we can. We rewrite everything we can, and then we have to normalize. So this is a thing which is unique to staged logic. The idea is that we can reach this syntactic form that where we have some we always have one, requires one ensures, and in a function, some normal repetitions of that, and then requires ensures at the end. And once we have this form, we can dispatch everything using the entertainment rules that we have defined. Right? So the proof goes first, it starts with induction on x the argument. Then we'll unfold folder and focus on the recursive case. So that looks like this. Then we rewrite using the induction hypothesis, unfold some functions, and then time to normalize. So here we see that we have an ensures followed by requires, why not be able to see the colors, but ensures and requires are highlighted. So at this point, we want to push the ensures to the requires, so that we get requires, requires ensures that we can pack them further right. So it's sufficient to solve this by abduction problem to do this, so I'll just show the solution. And indeed, we simplify the formula down to this.</p>
+<p>Then we notice that
+we have requires, two requires at the start, right, and requires is contravariant in our system. So we can apply that rule to reduce this down to a separation logic obligation. So this one is easy, and then finally we have ensures and ensures and ensures is COVID, as you might have guessed, and we can again reduce this down to separation logic, then to SMT and some properties of a pen and cons to
+operate on this part,
+right? So here's the workflow we have today. We have implemented this in a tool called Heffer, which stands for high order effect, foo, imperative function, entailments and reasoning. The idea is the user just gives the program and the specification, and we prove such entailments automatically. So where do we go from here? Right? We would like to reach this workflow which is oriented around an encoding of the logic in clock. It supports two use cases, which is interactive proof, right? Sometimes, given the program and the specification, we might want to work on the harder proofs interactively. And it's hard to do that in an automated tool when the second use case is certification. So given we have some nice automation heuristics, we can generate a proof script for our encoding in Coq, and so we can validate like, not just the ideas, but the implementation. Okay, so here's what we would like. We would like some encoding of our logic in cog, where we can do all the proof steps we saw earlier using tactics.
+So this is the COC sequence and the line there,
+and our first sailor feature is a stage target sequence, so we need another sequence below the line. So how do we build that out? So it's built out of the semantics of the logic. So the models of staged logic contains four things. There are two heaps, h1, h2, which are the initial and final heaps, right? So a staged logic formula really is a behavioral specification. It talks about traces that go between some initial and some final heat. And you might want to compare the models to those are separation logic, right? So it's really a combination of the two things to talk about behavior, effectual behavior. So the two kinds of primitive effects, all right, the two kinds of primitive behavior are given by requires and ensures. So requires. Insurance just requires us to prove that the initial heat can be partitioned into some piece satisfying P and the rest can go on right. Insurance lets us assume that we can add a piece to the unit of heat to the initial do. So you might recognize the two halves of the so called baked in frame rule, right? So that's where this shows up in the system. Finally, we have an environment of unknown functions. So this is used to give meaning to the function or effect construct in our logic. So we can define the semantics by just delegating the environment, and we allow the user to provide some interpretation later on.
+So how do we encode staged logic?</p>
+<p>So we are building on top of shallow limb data separation logic, so it might be tempting to just encode it directly. So here we have a type of uninterpreted function. So this is just a way to represent functions in our logic, and we define the formula type as just a function from the models to prop. Unfortunately, this is not well formed because it's actually cycling. So we can't actually write such a definition, at least not without a lot more sophistication. So what we do instead is we use a deep embedding, so we represent stage formula as values of this enough this type, and we define a satisfies relation, which pretty much is what is written up there. It's just a relation between the model and</p>
+<p>values of the formula type. On</p>
+<p>top of this, you can build entailment. So entailment uses a straightforward shadow embedding. It just universally quantify over the parts of the model and then lift implication. And this is nice, because we can stick the lemmas about entailment very directly. So this is the one we use to finish the proof. And the statement in copy is very similar to the idealized version on the left. Finally, on top of this, you build the entailment sequence, right? So this is just entailment, but we have exposed the environment inside because we need, sometimes we need to talk about things which are related through the environment, right? Like when we unfold functions.</p>
+<p>Okay? So we've defined a sequence.
+The next most salient feature is rewriting, right? So we did a lot of proofs by rewriting just now. So we encode that particularly. How do we rewrite using lemmas and also unfolding definitions, which are the same thing. So we use Cox satellite rewriting using entails as the equivalence relation. So it's in double quotes because it's weaker than the equivalence right? For example, we will rewrite from top to bottom. So it's actually we might weaken the formula in the process. So it's actually using generalized rewriting to justify rewrites, we have to show that n tails is proper in both arguments. So what this means is that the left side is COVID, Contra variant, and the right side is COVID. So we can specify this by providing the following type class instance, and you can see that the relation at the end is implication, not equivalents.</p>
+<p>Okay, so that's rewriting</p>
+<p>next. How do we so at this point, we could use the requires, requires rule to finish the proof. But let's take a different route and talk about something closer to more automated tools that would use symbolic execution as a means of proving separation logic properties. So here we have requires on the right, and we have a rule saying that we can move our requires on the right into it. We can turn that into an ensures on the left. So you can view this as some kind of spatial context right. So when we move requires on the left to something on the right, here, we now have some kind of sufficient logic assumption, or you can think of it as a current state in a symbolic execution based verifier. And after that, we have the precondition of the next call, which is an obligation. We don't have to use the current state to discharge the precondition of the next call. And similarly, we have a post condition after so we can now assume this into the spatial context. And finally, that's our final Pro application. So with everything defined like that, we can now finish the proof using the same approach as before, so reducing to heat entailment, and then to pure logic, and then we are done. Okay? So just to give an overview of the mechanization, which is still a work in progress, some other things, we have formalized programs, and also there are big steps semantics, so this part is standard. We also have a relation between programs and stage formulae, which can be used to derive specifications. We have another kind of triple, which also talks about the history of a program, also all the sums, proves all these things. So to conclude, I. Have talked about an alternative program logic formulation called staged logic is alternative because it relies on a new set of primitives, right? And there are all the things you'll find in other program logics, like once and because preconditions are not present, but I think we still managed to get a decent experience in our probe assistant a decent encoding.
+The focus is on higher order programs with effects,</p>
+<p>another, maybe some and I take away would be how to view a staged logic formula. So you can think of the entailment relation as a refinement relation between abstract programs. So that's a view that we have kept in mind since the beginning, you can think of it as triples with some program fragments in them, so allowing some kinds of syntactic reasoning when it's hard to say what you want semantically with just one state. And also, you can think of this as manipulating the verification conditions directly. So this is similar to the CFML view, where you translate a program into some formula and then you just manipulate the formula until proof is done. So some future what we have is to add some more automation in order to support certification. So that's our main goal. And also look into some other encoding, some other applications of staged logic, right? So we have another paper on direct effects, which we could like to formalize. So all the whole formalization and the tools are open source, and they're available at that link. Thank you.</p>
+
+</div>
+
+		</main>
+
+		<footer>
+			
+		</footer>
+
+		<!-- This page `/blog/mechanising-staged-logic/` was built on 2025-02-06T03:31:23.162Z -->
+		
+	</body>
+</html>

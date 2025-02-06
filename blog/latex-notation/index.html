@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Jump-to-definition in PL papers</title>
+		<meta name="description" content="I am writing about my experiences as a naval navel-gazer.">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
+
+
+		
+
+		
+
+		
+
+		
+
+		
+		
+		<style>@media (prefers-color-scheme: light) { /**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+ }
+@media (prefers-color-scheme: dark) { /**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+ }
+/* This is an arbitrary CSS string added to the bundle */
+/* Defaults */
+:root {
+	/* --font-family: -apple-system, system-ui, sans-serif; */
+	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	*/
+
+    --font-family-monospace: Fira Code, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+
+  /*    --text-font: Crimson Text, serif;*/
+  /*    --text-font: Poppins, Verdana, sans-serif;*/
+  /*    --heading-font: Quicksand, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --heading-font: Open Sans, sans-serif;*/
+  /*    --text-font: Cabin, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --text-font: Roboto, sans-serif;*/
+
+  /*    --heading-font: Roboto, sans-serif;*/
+  /*    --heading-font: Cabin, sans-serif;*/
+  /*    --heading-font: Dosis, sans-serif;*/
+
+  /*    --heading-font: Work Sans, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+
+      /* --heading-font: Nunito, sans-serif; */
+      --heading-font: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+  /*    --text-font: PT Sans, sans-serif;*/
+
+  /*    --heading-font: Varela Round, sans-serif;*/
+  /*    --text-font: Noto Serif, serif;*/
+
+  /*    --text-font: Lato, sans-serif;*/
+      --text-font-size: 17px;
+
+  /*    --text-font: Merriweather, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+
+  /* https://css-tricks.com/snippets/css/system-font-stack/ */
+  /* https://systemfontstack.com/ */
+
+    /* system font on all platforms */
+  /*    --heading-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;*/
+      /* --text-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu; */
+      --text-font: -apple-system, system-ui, sans-serif;
+			/* system-ui, sans-serif; */
+
+
+/* Theme colors */
+
+	/* --color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333; */
+
+	--background-color: #fff;
+
+	/* --text-color: var(--color-gray-90); */
+	/* --text-color-link: #082840; */
+
+	/* --text-color-link: #ff0000; */
+	/* --text-color-link-active: #5f2b48; */
+	/* --text-color-link-visited: #17050F; */
+
+
+	/* --syntax-tab-size: 2; */
+
+	--bright-text-color: #222;
+	--link-color: #3273dc;
+	/* --link-color: #ff5e6c; */
+	--link-visited-color: #6e4bbe;
+	--background-color: #fff;
+	--text-color: #444;
+	--faded-text-color: #777;
+	--blockquote-text-color: var(--bright-text-color);
+	--faint-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* --color-gray-20: #e0e0e0; */
+		/* --color-gray-50: #C0C0C0; */
+		/* --color-gray-90: #dad8d8; */
+
+		/* --text-color is assigned to --color-gray-_ above */
+		/* --text-color-link: #1493fb; */
+		/* --text-color-link-active: #6969f7; */
+		/* --text-color-link-visited: #a6a6f8; */
+
+		--background-color: #15202b;
+
+		--bright-text-color: #eee;
+		--link-color: #8cc2dd;
+		--link-visited-color: #b9a9e0;
+		--background-color: #333;
+		--text-color: #ddd;
+		--faded-text-color: #aaa;
+		--slightly-dimmer-text-color: #ccc;
+		--blockquote-text-color: var(--slightly-dimmer-text-color);
+		--faint-color: #666;
+
+		color-scheme: dark; /* sets scrollbar colour */
+	}
+
+	img.theme-affected {
+		filter: invert(.8);
+	}
+}
+
+* {
+/* select parts of https://www.joshwcomeau.com/css/custom-css-reset/ */
+	/* reset */
+	margin: 0;
+
+	box-sizing: border-box;
+
+	/* enable ligatures */
+	text-rendering: optimizeLegibility;
+}
+
+/* restore some spacing after reset */
+/* prism adds this much to code already */
+/* h1, h2, h3, h4, h5, h6 {
+	margin-top: 1rem;
+} */
+	/* margin-bottom: 0.3em; */
+/* main > :first-child { margin-top: 0 !important; }
+code, p, ul {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+} */
+
+p, ul {
+	margin-bottom: 1em;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+	/* space after paragraphs, and not before the next paragraph.
+	the spacing after is provided by having a large font size. */
+	margin-top: 0.5em;
+}
+
+
+@view-transition {
+	navigation: auto;
+}
+
+html, body {
+	padding: 0;
+	margin: 0 auto;
+	/* font-family: var(--font-family); */
+	font-family: var(--text-font);
+	font-size: var(--text-font-size);
+	color: var(--text-color);
+	background-color: var(--background-color);
+
+	/*
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	*/
+	/* line-height: 1.5; */
+}
+
+html {
+	overflow-y: scroll;
+}
+
+body {
+	max-width: 40em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--heading-font);
+	color: var(--bright-text-color);
+	font-weight: normal;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--link-color);
+	text-decoration: none;
+}
+a[href]:visited {
+	color: var(--link-visited-color);
+}
+/* a[href]:hover,
+a[href]:active { */
+	/* color: var(--text-color-link-active); */
+	/* text-decoration: underline; */
+	/* text-decoration-thickness: 2px; */
+/* } */
+
+main,
+footer {
+	padding-top: 1em;
+}
+/* main :first-child {
+	margin-top: 0;
+} */
+
+/* header {
+	border-bottom: 1px dashed var(--color-gray-20);
+} */
+
+/* .links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+} */
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+/* pre,
+code {
+	font-family: var(--font-family-monospace) !important;
+	font-size: 14px !important;
+} */
+
+/* override prism */
+/* https://github.com/orgs/PrismJS/discussions/2859 */
+code[class*="language-"],
+pre[class*="language-"] {
+	font-family: var(--font-family-monospace);
+	font-size: 14px;
+}
+
+pre[class*="language-"] {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	/* -moz-tab-size: var(--syntax-tab-size); */
+	/* -o-tab-size: var(--syntax-tab-size); */
+	/* tab-size: var(--syntax-tab-size); */
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+code {
+	word-break: break-all;
+}
+
+	/* flex-grow: 1; */
+	/* 16px /16 */
+	/* font-size: 1em; */
+	/* font-weight: 700; */
+
+/* .home-link:link:not(:hover) {
+	text-decoration: none;
+} */
+
+/* Nav */
+header {
+			/* display: flex; */
+			/* gap: 2em; */
+			border-right: 10px;
+			/* flex-wrap: wrap; */
+			/* justify-content: space-between; */
+			/* align-items: center; */
+			align-items: end;
+			padding-top: 1em;
+			/* padding: 1em; */
+		}
+.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
+			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		
+
+		<header>
+
+			
+			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">Darius Foo</a>
+			
+				
+				
+				
+				
+				
+				
+			
+			
+			<nav style="display: inline-block">
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					<li class="nav-item"><a href="/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/research/">Research</a></li>
+					<li class="nav-item"><a href="/work/">Work</a></li>
+					<li class="nav-item"><a href="/other/">Other</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+
+<h1 id="jump-to-definition-in-pl-papers">Jump-to-definition in PL papers</h1>
+
+
+
+<div class="post-metadata" style="margin-bottom: 1em;">
+	
+	<time style="font-size: 0.9em;" datetime="2023-08-01">1 Aug 2023</time>
+	
+	
+</div>
+
+<div class="blog-content">
+<p>PL papers tend to use lots of <a href="https://www.jsoftware.com/papers/tot.htm">notation</a>.
+To manage this, paper sources usually include a "macros.tex" containing a slew of <code>\newcommand</code>s, defining wonderful languages of terms and naming all the clever judgments and syntactic sugar.</p>
+<p>While notation can increase clarity, it can cause <a href="https://blog.sigplan.org/2020/09/29/pl-notation-is-a-barrier-to-entry/">difficulty</a> to readers, who
+haven't had the hundreds of hours of practice the authors have had using and reading those intricate strings of symbols, and internalizing their precedences and meaning.
+Readers will forget what things denote and will have to scroll up and down repeatedly in a careful reading of the work.</p>
+<p>In an attempt to alleviate this and make my work more accessible, I've been using a small set of macros to enable jump-to-definition for the important (or obscure) symbols:</p>
+<!-- \usepackage[hidelinks]{hyperref} also works -->
+<pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token comment">% somewhere above</span>
+<span class="token function selector">\usepackage</span><span class="token punctuation">[</span>colorlinks=true<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">hyperref</span><span class="token punctuation">}</span>
+
+<span class="token comment">% meta-commands for defining notation</span>
+<span class="token function selector">\newcommand</span><span class="token function selector">\notationlink</span><span class="token punctuation">[</span>2<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token function selector">\hyperlink</span><span class="token punctuation">{</span>#1<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\normalcolor</span> #2<span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token function selector">\newcommand</span><span class="token function selector">\notationtarget</span><span class="token punctuation">[</span>2<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token function selector">\hypertarget</span><span class="token punctuation">{</span>#1<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span>#2<span class="token punctuation">}</span>
+<span class="token function selector">\newcommand*</span><span class="token punctuation">{</span><span class="token function selector">\notation</span><span class="token punctuation">}</span><span class="token punctuation">[</span>2<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token comment">%</span>
+  <span class="token function selector">\expandafter</span><span class="token function selector">\newcommand</span><span class="token function selector">\csname</span> #1<span class="token function selector">\endcsname</span><span class="token punctuation">{</span><span class="token function selector">\notationlink</span><span class="token punctuation">{</span>#1<span class="token punctuation">}</span><span class="token punctuation">{</span>#2<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token comment">%</span>
+  <span class="token function selector">\expandafter</span><span class="token function selector">\newcommand</span><span class="token function selector">\csname</span> #1Def<span class="token function selector">\endcsname</span><span class="token punctuation">{</span><span class="token function selector">\notationtarget</span><span class="token punctuation">{</span>#1<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre>
+<p>The idea is to link uses of notation to their definitions. All that's really needed for that is to pepper <code>\hyperlink</code> and <code>\hypertarget</code> everywhere, and this is what people <a href="https://damaru2.github.io/general/notations_with_links/">already do</a>.</p>
+<p>We can be a little more structured. First, for macros.tex enjoyers, we'll use the command <code>\notation</code> to define a new symbol, so all the definitions can go in one place. For example,</p>
+<pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\notation</span><span class="token punctuation">{</span>trace<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\tau</span><span class="token punctuation">}</span></code></pre>
+<p>This defines the command <code>\trace</code> as a macro for <code>\tau</code>.
+More importantly, it defines the paired command <code>\traceDef</code>, which is used to mark the definition site of this symbol, and which every occurrence of <code>\trace</code> unobtrusively links to.</p>
+<p>For example, having written this,</p>
+<pre class="language-latex" tabindex="0"><code class="language-latex">A <span class="token function selector">\emph</span><span class="token punctuation">{</span>trace<span class="token punctuation">}</span> <span class="token equation string">$<span class="token equation-command regex">\trace</span>$</span> is a sequence of states...</code></pre>
+<p>simply include <code>\traceDef</code> nearby:</p>
+<pre class="language-latex" tabindex="0"><code class="language-latex">A <span class="token function selector">\traceDef</span><span class="token function selector">\emph</span><span class="token punctuation">{</span>trace<span class="token punctuation">}</span> <span class="token equation string">$<span class="token equation-command regex">\trace</span>$</span> is a sequence of states...</code></pre>
+<p>Subsequent uses of <code>\trace</code> (even the one right after) will now contain links back to this part of the paper.</p>
+<p>Doing this has benefits for authors too.
+The introduction of a new concept is now made explicit, which may help you consider if you're doing a "forward definition";
+if you forget the definition, you get a compilation warning.
+Furthermore, paired with SyncTex, you can really zip around the paper.</p>
+<p>For an example of this in action, I've annotated my most recent paper <a href="https://arxiv.org/abs/2308.00988">here</a>.</p>
+<p>The amount of effort was very low for the value – it's very much pay-as-you-go, and easy to do while proofreading.
+To prioritize, focus on important notations first (which readers will frequently have to refer back to), then obscure ones or those with a large distance to their definitions.</p>
+<!-- Of course, all this only helps if it goes on top of focused effort to simplify and standardize your notation. -->
+<!-- Read on for a discussion of the [design](#design-decisions) and more advanced [use cases](#more-use-cases). -->
+<h1 id="design-decisions">Design decisions</h1>
+<details><summary>Why don't both commands take any parameters?</summary>
+<p>For <code>\traceDef</code>, it's so it can be placed anywhere, alongside what is written. To repeat the example from before:</p>
+<pre class="language-latex" tabindex="0"><code class="language-latex">A <span class="token function selector">\traceDef</span><span class="token function selector">\emph</span><span class="token punctuation">{</span>trace<span class="token punctuation">}</span> <span class="token equation string">$<span class="token equation-command regex">\trace</span>$</span> is a sequence of states...</code></pre>
+<p>On the other hand, <code>\trace</code> taking no argument may seem like a deficiency: how should we replace a <code>\newcommand</code> with parameters?</p>
+<pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\newcommand*</span><span class="token punctuation">{</span><span class="token function selector">\bigstep</span><span class="token punctuation">}</span><span class="token punctuation">[</span>3<span class="token punctuation">]</span><span class="token punctuation">{</span>#1<span class="token function selector">\leadsto</span>_<span class="token punctuation">{</span>#2<span class="token punctuation">}</span>#3<span class="token punctuation">}</span>
+<span class="token comment">% what's the \notation equivalent?</span>
+
+<span class="token comment">% a use</span>
+We define the relation <span class="token function selector">\bigstep</span><span class="token punctuation">{</span>e<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\trace</span><span class="token punctuation">}</span><span class="token punctuation">{</span>v<span class="token punctuation">}</span> as follows...</code></pre>
+<p>The reason is that we seldom want the entire term to become a link: it's possible we want to introduce notation for subterms, like the metavariable <code>e</code>.</p>
+<p>My suggested way forward is to define notation for some essential symbol in the term, then use it in the definition of the term macro.</p>
+<pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\notation</span><span class="token punctuation">{</span>bigstepto<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\leadsto</span><span class="token punctuation">}</span>
+<span class="token function selector">\newcommand*</span><span class="token punctuation">{</span><span class="token function selector">\bigstep</span><span class="token punctuation">}</span><span class="token punctuation">[</span>3<span class="token punctuation">]</span><span class="token punctuation">{</span>#1<span class="token function selector">\bigstepto</span>_<span class="token punctuation">{</span>#2<span class="token punctuation">}</span>#3<span class="token punctuation">}</span>
+
+We define the relation <span class="token function selector">\bigsteptoDef</span><span class="token function selector">\bigstep</span><span class="token punctuation">{</span>e<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\trace</span><span class="token punctuation">}</span><span class="token punctuation">{</span>v<span class="token punctuation">}</span> as follows...</code></pre>
+<p>This way, which portion becomes a link is always well-defined, and there is no problem with nesting notations.</p>
+</details>
+<details><summary>Could we instrument <code>\newcommand</code>?</summary>
+<p>I briefly entertained the idea of instrumenting <code>\newcommand</code> to automate defining notations.
+However, <code>\newcommand</code> is used for all kinds of things, not just definitions.
+We would also have to handle the case of a command having parameters (see previous point).</p>
+</details>
+<details><summary>Could we automatically link to the first use?</summary>
+<p>An early version of this defined a command that redefined itself after the first time it was used, so subsequent uses would link back to the first one.
+This seemed like a nice idea, based on the assumption that "forward definitions" should be avoided.</p>
+<p>However, this can be fragile when used with figures, which may end up ordered before any given text on a page, and it is sometimes natural to defer a formal definition until after an intuitive use has been explained.</p>
+<p>The current simpler design, relying on manual annotation of the definition site, seems more robust.</p>
+</details>
+<h1 id="more-use-cases">More use cases</h1>
+<p>It's sometimes useful to use the lower-level <code>\notationlink</code> and <code>\notationtarget</code> directly.
+For example, say you typeset the names of inference rules in a special font.</p>
+<pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\newcommand</span><span class="token punctuation">{</span><span class="token function selector">\rulen</span><span class="token punctuation">}</span><span class="token punctuation">[</span>1<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token function selector">\ensuremath</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token function selector">\bf</span> <span class="token function selector">\scriptstyle</span> #1<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre>
+<p>You can instrument it so that it adds a link, and define another variant for introducing a definition, which you then use in your inference rule.</p>
+<pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\newcommand</span><span class="token punctuation">{</span><span class="token function selector">\rulen</span><span class="token punctuation">}</span><span class="token punctuation">[</span>1<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token function selector">\notationlink</span><span class="token punctuation">{</span>#1<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\ensuremath</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token function selector">\bf</span> <span class="token function selector">\scriptstyle</span> #1<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token function selector">\newcommand</span><span class="token punctuation">{</span><span class="token function selector">\defrulen</span><span class="token punctuation">}</span><span class="token punctuation">[</span>1<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token function selector">\notationtarget</span><span class="token punctuation">{</span>#1<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\ensuremath</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token function selector">\bf</span> <span class="token function selector">\scriptstyle</span> #1<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre>
+<p>If you have a mixfix judgment and want all the parts around the arguments to be links, adding an extra <code>\notationlink</code> is the easiest way to achieve this.</p>
+<pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\notation</span><span class="token punctuation">{</span>smodels<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\models</span><span class="token punctuation">}</span>
+<span class="token function selector">\newcommand*</span><span class="token punctuation">{</span><span class="token function selector">\bigstep</span><span class="token punctuation">}</span><span class="token punctuation">[</span>3<span class="token punctuation">]</span><span class="token punctuation">{</span>#1<span class="token function selector">\smodels</span> #2 <span class="token function selector">\notationlink</span><span class="token punctuation">{</span>smodels<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\leadsto</span><span class="token punctuation">}</span> #3<span class="token punctuation">}</span></code></pre>
+<p>It may occasionally be helpful to explicate all uses and definitions, either to look for unlinked ones, or to ensure that definition sites are where you think they should be.
+This can be done by simply removing the unobtrusive link colour and adding <code>\fbox{#1Def}</code> before <code>\notationlink</code> in the <code>\notation</code> macro above.</p>
+<!--
+
+[^2]: [This paper](https://arxiv.org/abs/2006.11639) is an example in the wild where the authors underline newly-introduced terms.
+
+Anchoring the definition to a specific word could also be done. A common convention is to italicise words, so authors could define:
+
+```latex
+\newcommand*{\firstuse}[1]{%
+  \traceDef\emph{}}
+```
+
+it seems better not to make that choice and leave it to authors to define in a derived macro.
+
+, e.g. `\traceDef{\emph{trace}}`, isn't much of an improvement. Also, the way in which notation is introduced is highly varied[^1][^2], so further structure seems counterproductive.
+
+[^1]: One could further codify this convention of italicising introduced terms:
+
+    ```latex
+    \newcommand*{\firstuse}[1]{%
+      \expandafter{\csname #1Def\endcsname}\emph{#1} \ensuremath{\csname #1\endcsname}}
+    ```
+    
+    though in practice it's not often that the command name, the typeset content, and the way in which the symbol is introduced all coincide.
+
+Not everything is introduced in a formal definition. Stuff implicitly like in a grammar saying x is a var without any other notation than just writing the nonterminal
+
+Going even further generating an index
+this is the point at which it starts to become yak shaving, but why not
+
+Statements. Takes this idea to its conclusion. Might be a bit too heavyweight for people. If you want something lighter this is it
+
+
+https://ctan.math.washington.edu/tex-archive/macros/latex/contrib/stex/sty/statements/statements.pdf
+
+https://tex.stackexchange.com/questions/271745/link-to-definition-for-each-command-in-mathmode
+
+https://www.overleaf.com/learn/latex/Indices
+
+https://tex.stackexchange.com/questions/150849/a-command-to-define-other-commands-with-arguments
+
+
+latex blog post
+
+- this
+    ```\
+    sd '\\newcommand\*\{\\([^}]*)\}\{(.*)\}' '\\newsdefinition{$1}{$2}' macros.tex
+    sd '\\newcommand\*\{\\([^}]*)\}\{(.*)\}' '\\notation{$1}{$2}' macros.tex
+    ```
+- clean up lol.tex
+- redefining cmds https://tex.stackexchange.com/questions/71092/automatic-species-names-in-latex-command-that-does-something-differently-the-s
+- https://tex.stackexchange.com/questions/104023/what-is-a-token
+- https://tex.stackexchange.com/questions/556915/why-do-i-have-to-put-braces-around-my-macro-for-subscripts-indices
+- commits in paper repo
+- write the post
+- New command star
+- https://www.overleaf.com/learn/latex/Glossaries
+
+
+% \notation{trace}{\tau} 
+
+% A \firstuse{trace}{trace} $\trace$ is a sequence of states...
+
+% \newcommand*{\zz}[0]{res}
+
+% In the interest of simplicity, no syntax is provided for instrumenting/wrapping \newcommand.
+% The idea is to use this to define terminals, then use the terminals in other macros, so just one part of. It's also unlikely you want the entire syntax to be highlighted, e.g. if you define a judgement A,B,C |= phi ~> D,E,F, this would allow you to make only (say) the ~> a link. But then again you probably don't want the entire thing to be made into a link. if A is a metavariable it to be a link to where it is first introduced.
+
+% TODO
+% newcommand*
+
+
+% https://tex.stackexchange.com/questions/445597/how-to-link-to-the-references-in-the-definition
+% https://damaru2.github.io/general/notations_with_links/
+
+
+% https://tex.stackexchange.com/questions/521254/how-to-use-csname-to-call-a-command-with-an-argument
+% https://tex.stackexchange.com/questions/302308/defining-a-command-to-define-an-asterisk-command
+% https://tex.stackexchange.com/questions/73271/how-to-redefine-or-patch-the-newcommand-command
+% https://tex.stackexchange.com/questions/287657/learning-to-use-xparse
+
+% an earlier version found the first use and marked it. but this is fragile because for example, a figure might appear above the definition
+% firstuse -> definition?
+
+% can use incrementlly. don't have to define first use. though a bit pointless without
+
+-->
+</div>
+
+		</main>
+
+		<footer>
+			
+		</footer>
+
+		<!-- This page `/blog/latex-notation/` was built on 2025-02-06T03:31:23.162Z -->
+		
+	</body>
+</html>
