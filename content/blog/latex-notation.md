@@ -1,6 +1,7 @@
 ---
 title: "Jump-to-definition in PL papers"
 date: 2023-08-01
+templateEngineOverride: md
 ---
 
 PL papers tend to use lots of [notation](https://www.jsoftware.com/papers/tot.htm).
@@ -15,7 +16,6 @@ In an attempt to alleviate this and make my work more accessible, I've been usin
 
 <!-- \usepackage[hidelinks]{hyperref} also works -->
 
-{% raw %}
 ```latex
 % somewhere above
 \usepackage[colorlinks=true]{hyperref}
@@ -230,5 +230,3 @@ latex blog post
 % can use incrementlly. don't have to define first use. though a bit pointless without
 
 -->
-
-{% endraw %}
