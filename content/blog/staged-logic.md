@@ -66,8 +66,9 @@ The question we're concerned with in this work is: is there a *precise* and *gen
 
 # Specifying higher-order functions today
 
+{% raw %}
 <div style="display:none">
-$\newcommand{\m}[1]{\mathit{&#35;1}}$
+$\newcommand{\m}[1]{\mathit{#1}}$
 $\newcommand{\foldr}{\m{foldr}}$
 $\newcommand{\xs}{\m{xs}}$
 $\newcommand{\ys}{\m{ys}}$
@@ -76,11 +77,12 @@ $\newcommand{\inv}{\m{Inv}}$
 $\newcommand{\islist}{\m{isList}}$
 $\newcommand{\list}{\m{List}}$
 $\newcommand{\emp}{\m{emp}}$
-$\newcommand{\req}[1]{\mathbf{req}\ &#35;1}$
-$\newcommand{\ens}[1]{\mathbf{ens}\ &#35;1}$
-$\newcommand{\s}[1]{\{ &#35;1 \}}$
-$\newcommand{\sb}[1]{\textbf{\{}&#35;1\textbf{\}}}$
+$\newcommand{\req}[1]{\mathbf{req}\ #1}$
+$\newcommand{\ens}[1]{\mathbf{ens}\ #1}$
+$\newcommand{\s}[1]{\{ #1 \}}$
+$\newcommand{\sb}[1]{\textbf{\{}#1\textbf{\}}}$
 </div>
+{% endraw %}
 
 We'll use the classic $\foldr$ function as a running example.
 
