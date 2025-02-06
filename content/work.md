@@ -5,7 +5,9 @@ eleventyNavigation:
   order: 3
 ---
 
-### Work
+<!-- <h3 style="margin: 0">Work</h3> -->
+
+<!-- ### Work -->
 
 My [resume](/resume.pdf) and extended [CV](/cv).
 

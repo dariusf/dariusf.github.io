@@ -5,7 +5,7 @@ layout: layouts/base.njk
 {%- css %} @media (prefers-color-scheme: light) { {% include "node_modules/prismjs/themes/prism.css" %} } {% endcss %}
 {%- css %} @media (prefers-color-scheme: dark) { {% include "node_modules/prismjs/themes/prism-tomorrow.css" %} } {% endcss %}
 {# {%- css %}{% include "public/css/prism-diff.css" %}{%- endcss %} #}
-<h1>{{ title }}</h1>
+<h1 style="margin-top: 1rem; margin-bottom: 0.2em">{{ title }}</h1>
 
 {# {%- css %}
 /* Tags */
@@ -34,7 +34,7 @@ layout: layouts/base.njk
 } */
 {% endcss %} #}
 
-<div class="post-metadata" style="margin-bottom: 1em;">
+<div class="post-metadata">
 	{# <li> #}
 	<time style="font-size: 0.9em;" datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
 	{# </li> #}
