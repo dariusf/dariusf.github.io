@@ -56,7 +56,7 @@ export default function mathjaxPlugin(eleventyConfig, options = {}) {
 		const isBlogPost =
 			outputPath &&
 			outputPath.endsWith(".html") &&
-			outputPath.includes("/blog/");
+			(outputPath.includes("/blog/") || outputPath.includes("/drafts/"));
 
 		if (!isBlogPost) {
 			return content;
