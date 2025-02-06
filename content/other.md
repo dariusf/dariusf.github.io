@@ -5,7 +5,7 @@ eleventyNavigation:
   order: 4
 ---
 
-<!-- # Other -->
+<!-- <h3 style="margin: 0">Games</h3> -->
 
 ### Games
 

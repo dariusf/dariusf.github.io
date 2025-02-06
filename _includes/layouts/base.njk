@@ -2,7 +2,8 @@
 <html lang="{{ metadata.language }}">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
 		<title>{{ title or metadata.title }}</title>
 		<meta name="description" content="{{ description or metadata.description }}">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
@@ -78,6 +79,10 @@
 		<header>
 
 			{# title font is the same as the default size of a h2 #}
+			{# home-link #}
+			{# .home-link:link:not(:hover) {
+				text-decoration: none;
+			} #}
 			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">{{ metadata.title }}</a>
 			{# .nav { #}
 				{# /* display: flex; */ #}
