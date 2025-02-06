@@ -4,19 +4,21 @@ date: 2023-11-28
 math: true
 ---
 
+{% raw %}
 <div style="display:none">
 $\newcommand{\kwproj}{\mathbin{\upharpoonright}}$
-$\newcommand{\gall}[3]{\forall &#35;1 : &#35;2 \cdot &#35;3}$
-$\newcommand{\galls}[4]{\forall &#35;1 : &#35;2 \setminus &#35;3 \cdot &#35;4}$
-$\newcommand{\galle}[4]{\forall &#35;1 : &#35;2 \setminus \{&#35;3\} \cdot &#35;4}$
-$\newcommand{\gtransmit}[3]{&#35;1 \to &#35;2:&#35;3}$
+$\newcommand{\gall}[3]{\forall #1 : #2 \cdot #3}$
+$\newcommand{\galls}[4]{\forall #1 : #2 \setminus #3 \cdot #4}$
+$\newcommand{\galle}[4]{\forall #1 : #2 \setminus \{#3\} \cdot #4}$
+$\newcommand{\gtransmit}[3]{#1 \to #2:#3}$
 $\newcommand{\kwpar}{\mathrel{||}}$
-$\newcommand{\spar}[2]{&#35;1 \kwpar &#35;2}$
-$\newcommand{\lsend}[2]{\mathit{send}\ &#35;1\ &#35;2}$
-$\newcommand{\lrecv}[1]{\mathit{recv\ &#35;1}}$
-$\newcommand{\s}[1]{\{ &#35;1 \}}$
-$\newcommand{\sb}[1]{\textbf{\{}&#35;1\textbf{\}}}$
+$\newcommand{\spar}[2]{#1 \kwpar #2}$
+$\newcommand{\lsend}[2]{\mathit{send}\ #1\ #2}$
+$\newcommand{\lrecv}[1]{\mathit{recv\ #1}}$
+$\newcommand{\s}[1]{\{#1\}}$
+$\newcommand{\sb}[1]{\textbf{\{}#1\textbf{\}}}$
 </div>
+{% endraw %}
 
 [Session types](https://wen.works/2020/12/17/an-introduction-to-session-types/) are a neat and fascinating formalism.
 Intuitively, they are small languages for describing communication protocols.
