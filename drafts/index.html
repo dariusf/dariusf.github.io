@@ -2,7 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
 		<title>Darius Foo</title>
 		<meta name="description" content="PhD student, programming languages and formal verification">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
@@ -38,7 +39,6 @@ ul.blog-posts li a:visited {
 	color: var(--link-visited-color);
 }
 /* This is an arbitrary CSS string added to the bundle */
-/* Defaults */
 :root {
 	/* --font-family: -apple-system, system-ui, sans-serif; */
 	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
@@ -147,53 +147,21 @@ ul.blog-posts li a:visited {
 	}
 }
 
-* {
-/* select parts of https://www.joshwcomeau.com/css/custom-css-reset/ */
-	/* reset */
-	margin: 0;
-
+body {
 	box-sizing: border-box;
+
+	/* https://github.com/sindresorhus/github-markdown-css */
+	min-width: 200px;
+	/* max from old blog */
+	/* max-width: 40em; */
+	max-width: 720px;
+
+	margin: 0 auto;
+	padding: 0 20px;
 
 	/* enable ligatures */
 	text-rendering: optimizeLegibility;
-}
 
-/* restore some spacing after reset */
-/* prism adds this much to code already */
-/* h1, h2, h3, h4, h5, h6 {
-	margin-top: 1rem;
-} */
-	/* margin-bottom: 0.3em; */
-/* main > :first-child { margin-top: 0 !important; }
-code, p, ul {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-} */
-
-p, ul {
-	margin-bottom: 1em;
-}
-
-.blog-content h1,
-.blog-content h2,
-.blog-content h3,
-.blog-content h4,
-.blog-content h5,
-.blog-content h6 {
-	/* space after paragraphs, and not before the next paragraph.
-	the spacing after is provided by having a large font size. */
-	margin-top: 0.5em;
-}
-
-
-@view-transition {
-	navigation: auto;
-}
-
-html, body {
-	padding: 0;
-	margin: 0 auto;
-	/* font-family: var(--font-family); */
 	font-family: var(--text-font);
 	font-size: var(--text-font-size);
 	color: var(--text-color);
@@ -207,19 +175,37 @@ html, body {
 	/* line-height: 1.5; */
 }
 
+@media (max-width: 767px) {
+	body {
+		padding: 0px 1em;
+	}
+}
+
+@view-transition {
+	navigation: auto;
+}
+
 html {
 	overflow-y: scroll;
 }
 
-body {
-	max-width: 40em;
+/* https://github.com/Kimeiga/bahunya/blob/master/src/parts/_typography.css */
+ul, ol {
+  padding-left: 2em;
+}
+
+li {
+	line-height: 1.5;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: var(--heading-font);
 	color: var(--bright-text-color);
 	font-weight: normal;
+	line-height: 1.25;
 }
+
+/* misc changes from here on */
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
 .visually-hidden {
@@ -260,10 +246,6 @@ p {
 	line-height: 1.5;
 }
 
-li {
-	line-height: 1.5;
-}
-
 a[href] {
 	color: var(--link-color);
 	text-decoration: none;
@@ -278,10 +260,11 @@ a[href]:active { */
 	/* text-decoration-thickness: 2px; */
 /* } */
 
-main,
+/* main,
 footer {
 	padding-top: 1em;
-}
+} */
+
 /* main :first-child {
 	margin-top: 0;
 } */
@@ -348,20 +331,10 @@ pre:not([class*="language-"]) {
 	word-break: normal;
 	overflow-x: auto;
 }
+
 code {
 	word-break: break-all;
 }
-
-	/* flex-grow: 1; */
-	/* 16px /16 */
-	/* font-size: 1em; */
-	/* font-weight: 700; */
-
-/* .home-link:link:not(:hover) {
-	text-decoration: none;
-} */
-
-/* Nav */
 header {
 			/* display: flex; */
 			/* gap: 2em; */
@@ -391,6 +364,8 @@ header {
 
 		<header>
 
+			
+			
 			
 			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">Darius Foo</a>
 			
@@ -453,7 +428,7 @@ header {
 			
 		</footer>
 
-		<!-- This page `/drafts/` was built on 2025-02-06T06:07:24.204Z -->
+		<!-- This page `/drafts/` was built on 2025-02-06T15:03:57.533Z -->
 		
 	</body>
 </html>
