@@ -77,7 +77,7 @@ mp(asserted(Not(a == a)),
 Unsurprisingly, it is not.
 Z3 outputs a _proof tree_, which we can traverse and pretty-print.
 
-<img class="theme-affected" alt="first pretty-printed proof tree" src="./z3proof1.png"></img>
+<img class="theme-affected" alt="first pretty-printed proof tree" src="./tree1.png"></img>
 
 Firstly, we see that the conclusion at the bottom is `False`.
 This may seem odd, but recall that the goal is to show that negation of the original theorem cannot be proved, so this is the only conclusion which makes sense.
@@ -90,11 +90,11 @@ Finally we use the `trans`itivity of equality and modus ponens to derive the con
 
 Let's try $\exists a. a = \neg (\neg a)$.
 
-<img class="theme-affected" alt="another proof tree" src="./z3proof2.png"></img>
+<img class="theme-affected" alt="another proof tree" src="./tree2.png"></img>
 
 And here's another for the linear arithmetic formula $\exists x y. 2 x \leq 3 y, y > x, x > 0$.
 
-<img class="theme-affected" alt="linear arithmetic formula proof, overwhelming detail" src="./z3proof3.png"></img>
+<img class="theme-affected" alt="linear arithmetic formula proof, overwhelming detail" src="./lia.png"></img>
 
 Clearly, these generated proofs quickly get too large to be comprehensible.
 They're also largely mechanical and not very meaningful.
@@ -102,7 +102,7 @@ Still, it's intriguing to see the automated reasoning that Z3 performs.
 
 A final point about the last one is the application of the rule `th-lemma` to derive the conclusion.
 
-<img class="theme-affected" alt="theory lemma" src="./z3proof4.png"></img>
+<img class="theme-affected" alt="theory lemma" src="./theorylemma.png"></img>
 
 This is a theory lemma, a placeholder rule for a possibly-opaque decision from a theory solver.
 
