@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
+		<title>SATB Bird</title>
+		<meta name="description" content="PhD student, programming languages and formal verification">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
+
+
+		
+
+		
+
+		
+
+		
+
+		
+		
+		<style>@media (prefers-color-scheme: light) { /**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+ }
+@media (prefers-color-scheme: dark) { /**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+ }
+/* This is an arbitrary CSS string added to the bundle */
+:root {
+	/* --font-family: -apple-system, system-ui, sans-serif; */
+	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	*/
+
+    --font-family-monospace: Fira Code, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+
+  /*    --text-font: Crimson Text, serif;*/
+  /*    --text-font: Poppins, Verdana, sans-serif;*/
+  /*    --heading-font: Quicksand, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --heading-font: Open Sans, sans-serif;*/
+  /*    --text-font: Cabin, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --text-font: Roboto, sans-serif;*/
+
+  /*    --heading-font: Roboto, sans-serif;*/
+  /*    --heading-font: Cabin, sans-serif;*/
+  /*    --heading-font: Dosis, sans-serif;*/
+
+  /*    --heading-font: Work Sans, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+
+      /* --heading-font: Nunito, sans-serif; */
+      --heading-font: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+  /*    --text-font: PT Sans, sans-serif;*/
+
+  /*    --heading-font: Varela Round, sans-serif;*/
+  /*    --text-font: Noto Serif, serif;*/
+
+  /*    --text-font: Lato, sans-serif;*/
+      --text-font-size: 17px;
+
+  /*    --text-font: Merriweather, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+
+  /* https://css-tricks.com/snippets/css/system-font-stack/ */
+  /* https://systemfontstack.com/ */
+
+    /* system font on all platforms */
+  /*    --heading-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;*/
+      /* --text-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu; */
+      --text-font: -apple-system, system-ui, sans-serif;
+			/* system-ui, sans-serif; */
+
+
+/* Theme colors */
+
+	/* --color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333; */
+
+	--background-color: #fff;
+
+	/* --text-color: var(--color-gray-90); */
+	/* --text-color-link: #082840; */
+
+	/* --text-color-link: #ff0000; */
+	/* --text-color-link-active: #5f2b48; */
+	/* --text-color-link-visited: #17050F; */
+
+
+	/* --syntax-tab-size: 2; */
+
+	--bright-text-color: #222;
+	--link-color: #3273dc;
+	/* --link-color: #ff5e6c; */
+	--link-visited-color: #6e4bbe;
+	--background-color: #fff;
+	--text-color: #444;
+	--faded-text-color: #777;
+	--blockquote-text-color: var(--bright-text-color);
+	--faint-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* --color-gray-20: #e0e0e0; */
+		/* --color-gray-50: #C0C0C0; */
+		/* --color-gray-90: #dad8d8; */
+
+		/* --text-color is assigned to --color-gray-_ above */
+		/* --text-color-link: #1493fb; */
+		/* --text-color-link-active: #6969f7; */
+		/* --text-color-link-visited: #a6a6f8; */
+
+		--background-color: #15202b;
+
+		--bright-text-color: #eee;
+		--link-color: #8cc2dd;
+		--link-visited-color: #b9a9e0;
+		--background-color: #333;
+		--text-color: #ddd;
+		--faded-text-color: #aaa;
+		--slightly-dimmer-text-color: #ccc;
+		--blockquote-text-color: var(--slightly-dimmer-text-color);
+		--faint-color: #666;
+
+		color-scheme: dark; /* sets scrollbar colour */
+	}
+
+	img.theme-affected {
+		filter: invert(.8);
+	}
+}
+
+body {
+	box-sizing: border-box;
+
+	/* https://github.com/sindresorhus/github-markdown-css */
+	min-width: 200px;
+	/* max from old blog */
+	/* max-width: 40em; */
+	max-width: 720px;
+
+	margin: 0 auto;
+	padding: 0 20px;
+
+	/* enable ligatures */
+	text-rendering: optimizeLegibility;
+
+	font-family: var(--text-font);
+	font-size: var(--text-font-size);
+	color: var(--text-color);
+	background-color: var(--background-color);
+
+	/*
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	*/
+	/* line-height: 1.5; */
+}
+
+@media (max-width: 767px) {
+	body {
+		padding: 0px 1em;
+	}
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+html {
+	overflow-y: scroll;
+}
+
+/* https://github.com/Kimeiga/bahunya/blob/master/src/parts/_typography.css */
+ul, ol {
+  padding-left: 2em;
+}
+
+li {
+	line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--heading-font);
+	color: var(--bright-text-color);
+	font-weight: normal;
+	line-height: 1.25;
+}
+
+footer {
+	padding: 35px;
+}
+
+/* header {
+	border-bottom: 1px dashed var(--color-gray-20);
+} */
+
+
+/* misc changes from here on */
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--link-color);
+	text-decoration: none;
+}
+a[href]:visited {
+	color: var(--link-visited-color);
+}
+/* a[href]:hover,
+a[href]:active { */
+	/* color: var(--text-color-link-active); */
+	/* text-decoration: underline; */
+	/* text-decoration-thickness: 2px; */
+/* } */
+
+/* main :first-child {
+	margin-top: 0;
+} */
+
+/* .links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+} */
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+/* pre,
+code {
+	font-family: var(--font-family-monospace) !important;
+	font-size: 14px !important;
+} */
+
+/* override prism */
+/* https://github.com/orgs/PrismJS/discussions/2859 */
+code[class*="language-"],
+pre[class*="language-"] {
+	font-family: var(--font-family-monospace);
+	font-size: 14px;
+}
+
+pre[class*="language-"] {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	/* -moz-tab-size: var(--syntax-tab-size); */
+	/* -o-tab-size: var(--syntax-tab-size); */
+	/* tab-size: var(--syntax-tab-size); */
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+
+code {
+	word-break: break-all;
+}
+header {
+			/* display: flex; */
+			/* gap: 2em; */
+			border-right: 10px;
+			/* flex-wrap: wrap; */
+			/* justify-content: space-between; */
+			/* align-items: center; */
+			align-items: end;
+			padding-top: 1em;
+			/* padding: 1em; */
+		}
+.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
+			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		
+
+		<header>
+
+			
+			
+			
+			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">Darius Foo</a>
+			
+				
+				
+				
+				
+				
+				
+			
+			
+			<nav style="display: inline-block">
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					<li class="nav-item"><a href="/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/research/">Research</a></li>
+					<li class="nav-item"><a href="/work/">Work</a></li>
+					<li class="nav-item"><a href="/other/">Other</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+
+<h1 style="margin-top: 1rem; margin-bottom: 0.2em" id="satb-bird">SATB Bird</h1>
+
+
+
+<div class="post-metadata">
+	
+	<time style="font-size: 0.9em;" datetime="2019-10-24">24 Oct 2019</time>
+	
+	
+</div>
+
+<div class="blog-content">
+<p>Flappy Bird and choral singing have a lot in common.
+Bird analogies, gestures, calls, and <a href="https://www.youtube.com/watch?v=4gCI3ySNNDU">songs</a> are common in warmups, and in both activities, you are trying to steer a small flapping thing along a fine line through (your) pipes, backed by a lush (musical) landscape.</p>
+<p>To make that less of a reach, I cobbled together a <a href="https://github.com/dariusf/satb-bird">prototype</a> of a singing-powered Flappy Bird, based on an open source <a href="https://github.com/xviniette/FlappyLearning">clone</a> of the game.
+It would have been called <em>Flappy Lips</em>, but I settled on <em>SATB Bird</em> to tease the upcoming multiplayer edition.</p>
+<p>Like any rhythm game, SATB Bird requires an abundance of levels. Fortunately, people have been designing levels for <em>hundreds of years</em> and making them freely available at the <a href="https://www.cpdl.org/wiki/">Choral Public Domain Library</a>.
+The game reads them in MusicXML format and places the pipes accordingly.</p>
+<p>There are two pitch detection implementations, a lightweight one using <a href="https://developer.microsoft.com/en-us/microsoft-edge/testdrive/demos/webaudiotuner/">autocorrelation</a>, and another using <a href="https://ml5js.org/">ml5.js</a>, which seems to perform slightly better.</p>
+<p>The UI is quite unfinished, and due to the punishing difficulty, collision is currently off, in favour of a(n as yet unimplemented) scoring mechanism.</p>
+<!-- I haven't worked on it for a while so I decided to publish it. -->
+<p>Try it out <a href="https://dariusf.github.io/satb-bird/">here</a>.</p>
+<p>Satb bird is a game. I would have called it flappy lips</p>
+<p>The objective is to guide a small flapping ring through pipes. By blowing air, along a musical landscape
+Link to vocal cords</p>
+<p>https://youtu.be/3j92lXSwJHY</p>
+<p>Well now you can do that on screen as well!</p>
+
+</div>
+
+		</main>
+
+		<footer>
+			
+		</footer>
+
+		<!-- This page `/drafts/bird/` was built on 2025-02-07T06:01:37.305Z -->
+		
+	</body>
+</html>
