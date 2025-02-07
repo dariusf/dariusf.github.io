@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Relational algebra <=> SQL</title>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/simple.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/github.css" />
+    <link rel="stylesheet" href="./assets/default.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+### SQL $\iff$ Relational algebra
+
+$\sigma$
+
+```sql
+select * from t where 1=1;
+                      ‾‾‾
+```
+
+$\pi$
+
+```sql
+select t.a, t.b from t;
+       ‾‾‾‾‾‾‾‾
+```
+</script></section><section  data-markdown><script type="text/template">
+### SQL $\iff$ Relational algebra
+
+$\times$
+
+```sql
+select * from a, b;
+              ‾‾‾‾
+```
+
+$\rho$
+
+```sql
+select one.c as something from a one, a two;
+       ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾        ‾‾‾    ‾‾‾
+```
+</script></section><section  data-markdown><script type="text/template">
+### SQL $\iff$ Relational algebra
+
+$\cup$
+
+```sql
+select * from t union select * from s;
+                ‾‾‾‾‾
+```
+
+$\cap$
+
+```sql
+select * from t intersect select * from s;
+                ‾‾‾‾‾‾‾‾‾
+```
+
+$\setminus$
+
+```sql
+select * from t except select * from s;
+                ‾‾‾‾‾‾
+```
+</script></section><section  data-markdown><script type="text/template">
+### Relations
+
+The result of a query is a relation, i.e. a ~~set~~ bag of tuples.
+
+```sql
+select * from t where 1=1;
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+Queries act on one or more relations.
+
+```sql
+select * from t where 1=1;
+              ‾
+```
+</script></section><section  data-markdown><script type="text/template">
+### Compositionality
+
+```sql
+select * from (select * from t where 1=1) a where 2=2;
+               ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+$$
+\sigma_{2=2}(\sigma_{1=1}(t))
+$$
+
+Select-from-where $\approx\rho(\pi(\sigma(\rho(\ldots\times\ldots))))$
+</script></section><section  data-markdown><script type="text/template">
+### Where
+
+```sql
+select * from t where 1=1;
+                      ‾‾‾
+```
+
+Boolean
+</script></section><section  data-markdown><script type="text/template">
+### Select
+
+```sql
+select * from t where 1=1;
+       ‾
+```
+
+One or more...
+
+1. Constant values, e.g. integers, text
+1. Column names: ~~sets~~ bags of values
+1. Aggregation: computations on bags of values
+</script></section><section  data-markdown><script type="text/template">
+### Aggregation
+
+```sql
+select max(a) from t;
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+Result is a singleton relation.
+
+Select-from-where, aggregation $\approx$
+
+$$a(\rho(\pi(\sigma(\rho(\ldots\times\ldots)))))$$
+</script></section><section  data-markdown><script type="text/template">
+### Having
+
+Select-from-where, aggregation, having $\approx$
+
+$$\sigma(a(\rho(\pi(\sigma(\rho(\ldots\times\ldots))))))$$
+</script></section><section  data-markdown><script type="text/template">
+### Singleton relations as values
+
+```sql
+select (select 1);
+        ‾‾‾‾‾‾‾‾
+```
+
+```sql
+select * from t where t.a = (select sum(b) from s);
+                      ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+</script></section><section  data-markdown><script type="text/template">
+### Exists
+
+```sql
+select * from t where exists (select * from s);
+                      ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+exists : Relation $\to$ Boolean
+</script></section><section  data-markdown><script type="text/template">
+### Correlated subqueries
+
+```sql
+select * from t
+  where exists (select * from s where s.a = t.a);
+               ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+```js
+t.filter(ta =>
+  s.filter(sa => sa === ta).length === 0)
+  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+</script></section><section  data-markdown><script type="text/template">
+### Correlated subqueries + exists
+
+```sql
+select * from t
+  where exists (select * from s where s.a = t.a);
+        ‾‾‾‾‾‾
+```
+
+```js
+t.filter(ta =>
+  s.filter(sa => sa === ta).length === 0)
+                           ‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+exists : ~~Array~~ Relation $\to$ Boolean
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"none","transitionSpeed":"fast","center":false}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

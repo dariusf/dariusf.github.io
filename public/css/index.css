@@ -165,6 +165,15 @@ h1, h2, h3, h4, h5, h6 {
 	line-height: 1.25;
 }
 
+footer {
+	padding: 35px;
+}
+
+/* header {
+	border-bottom: 1px dashed var(--color-gray-20);
+} */
+
+
 /* misc changes from here on */
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
@@ -220,17 +229,8 @@ a[href]:active { */
 	/* text-decoration-thickness: 2px; */
 /* } */
 
-/* main,
-footer {
-	padding-top: 1em;
-} */
-
 /* main :first-child {
 	margin-top: 0;
-} */
-
-/* header {
-	border-bottom: 1px dashed var(--color-gray-20);
 } */
 
 /* .links-nextprev {

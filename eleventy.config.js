@@ -28,7 +28,11 @@ export default async function (eleventyConfig) {
 		.addPassthroughCopy({
 			"./public/": "/",
 		})
-		.addPassthroughCopy("./content/feed/pretty-atom-feed.xsl");
+		.addPassthroughCopy("./content/feed/pretty-atom-feed.xsl")
+		.addPassthroughCopy("./content/blog/**/*.js")
+		.addPassthroughCopy("./content/blog/**/*.css")
+		.addPassthroughCopy("./content/drafts/**/*.js")
+		.addPassthroughCopy("./content/drafts/**/*.css");
 
 	// Run Eleventy when these files change:
 	// https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
@@ -72,11 +76,11 @@ export default async function (eleventyConfig) {
 		},
 		metadata: {
 			language: "en",
-			title: "Blog Title",
-			subtitle: "This is a longer description about your blog.",
-			base: "https://example.com/",
+			title: "Darius Foo",
+			subtitle: "PhD student, programming languages and formal verification",
+			base: "https://dariusf.github.io/",
 			author: {
-				name: "Your Name",
+				name: "Darius Foo",
 			},
 		},
 	});
