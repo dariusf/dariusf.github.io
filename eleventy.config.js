@@ -22,11 +22,11 @@ export default async function (eleventyConfig) {
 		}
 	});
 
-	// Copy the contents of the `public` folder to the output folder
-	// For example, `./public/css/` ends up in `_build/css/`
+	// Copy the contents of the `static` folder to the output folder
+	// For example, `./static/css/` ends up in `_build/css/`
 	eleventyConfig
 		.addPassthroughCopy({
-			"./public/": "/",
+			"./static/": "/",
 		})
 		.addPassthroughCopy("./content/feed/pretty-atom-feed.xsl")
 		.addPassthroughCopy("./content/blog/**/*.js")
