@@ -4,7 +4,7 @@ layout: layouts/base.njk
 {# Only include the syntax highlighter CSS on blog posts, included with the CSS per-page bundle #}
 {%- css %} @media (prefers-color-scheme: light) { {% include "node_modules/prismjs/themes/prism.css" %} } {% endcss %}
 {%- css %} @media (prefers-color-scheme: dark) { {% include "node_modules/prismjs/themes/prism-tomorrow.css" %} } {% endcss %}
-{# {%- css %}{% include "public/css/prism-diff.css" %}{%- endcss %} #}
+{# {%- css %}{% include "static/css/prism-diff.css" %}{%- endcss %} #}
 <h1 style="margin-top: 1rem; margin-bottom: 0.2em">{{ title }}</h1>
 
 {# {%- css %}
