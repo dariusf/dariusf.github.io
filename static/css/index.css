@@ -114,7 +114,8 @@ body {
 	min-width: 200px;
 	/* max from old blog */
 	/* max-width: 40em; */
-	max-width: 720px;
+	/* tiny bit wider because prism adds some padding */
+	max-width: 726px;
 
 	margin: 0 auto;
 	padding: 0 20px;
