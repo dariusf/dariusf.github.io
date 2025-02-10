@@ -15,7 +15,7 @@ It uses the OG constraint-based graphic design tool, GraphViz.
 
 First, a cons list.
 
-<img eleventy:formats="svg" eleventy:ignore class="theme-affected" alt="cons list" src="./conslist.svg"></img>
+<img width="407" height="191" eleventy:ignore class="theme-affected" alt="cons list" src="./conslist.svg"></img>
 
 Heap objects are shown with classic box-and-pointer diagrams. This is for Java, so we may have null fields.
 
@@ -28,7 +28,14 @@ generate(heap=[a, b, c])
 
 Next, the stack.
 
-<img eleventy:formats="svg" eleventy:ignore class="theme-affected" alt="stack which contains references to heap objects" src="./stackheap.svg"></img>
+<!--
+don't process svgs. size specified manually to avoid layout shift.
+the sizes are the defaults if none are specified (which are used in --serve mode).
+eleventy img in the prod build is a bit too correct, in that it reads the sizes
+from the svgs and the images end up too small.
+-->
+
+<img width="439" height="221" eleventy:ignore class="theme-affected" alt="stack which contains references to heap objects" src="./stackheap.svg"></img>
 
 It's divided into named _frames_, each of which contains many local variables for a particular function call.
 We can show arrays too, and have arbitrary object graphs.
@@ -52,7 +59,7 @@ generate(stack=stack, heap=[v1, t1, a])
 
 We can also unhygienically embed arbitrary GraphViz strings, to do things like draw boxes around stuff (using a GraphViz `subgraph`, which has the side effect of also grouping everything inside).
 
-<img eleventy:formats="svg" eleventy:ignore class="theme-affected" alt="metaspace with a box around it" src="./metaspace.svg"></img>
+<img width="299" height="279" eleventy:ignore class="theme-affected" alt="metaspace with a box around it" src="./metaspace.svg"></img>
 
 ```python
 bc = Obj(typ='Class', values={'x': 0}, ident='bc')
