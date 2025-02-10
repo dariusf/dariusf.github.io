@@ -664,14 +664,20 @@ I only found <a href="http://tug.ctan.org/tex-archive/macros/latex/contrib/draws
 <p>So here's a tiny Python DSL for drawing a bunch of heap objects.
 It uses the OG constraint-based graphic design tool, GraphViz.</p>
 <p>First, a cons list.</p>
-<p><img class="theme-affected" alt="cons list" src="./conslist.svg"></p>
+<p><img width="407" height="191" class="theme-affected" alt="cons list" src="./conslist.svg"></p>
 <p>Heap objects are shown with classic box-and-pointer diagrams. This is for Java, so we may have null fields.</p>
 <pre class="language-python" tabindex="0"><code class="language-python">c <span class="token operator">=</span> Obj<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">'List'</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'head'</span><span class="token punctuation">:</span> <span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token string">'tail'</span><span class="token punctuation">:</span> <span class="token boolean">None</span><span class="token punctuation">}</span><span class="token punctuation">,</span> ident<span class="token operator">=</span><span class="token string">'c'</span><span class="token punctuation">)</span>
 b <span class="token operator">=</span> Obj<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">'List'</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'head'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'tail'</span><span class="token punctuation">:</span> c<span class="token punctuation">}</span><span class="token punctuation">,</span> ident<span class="token operator">=</span><span class="token string">'b'</span><span class="token punctuation">)</span>
 a <span class="token operator">=</span> Obj<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">'List'</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'head'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'tail'</span><span class="token punctuation">:</span> b<span class="token punctuation">}</span><span class="token punctuation">,</span> ident<span class="token operator">=</span><span class="token string">'a'</span><span class="token punctuation">)</span>
 generate<span class="token punctuation">(</span>heap<span class="token operator">=</span><span class="token punctuation">[</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
 <p>Next, the stack.</p>
-<p><img class="theme-affected" alt="stack which contains references to heap objects" src="./stackheap.svg"></p>
+<!--
+don't process svgs. size specified manually to avoid layout shift.
+the sizes are the defaults if none are specified (which are used in --serve mode).
+eleventy img in the prod build is a bit too correct, in that it reads the sizes
+from the svgs and the images end up too small.
+-->
+<p><img width="439" height="221" class="theme-affected" alt="stack which contains references to heap objects" src="./stackheap.svg"></p>
 <p>It's divided into named <em>frames</em>, each of which contains many local variables for a particular function call.
 We can show arrays too, and have arbitrary object graphs.</p>
 <pre class="language-python" tabindex="0"><code class="language-python">v1 <span class="token operator">=</span> Obj<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">'Vector2D'</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'x'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> ident<span class="token operator">=</span><span class="token string">'v2'</span><span class="token punctuation">)</span>
@@ -689,7 +695,7 @@ stack <span class="token operator">=</span> <span class="token punctuation">[</s
 <span class="token punctuation">]</span>
 generate<span class="token punctuation">(</span>stack<span class="token operator">=</span>stack<span class="token punctuation">,</span> heap<span class="token operator">=</span><span class="token punctuation">[</span>v1<span class="token punctuation">,</span> t1<span class="token punctuation">,</span> a<span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
 <p>We can also unhygienically embed arbitrary GraphViz strings, to do things like draw boxes around stuff (using a GraphViz <code>subgraph</code>, which has the side effect of also grouping everything inside).</p>
-<p><img class="theme-affected" alt="metaspace with a box around it" src="./metaspace.svg"></p>
+<p><img width="299" height="279" class="theme-affected" alt="metaspace with a box around it" src="./metaspace.svg"></p>
 <pre class="language-python" tabindex="0"><code class="language-python">bc <span class="token operator">=</span> Obj<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">'Class'</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'x'</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span> ident<span class="token operator">=</span><span class="token string">'bc'</span><span class="token punctuation">)</span>
 ac <span class="token operator">=</span> Obj<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">'Class'</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> ident<span class="token operator">=</span><span class="token string">'ac'</span><span class="token punctuation">)</span>
 metaspace <span class="token operator">=</span> Obj<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">'Metaspace'</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'B'</span><span class="token punctuation">:</span> bc<span class="token punctuation">,</span> <span class="token string">'B.A'</span><span class="token punctuation">:</span> ac<span class="token punctuation">}</span><span class="token punctuation">,</span> ident<span class="token operator">=</span><span class="token string">'meta'</span><span class="token punctuation">)</span>
@@ -710,7 +716,7 @@ generate<span class="token punctuation">(</span>stack<span class="token operator
 			
 		</footer>
 
-		<!-- This page `/blog/stack-heap/` was built on 2025-02-10T15:15:24.407Z -->
+		<!-- This page `/blog/stack-heap/` was built on 2025-02-10T15:37:09.014Z -->
 		
 	</body>
 </html>
