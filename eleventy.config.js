@@ -11,7 +11,8 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import pluginFilters from "./_config/filters.js";
 import mathjaxPlugin from "./mathjax.js";
 import markdownItFootnote from "markdown-it-footnote";
-import markdownIt from "markdown-it";
+// import markdownIt from "markdown-it";
+import { execSync } from "child_process";
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
@@ -130,11 +131,33 @@ export default async function (eleventyConfig) {
 	// add markdown footnotes
 	// https://github.com/11ty/eleventy-base-blog/issues/167
 	eleventyConfig.amendLibrary("md", (mdLib) => {
-		const md = markdownIt({
-			html: true,
-			linkify: true,
-		});
+		// const md = markdownIt({
+		// 	html: true,
+		// 	linkify: true,
+		// });
 		mdLib.use(markdownItFootnote);
+
+		// console.log(mdLib.renderer.rules);
+		renderGraphviz(mdLib);
+
+		function renderGraphviz(md) {
+			const temp = md.renderer.rules.fence.bind(md.renderer.rules);
+			// https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
+			// https://github.com/aiyoudiao/markdown-it-graphviz/blob/master/index.js
+			md.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+				try {
+					const { content, info } = tokens[idx];
+					if (info === "graphviz") {
+						return execSync(`dot -Tsvg`, { input: content }).toString();
+					}
+				} catch (error) {
+					return `<p style="border: 2px dashed red">Failed to render graphviz<span>${md.utils.escapeHtml(
+						error.toString()
+					)}</span></p>`;
+				}
+				return temp(tokens, idx, options, env, slf);
+			};
+		}
 
 		// hides brackets for footnotes
 		mdLib.renderer.rules.footnote_caption = (tokens, idx) => {
