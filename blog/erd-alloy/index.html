@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
+		<meta property="og:title" content="Darius Foo">
+		<meta property="og:type" content="article">
+		<meta property="og:url" content="https://dariusf.github.io">
+		<meta property="og:image" content="https://dariusf.github.io/avatar.png">
+
+		<title>ER Diagrams and Alloy</title>
+		<meta name="description" content="PhD student, programming languages and formal verification">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
+
+
+		
+
+		
+
+		
+
+		
+
+		
+		
+		<style>@media (prefers-color-scheme: light) { /**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+ }
+@media (prefers-color-scheme: dark) { /**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+ }
+/* This is an arbitrary CSS string added to the bundle */
+:root {
+	/* --font-family: -apple-system, system-ui, sans-serif; */
+	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	*/
+
+    --font-family-monospace: Fira Code, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+
+  /*    --text-font: Crimson Text, serif;*/
+  /*    --text-font: Poppins, Verdana, sans-serif;*/
+  /*    --heading-font: Quicksand, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --heading-font: Open Sans, sans-serif;*/
+  /*    --text-font: Cabin, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --text-font: Roboto, sans-serif;*/
+
+  /*    --heading-font: Roboto, sans-serif;*/
+  /*    --heading-font: Cabin, sans-serif;*/
+  /*    --heading-font: Dosis, sans-serif;*/
+
+  /*    --heading-font: Work Sans, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+
+      /* --heading-font: Nunito, sans-serif; */
+      --heading-font: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+  /*    --text-font: PT Sans, sans-serif;*/
+
+  /*    --heading-font: Varela Round, sans-serif;*/
+  /*    --text-font: Noto Serif, serif;*/
+
+  /*    --text-font: Lato, sans-serif;*/
+      --text-font-size: 17px;
+
+  /*    --text-font: Merriweather, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+
+  /* https://css-tricks.com/snippets/css/system-font-stack/ */
+  /* https://systemfontstack.com/ */
+
+    /* system font on all platforms */
+  /*    --heading-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;*/
+      /* --text-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu; */
+      --text-font: -apple-system, system-ui, sans-serif;
+			/* system-ui, sans-serif; */
+
+
+/* Theme colors */
+
+	/* --color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333; */
+
+	--background-color: #fff;
+
+	/* --text-color: var(--color-gray-90); */
+	/* --text-color-link: #082840; */
+
+	/* --text-color-link: #ff0000; */
+	/* --text-color-link-active: #5f2b48; */
+	/* --text-color-link-visited: #17050F; */
+
+
+	/* --syntax-tab-size: 2; */
+
+	--bright-text-color: #222;
+	--link-color: #3273dc;
+	/* --link-color: #ff5e6c; */
+	--link-visited-color: #6e4bbe;
+	--background-color: #fff;
+	--text-color: #444;
+	--faded-text-color: #777;
+	--blockquote-text-color: var(--bright-text-color);
+	--faint-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* --color-gray-20: #e0e0e0; */
+		/* --color-gray-50: #C0C0C0; */
+		/* --color-gray-90: #dad8d8; */
+
+		/* --text-color is assigned to --color-gray-_ above */
+		/* --text-color-link: #1493fb; */
+		/* --text-color-link-active: #6969f7; */
+		/* --text-color-link-visited: #a6a6f8; */
+
+		--background-color: #15202b;
+
+		--bright-text-color: #eee;
+		--link-color: #8cc2dd;
+		--link-visited-color: #b9a9e0;
+		--background-color: #333;
+		--text-color: #ddd;
+		--faded-text-color: #aaa;
+		--slightly-dimmer-text-color: #ccc;
+		--blockquote-text-color: var(--slightly-dimmer-text-color);
+		--faint-color: #666;
+
+		color-scheme: dark; /* sets scrollbar colour */
+	}
+
+	img.theme-affected {
+		filter: invert(.8);
+	}
+}
+
+body {
+	box-sizing: border-box;
+
+	/* https://github.com/sindresorhus/github-markdown-css */
+	min-width: 200px;
+	/* max from old blog */
+	/* max-width: 40em; */
+	/* tiny bit wider because prism adds some padding */
+	max-width: 726px;
+
+	margin: 0 auto;
+	padding: 0 20px;
+
+	/* enable ligatures */
+	text-rendering: optimizeLegibility;
+
+	font-family: var(--text-font);
+	font-size: var(--text-font-size);
+	color: var(--text-color);
+	background-color: var(--background-color);
+
+	/*
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	*/
+	/* line-height: 1.5; */
+}
+
+@media (max-width: 767px) {
+	body {
+		padding: 0px 1em;
+	}
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+html {
+	overflow-y: scroll;
+}
+
+/* https://github.com/Kimeiga/bahunya/blob/master/src/parts/_typography.css */
+ul, ol {
+  padding-left: 2em;
+}
+
+li {
+	line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--heading-font);
+	color: var(--bright-text-color);
+	font-weight: normal;
+	line-height: 1.25;
+}
+
+footer {
+	padding: 35px;
+}
+
+/* header {
+	border-bottom: 1px dashed var(--color-gray-20);
+} */
+
+
+/* misc changes from here on */
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+p:has(img) {
+	text-align: center;
+}
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+/* img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+} */
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--link-color);
+	text-decoration: none;
+}
+a[href]:visited {
+	color: var(--link-visited-color);
+}
+/* a[href]:hover,
+a[href]:active { */
+	/* color: var(--text-color-link-active); */
+	/* text-decoration: underline; */
+	/* text-decoration-thickness: 2px; */
+/* } */
+
+/* main :first-child {
+	margin-top: 0;
+} */
+
+/* .links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+} */
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+/* pre,
+code {
+	font-family: var(--font-family-monospace) !important;
+	font-size: 14px !important;
+} */
+
+/* override prism */
+/* https://github.com/orgs/PrismJS/discussions/2859 */
+code[class*="language-"],
+pre[class*="language-"] {
+	font-family: var(--font-family-monospace);
+	font-size: 14px;
+}
+
+pre[class*="language-"] {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	/* -moz-tab-size: var(--syntax-tab-size); */
+	/* -o-tab-size: var(--syntax-tab-size); */
+	/* tab-size: var(--syntax-tab-size); */
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+
+code {
+	word-break: break-all;
+}
+header {
+			/* display: flex; */
+			/* gap: 2em; */
+			border-right: 10px;
+			/* flex-wrap: wrap; */
+			/* justify-content: space-between; */
+			/* align-items: center; */
+			align-items: end;
+			padding-top: 1em;
+			/* padding: 1em; */
+		}
+.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
+			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}</style>
+	<style id="MJX-SVG-styles">
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+</style></head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		
+
+		<header>
+
+			
+			
+			
+			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">Darius Foo</a>
+			
+				
+				
+				
+				
+				
+				
+			
+			
+			<nav style="display: inline-block">
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					<li class="nav-item"><a href="/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/research/">Research</a></li>
+					<li class="nav-item"><a href="/work/">Work</a></li>
+					<li class="nav-item"><a href="/other/">Other</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+
+<h1 style="margin-top: 1rem; margin-bottom: 0.2em" id="er-diagrams-and-alloy">ER Diagrams and Alloy</h1>
+
+
+
+<div class="post-metadata">
+	
+	<time style="font-size: 0.9em;" datetime="2025-03-07">7 Mar 2025</time>
+	
+	
+</div>
+
+<div class="blog-content">
+<p>I've been curious about the correspondence between Alloy and ER diagrams for a while.
+Both are technically logics for describing relational models.
+It makes sense that we should be able to encode ER diagrams in Alloy and get access to the latter's model-finding capabilities.</p>
+<p>Here's a straightforward, by-example mapping between both formalisms, paying special attention to the differences.</p>
+<h2 id="encoding">Encoding</h2>
+<p>A direct<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup> way to represent an entity set is as an Alloy <em>signature</em>.
+Relationship sets map to <em>relations</em> or <em>fields</em> of the signature.</p>
+<!-- https://alloy.readthedocs.io/en/latest/language/signatures.html -->
+<pre class="language-alloy" tabindex="0"><code class="language-alloy">sig e1 {
+  r1: one e2
+}
+sig e2 {}</code></pre>
+<p>The default <em>multiplicity</em> of a relation is <code>one</code>, declared explicitly here.
+This means that <code>r1</code> is <em>one-to-many</em>: every <code>e1</code> is related to exactly one <code>e2</code>, but there may be <code>e2</code>s not related to any <code>e1</code>s.</p>
+<p>Here is an equivalent ER diagram<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>:</p>
+<div style="text-align: center">
+<p style="border: 2px dashed red">Failed to render graphviz<span>Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+</span></p></div>
+<p>Relations in Alloy are directed.
+To specify the converse cardinality, we can use a signature fact, using <code>~</code> to invert the relation:</p>
+<pre class="language-alloy" tabindex="0"><code class="language-alloy">sig e1 {
+  r1: e2
+}
+sig e2 {}{ one this.~r1 }</code></pre>
+<p>This means that each e1 is associated with exactly one e2 <em>and vice versa</em>.</p>
+<div style="text-align: center">
+<p style="border: 2px dashed red">Failed to render graphviz<span>Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+</span></p></div>
+<p>Other cardinality constraints use different keywords:</p>
+<div style="display: flex; justify-content: center; text-align: center">
+<table>
+<thead>
+<tr>
+<th>Cardinality constraint</th>
+<th>Alloy multiplicity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(0, 0)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>(0, 1)</td>
+<td>lone</td>
+</tr>
+<tr>
+<td>(1, 1)</td>
+<td>one</td>
+</tr>
+<tr>
+<td>(1, n)</td>
+<td>some</td>
+</tr>
+<tr>
+<td>(0, n)</td>
+<td>set</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- aggregation -->
+<h2 id="checking-properties">Checking properties</h2>
+<p>With this encoding, we can already reason mechanically about ER diagrams.
+For example, we can verify simple properties, such as: that the cardinality constraints we state do what we intend them to.</p>
+<p>Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.98ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 433 453" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D450" xlink:href="#MJX-TEX-I-1D450"></use></g></g></g></svg></mjx-container> means...</p>
+<div style="text-align: center">
+<p style="border: 2px dashed red">Failed to render graphviz<span>Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+</span></p></div>
+<div style="display: flex; justify-content: center; text-align: left">
+<table>
+<thead>
+<tr>
+<th>Constraint <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.98ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 433 453" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D450" xlink:href="#MJX-TEX-I-1D450"></use></g></g></g></svg></mjx-container></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(0, 0)</td>
+<td>prevents e1 from being related to e2 at all</td>
+</tr>
+<tr>
+<td>(0, 1)</td>
+<td>prevents e1 from being related to e2 more than once</td>
+</tr>
+<tr>
+<td>(1, 1)</td>
+<td>prevents e1 from being related to e2 more or less than one</td>
+</tr>
+<tr>
+<td>(1, n)</td>
+<td>prevents e1 from being related to e2 less than once</td>
+</tr>
+<tr>
+<td>(0, n)</td>
+<td>prevents nothing</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Given <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.98ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 433 453" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D450" xlink:href="#MJX-TEX-I-1D450"></use></g></g></g></svg></mjx-container> is (1, 1), all the models of a particular ER diagram should satisfy properties like:</p>
+<ol>
+<li>All <code>e1</code>s are related by <code>r1</code></li>
+<li>No <code>e1</code>s are related by <code>r1</code> multiple times</li>
+</ol>
+<p>This can all be expressed in Alloy as follows.
+The <code>check</code> command is used to verify a property, producing a counterexample if it exists within the given finite <em>scope</em>.</p>
+<pre class="language-alloy" tabindex="0"><code class="language-alloy">sig e1 {
+  r1: e2
+}
+sig e2 {}
+
+assert no_unrelated_e1 {
+  all e: e1 | some e.r1
+}
+
+assert no_multiply_related_e1 {
+  no e: e1 | #e.r1 &gt; 1
+}
+
+check no_unrelated_e1 for 2
+check no_multiply_related_e1 for 2</code></pre>
+<pre class="language-text" tabindex="0"><code class="language-text">2 commands were executed. The results are:
+   #1: No counterexample found. no_unrelated_e1 may be valid.
+   #2: No counterexample found. no_multiply_related_e1 may be valid.</code></pre>
+<p>whereas the same properties will not hold of <code>e2</code>, which makes sense because we left it unconstrained.</p>
+<pre class="language-alloy" tabindex="0"><code class="language-alloy">assert no_unrelated_e2 {
+  all e: e2 | some e.~r1
+}
+
+check no_unrelated_e2 for 2</code></pre>
+<pre class="language-text" tabindex="0"><code class="language-text">Executing "Check no_unrelated_e2 for 2"
+   Actual scopes: 2 e1, 2 e2
+   Solver=sat4j Bitwidth=4 MaxSeq=2 SkolemDepth=1 Symmetry=20 Mode=batch
+   84 vars. 10 primary vars. 116 clauses. 5ms.
+   Counterexample found. Assertion is invalid. 5ms.</code></pre>
+<p>The counterexample produced demonstrates rather obviously that it is possible to have an <code>e2</code> not related to an <code>e1</code>.</p>
+<div style="text-align: center">
+<p style="border: 2px dashed red">Failed to render graphviz<span>Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+</span></p></div>
+<h2 id="answering-questions-about-min-max-cardinality">Answering questions about min/max cardinality</h2>
+<p>Alloy is also able to check if a constraint is satisfiable.
+We can use this to answer other kinds of questions, like:</p>
+<div style="text-align: center">
+<p style="border: 2px dashed red">Failed to render graphviz<span>Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+</span></p></div>
+<p>Given this ER diagram, and assuming we have 2 <code>e1</code>s, how many <code>e2</code>s can we have at minimum/maximum?</p>
+<p>We encode the ER diagram, then use <code>run</code> to see if we can find a model containing 2 <code>e1</code>s and 2 <code>e2</code>s.
+This is possible.
+However, there are no satisfying models with more than 2 <code>e2</code>s.
+Why? They would violate the <code>lone</code> constraint, as there would then be two <code>e2</code>s related to the same <code>e1</code> via <code>r2</code>.</p>
+<pre class="language-alloy" tabindex="0"><code class="language-alloy">sig e1 {
+  r1: one e2
+}{ lone this.~r2 }
+
+sig e2 {
+  r2: one e1
+}
+
+run {} for exactly 2 e1, exactly 2 e2
+run {} for exactly 2 e1, exactly 3 e2</code></pre>
+<pre class="language-text" tabindex="0"><code class="language-text">2 commands were executed. The results are:
+   #1: Instance found. run$1 is consistent.
+   #2: No instance found. run$2 may be inconsistent.</code></pre>
+<p>Similarly, we see that the minimum number of <code>e2</code>s is 1.
+This is because of the <code>one</code> constraint on <code>r1</code>.</p>
+<pre class="language-alloy" tabindex="0"><code class="language-alloy">run {} for exactly 2 e1, exactly 1 e2
+run {} for exactly 2 e1, exactly 0 e2</code></pre>
+<pre class="language-text" tabindex="0"><code class="language-text">2 commands were executed. The results are:
+   #1: Instance found. run$1 is consistent.
+   #2: No instance found. run$2 may be inconsistent.</code></pre>
+<h2 id="sidebar-programmatic-use-of-alloy">Sidebar: programmatic use of Alloy</h2>
+<p>Alloy <a href="https://alloytools.discourse.group/t/commandline-options-clash/214">does</a> <a href="https://alloytools.discourse.group/t/how-can-i-run-alloy-in-command-line/275">not</a> have a CLI.
+However, it has a <a href="https://alloytools.org/documentation/alloy-api/index.html">well-documented Java API</a> and <a href="https://github.com/AlloyTools/org.alloytools.alloy/tree/master/org.alloytools.alloy.application/src/test/java/edu/mit/csail/sdg/alloy4whole">examples of use</a>.
+Here's a minimal example of how it might be used to process an Alloy source file and export the resulting model to, e.g., GraphViz or JSON, to interoperate with other tools.
+The default XML exporter does not seem to work, crashing when I tried it.</p>
+<details>
+<summary>Minimal.java</summary>
+<pre class="language-java" tabindex="0"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">edu<span class="token punctuation">.</span>mit<span class="token punctuation">.</span>csail<span class="token punctuation">.</span>sdg<span class="token punctuation">.</span>alloy4<span class="token punctuation">.</span></span><span class="token operator">*</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">edu<span class="token punctuation">.</span>mit<span class="token punctuation">.</span>csail<span class="token punctuation">.</span>sdg<span class="token punctuation">.</span>ast<span class="token punctuation">.</span></span><span class="token operator">*</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">edu<span class="token punctuation">.</span>mit<span class="token punctuation">.</span>csail<span class="token punctuation">.</span>sdg<span class="token punctuation">.</span>ast<span class="token punctuation">.</span></span><span class="token class-name">Module</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">edu<span class="token punctuation">.</span>mit<span class="token punctuation">.</span>csail<span class="token punctuation">.</span>sdg<span class="token punctuation">.</span>parser<span class="token punctuation">.</span></span><span class="token operator">*</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">edu<span class="token punctuation">.</span>mit<span class="token punctuation">.</span>csail<span class="token punctuation">.</span>sdg<span class="token punctuation">.</span>translator<span class="token punctuation">.</span></span><span class="token operator">*</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Minimal</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Err</span> <span class="token punctuation">{</span>
+    <span class="token class-name">A4Reporter</span> rep <span class="token operator">=</span> <span class="token class-name">A4Reporter</span><span class="token punctuation">.</span><span class="token constant">NOP</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">String</span> filename <span class="token operator">:</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token class-name">Module</span> world <span class="token operator">=</span> <span class="token class-name">CompUtil</span><span class="token punctuation">.</span><span class="token function">parseEverything_fromFile</span><span class="token punctuation">(</span>rep<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Command</span> command <span class="token operator">:</span> world<span class="token punctuation">.</span><span class="token function">getAllCommands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">A4Solution</span> ans <span class="token operator">=</span> <span class="token class-name">TranslateAlloyToKodkod</span><span class="token punctuation">.</span><span class="token function">execute_command</span><span class="token punctuation">(</span>rep<span class="token punctuation">,</span> world<span class="token punctuation">.</span><span class="token function">getAllReachableSigs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> command<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">A4Options</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>ans<span class="token punctuation">.</span><span class="token function">satisfiable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// crashes</span>
+          <span class="token comment">// ans.writeXML("output.xml");</span>
+          <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Sig</span> s <span class="token operator">:</span> ans<span class="token punctuation">.</span><span class="token function">getAllReachableSigs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>s<span class="token punctuation">.</span>label<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"this"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>label <span class="token operator">+</span> <span class="token string">":"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>ans<span class="token punctuation">.</span><span class="token function">eval</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Sig<span class="token punctuation">.</span>Field</span> f <span class="token operator">:</span> s<span class="token punctuation">.</span><span class="token function">getFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"  "</span> <span class="token operator">+</span> f<span class="token punctuation">.</span>label <span class="token operator">+</span> <span class="token string">": "</span> <span class="token operator">+</span> ans<span class="token punctuation">.</span><span class="token function">eval</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+</details>
+<details>
+<summary>run.sh</summary>
+<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">jar</span><span class="token operator">=</span>/Applications/Alloy.app/Contents/Resources/org.alloytools.alloy.dist.jar
+<span class="token builtin class-name">set</span> <span class="token parameter variable">-ex</span>
+javac <span class="token parameter variable">-cp</span> <span class="token variable">$jar</span> Minimal.java
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> .:<span class="token variable">$jar</span> Minimal erd.alloy <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span> /dev/null</code></pre>
+</details>
+<!-- There is also a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ArashSahebolamri.alloy) but I haven't tried it. -->
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://www.scielo.org.mx/scielo.php?script=sci_arttext&amp;pid=S1405-55462020000100075">A Method for Expressing Integrity Constraints in Database Conceptual Modeling</a> uses a <code>one</code> <em>signature multiplicity</em> to represent relationship sets. I don't know enough about the internals of Alloy to know if this has any advantages, but the way constraints are written for this and the resulting visualization in the GUI both seem less intuitive. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>We're using <a href="https://michael-fuchs-sql.netlify.app/2021/03/03/entity-relationship-diagram-erd/#min-max-notation">min-max</a> <a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model#Cardinalities">notation</a>. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+</div>
+
+		</main>
+
+		<footer>
+			
+		</footer>
+
+		<!-- This page `/blog/erd-alloy/` was built on 2025-03-07T09:59:29.239Z -->
+		
+	<svg style="display: none;" id="MJX-SVG-global-cache"><defs><path id="MJX-TEX-I-1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></defs></svg></body>
+</html>

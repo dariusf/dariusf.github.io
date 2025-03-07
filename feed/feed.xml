@@ -5,11 +5,369 @@
   <subtitle>PhD student, programming languages and formal verification</subtitle>
   <link href="https://dariusf.github.io/feed/feed.xml" rel="self" />
   <link href="https://dariusf.github.io/" />
-  <updated>2024-08-16T00:00:00Z</updated>
+  <updated>2025-03-07T00:00:00Z</updated>
   <id>https://dariusf.github.io/</id>
   <author>
     <name>Darius Foo</name>
   </author>
+  <entry>
+    <title>ER Diagrams and Alloy</title>
+    <link href="https://dariusf.github.io/blog/erd-alloy/" />
+    <updated>2025-03-07T00:00:00Z</updated>
+    <id>https://dariusf.github.io/blog/erd-alloy/</id>
+    <content type="html">
+&lt;html&gt;&lt;head&gt;&lt;style id=&quot;MJX-SVG-styles&quot;&gt;
+mjx-container[jax=&quot;SVG&quot;] {
+  direction: ltr;
+}
+
+mjx-container[jax=&quot;SVG&quot;] &gt; svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax=&quot;SVG&quot;] &gt; svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax=&quot;SVG&quot;][display=&quot;true&quot;] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax=&quot;SVG&quot;][display=&quot;true&quot;][width=&quot;full&quot;] {
+  display: flex;
+}
+
+mjx-container[jax=&quot;SVG&quot;][justify=&quot;left&quot;] {
+  text-align: left;
+}
+
+mjx-container[jax=&quot;SVG&quot;][justify=&quot;right&quot;] {
+  text-align: right;
+}
+
+g[data-mml-node=&quot;merror&quot;] &gt; g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node=&quot;merror&quot;] &gt; rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node=&quot;mtable&quot;] &gt; line[data-line], svg[data-table] &gt; g &gt; line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node=&quot;mtable&quot;] &gt; rect[data-frame], svg[data-table] &gt; g &gt; rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node=&quot;mtable&quot;] &gt; .mjx-dashed, svg[data-table] &gt; g &gt; .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node=&quot;mtable&quot;] &gt; .mjx-dotted, svg[data-table] &gt; g &gt; .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node=&quot;mtable&quot;] &gt; g &gt; svg {
+  overflow: visible;
+}
+
+[jax=&quot;SVG&quot;] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax=&quot;SVG&quot;] mjx-tool &gt; mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool &gt; mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node=&quot;maction&quot;][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax=&quot;SVG&quot;] path[data-c], mjx-container[jax=&quot;SVG&quot;] use[data-c] {
+  stroke-width: 3;
+}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;I&#39;ve been curious about the correspondence between Alloy and ER diagrams for a while.
+Both are technically logics for describing relational models.
+It makes sense that we should be able to encode ER diagrams in Alloy and get access to the latter&#39;s model-finding capabilities.&lt;/p&gt;
+&lt;p&gt;Here&#39;s a straightforward, by-example mapping between both formalisms, paying special attention to the differences.&lt;/p&gt;
+&lt;h2 id=&quot;encoding&quot;&gt;Encoding&lt;/h2&gt;
+&lt;p&gt;A direct&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://dariusf.github.io/blog/erd-alloy/#fn1&quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; way to represent an entity set is as an Alloy &lt;em&gt;signature&lt;/em&gt;.
+Relationship sets map to &lt;em&gt;relations&lt;/em&gt; or &lt;em&gt;fields&lt;/em&gt; of the signature.&lt;/p&gt;
+&lt;!-- https://alloy.readthedocs.io/en/latest/language/signatures.html --&gt;
+&lt;pre class=&quot;language-alloy&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-alloy&quot;&gt;sig e1 {
+  r1: one e2
+}
+sig e2 {}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The default &lt;em&gt;multiplicity&lt;/em&gt; of a relation is &lt;code&gt;one&lt;/code&gt;, declared explicitly here.
+This means that &lt;code&gt;r1&lt;/code&gt; is &lt;em&gt;one-to-many&lt;/em&gt;: every &lt;code&gt;e1&lt;/code&gt; is related to exactly one &lt;code&gt;e2&lt;/code&gt;, but there may be &lt;code&gt;e2&lt;/code&gt;s not related to any &lt;code&gt;e1&lt;/code&gt;s.&lt;/p&gt;
+&lt;p&gt;Here is an equivalent ER diagram&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://dariusf.github.io/blog/erd-alloy/#fn2&quot; id=&quot;fnref2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;div style=&quot;text-align: center&quot;&gt;
+&lt;p style=&quot;border: 2px dashed red&quot;&gt;Failed to render graphviz&lt;span&gt;Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;p&gt;Relations in Alloy are directed.
+To specify the converse cardinality, we can use a signature fact, using &lt;code&gt;~&lt;/code&gt; to invert the relation:&lt;/p&gt;
+&lt;pre class=&quot;language-alloy&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-alloy&quot;&gt;sig e1 {
+  r1: e2
+}
+sig e2 {}{ one this.~r1 }&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This means that each e1 is associated with exactly one e2 &lt;em&gt;and vice versa&lt;/em&gt;.&lt;/p&gt;
+&lt;div style=&quot;text-align: center&quot;&gt;
+&lt;p style=&quot;border: 2px dashed red&quot;&gt;Failed to render graphviz&lt;span&gt;Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;p&gt;Other cardinality constraints use different keywords:&lt;/p&gt;
+&lt;div style=&quot;display: flex; justify-content: center; text-align: center&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Cardinality constraint&lt;/th&gt;
+&lt;th&gt;Alloy multiplicity&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;(0, 0)&lt;/td&gt;
+&lt;td&gt;none&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(0, 1)&lt;/td&gt;
+&lt;td&gt;lone&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(1, 1)&lt;/td&gt;
+&lt;td&gt;one&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(1, n)&lt;/td&gt;
+&lt;td&gt;some&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(0, n)&lt;/td&gt;
+&lt;td&gt;set&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;!-- aggregation --&gt;
+&lt;h2 id=&quot;checking-properties&quot;&gt;Checking properties&lt;/h2&gt;
+&lt;p&gt;With this encoding, we can already reason mechanically about ER diagrams.
+For example, we can verify simple properties, such as: that the cardinality constraints we state do what we intend them to.&lt;/p&gt;
+&lt;p&gt;Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint &lt;mjx-container class=&quot;MathJax&quot; jax=&quot;SVG&quot;&gt;&lt;svg style=&quot;vertical-align: -0.025ex;&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;0.98ex&quot; height=&quot;1.025ex&quot; role=&quot;img&quot; focusable=&quot;false&quot; viewBox=&quot;0 -442 433 453&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;&lt;g stroke=&quot;currentColor&quot; fill=&quot;currentColor&quot; stroke-width=&quot;0&quot; transform=&quot;scale(1,-1)&quot;&gt;&lt;g data-mml-node=&quot;math&quot;&gt;&lt;g data-mml-node=&quot;mi&quot;&gt;&lt;use data-c=&quot;1D450&quot; xlink:href=&quot;#MJX-TEX-I-1D450&quot;&gt;&lt;/use&gt;&lt;/g&gt;&lt;/g&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/mjx-container&gt; means...&lt;/p&gt;
+&lt;div style=&quot;text-align: center&quot;&gt;
+&lt;p style=&quot;border: 2px dashed red&quot;&gt;Failed to render graphviz&lt;span&gt;Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;div style=&quot;display: flex; justify-content: center; text-align: left&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Constraint &lt;mjx-container class=&quot;MathJax&quot; jax=&quot;SVG&quot;&gt;&lt;svg style=&quot;vertical-align: -0.025ex;&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;0.98ex&quot; height=&quot;1.025ex&quot; role=&quot;img&quot; focusable=&quot;false&quot; viewBox=&quot;0 -442 433 453&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;&lt;g stroke=&quot;currentColor&quot; fill=&quot;currentColor&quot; stroke-width=&quot;0&quot; transform=&quot;scale(1,-1)&quot;&gt;&lt;g data-mml-node=&quot;math&quot;&gt;&lt;g data-mml-node=&quot;mi&quot;&gt;&lt;use data-c=&quot;1D450&quot; xlink:href=&quot;#MJX-TEX-I-1D450&quot;&gt;&lt;/use&gt;&lt;/g&gt;&lt;/g&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/mjx-container&gt;&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;(0, 0)&lt;/td&gt;
+&lt;td&gt;prevents e1 from being related to e2 at all&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(0, 1)&lt;/td&gt;
+&lt;td&gt;prevents e1 from being related to e2 more than once&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(1, 1)&lt;/td&gt;
+&lt;td&gt;prevents e1 from being related to e2 more or less than one&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(1, n)&lt;/td&gt;
+&lt;td&gt;prevents e1 from being related to e2 less than once&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(0, n)&lt;/td&gt;
+&lt;td&gt;prevents nothing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;p&gt;Given &lt;mjx-container class=&quot;MathJax&quot; jax=&quot;SVG&quot;&gt;&lt;svg style=&quot;vertical-align: -0.025ex;&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;0.98ex&quot; height=&quot;1.025ex&quot; role=&quot;img&quot; focusable=&quot;false&quot; viewBox=&quot;0 -442 433 453&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;&lt;g stroke=&quot;currentColor&quot; fill=&quot;currentColor&quot; stroke-width=&quot;0&quot; transform=&quot;scale(1,-1)&quot;&gt;&lt;g data-mml-node=&quot;math&quot;&gt;&lt;g data-mml-node=&quot;mi&quot;&gt;&lt;use data-c=&quot;1D450&quot; xlink:href=&quot;#MJX-TEX-I-1D450&quot;&gt;&lt;/use&gt;&lt;/g&gt;&lt;/g&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/mjx-container&gt; is (1, 1), all the models of a particular ER diagram should satisfy properties like:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;All &lt;code&gt;e1&lt;/code&gt;s are related by &lt;code&gt;r1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;No &lt;code&gt;e1&lt;/code&gt;s are related by &lt;code&gt;r1&lt;/code&gt; multiple times&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This can all be expressed in Alloy as follows.
+The &lt;code&gt;check&lt;/code&gt; command is used to verify a property, producing a counterexample if it exists within the given finite &lt;em&gt;scope&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&quot;language-alloy&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-alloy&quot;&gt;sig e1 {
+  r1: e2
+}
+sig e2 {}
+
+assert no_unrelated_e1 {
+  all e: e1 | some e.r1
+}
+
+assert no_multiply_related_e1 {
+  no e: e1 | #e.r1 &amp;gt; 1
+}
+
+check no_unrelated_e1 for 2
+check no_multiply_related_e1 for 2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;language-text&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;2 commands were executed. The results are:
+   #1: No counterexample found. no_unrelated_e1 may be valid.
+   #2: No counterexample found. no_multiply_related_e1 may be valid.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;whereas the same properties will not hold of &lt;code&gt;e2&lt;/code&gt;, which makes sense because we left it unconstrained.&lt;/p&gt;
+&lt;pre class=&quot;language-alloy&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-alloy&quot;&gt;assert no_unrelated_e2 {
+  all e: e2 | some e.~r1
+}
+
+check no_unrelated_e2 for 2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;language-text&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Executing &quot;Check no_unrelated_e2 for 2&quot;
+   Actual scopes: 2 e1, 2 e2
+   Solver=sat4j Bitwidth=4 MaxSeq=2 SkolemDepth=1 Symmetry=20 Mode=batch
+   84 vars. 10 primary vars. 116 clauses. 5ms.
+   Counterexample found. Assertion is invalid. 5ms.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The counterexample produced demonstrates rather obviously that it is possible to have an &lt;code&gt;e2&lt;/code&gt; not related to an &lt;code&gt;e1&lt;/code&gt;.&lt;/p&gt;
+&lt;div style=&quot;text-align: center&quot;&gt;
+&lt;p style=&quot;border: 2px dashed red&quot;&gt;Failed to render graphviz&lt;span&gt;Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;h2 id=&quot;answering-questions-about-min-max-cardinality&quot;&gt;Answering questions about min/max cardinality&lt;/h2&gt;
+&lt;p&gt;Alloy is also able to check if a constraint is satisfiable.
+We can use this to answer other kinds of questions, like:&lt;/p&gt;
+&lt;div style=&quot;text-align: center&quot;&gt;
+&lt;p style=&quot;border: 2px dashed red&quot;&gt;Failed to render graphviz&lt;span&gt;Error: Command failed: dot -Tsvg
+/bin/sh: 1: dot: not found
+&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;p&gt;Given this ER diagram, and assuming we have 2 &lt;code&gt;e1&lt;/code&gt;s, how many &lt;code&gt;e2&lt;/code&gt;s can we have at minimum/maximum?&lt;/p&gt;
+&lt;p&gt;We encode the ER diagram, then use &lt;code&gt;run&lt;/code&gt; to see if we can find a model containing 2 &lt;code&gt;e1&lt;/code&gt;s and 2 &lt;code&gt;e2&lt;/code&gt;s.
+This is possible.
+However, there are no satisfying models with more than 2 &lt;code&gt;e2&lt;/code&gt;s.
+Why? They would violate the &lt;code&gt;lone&lt;/code&gt; constraint, as there would then be two &lt;code&gt;e2&lt;/code&gt;s related to the same &lt;code&gt;e1&lt;/code&gt; via &lt;code&gt;r2&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&quot;language-alloy&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-alloy&quot;&gt;sig e1 {
+  r1: one e2
+}{ lone this.~r2 }
+
+sig e2 {
+  r2: one e1
+}
+
+run {} for exactly 2 e1, exactly 2 e2
+run {} for exactly 2 e1, exactly 3 e2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;language-text&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;2 commands were executed. The results are:
+   #1: Instance found. run$1 is consistent.
+   #2: No instance found. run$2 may be inconsistent.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Similarly, we see that the minimum number of &lt;code&gt;e2&lt;/code&gt;s is 1.
+This is because of the &lt;code&gt;one&lt;/code&gt; constraint on &lt;code&gt;r1&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&quot;language-alloy&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-alloy&quot;&gt;run {} for exactly 2 e1, exactly 1 e2
+run {} for exactly 2 e1, exactly 0 e2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;language-text&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;2 commands were executed. The results are:
+   #1: Instance found. run$1 is consistent.
+   #2: No instance found. run$2 may be inconsistent.&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;sidebar-programmatic-use-of-alloy&quot;&gt;Sidebar: programmatic use of Alloy&lt;/h2&gt;
+&lt;p&gt;Alloy &lt;a href=&quot;https://alloytools.discourse.group/t/commandline-options-clash/214&quot;&gt;does&lt;/a&gt; &lt;a href=&quot;https://alloytools.discourse.group/t/how-can-i-run-alloy-in-command-line/275&quot;&gt;not&lt;/a&gt; have a CLI.
+However, it has a &lt;a href=&quot;https://alloytools.org/documentation/alloy-api/index.html&quot;&gt;well-documented Java API&lt;/a&gt; and &lt;a href=&quot;https://github.com/AlloyTools/org.alloytools.alloy/tree/master/org.alloytools.alloy.application/src/test/java/edu/mit/csail/sdg/alloy4whole&quot;&gt;examples of use&lt;/a&gt;.
+Here&#39;s a minimal example of how it might be used to process an Alloy source file and export the resulting model to, e.g., GraphViz or JSON, to interoperate with other tools.
+The default XML exporter does not seem to work, crashing when I tried it.&lt;/p&gt;
+&lt;details&gt;
+&lt;summary&gt;Minimal.java&lt;/summary&gt;
+&lt;pre class=&quot;language-java&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token import&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;edu&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;mit&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;csail&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sdg&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;alloy4&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token import&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;edu&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;mit&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;csail&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sdg&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ast&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token import&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;edu&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;mit&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;csail&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sdg&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ast&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Module&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token import&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;edu&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;mit&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;csail&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sdg&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;parser&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token import&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;edu&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;mit&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;csail&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sdg&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;translator&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Minimal&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Err&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token class-name&quot;&gt;A4Reporter&lt;/span&gt; rep &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;A4Reporter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;NOP&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; filename &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token class-name&quot;&gt;Module&lt;/span&gt; world &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;CompUtil&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;parseEverything_fromFile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rep&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; filename&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Command&lt;/span&gt; command &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; world&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getAllCommands&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;A4Solution&lt;/span&gt; ans &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;TranslateAlloyToKodkod&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;execute_command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rep&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; world&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getAllReachableSigs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; command&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;A4Options&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ans&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;satisfiable&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;// crashes&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;// ans.writeXML(&quot;output.xml&quot;);&lt;/span&gt;
+          &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Sig&lt;/span&gt; s &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; ans&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getAllReachableSigs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;label&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;this&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+              &lt;span class=&quot;token keyword&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;label &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;:&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ans&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Sig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Field&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; s&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getFields&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+              &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;  &quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; f&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;label &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;: &quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; ans&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+&lt;details&gt;
+&lt;summary&gt;run.sh&lt;/summary&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;&lt;span class=&quot;token shebang important&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;token assign-left variable&quot;&gt;jar&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;/Applications/Alloy.app/Contents/Resources/org.alloytools.alloy.dist.jar
+&lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-ex&lt;/span&gt;
+javac &lt;span class=&quot;token parameter variable&quot;&gt;-cp&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$jar&lt;/span&gt; Minimal.java
+&lt;span class=&quot;token function&quot;&gt;java&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-cp&lt;/span&gt; .:&lt;span class=&quot;token variable&quot;&gt;$jar&lt;/span&gt; Minimal erd.alloy &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&amp;gt;&lt;/span&gt; /dev/null&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+&lt;!-- There is also a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ArashSahebolamri.alloy) but I haven&#39;t tried it. --&gt;
+&lt;hr class=&quot;footnotes-sep&quot;&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn1&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;&lt;a href=&quot;https://www.scielo.org.mx/scielo.php?script=sci_arttext&amp;amp;pid=S1405-55462020000100075&quot;&gt;A Method for Expressing Integrity Constraints in Database Conceptual Modeling&lt;/a&gt; uses a &lt;code&gt;one&lt;/code&gt; &lt;em&gt;signature multiplicity&lt;/em&gt; to represent relationship sets. I don&#39;t know enough about the internals of Alloy to know if this has any advantages, but the way constraints are written for this and the resulting visualization in the GUI both seem less intuitive. &lt;a href=&quot;https://dariusf.github.io/blog/erd-alloy/#fnref1&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn2&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;We&#39;re using &lt;a href=&quot;https://michael-fuchs-sql.netlify.app/2021/03/03/entity-relationship-diagram-erd/#min-max-notation&quot;&gt;min-max&lt;/a&gt; &lt;a href=&quot;https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model#Cardinalities&quot;&gt;notation&lt;/a&gt;. &lt;a href=&quot;https://dariusf.github.io/blog/erd-alloy/#fnref2&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+&lt;svg style=&quot;display: none;&quot; id=&quot;MJX-SVG-global-cache&quot;&gt;&lt;defs&gt;&lt;path id=&quot;MJX-TEX-I-1D450&quot; d=&quot;M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z&quot;&gt;&lt;/path&gt;&lt;/defs&gt;&lt;/svg&gt;&lt;/body&gt;&lt;/html&gt;</content>
+  </entry>
   <entry>
     <title>Verifying effectful higher-order programs with staged logic</title>
     <link href="https://dariusf.github.io/blog/staged-logic/" />
@@ -1611,88 +1969,6 @@ Also, how different is it really from clicking reflexively and drifting into pat
 &lt;p&gt;While we&#39;re comparing, this does nothing about randomness (what &lt;a href=&quot;https://magnushoff.com/articles/minesweeper/&quot;&gt;Magnus&lt;/a&gt; mainly addresses), so it&#39;s still possible to lose from bad luck, e.g. in the first tile, or at the end of the game. My win rate did not improve, only my timing.&lt;/p&gt;
 &lt;p&gt;After trying it for a while, I found it difficult to play Minesweeper with the original controls and at the original speed, suggesting that this is an improvement.
 At the same time, the ease with which boards can be mostly solved now makes me wonder if something was lost.&lt;/p&gt;
-&lt;/body&gt;&lt;/html&gt;</content>
-  </entry>
-  <entry>
-    <title>Transparent iOS backups</title>
-    <link href="https://dariusf.github.io/blog/ios-backups/" />
-    <updated>2020-07-30T00:00:00Z</updated>
-    <id>https://dariusf.github.io/blog/ios-backups/</id>
-    <content type="html">
-&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;Backing up an iOS device is nice and simple: there&#39;s iCloud, or connecting your device, opening Finder, and clicking &lt;em&gt;Back Up Now&lt;/em&gt;.
-Unfortunately this process is also rather opaque: all we can do in Finder is to create and restore backups, not view their contents.
-I&#39;d like to be able to extract individual files and archive them elsewhere.&lt;/p&gt;
-&lt;p&gt;At the time of writing there are no up-to-date and polished open source apps for simply viewing backup data in an open format, so here we&#39;ll explore how iOS backups are structured and figure out how to extract the raw files.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;All this applies to Big Sur + iOS 14.2&lt;/strong&gt;. Since we&#39;re depending on undocumented internals, it&#39;s entirely possible that this changes across versions&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://dariusf.github.io/blog/ios-backups/#fn1&quot; id=&quot;fnref1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, in which case all this spelunking would have to be repeated.&lt;/p&gt;
-&lt;h1 id=&quot;diving-in&quot;&gt;Diving in&lt;/h1&gt;
-&lt;p&gt;To start, create an unencrypted local backup with Finder over USB. This writes to &lt;code&gt;~/Library/Application Support/MobileSync/Backup&lt;/code&gt;. To access that directory, I had to go to &lt;code&gt;System Preferences &amp;gt; Security &amp;amp; Privacy &amp;gt; Privacy &amp;gt; Full Disk Access&lt;/code&gt; and whitelist iTerm.&lt;/p&gt;
-&lt;!-- https://apple.stackexchange.com/a/390593 --&gt;
-&lt;p&gt;Each backup is contained in a single directory. Inside, we find something like the git object store: a bunch of files splayed over up to 256 directories using the first two bytes of their hashes.&lt;/p&gt;
-&lt;p&gt;The only other files in the backup are these:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ ls *.*
-Info.plist      Manifest.db     Manifest.db-shm Manifest.plist  Status.plist
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;Manifest.db&lt;/code&gt; is an SQLite database which tells us how to navigate and extract data from the store.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ sqlite3 Manifest.db
-SQLite version 3.31.1 2020-01-27 19:55:54
-Enter &quot;.help&quot; for usage hints.
-sqlite&amp;gt; .schema
-CREATE TABLE Files (fileID TEXT PRIMARY KEY, domain TEXT, relativePath TEXT, flags INTEGER, file BLOB);
-CREATE INDEX FilesDomainIdx ON Files(domain);
-CREATE INDEX FilesRelativePathIdx ON Files(relativePath);
-CREATE INDEX FilesFlagsIdx ON Files(flags);
-CREATE TABLE Properties (key TEXT PRIMARY KEY, value BLOB);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Looking at what &lt;code&gt;Files&lt;/code&gt; contains, only the first three columns are human-readable, and they associate file hashes with names.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; .headers on
-sqlite&amp;gt; select fileID, domain, relativePath from Files limit 1;
-fileID|domain|relativePath
-aa500a604b1acbfc35306db49185824d974b58f4|AppDomainPlugin-com.apple.quicklook.extension.previewUI|Library
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We can use these to scavenge data owned by different apps.&lt;/p&gt;
-&lt;h1 id=&quot;voice-memos&quot;&gt;Voice Memos&lt;/h1&gt;
-&lt;p&gt;Let&#39;s start with Voice Memos -- a great example because it has a simple data model (audio files presumably stored as-is on disk).&lt;/p&gt;
-&lt;p&gt;After some poking around, we find the audio files under &lt;code&gt;Media/Recordings&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; select fileID, domain, relativePath from Files where relativePath like &#39;Media/Recordings/%.m4a&#39; limit 1;
-fileID|domain|relativePath
-e41d74a1b3680375ab2055a45a09053f646d1cc6|MediaDomain|Media/Recordings/20190704 231625.m4a
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We look for that object in the store and voilà:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ file e4/e41d74a1b3680375ab2055a45a09053f646d1cc6
-e4/e41d74a1b3680375ab2055a45a09053f646d1cc6: ISO Media, Apple iTunes ALAC/AAC-LC (.M4A) Audio
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;A more in-depth analysis of Voice Memos&#39; data model is available &lt;a href=&quot;https://iopscience.iop.org/article/10.1088/1742-6596/1345/5/052053/pdf&quot;&gt;here&lt;/a&gt;, but given that it changes from version to version, it&#39;s probably best to keep our dependence on it to a minimum.&lt;/p&gt;
-&lt;h1 id=&quot;books&quot;&gt;Books&lt;/h1&gt;
-&lt;p&gt;Books is equally simple, so here&#39;s the query to find all PDFs.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; select fileID, domain, relativePath from Files where relativePath like &#39;%.pdf&#39; and relativePath like &#39;%iBooks%&#39;;
-fileID|domain|relativePath
-a6879231503984af93da6b4da2d1486abe251c2d|HomeDomain|Library/Mobile Documents/iCloud~com~apple~iBooks/Documents/lightweight-static-capabilities.pdf
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;One difference was that not every file was present in the backup. Books likely offloads infrequently accessed files to iCloud, judging from this metadata file:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; select fileID, domain, relativePath from Files where relativePath like &#39;%scalable_tr%&#39;;
-fileID|domain|relativePath
-355653fe1dc68c4565366554e4c3365ebd37bf0f|HomeDomain|Library/Mobile Documents/iCloud~com~apple~iBooks/Documents/.scalable_tr.pdf.icloud
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;whatsapp&quot;&gt;WhatsApp&lt;/h1&gt;
-&lt;p&gt;WhatsApp is notable because it only stores data locally, and thus relies on a third-party service (Google Drive or iCloud) to opaquely move data across devices.
-It also has a much more complex data model.&lt;/p&gt;
-&lt;p&gt;Most of WhatsApp&#39;s data is in an SQLite database called &lt;code&gt;ChatStorage.sqlite&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sqlite&amp;gt; select fileID, domain, relativePath from Files where relativePath like &#39;%ChatStorage.sqlite&#39;;
-fileID|domain|relativePath
-7c7fba66680ef796b916b067077cc246adacf01d|AppDomainGroup-group.net.whatsapp.WhatsApp.shared|ChatStorage.sqlite
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Fortunately, it&#39;s structured in a fairly standard relational manner. The main tables are &lt;code&gt;ZWAMESSAGE&lt;/code&gt; and &lt;code&gt;ZWACHATSESSION&lt;/code&gt; (representing messages and DMs/groups). Joining other tables gives us contact names and pointers to media, which are stored as paths to other files in the backup.&lt;/p&gt;
-&lt;p&gt;I&#39;ve written a &lt;a href=&quot;https://github.com/dariusf/ios-backup&quot;&gt;script&lt;/a&gt; which codifies all this and reconstructs message history as a directory of HTML files. It improves on &lt;a href=&quot;https://medium.com/@1522933668924/extracting-whatsapp-messages-from-backups-with-code-examples-49186de94ab4&quot;&gt;earlier&lt;/a&gt; &lt;a href=&quot;https://github.com/pixel3rr0r/whatsapp_chat_dump&quot;&gt;work&lt;/a&gt; by supporting groups and taking care to copy out all referenced media, so the entire directory can be archived as-is.&lt;/p&gt;
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;Now we can do dead-simple manual backups, like on Android.&lt;/p&gt;
-&lt;p&gt;As this depends on the internals of iOS backups as well as of the apps involved, it&#39;ll likely bitrot quickly, but hopefully then it&#39;ll serve as a starting point for people who want to do something similar in future.&lt;/p&gt;
-&lt;hr class=&quot;footnotes-sep&quot;&gt;
-&lt;section class=&quot;footnotes&quot;&gt;
-&lt;ol class=&quot;footnotes-list&quot;&gt;
-&lt;li id=&quot;fn1&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;Here&#39;s an &lt;a href=&quot;https://commons.erau.edu/cgi/viewcontent.cgi?article=1099&amp;amp;context=jdfsl&quot;&gt;example&lt;/a&gt; of a prior attempt to document this that is now out of date, though it was useful as a starting point. &lt;a href=&quot;https://dariusf.github.io/blog/ios-backups/#fnref1&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/section&gt;
 &lt;/body&gt;&lt;/html&gt;</content>
   </entry>
 </feed>
