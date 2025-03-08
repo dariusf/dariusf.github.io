@@ -3,18 +3,16 @@ title: "ER Diagrams and Alloy"
 date: 2025-03-07
 ---
 
-I've been curious about the correspondence between Alloy and ER diagrams for a while.
+I've been curious for a while about how Alloy and ER diagrams are related.
 Both are technically logics for describing relational models.
 It makes sense that we should be able to encode ER diagrams in Alloy and get access to the latter's model-finding capabilities.
 
 Here's a straightforward, by-example mapping between both formalisms, paying special attention to the differences.
 
-## Encoding
+## Entity sets, relationship sets, and cardinality
 
-A direct[^2] way to represent an entity set is as an Alloy *signature*.
-Relationship sets map to *relations* or *fields* of the signature.
-
-<!-- https://alloy.readthedocs.io/en/latest/language/signatures.html -->
+A direct way to represent an entity set is as an Alloy [signature](https://alloy.readthedocs.io/en/latest/language/signatures.html).
+Relationship sets map to [relations](https://alloy.readthedocs.io/en/latest/language/signatures.html#relations) (or fields) of the signature.
 
 ```alloy
 sig e1 {
@@ -23,12 +21,12 @@ sig e1 {
 sig e2 {}
 ```
 
-The default *multiplicity* of a relation is `one`, declared explicitly here.
+The default [multiplicity](https://alloy.readthedocs.io/en/latest/language/signatures.html#signature-multiplicity) of a relation is `one`, declared explicitly here.
 This means that `r1` is *one-to-many*: every `e1` is related to exactly one `e2`, but there may be `e2`s not related to any `e1`s.
 
 Here is an equivalent ER diagram[^1]:
 
-<div style="text-align: center">
+<div style="text-align: center" class="theme-affected">
 
 
 ```graphviz
@@ -57,7 +55,7 @@ sig e2 {}{ one this.~r1 }
 
 This means that each e1 is associated with exactly one e2 *and vice versa*.
 
-<div style="text-align: center">
+<div style="text-align: center" class="theme-affected">
 
 ```graphviz
 digraph G {
@@ -87,7 +85,7 @@ Other cardinality constraints use different keywords:
 
 </div>
 
-<!-- aggregation -->
+More on encodings [later](#attributes-and-aggregation). Let's look at some applications first.
 
 ## Checking properties
 
@@ -96,7 +94,7 @@ For example, we can verify simple properties, such as: that the cardinality cons
 
 Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint $c$ means...
 
-<div style="text-align: center">
+<div style="text-align: center" class="theme-affected">
 
 ```graphviz
 digraph G {
@@ -130,7 +128,10 @@ Given $c$ is (1, 1), all the models of a particular ER diagram should satisfy pr
 2. No `e1`s are related by `r1` multiple times
 
 This can all be expressed in Alloy as follows.
-The `check` command is used to verify a property, producing a counterexample if it exists within the given finite <abbr title="the number of entities in the model">scope</abbr>.
+The `check` command is used to verify a property, producing a counterexample if it exists within the given finite
+[scope](https://alloy.readthedocs.io/en/latest/language/commands.html#scopes).
+
+<!-- <abbr title="the number of signatures in the model">scope</abbr>. -->
 
 ```alloy
 sig e1 {
@@ -176,7 +177,7 @@ Executing "Check no_unrelated_e2 for 2"
 
 The counterexample produced demonstrates rather obviously that it is possible to have an `e2` not related to an `e1`.
 
-<div style="text-align: center">
+<div style="text-align: center" class="theme-affected">
 
 ```graphviz
 digraph G {
@@ -189,12 +190,31 @@ digraph G {
 
 </div>
 
-## Answering questions about min/max cardinality
+## Generating example models
 
-Alloy is also able to check if a constraint is satisfiable.
-We can use this to answer other kinds of questions, like:
+Alloy is also able to check if a set of constraints is satisfiable, producing a witness.
+An immediate use of this is to look at examples of models, to get a feel for what an ER diagram means.
 
-<div style="text-align: center">
+The simplest way to do this is to write a command specifying only the scope
+
+```alloy
+run {} for 2
+```
+
+and select "Show New Solution" repeatedly.
+
+We can also write constraints to select models, to confirm their presence.
+Say we want a model where `e1` and `e2` are related:
+
+```alloy
+run { some e: e1 | some e.r1 } for 2
+```
+
+## Minimum and maximum cardinality
+
+Finding models can help us answer other kinds of questions, like:
+
+<div style="text-align: center" class="theme-affected">
 
 ```graphviz
 digraph G {
@@ -254,7 +274,9 @@ run {} for exactly 2 e1, exactly 0 e2
    #2: No instance found. run$2 may be inconsistent.
 ```
 
-## Sidebar: programmatic use of Alloy
+## Programmatic use of Alloy
+
+To build tools on top of this encoding, a way to invoke Alloy programmatically is required.
 
 Alloy [does](https://alloytools.discourse.group/t/commandline-options-clash/214) [not](https://alloytools.discourse.group/t/how-can-i-run-alloy-in-command-line/275) have a CLI.
 However, it has a [well-documented Java API](https://alloytools.org/documentation/alloy-api/index.html) and [examples of use](https://github.com/AlloyTools/org.alloytools.alloy/tree/master/org.alloytools.alloy.application/src/test/java/edu/mit/csail/sdg/alloy4whole).
@@ -307,13 +329,63 @@ public final class Minimal {
 jar=/Applications/Alloy.app/Contents/Resources/org.alloytools.alloy.dist.jar
 set -ex
 javac -cp $jar Minimal.java
-java -cp .:$jar Minimal erd.alloy 2> /dev/null
+java -cp .:$jar Minimal erd.als 2> /dev/null
 ```
 
 </details>
 
-<!-- There is also a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ArashSahebolamri.alloy) but I haven't tried it. -->
+<!-- <details> -->
+<!-- <summary>Attributes and aggregation</summary> -->
+
+## Attributes and aggregation
+
+[A Method for Expressing Integrity Constraints in Database Conceptual Modeling](https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1405-55462020000100075) (2020) is the only other article I found which also discusses encodings.
+In Section 4.3.2, they give a translation scheme very briefly.
+
+I agree with their choices for attributes and values and have paraphrased them in the table below.
+
+<div style="display: flex; justify-content: center; text-align: left" class="table-lines">
+
+| ERD           | Alloy                          | Example                                                |
+| ------------- | ------------------------------ | ------------------------------------------------------ |
+| Domain        | Signature                      | `sig EmpId {}`                                         |
+| Value         | Singleton sub-signature        | `one sig John extends EmpId {}`                        |
+| Attribute     | Field                          | `sig Employee {id: EmpId}`                             |
+| Key attribute | Separate uniqueness assumption | {% raw %}`fact {#employee = #employee.id}`{% endraw %} |
+
+</div>
+
+Attributes in ER diagrams are usually simple and do not have much structure, but if we really want, we can now check properties about them.
+
+The remaining choice they make is how to model relationship sets.
+
+> However, we chose to use signatures for representing both the entity types and the relationship types. We think this captures the relationship set semantics more accurately, and provides its own structure.
+
+This is useful for encoding <abbr title="the use of a relationship set as an entity set">aggregation</abbr>.
+Here's an example.
+
+```alloy
+sig Bottle {}
+sig Session {}
+one sig Opened {
+  rel: Bottle -> lone Session
+}
+sig Member {}
+one sig Tasted {
+  rel: Member -> Opened
+}
+
+run {} for exactly 1 Session, exactly 2 Bottle, exactly 2 Member 
+```
+
+<!-- it seems hard to render aggregation using graphviz -->
+
+The tradeoff is that writing constraints for ternary relations and above [gets complex](https://alloy.readthedocs.io/en/latest/language/signatures.html#multirelations),
+and that the default visualization is less intuitive.
+It seems better to use Alloy's relations if aggregation isn't required.
+
+<!-- </details> -->
+
+<!-- TODO subtyping, covering, overlap -->
 
 [^1]: We're using [min-max](https://michael-fuchs-sql.netlify.app/2021/03/03/entity-relationship-diagram-erd/#min-max-notation) [notation](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model#Cardinalities).
-
-[^2]: [A Method for Expressing Integrity Constraints in Database Conceptual Modeling](https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1405-55462020000100075) uses a `one` *signature multiplicity* to represent relationship sets. I don't know enough about the internals of Alloy to know if this has any advantages, but the way constraints are written for this and the resulting visualization in the GUI both seem less intuitive.
