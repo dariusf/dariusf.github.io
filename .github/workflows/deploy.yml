@@ -19,6 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup GraphViz
+        run: sudo apt-get install graphviz
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
