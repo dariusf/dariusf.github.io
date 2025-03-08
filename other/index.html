@@ -128,7 +128,7 @@
 		color-scheme: dark; /* sets scrollbar colour */
 	}
 
-	img.theme-affected {
+	.theme-affected {
 		filter: invert(.8);
 	}
 }
@@ -280,10 +280,20 @@ a[href]:active { */
 
 table {
 	margin: 1em 0;
+	border-collapse: collapse;
 }
 table td,
 table th {
 	padding-right: 1em;
+}
+/* table thead tr th {
+  border-bottom: solid var(--text-color) 2px;
+  border-top: solid var(--text-color) 2px;
+} */
+
+.table-lines td {
+  border-bottom: solid var(--text-color) 1px;
+  border-top: solid var(--text-color) 1px;
 }
 
 /* pre,
@@ -320,10 +330,6 @@ pre:not([class*="language-"]) {
 	word-spacing: normal;
 	word-break: normal;
 	overflow-x: auto;
-}
-
-code {
-	word-break: break-all;
 }
 header {
 			/* display: flex; */
@@ -400,7 +406,7 @@ header {
 			
 		</footer>
 
-		<!-- This page `/other/` was built on 2025-03-08T03:32:46.019Z -->
+		<!-- This page `/other/` was built on 2025-03-08T09:27:00.163Z -->
 		
 	</body>
 </html>

@@ -392,7 +392,7 @@ pre[class*="language-"] {
 		color-scheme: dark; /* sets scrollbar colour */
 	}
 
-	img.theme-affected {
+	.theme-affected {
 		filter: invert(.8);
 	}
 }
@@ -544,10 +544,20 @@ a[href]:active { */
 
 table {
 	margin: 1em 0;
+	border-collapse: collapse;
 }
 table td,
 table th {
 	padding-right: 1em;
+}
+/* table thead tr th {
+  border-bottom: solid var(--text-color) 2px;
+  border-top: solid var(--text-color) 2px;
+} */
+
+.table-lines td {
+  border-bottom: solid var(--text-color) 1px;
+  border-top: solid var(--text-color) 1px;
 }
 
 /* pre,
@@ -584,10 +594,6 @@ pre:not([class*="language-"]) {
 	word-spacing: normal;
 	word-break: normal;
 	overflow-x: auto;
-}
-
-code {
-	word-break: break-all;
 }
 header {
 			/* display: flex; */
@@ -773,22 +779,21 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 </div>
 
 <div class="blog-content">
-<p>I've been curious about the correspondence between Alloy and ER diagrams for a while.
+<p>I've been curious for a while about how Alloy and ER diagrams are related.
 Both are technically logics for describing relational models.
 It makes sense that we should be able to encode ER diagrams in Alloy and get access to the latter's model-finding capabilities.</p>
 <p>Here's a straightforward, by-example mapping between both formalisms, paying special attention to the differences.</p>
-<h2 id="encoding">Encoding</h2>
-<p>A direct<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup> way to represent an entity set is as an Alloy <em>signature</em>.
-Relationship sets map to <em>relations</em> or <em>fields</em> of the signature.</p>
-<!-- https://alloy.readthedocs.io/en/latest/language/signatures.html -->
+<h2 id="entity-sets-relationship-sets-and-cardinality">Entity sets, relationship sets, and cardinality</h2>
+<p>A direct way to represent an entity set is as an Alloy <a href="https://alloy.readthedocs.io/en/latest/language/signatures.html">signature</a>.
+Relationship sets map to <a href="https://alloy.readthedocs.io/en/latest/language/signatures.html#relations">relations</a> (or fields) of the signature.</p>
 <pre class="language-alloy" tabindex="0"><code class="language-alloy">sig e1 {
   r1: one e2
 }
 sig e2 {}</code></pre>
-<p>The default <em>multiplicity</em> of a relation is <code>one</code>, declared explicitly here.
+<p>The default <a href="https://alloy.readthedocs.io/en/latest/language/signatures.html#signature-multiplicity">multiplicity</a> of a relation is <code>one</code>, declared explicitly here.
 This means that <code>r1</code> is <em>one-to-many</em>: every <code>e1</code> is related to exactly one <code>e2</code>, but there may be <code>e2</code>s not related to any <code>e1</code>s.</p>
-<p>Here is an equivalent ER diagram<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>:</p>
-<div style="text-align: center">
+<p>Here is an equivalent ER diagram<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>:</p>
+<div style="text-align: center" class="theme-affected">
 
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -839,7 +844,7 @@ To specify the converse cardinality, we can use a signature fact, using <code>~<
 }
 sig e2 {}{ one this.~r1 }</code></pre>
 <p>This means that each e1 is associated with exactly one e2 <em>and vice versa</em>.</p>
-<div style="text-align: center">
+<div style="text-align: center" class="theme-affected">
 
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -916,12 +921,12 @@ sig e2 {}{ one this.~r1 }</code></pre>
 </tbody>
 </table>
 </div>
-<!-- aggregation -->
+<p>More on encodings <a href="#attributes-and-aggregation">later</a>. Let's look at some applications first.</p>
 <h2 id="checking-properties">Checking properties</h2>
 <p>With this encoding, we can already reason mechanically about ER diagrams.
 For example, we can verify simple properties, such as: that the cardinality constraints we state do what we intend them to.</p>
 <p>Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.98ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 433 453" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D450" xlink:href="#MJX-TEX-I-1D450"></use></g></g></g></svg></mjx-container> means...</p>
-<div style="text-align: center">
+<div style="text-align: center" class="theme-affected">
 
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -1002,7 +1007,9 @@ For example, we can verify simple properties, such as: that the cardinality cons
 <li>No <code>e1</code>s are related by <code>r1</code> multiple times</li>
 </ol>
 <p>This can all be expressed in Alloy as follows.
-The <code>check</code> command is used to verify a property, producing a counterexample if it exists within the given finite <abbr title="the number of entities in the model">scope</abbr>.</p>
+The <code>check</code> command is used to verify a property, producing a counterexample if it exists within the given finite
+<a href="https://alloy.readthedocs.io/en/latest/language/commands.html#scopes">scope</a>.</p>
+<!-- <abbr title="the number of signatures in the model">scope</abbr>. -->
 <pre class="language-alloy" tabindex="0"><code class="language-alloy">sig e1 {
   r1: e2
 }
@@ -1033,7 +1040,7 @@ check no_unrelated_e2 for 2</code></pre>
    84 vars. 10 primary vars. 116 clauses. 5ms.
    Counterexample found. Assertion is invalid. 5ms.</code></pre>
 <p>The counterexample produced demonstrates rather obviously that it is possible to have an <code>e2</code> not related to an <code>e1</code>.</p>
-<div style="text-align: center">
+<div style="text-align: center" class="theme-affected">
 
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -1072,10 +1079,18 @@ check no_unrelated_e2 for 2</code></pre>
 </g>
 </svg>
 </div>
-<h2 id="answering-questions-about-min-max-cardinality">Answering questions about min/max cardinality</h2>
-<p>Alloy is also able to check if a constraint is satisfiable.
-We can use this to answer other kinds of questions, like:</p>
-<div style="text-align: center">
+<h2 id="generating-example-models">Generating example models</h2>
+<p>Alloy is also able to check if a set of constraints is satisfiable, producing a witness.
+An immediate use of this is to look at examples of models, to get a feel for what an ER diagram means.</p>
+<p>The simplest way to do this is to write a command specifying only the scope</p>
+<pre class="language-alloy" tabindex="0"><code class="language-alloy">run {} for 2</code></pre>
+<p>and select "Show New Solution" repeatedly.</p>
+<p>We can also write constraints to select models, to confirm their presence.
+Say we want a model where <code>e1</code> and <code>e2</code> are related:</p>
+<pre class="language-alloy" tabindex="0"><code class="language-alloy">run { some e: e1 | some e.r1 } for 2</code></pre>
+<h2 id="minimum-and-maximum-cardinality">Minimum and maximum cardinality</h2>
+<p>Finding models can help us answer other kinds of questions, like:</p>
+<div style="text-align: center" class="theme-affected">
 
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -1162,7 +1177,8 @@ run {} for exactly 2 e1, exactly 0 e2</code></pre>
 <pre class="language-text" tabindex="0"><code class="language-text">2 commands were executed. The results are:
    #1: Instance found. run$1 is consistent.
    #2: No instance found. run$2 may be inconsistent.</code></pre>
-<h2 id="sidebar-programmatic-use-of-alloy">Sidebar: programmatic use of Alloy</h2>
+<h2 id="programmatic-use-of-alloy">Programmatic use of Alloy</h2>
+<p>To build tools on top of this encoding, a way to invoke Alloy programmatically is required.</p>
 <p>Alloy <a href="https://alloytools.discourse.group/t/commandline-options-clash/214">does</a> <a href="https://alloytools.discourse.group/t/how-can-i-run-alloy-in-command-line/275">not</a> have a CLI.
 However, it has a <a href="https://alloytools.org/documentation/alloy-api/index.html">well-documented Java API</a> and <a href="https://github.com/AlloyTools/org.alloytools.alloy/tree/master/org.alloytools.alloy.application/src/test/java/edu/mit/csail/sdg/alloy4whole">examples of use</a>.
 Here's a minimal example of how it might be used to process an Alloy source file and export the resulting model to, e.g., GraphViz or JSON, to interoperate with other tools.
@@ -1207,15 +1223,75 @@ The default XML exporter does not seem to work, crashing when I tried it.</p>
 <span class="token assign-left variable">jar</span><span class="token operator">=</span>/Applications/Alloy.app/Contents/Resources/org.alloytools.alloy.dist.jar
 <span class="token builtin class-name">set</span> <span class="token parameter variable">-ex</span>
 javac <span class="token parameter variable">-cp</span> <span class="token variable">$jar</span> Minimal.java
-<span class="token function">java</span> <span class="token parameter variable">-cp</span> .:<span class="token variable">$jar</span> Minimal erd.alloy <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span> /dev/null</code></pre>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> .:<span class="token variable">$jar</span> Minimal erd.als <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span> /dev/null</code></pre>
 </details>
 <!-- There is also a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ArashSahebolamri.alloy) but I haven't tried it. -->
+<!-- <details> -->
+<!-- <summary>Attributes and aggregation</summary> -->
+<h2 id="attributes-and-aggregation">Attributes and aggregation</h2>
+<p><a href="https://www.scielo.org.mx/scielo.php?script=sci_arttext&amp;pid=S1405-55462020000100075">A Method for Expressing Integrity Constraints in Database Conceptual Modeling</a> (2020) is the only other article I found which also discusses encodings.
+In Section 4.3.2, they give a translation scheme very briefly.</p>
+<p>I agree with their choices for attributes and values and have paraphrased them in the table below.</p>
+<div style="display: flex; justify-content: center; text-align: left" class="table-lines">
+<table>
+<thead>
+<tr>
+<th>ERD</th>
+<th>Alloy</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain</td>
+<td>Signature</td>
+<td><code>sig EmpId {}</code></td>
+</tr>
+<tr>
+<td>Value</td>
+<td>Singleton sub-signature</td>
+<td><code>one sig John extends EmpId {}</code></td>
+</tr>
+<tr>
+<td>Attribute</td>
+<td>Field</td>
+<td><code>sig Employee {id: EmpId}</code></td>
+</tr>
+<tr>
+<td>Key attribute</td>
+<td>Separate uniqueness assumption</td>
+<td><code>fact {#employee = #employee.id}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Attributes in ER diagrams are usually simple and do not have much structure, but if we really want, we can now check properties about them.</p>
+<p>The remaining choice they make is how to model relationship sets.</p>
+<blockquote>
+<p>However, we chose to use signatures for representing both the entity types and the relationship types. We think this captures the relationship set semantics more accurately, and provides its own structure.</p>
+</blockquote>
+<p>This is useful for encoding <abbr title="the use of a relationship set as an entity set">aggregation</abbr>.
+Here's an example.</p>
+<pre class="language-alloy" tabindex="0"><code class="language-alloy">sig Bottle {}
+sig Session {}
+one sig Opened {
+  rel: Bottle -&gt; lone Session
+}
+sig Member {}
+one sig Tasted {
+  rel: Member -&gt; Opened
+}
+
+run {} for exactly 1 Session, exactly 2 Bottle, exactly 2 Member </code></pre>
+<p>The tradeoff is that writing constraints for ternary relations and above <a href="https://alloy.readthedocs.io/en/latest/language/signatures.html#multirelations">gets complex</a>,
+and that the default visualization is less intuitive.
+It seems better to use Alloy's relations if aggregation isn't required.</p>
+<!-- </details> -->
+<!-- TODO subtyping, covering, overlap -->
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="https://www.scielo.org.mx/scielo.php?script=sci_arttext&amp;pid=S1405-55462020000100075">A Method for Expressing Integrity Constraints in Database Conceptual Modeling</a> uses a <code>one</code> <em>signature multiplicity</em> to represent relationship sets. I don't know enough about the internals of Alloy to know if this has any advantages, but the way constraints are written for this and the resulting visualization in the GUI both seem less intuitive. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn2" class="footnote-item"><p>We're using <a href="https://michael-fuchs-sql.netlify.app/2021/03/03/entity-relationship-diagram-erd/#min-max-notation">min-max</a> <a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model#Cardinalities">notation</a>. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p>We're using <a href="https://michael-fuchs-sql.netlify.app/2021/03/03/entity-relationship-diagram-erd/#min-max-notation">min-max</a> <a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model#Cardinalities">notation</a>. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
@@ -1228,7 +1304,7 @@ javac <span class="token parameter variable">-cp</span> <span class="token varia
 			
 		</footer>
 
-		<!-- This page `/blog/erd-alloy/` was built on 2025-03-08T03:32:46.020Z -->
+		<!-- This page `/blog/erd-alloy/` was built on 2025-03-08T09:27:00.165Z -->
 		
 	<svg style="display: none;" id="MJX-SVG-global-cache"><defs><path id="MJX-TEX-I-1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></defs></svg></body>
 </html>
