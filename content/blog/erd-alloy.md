@@ -130,7 +130,7 @@ Given $c$ is (1, 1), all the models of a particular ER diagram should satisfy pr
 2. No `e1`s are related by `r1` multiple times
 
 This can all be expressed in Alloy as follows.
-The `check` command is used to verify a property, producing a counterexample if it exists within the given finite *scope*.
+The `check` command is used to verify a property, producing a counterexample if it exists within the given finite <abbr title="the number of entities in the model">scope</abbr>.
 
 ```alloy
 sig e1 {
