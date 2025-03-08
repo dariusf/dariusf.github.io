@@ -1225,7 +1225,6 @@ The default XML exporter does not seem to work, crashing when I tried it.</p>
 javac <span class="token parameter variable">-cp</span> <span class="token variable">$jar</span> Minimal.java
 <span class="token function">java</span> <span class="token parameter variable">-cp</span> .:<span class="token variable">$jar</span> Minimal erd.als <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span> /dev/null</code></pre>
 </details>
-<!-- There is also a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ArashSahebolamri.alloy) but I haven't tried it. -->
 <!-- <details> -->
 <!-- <summary>Attributes and aggregation</summary> -->
 <h2 id="attributes-and-aggregation">Attributes and aggregation</h2>
@@ -1283,6 +1282,7 @@ one sig Tasted {
 }
 
 run {} for exactly 1 Session, exactly 2 Bottle, exactly 2 Member </code></pre>
+<!-- it seems hard to render aggregation using graphviz -->
 <p>The tradeoff is that writing constraints for ternary relations and above <a href="https://alloy.readthedocs.io/en/latest/language/signatures.html#multirelations">gets complex</a>,
 and that the default visualization is less intuitive.
 It seems better to use Alloy's relations if aggregation isn't required.</p>
@@ -1304,7 +1304,7 @@ It seems better to use Alloy's relations if aggregation isn't required.</p>
 			
 		</footer>
 
-		<!-- This page `/blog/erd-alloy/` was built on 2025-03-08T09:27:00.165Z -->
+		<!-- This page `/blog/erd-alloy/` was built on 2025-03-08T09:29:34.643Z -->
 		
 	<svg style="display: none;" id="MJX-SVG-global-cache"><defs><path id="MJX-TEX-I-1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></defs></svg></body>
 </html>

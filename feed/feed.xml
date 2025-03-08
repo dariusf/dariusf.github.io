@@ -578,7 +578,6 @@ The default XML exporter does not seem to work, crashing when I tried it.&lt;/p&
 javac &lt;span class=&quot;token parameter variable&quot;&gt;-cp&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$jar&lt;/span&gt; Minimal.java
 &lt;span class=&quot;token function&quot;&gt;java&lt;/span&gt; &lt;span class=&quot;token parameter variable&quot;&gt;-cp&lt;/span&gt; .:&lt;span class=&quot;token variable&quot;&gt;$jar&lt;/span&gt; Minimal erd.als &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&amp;gt;&lt;/span&gt; /dev/null&lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
-&lt;!-- There is also a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ArashSahebolamri.alloy) but I haven&#39;t tried it. --&gt;
 &lt;!-- &lt;details&gt; --&gt;
 &lt;!-- &lt;summary&gt;Attributes and aggregation&lt;/summary&gt; --&gt;
 &lt;h2 id=&quot;attributes-and-aggregation&quot;&gt;Attributes and aggregation&lt;/h2&gt;
@@ -636,6 +635,7 @@ one sig Tasted {
 }
 
 run {} for exactly 1 Session, exactly 2 Bottle, exactly 2 Member &lt;/code&gt;&lt;/pre&gt;
+&lt;!-- it seems hard to render aggregation using graphviz --&gt;
 &lt;p&gt;The tradeoff is that writing constraints for ternary relations and above &lt;a href=&quot;https://alloy.readthedocs.io/en/latest/language/signatures.html#multirelations&quot;&gt;gets complex&lt;/a&gt;,
 and that the default visualization is less intuitive.
 It seems better to use Alloy&#39;s relations if aggregation isn&#39;t required.&lt;/p&gt;
