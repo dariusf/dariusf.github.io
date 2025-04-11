@@ -66,9 +66,9 @@ The question we're concerned with in this work is: is there a *precise* and *gen
 
 # Specifying higher-order functions today
 
-{% raw %}
 <div style="display:none">
-$\newcommand{\m}[1]{\mathit{#1}}$
+{% raw %}
+$\newcommand{\m}[1]{\mmlToken{mi}[mathvariant=italic]{#1}}$
 $\newcommand{\foldr}{\m{foldr}}$
 $\newcommand{\xs}{\m{xs}}$
 $\newcommand{\ys}{\m{ys}}$
@@ -81,8 +81,8 @@ $\newcommand{\req}[1]{\mathbf{req}\ #1}$
 $\newcommand{\ens}[1]{\mathbf{ens}\ #1}$
 $\newcommand{\s}[1]{\{ #1 \}}$
 $\newcommand{\sb}[1]{\textbf{\{}#1\textbf{\}}}$
-</div>
 {% endraw %}
+</div>
 
 We'll use the classic $\foldr$ function as a running example.
 
@@ -108,23 +108,27 @@ Here is a specification one might write today in a modern program logic[^1].
 
 $$
 \begin{array}{c}
-\forall \class{ppred}{P}, \class{foldrinv}{\inv}, f, \xs, l. \left\\{ \begin{array}{l}
-    \class{triple}{(\forall x, a', \ys.\ \s{\class{ppred}{P\ x} * \class{preserve}{\inv\ \ys\ a'}}\ f(x, a')\ \s{r.\ \class{preserve}{\inv\ (x::\ys)\ r}})} \\\\
+\forall \class{ppred}{P}, \class{foldrinv}{\inv}, f, \xs, l. \left\{ \begin{array}{l}
+    \class{triple}{(\forall x, a', \ys.\ \s{\class{ppred}{P\ x} * \class{preserve}{\inv\ \ys\ a'}}\ f(x, a')\ \s{r.\ \class{preserve}{\inv\ (x::\ys)\ r}})} \\
     *\ \class{shape}{\islist\ l\ \xs} * \class{ppred}{\m{all}\ P\ \xs} * \class{foldrinv}{\inv\ []\ a}
- \end{array} \right\\} \\\\
- \foldr\ f\ a\ l \\\\
+ \end{array} \right\} \\
+ \foldr\ f\ a\ l \\
  \{r.\ \class{shape}{\islist\ l\ \xs} * \class{foldrinv}{\inv\ \xs\ r} \}
 \end{array}
 $$
 
-1. <div class="trigger" data-id="inv">The most salient feature of this specification is that it is parameterized over an *invariant* $\inv$, a (separation logic) *property* whose purpose is to describe the result of $\foldr$. It does this by relating the suffix of the list traversed so far - initially empty, and finally $\xs$ - with the result of the fold.</div>
-2. <div class="trigger" data-id="finv">Next, we use a nested triple to require that $f$ must preserve the invariant - assuming that the invariant holds of the portion of the list that has been folded $\ys$ and the result of the recursive call $a'$, $f$ must reestablish it for $x::\ys$ and its result $r$. This is fair, as $\foldr$ contains a call to $f$, and so we need the knowledge that $f$ preserves the invariant to ensure that $\foldr$ does. As the invariant is a separation logic property, it may also be seen as a way to describe the effect of $f$.</div>
-3. <div class="trigger" data-id="ppred">Anticipating that some clients may want to operate only on certain kinds of lists, the specification is further parameterized over a unary predicate $P$. A precondition $\m{all}\ P\ \xs$, which must be proved at each call site, allows $f$ to then rely on $P\ x$ in its precondition.</div>
-4. <div class="trigger" data-id="shape">A shape predicate $\islist$ relating the structure $l$ to its content $\xs$ appears in both pre- and postcondition. This is to say that $\foldr$ should not change the list.</div>
+1. <span class="trigger" data-id="inv">The most salient feature</span> of this specification is that it is parameterized over an *invariant* $\inv$, a (separation logic) *property* whose purpose is to describe the result of $\foldr$. It does this by relating the suffix of the list traversed so far - initially empty, and finally $\xs$ - with the result of the fold.
+2. Next, we use a <span class="trigger" data-id="finv">nested triple</span> to require that $f$ must preserve the invariant - assuming that the invariant holds of the portion of the list that has been folded $\ys$ and the result of the recursive call $a'$, $f$ must reestablish it for $x::\ys$ and its result $r$. This is fair, as $\foldr$ contains a call to $f$, and so we need the knowledge that $f$ preserves the invariant to ensure that $\foldr$ does. As the invariant is a separation logic property, it may also be seen as a way to describe the effect of $f$.
+3. Anticipating that some clients may want to operate only on certain kinds of lists, the specification is further <span class="trigger" data-id="ppred">parameterized</span> over a unary predicate $P$. A precondition $\m{all}\ P\ \xs$, which must be proved at each call site, allows $f$ to then rely on $P\ x$ in its precondition.
+4. <span class="trigger" data-id="shape">A shape predicate</span> $\islist$ relating the list structure $l$ to its content $\xs$ appears in both pre- and postcondition. This is to say that $\foldr$ should not change the list.
 
 <style>
   .highlight {
-    color: orange;
+    color: red;
+  }
+  .trigger {
+    text-decoration: underline;
+    cursor: help;
   }
 </style>
 <script>
@@ -235,8 +239,8 @@ What is the semantics of such formulae? We defer a detailed answer to our paper[
 
 $$
 \begin{align*}
-\s{P}\ e\ \s{Q} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \wedge (s\vDash P) \Rightarrow \langle s',v \rangle \vDash Q \\\\
-\s{P}\ e\ \s{Q} \equiv & \ \sb{\ens{\emp}}\ e\ \sb{\req{P}; \ens{Q}} \\\\
+\s{P}\ e\ \s{Q} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \wedge (s\vDash P) \Rightarrow \langle s',v \rangle \vDash Q \\
+\s{P}\ e\ \s{Q} \equiv & \ \sb{\ens{\emp}}\ e\ \sb{\req{P}; \ens{Q}} \\
 \end{align*}
 $$
 
@@ -248,7 +252,7 @@ The more general case could have its semantics defined as follows.
 
 $$
 \begin{align*}
-\sb{\ens{\emp}}\ e\\sb{\varphi} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \Rightarrow \langle s, s', v \rangle \vDash \varphi
+\sb{\ens{\emp}}\ e\ \sb{\varphi} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \Rightarrow \langle s, s', v \rangle \vDash \varphi
 \end{align*}
 $$
 
@@ -311,11 +315,11 @@ Here is a possible specification for it.
 
 $$
 \begin{array}{l}
-\m{hello}(f, x, y, res) = \\\\
-\quad \exists a.\ \req{x{\mapsto}a}; \ens{x{\mapsto}a{+}1} \\\\
-\quad \exists r.\ f(y, r); \\\\
-\quad \exists b.\ \req{x{\mapsto}b * y{\mapsto}\_}; \\\\
-\quad \phantom{\exists b.\ } \ens{x{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\\\
+\m{hello}(f, x, y, res) = \\
+\quad \exists a.\ \req{x{\mapsto}a}; \ens{x{\mapsto}a{+}1} \\
+\quad \exists r.\ f(y, r); \\
+\quad \exists b.\ \req{x{\mapsto}b * y{\mapsto}\_}; \\
+\quad \phantom{\exists b.\ } \ens{x{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\
 \end{array}
 $$
 
@@ -363,8 +367,8 @@ here is a staged logic specification for it:
 
 $$
 \begin{array}{l}
-\foldr(f, a, l, \m{res}) = \\\\
-\quad \phantom{\vee\ } \ens{l{=}[]{\wedge}\m{res}{=}a} \\\\
+\foldr(f, a, l, \m{res}) = \\
+\quad \phantom{\vee\ } \ens{l{=}[]{\wedge}\m{res}{=}a} \\
 \quad \vee\ \exists r, l_1.\ \ens{l{=}x{::}l_1}; \foldr(f, a, l_1, r); f(x, r, \m{res})
 \end{array}
 $$
@@ -378,9 +382,9 @@ Comparing this to the previous specification, this time expressed as a single $\
 
 $$
 \begin{array}{l}
-\foldr(f, a, l, \m{res}) = \\\\
-\quad \exists P, \inv, \xs.\ \req{\m{List(l, \xs)} * \inv([], a) \wedge \m{all}(P, \xs)} \\\\
-\qquad \wedge f(x, a', r) \sqsubseteq (\exists ys.\ \req{\inv(\ys, a') \wedge P(x)}; \ens{\inv(x{::}\ys, r)}); \\\\
+\foldr(f, a, l, \m{res}) = \\
+\quad \exists P, \inv, \xs.\ \req{\m{List(l, \xs)} * \inv([], a) \wedge \m{all}(P, \xs)} \\
+\qquad \wedge f(x, a', r) \sqsubseteq (\exists ys.\ \req{\inv(\ys, a') \wedge P(x)}; \ens{\inv(x{::}\ys, r)}); \\
 \quad \ens{\m{List}(l, \xs) * \inv(\xs, \m{res})}
 \end{array}
 $$
@@ -407,7 +411,7 @@ and a user-provided specification (below), we can verify the above program by pr
 
 $$
 \begin{array}{rl}
-& \forall x, \xs, \m{init}, \res.\ \m{foldr\\_sum\\_state}(x, \xs, \m{init}, \res) \\\\
+& \forall x, \xs, \m{init}, \res.\ \m{foldr_sum_state}(x, \xs, \m{init}, \res) \\
 \sqsubseteq & \exists i,r.\ \req{x{\mapsto}i}; \ens{x{\mapsto}i{+}r{\wedge}\res{=}r{+}\m{init}{\wedge}r{=}\m{sum}(\xs)}
 \end{array}
 $$
@@ -443,11 +447,11 @@ We'll illustrate it by example on the heap-manipulating $\m{hello}$ program we s
 
 $$
 \begin{array}{l}
-\m{hello}(f, x, y, res) = \\\\
-\quad \exists a.\ \req{x{\mapsto}a}; \ens{x{\mapsto}a{+}1} \\\\
-\quad \exists r.\ f(y, r); \\\\
-\quad \exists b.\ \req{x{\mapsto}b * y{\mapsto}\_}; \\\\
-\quad \phantom{\exists b.\ } \ens{x{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\\\
+\m{hello}(f, x, y, res) = \\
+\quad \exists a.\ \req{x{\mapsto}a}; \ens{x{\mapsto}a{+}1} \\
+\quad \exists r.\ f(y, r); \\
+\quad \exists b.\ \req{x{\mapsto}b * y{\mapsto}\_}; \\
+\quad \phantom{\exists b.\ } \ens{x{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\
 \end{array}
 $$
 
@@ -467,11 +471,11 @@ Unfolding $f$ in $\m{hello}$ (and doing some renaming),
 
 $$
 \begin{array}{l}
-\m{hello}(f, z, y, res) = \\\\
-\quad \exists a.\ \req{z{\mapsto}a}; \boxed{\ens{z{\mapsto}a{+}1}} \\\\
-\quad \exists r,c.\ \boxed{\req{z{\mapsto}c}}; \ens{z{\mapsto}c{\wedge}r{=}0} \\\\
-\quad \exists b.\ \req{z{\mapsto}b * y{\mapsto}\_}; \\\\
-\quad \phantom{\exists b.\ } \ens{z{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\\\
+\m{hello}(f, z, y, res) = \\
+\quad \exists a.\ \req{z{\mapsto}a}; \boxed{\ens{z{\mapsto}a{+}1}} \\
+\quad \exists r,c.\ \boxed{\req{z{\mapsto}c}}; \ens{z{\mapsto}c{\wedge}r{=}0} \\
+\quad \exists b.\ \req{z{\mapsto}b * y{\mapsto}\_}; \\
+\quad \phantom{\exists b.\ } \ens{z{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\
 \end{array}
 $$
 
@@ -496,11 +500,11 @@ We can thus transform $\m{hello}$ as follow.
 
 $$
 \begin{array}{l}
-\m{hello}(f, z, y, res) = \\\\
-\quad \exists a.\ \boxed{\req{z{\mapsto}a}; \exists c.\ \req{a{+}1{=}c}} \\\\
-\quad \exists r.\ \boxed{\ens{\emp}; \ens{z{\mapsto}c{\wedge}r{=}0}} \\\\
-\quad \exists b.\ \req{z{\mapsto}b * y{\mapsto}\_}; \\\\
-\quad \phantom{\exists b.\ } \ens{z{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\\\
+\m{hello}(f, z, y, res) = \\
+\quad \exists a.\ \boxed{\req{z{\mapsto}a}; \exists c.\ \req{a{+}1{=}c}} \\
+\quad \exists r.\ \boxed{\ens{\emp}; \ens{z{\mapsto}c{\wedge}r{=}0}} \\
+\quad \exists b.\ \req{z{\mapsto}b * y{\mapsto}\_}; \\
+\quad \phantom{\exists b.\ } \ens{z{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\
 \end{array}
 $$
 
@@ -516,11 +520,11 @@ Now we have this, and again we have another $\mathbf{ens}$/$\mathbf{req}$ pair.
 
 $$
 \begin{array}{l}
-\m{hello}(f, z, y, res) = \\\\
-\quad \exists a,c.\ \req{z{\mapsto}a * a{+}1{=}c}; \\\\
-\quad \exists r.\ \boxed{\ens{z{\mapsto}c{\wedge}r{=}0}} \\\\
-\quad \exists b.\ \boxed{\req{z{\mapsto}b * y{\mapsto}\\_}}; \\\\
-\quad \phantom{\exists b.\ } \ens{z{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\\\
+\m{hello}(f, z, y, res) = \\
+\quad \exists a,c.\ \req{z{\mapsto}a * a{+}1{=}c}; \\
+\quad \exists r.\ \boxed{\ens{z{\mapsto}c{\wedge}r{=}0}} \\
+\quad \exists b.\ \boxed{\req{z{\mapsto}b * y{\mapsto}\_}}; \\
+\quad \phantom{\exists b.\ } \ens{z{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b{+}r} \\
 \end{array}
 $$
 
@@ -534,8 +538,8 @@ $$
 
 $$
 \begin{array}{l}
-\m{hello}(f, z, y, res) = \\\\
-\quad \exists a,c.\ \req{z{\mapsto}a * y{\mapsto}\_ \wedge a{+}1{=}c{\wedge}c{+}1{=}b}; \\\\
+\m{hello}(f, z, y, res) = \\
+\quad \exists a,c.\ \req{z{\mapsto}a * y{\mapsto}\_ \wedge a{+}1{=}c{\wedge}c{+}1{=}b}; \\
 \quad \exists b.\ \ens{z{\mapsto}b * y{\mapsto}\m{res}{\wedge}\m{res}{=}b}
 \end{array}
 $$
@@ -565,7 +569,7 @@ The list is described using a shape predicate.
 
 $$
 \begin{array}{rl}
-& \m{foldr\_ex1}(l,\res) \\\\
+& \m{foldr_ex1}(l,\res) \\
 \sqsubseteq & \exists \xs, \ys.\ \req{\list(l,\xs)}; \ens{\list(l,\ys){\wedge}\m{mapinc}(\xs){=}\ys{\wedge}\m{sum}(\xs){=}\res}
 \end{array}
 $$
@@ -594,7 +598,7 @@ let foldr_ex2 l = foldr (fun x r -> assert(x+r>=0); x+r) l 0
 To enable the assertion in the function argument to be proved, we explicate the assumption that all suffix-sums of the list are positive using a pure function of $l$. This can be directly given as part of the user-provided specificaton on the right.
 
 $$
-\m{foldr\_ex2}(l,\res) \sqsubseteq \req{\m{allSPos}(l)}; \ens{\m{sum}(l,\res)}
+\m{foldr_ex2}(l,\res) \sqsubseteq \req{\m{allSPos}(l)}; \ens{\m{sum}(l,\res)}
 $$
 
 In this example, we are not concerned with shapes, and fittingly, shape predicates do not appear at all in the specification or lemma.
@@ -633,7 +637,7 @@ $$
 We can give a precise description of the conditions under which an exception is thrown via the following entailment.
 
 $$
-\m{foldr\_ex3}(l,\res) \sqsubseteq \ens{\m{allPos}(l){\wedge}\m{sum}(l,\res) \vee \ens{\neg\m{allPos}(l)}; \m{Exc}()}
+\m{foldr_ex3}(l,\res) \sqsubseteq \ens{\m{allPos}(l){\wedge}\m{sum}(l,\res) \vee \ens{\neg\m{allPos}(l)}; \m{Exc}()}
 $$
 
 The underlying logic is still symbolic-heap separation logic; we do not delegate effects to it.
