@@ -104,6 +104,7 @@ export default async function (eleventyConfig) {
 				decoding: "async",
 			},
 		},
+		transformOnRequest: process.env.ELEVENTY_RUN_MODE === "serve",
 
 		sharpOptions: {
 			animated: true,
