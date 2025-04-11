@@ -223,9 +223,11 @@ a[href] {
 	color: var(--link-color);
 	text-decoration: none;
 }
-a[href]:visited {
+
+/* a[href]:visited {
 	color: var(--link-visited-color);
-}
+} */
+
 /* a[href]:hover,
 a[href]:active { */
 	/* color: var(--text-color-link-active); */
