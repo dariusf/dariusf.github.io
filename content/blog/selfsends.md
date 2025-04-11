@@ -4,8 +4,9 @@ date: 2023-11-28
 math: true
 ---
 
-{% raw %}
 <div style="display:none">
+{% raw %}
+$\newcommand{\m}[1]{\mmlToken{mi}[mathvariant=italic]{#1}}$
 $\newcommand{\kwproj}{\mathbin{\upharpoonright}}$
 $\newcommand{\gall}[3]{\forall #1 : #2 \cdot #3}$
 $\newcommand{\galls}[4]{\forall #1 : #2 \setminus #3 \cdot #4}$
@@ -13,12 +14,12 @@ $\newcommand{\galle}[4]{\forall #1 : #2 \setminus \{#3\} \cdot #4}$
 $\newcommand{\gtransmit}[3]{#1 \to #2:#3}$
 $\newcommand{\kwpar}{\mathrel{||}}$
 $\newcommand{\spar}[2]{#1 \kwpar #2}$
-$\newcommand{\lsend}[2]{\mathit{send}\ #1\ #2}$
-$\newcommand{\lrecv}[1]{\mathit{recv\ #1}}$
+$\newcommand{\lsend}[2]{\m{send}\ #1\ #2}$
+$\newcommand{\lrecv}[1]{\m{recv\ #1}}$
 $\newcommand{\s}[1]{\{#1\}}$
 $\newcommand{\sb}[1]{\textbf{\{}#1\textbf{\}}}$
-</div>
 {% endraw %}
+</div>
 
 [Session types](https://wen.works/2020/12/17/an-introduction-to-session-types/) are a neat and fascinating formalism.
 Intuitively, they are small languages for describing communication protocols.
@@ -51,13 +52,13 @@ This splitting operation is called _projection_ because we are keeping only a sl
 
 Here is a tiny language of local types.
 
-$$L ::= \mathit{send}\ a\ m\ |\ \mathit{recv}\ b\ |\ L; L$$
+$$L ::= \m{send}\ a\ m\ |\ \m{recv}\ b\ |\ L; L$$
 
 The projections for $a$ and $b$ would be:
 
-$$L_a : \mathit{send}\ b\ m; \mathit{recv}\ b$$
+$$L_a : \m{send}\ b\ m; \m{recv}\ b$$
 
-$$L_b : \mathit{recv}\ a; \mathit{send}\ a\ n$$
+$$L_b : \m{recv}\ a; \m{send}\ a\ n$$
 
 How do we compute such a projection?
 
@@ -65,13 +66,13 @@ How do we compute such a projection?
 
 $$(G_1; G_2) \upharpoonright p \equiv (G_1 \upharpoonright p); (G_2 \upharpoonright p)$$
 
-$$a \to b: m \upharpoonright a \equiv \mathit{send}\ b$$
+$$a \to b: m \upharpoonright a \equiv \m{send}\ b$$
 
-$$a \to b: m \upharpoonright b \equiv \mathit{recv}\ a$$
+$$a \to b: m \upharpoonright b \equiv \m{recv}\ a$$
 
 The rules are very simple for this tiny language:
 projection is "pushed through" sequential composition,
-and if we are projecting $\to$ with respect to a given party $p$ and we see $p$ is the sender, the result is a $\mathit{send}$, otherwise it is a $\mathit{recv}$.
+and if we are projecting $\to$ with respect to a given party $p$ and we see $p$ is the sender, the result is a $\m{send}$, otherwise it is a $\m{recv}$.
 
 <!--
 
@@ -79,7 +80,7 @@ Both $\to$ cases assume $a\neq b$.
 
 <details>
     <summary>What if $a=b$, i.e. how should we project $a \to a: m$?</summary>
-    It seems like the result should be $\mathit{send}\ a\ m; \mathit{recv}\ a$. We'll solve this shortly.
+    It seems like the result should be $\m{send}\ a\ m; \m{recv}\ a$. We'll solve this shortly.
 </details>
 
 <details>
@@ -105,21 +106,21 @@ $$G ::= a \to b: m\ |\ G; G \ |\ G \mathbin{||}G \ |\ \forall x:S \cdot G$$
 
 We can now write a type like
 
-$$\forall p:\mathit{ps} \cdot c \to p: \mathit{prepare}$$
+$$\forall p:\m{ps} \cdot c \to p: \m{prepare}$$
 
 which would suffice for the start of a [commit protocol](https://en.wikipedia.org/wiki/Two-phase_commit_protocol#Basic_algorithm).
 Notice that $\forall$ is just n-ary parallel composition for each party in the role.
 
 Projection should give us
 
-$$L_c : \forall p:ps \cdot \mathit{send}\ p\ \mathit{prepare}$$
+$$L_c : \forall p:ps \cdot \m{send}\ p\ \m{prepare}$$
 
-$$L_p : \mathit{recv}\ c$$
+$$L_p : \m{recv}\ c$$
 
 which matches our intuition neatly:
 
 - when we project with respect to the set of coordinators, we want to get a local type which says what _one arbitrary_ coordinator does. Since this coordinator isn't in $ps$ but interacts with every member of $ps$, the quantifier should remain in the local type $L_c$, which correctly captures the multicast.
-- when we project with respect to the set of participants, since our arbitrary participant is in $ps$, it is involved in _only one_ $\mathit{recv}$, so the quantifier should disappear.
+- when we project with respect to the set of participants, since our arbitrary participant is in $ps$, it is involved in _only one_ $\m{recv}$, so the quantifier should disappear.
 
 Here is the projection function for $\forall$, which is now defined with respect to a role $S$.
 
@@ -131,10 +132,10 @@ $$\forall x:S \cdot G \upharpoonright S' \equiv \forall x:S \cdot (G \upharpoonr
 
 For leader election, however, we quickly run into a problem.
 
-$$\forall s:\mathit{servers} \cdot s \to s: \mathit{RequestVote}$$
+$$\forall s:\m{servers} \cdot s \to s: \m{RequestVote}$$
 
 The rules from before don't help us much - do we keep the quantifier or not?
-Also, it seems that a server should both $\mathit{send}$ and $\mathit{recv}$, but since there is only one role to project with respect to, we can only have one of those.
+Also, it seems that a server should both $\m{send}$ and $\m{recv}$, but since there is only one role to project with respect to, we can only have one of those.
 
 We call this sort of intra-role communication a _self-send_.
 
@@ -176,7 +177,7 @@ There are two cases for $\forall$.
 
     $$(\forall x:S\setminus e\cdot G) \kwproj z \equiv \forall x:S\setminus e\cdot (G \kwproj z)$$
 
-The extension for $\to$ is simple: since we are projecting with respect to $z$, we can just check if an occurrence of communication involves $z$ directly. If it involves $z$ as both sender and receiver, we correspondingly produce both $\mathit{send}$ and $\mathit{recv}$.
+The extension for $\to$ is simple: since we are projecting with respect to $z$, we can just check if an occurrence of communication involves $z$ directly. If it involves $z$ as both sender and receiver, we correspondingly produce both $\m{send}$ and $\m{recv}$.
 
 <!-- <details> -->
 <!-- <summary> -->
@@ -184,26 +185,26 @@ Let's walk through an example.
 <!-- </summary> -->
 
 $$\begin{array}{rll}
-& \gall{x}{C}{\galle{y}{C}{x}{\gtransmit{x}{y}{m}}} \kwproj z & (1) \\\\
-= & (\galle{y}{C}{z}{\gtransmit{z}{y}{m}} \kwproj z) & (2) \\\\
-& \quad \kwpar (\galle{x}{C}{z}{\galle{y}{C}{x}{\gtransmit{x}{y}{m}}} \kwproj z) \\\\
-= & (\galle{y}{C}{z}{(\gtransmit{z}{y}{m} \kwproj z)}) & (3) \\\\
-& \quad \kwpar (\galle{x}{C}{z}{(\galle{y}{C}{x}{\gtransmit{x}{y}{m}} \kwproj z)}) \\\\
-= & (\galle{y}{C}{z}{\lsend{y}{m}}) & (4) \\\\
-& \quad \kwpar (\galle{x}{C}{z}{(\gtransmit{x}{z}{m} \kwproj z} \\\\
-& \qquad \kwpar (\galle{y}{C}{z,x}{\gtransmit{x}{y}{m}} \kwproj z))) \\\\
-= & (\galle{y}{C}{z}{\lsend{y}{m}}) & (5) \\\\
-& \quad \kwpar (\galle{x}{C}{z}{(\lrecv{x}} \\\\
-& \qquad \kwpar (\galle{y}{C}{z,x}{(\gtransmit{x}{y}{m} \kwproj z)}))) \\\\
-= & (\galle{y}{C}{z}{\lsend{y}{m}}) & (6) \\\\
-& \quad \kwpar (\galle{x}{C}{z}{\lrecv{x}}) \\\\
+& \gall{x}{C}{\galle{y}{C}{x}{\gtransmit{x}{y}{m}}} \kwproj z & (1) \\
+= & (\galle{y}{C}{z}{\gtransmit{z}{y}{m}} \kwproj z) & (2) \\
+& \quad \kwpar (\galle{x}{C}{z}{\galle{y}{C}{x}{\gtransmit{x}{y}{m}}} \kwproj z) \\
+= & (\galle{y}{C}{z}{(\gtransmit{z}{y}{m} \kwproj z)}) & (3) \\
+& \quad \kwpar (\galle{x}{C}{z}{(\galle{y}{C}{x}{\gtransmit{x}{y}{m}} \kwproj z)}) \\
+= & (\galle{y}{C}{z}{\lsend{y}{m}}) & (4) \\
+& \quad \kwpar (\galle{x}{C}{z}{(\gtransmit{x}{z}{m} \kwproj z} \\
+& \qquad \kwpar (\galle{y}{C}{z,x}{\gtransmit{x}{y}{m}} \kwproj z))) \\
+= & (\galle{y}{C}{z}{\lsend{y}{m}}) & (5) \\
+& \quad \kwpar (\galle{x}{C}{z}{(\lrecv{x}} \\
+& \qquad \kwpar (\galle{y}{C}{z,x}{(\gtransmit{x}{y}{m} \kwproj z)}))) \\
+= & (\galle{y}{C}{z}{\lsend{y}{m}}) & (6) \\
+& \quad \kwpar (\galle{x}{C}{z}{\lrecv{x}}) \\
 \end{array}$$
 
 
 The type in (1) represents a protocol where every party in role $C$ pings every other, sending a message and receiving a reply.
 
 In (2), $z$ could be in $C$, so we apply $\forall$ case 1.
-In the left arm, we push the projection inward until we are able to project the communication into a $\mathit{send}$ (4).
+In the left arm, we push the projection inward until we are able to project the communication into a $\m{send}$ (4).
 In the right arm, we add $z$ to the set of exclusions for the quantifier for $x$ and continue (3), but since $y$ may also be $z$, we find ourselves having to apply case 1 again (4).
 The left arm there projects to a receive (5), while the right is a no-op, as the communication between $x$ and $y$ is unobservable to $z$.
 This gives us the protocol at (6), which says exactly what we started out with.
