@@ -513,9 +513,11 @@ a[href] {
 	color: var(--link-color);
 	text-decoration: none;
 }
-a[href]:visited {
+
+/* a[href]:visited {
 	color: var(--link-visited-color);
-}
+} */
+
 /* a[href]:hover,
 a[href]:active { */
 	/* color: var(--text-color-link-active); */
@@ -595,6 +597,16 @@ pre:not([class*="language-"]) {
 	word-break: normal;
 	overflow-x: auto;
 }
+
+.scroll-when-overflowing, pre {
+	overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
+  display: none;
+}
 header {
 			/* display: flex; */
 			/* gap: 2em; */
@@ -664,9 +676,9 @@ header {
 
 <div class="blog-content">
 <p>Automation in puzzle games is tricky to balance.
-The issue is that puzzle games can involve some busywork, e.g. keeping track of the possibilities for each cell in Sudoku, and that removing the tedious parts allows the player to <a href="https://www.playgoodsudoku.com/">focus on the "interesting" parts</a> of the puzzle.</p>
+The issue is that puzzle games can involve some busywork, e.g. keeping track of the possibilities for each cell in Sudoku, and that removing the tedious parts allows the player to <a href="https://www.playgoodsudoku.com/">focus on the &quot;interesting&quot; parts</a> of the puzzle.</p>
 <p>Unfortunately, the parts of the game that are core to its experience can be quite subjective.
-Automation can also quickly spiral out of control, where adding a single rule (e.g. transitivity) to a solver that barely helps makes it <a href="https://magnushoff.com/articles/minesweeper/">practically solve the game completely</a>, making you wonder what is left to "play".</p>
+Automation can also quickly spiral out of control, where adding a single rule (e.g. transitivity) to a solver that barely helps makes it <a href="https://magnushoff.com/articles/minesweeper/">practically solve the game completely</a>, making you wonder what is left to &quot;play&quot;.</p>
 <h1 id="chording">Chording</h1>
 <p>Something distinctive about Minesweeper is the use of a mouse chord: pressing both mouse buttons reveals the tiles around if it is safe to do so, given the number under the cursor.
 If it is not safe, nothing is revealed; the player almost always then flags the tiles they think contain mines, then repeats the chord.</p>
@@ -676,7 +688,7 @@ If it is not safe, nothing is revealed; the player almost always then flags the 
 <p>Moving the mouse intentionally, the speed at which you can mow through the board is really quite thrilling.
 The busywork that is automated is the repeated clicking; <em>where</em> to click, arguably the intentional part of the action, is still left to the player.</p>
 <p>The downside is that it's now possible to rely too much on automation, revealing most of the board by waving the mouse mindlessly, which is not really in the spirit of this change.
-Accidental "spoilers" are also possible, if the mouse moves faster than you're thinking.
+Accidental &quot;spoilers&quot; are also possible, if the mouse moves faster than you're thinking.
 However, it's no worse than a solver which applies transitivity; at least you have to point at the tiles.
 Also, how different is it really from clicking reflexively and drifting into pattern-matching mode?</p>
 <p>While we're comparing, this does nothing about randomness (what <a href="https://magnushoff.com/articles/minesweeper/">Magnus</a> mainly addresses), so it's still possible to lose from bad luck, e.g. in the first tile, or at the end of the game. My win rate did not improve, only my timing.</p>
@@ -691,7 +703,7 @@ At the same time, the ease with which boards can be mostly solved now makes me w
 			
 		</footer>
 
-		<!-- This page `/blog/minesweeper/` was built on 2025-03-08T09:29:34.643Z -->
+		<!-- This page `/blog/minesweeper/` was built on 2025-04-11T08:28:17.314Z -->
 		
 	</body>
 </html>

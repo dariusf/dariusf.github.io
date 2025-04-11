@@ -513,9 +513,11 @@ a[href] {
 	color: var(--link-color);
 	text-decoration: none;
 }
-a[href]:visited {
+
+/* a[href]:visited {
 	color: var(--link-visited-color);
-}
+} */
+
 /* a[href]:hover,
 a[href]:active { */
 	/* color: var(--text-color-link-active); */
@@ -595,6 +597,16 @@ pre:not([class*="language-"]) {
 	word-break: normal;
 	overflow-x: auto;
 }
+
+.scroll-when-overflowing, pre {
+	overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
+  display: none;
+}
 header {
 			/* display: flex; */
 			/* gap: 2em; */
@@ -664,7 +676,7 @@ header {
 
 <div class="blog-content">
 <p>PL papers tend to use lots of <a href="https://www.jsoftware.com/papers/tot.htm">notation</a>.
-To manage this, paper sources usually include a "macros.tex" containing a slew of <code>\newcommand</code>s, defining wonderful languages of terms and naming all the clever judgments and syntactic sugar.</p>
+To manage this, paper sources usually include a &quot;macros.tex&quot; containing a slew of <code>\newcommand</code>s, defining wonderful languages of terms and naming all the clever judgments and syntactic sugar.</p>
 <p>While notation can increase clarity, it can cause <a href="https://blog.sigplan.org/2020/09/29/pl-notation-is-a-barrier-to-entry/">difficulty</a> to readers, who
 haven't had the hundreds of hours of practice the authors have had using and reading those intricate strings of symbols, and internalizing their precedences and meaning.
 Readers will forget what things denote and will have to scroll up and down repeatedly in a careful reading of the work.</p>
@@ -690,7 +702,7 @@ More importantly, it defines the paired command <code>\traceDef</code>, which is
 <pre class="language-latex" tabindex="0"><code class="language-latex">A <span class="token function selector">\traceDef</span><span class="token function selector">\emph</span><span class="token punctuation">{</span>trace<span class="token punctuation">}</span> <span class="token equation string">$<span class="token equation-command regex">\trace</span>$</span> is a sequence of states...</code></pre>
 <p>Subsequent uses of <code>\trace</code> (even the one right after) will now contain links back to this part of the paper.</p>
 <p>Doing this has benefits for authors too.
-The introduction of a new concept is now made explicit, which may help you consider if you're doing a "forward definition";
+The introduction of a new concept is now made explicit, which may help you consider if you're doing a &quot;forward definition&quot;;
 if you forget the definition, you get a compilation warning.
 Furthermore, paired with SyncTex, you can really zip around the paper.</p>
 <p>For an example of this in action, I've annotated my most recent paper <a href="https://arxiv.org/abs/2308.00988">here</a>.</p>
@@ -723,7 +735,7 @@ We would also have to handle the case of a command having parameters (see previo
 </details>
 <details><summary>Could we automatically link to the first use?</summary>
 <p>An early version of this defined a command that redefined itself after the first time it was used, so subsequent uses would link back to the first one.
-This seemed like a nice idea, based on the assumption that "forward definitions" should be avoided.</p>
+This seemed like a nice idea, based on the assumption that &quot;forward definitions&quot; should be avoided.</p>
 <p>However, this can be fragile when used with figures, which may end up ordered before any given text on a page, and it is sometimes natural to defer a formal definition until after an intuitive use has been explained.</p>
 <p>The current simpler design, relying on manual annotation of the definition site, seems more robust.</p>
 </details>
@@ -833,7 +845,7 @@ latex blog post
 			
 		</footer>
 
-		<!-- This page `/blog/latex-notation/` was built on 2025-03-08T09:29:34.643Z -->
+		<!-- This page `/blog/latex-notation/` was built on 2025-04-11T08:28:17.314Z -->
 		
 	</body>
 </html>

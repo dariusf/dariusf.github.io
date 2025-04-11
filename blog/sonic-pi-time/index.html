@@ -513,9 +513,11 @@ a[href] {
 	color: var(--link-color);
 	text-decoration: none;
 }
-a[href]:visited {
+
+/* a[href]:visited {
 	color: var(--link-visited-color);
-}
+} */
+
 /* a[href]:hover,
 a[href]:active { */
 	/* color: var(--text-color-link-active); */
@@ -594,6 +596,16 @@ pre:not([class*="language-"]) {
 	word-spacing: normal;
 	word-break: normal;
 	overflow-x: auto;
+}
+
+.scroll-when-overflowing, pre {
+	overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
+  display: none;
 }
 header {
 			/* display: flex; */
@@ -682,7 +694,7 @@ live_loop <span class="token symbol">:drums</span> <span class="token keyword">d
   sleep <span class="token number">1</span>
 <span class="token keyword">end</span></code></pre>
 <p>Well, mostly.
-Live loops are Ruby threads, which are scheduled nondeterministically. As a result, events across threads within one time "partition" are unordered.</p>
+Live loops are Ruby threads, which are scheduled nondeterministically. As a result, events across threads within one time &quot;partition&quot; are unordered.</p>
 <p>Consider this simplified example, which features communication across live loops. It's a fairly common scenario: we have a control loop that determines the key we're playing in, and one or more loops which adapt accordingly.</p>
 <p>We're using <code>set</code> and <code>get</code> for deterministic (timeline-synced) state updates, and the <code>sync:</code> parameter to ensure that <code>melody</code> only starts when receiving a  <em>cue</em> from <code>control</code>. Cues are sent every time a live loop begins executing its block.</p>
 <pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:control</span> <span class="token keyword">do</span>
@@ -713,7 +725,7 @@ Thus the cue should be delayed until after the melody loop has (presumably<sup c
   sleep <span class="token number">1</span>
 <span class="token keyword">end</span></code></pre>
 <p>Now, however, we hear only every other note.
-The problem is that it is possible for the melody loop to miss cues while it is sleeping. I'm not sure if this is due to the time abstraction leaking (where we can observe one thread sleeping while another acts, despite the time "partition" being the same), or the ordering of cues not being well-defined with respect to other events in live loops.</p>
+The problem is that it is possible for the melody loop to miss cues while it is sleeping. I'm not sure if this is due to the time abstraction leaking (where we can observe one thread sleeping while another acts, despite the time &quot;partition&quot; being the same), or the ordering of cues not being well-defined with respect to other events in live loops.</p>
 <p>Nevertheless, the solution is to ensure that the melody loop is not asleep when control loop cues. A simple way is to make sure there is always less sleep time in the former loop.</p>
 <pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:control</span><span class="token punctuation">,</span> <span class="token symbol">delay</span><span class="token operator">:</span> <span class="token number">0.1</span> <span class="token keyword">do</span>
   set <span class="token symbol">:n</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token symbol">:c</span><span class="token punctuation">,</span> <span class="token symbol">:d</span><span class="token punctuation">,</span> <span class="token symbol">:e</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tick
@@ -746,7 +758,7 @@ It's quite likely that this is difficult to implement efficiently with its wealt
 			
 		</footer>
 
-		<!-- This page `/blog/sonic-pi-time/` was built on 2025-03-08T09:29:34.643Z -->
+		<!-- This page `/blog/sonic-pi-time/` was built on 2025-04-11T08:28:17.315Z -->
 		
 	</body>
 </html>

@@ -249,9 +249,11 @@ a[href] {
 	color: var(--link-color);
 	text-decoration: none;
 }
-a[href]:visited {
+
+/* a[href]:visited {
 	color: var(--link-visited-color);
-}
+} */
+
 /* a[href]:hover,
 a[href]:active { */
 	/* color: var(--text-color-link-active); */
@@ -331,6 +333,16 @@ pre:not([class*="language-"]) {
 	word-break: normal;
 	overflow-x: auto;
 }
+
+.scroll-when-overflowing, pre {
+	overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
+  display: none;
+}
 header {
 			/* display: flex; */
 			/* gap: 2em; */
@@ -388,7 +400,8 @@ header {
 			
 <!-- <h3 style="margin: 0">Work</h3> -->
 <!-- ### Work -->
-<p>My <a href="/resume.pdf">resume</a> and extended <a href="/cv">CV</a>.</p>
+<p>My <a href="/resume.pdf">resume</a>.</p>
+<!-- My [resume](/resume.pdf) and extended [CV](/cv). -->
 <p>Much of my work can be found on <a href="https://www.github.com/dariusf">GitHub</a>.</p>
 <h3 id="teaching">Teaching</h3>
 <ul>
@@ -403,6 +416,7 @@ header {
 <li>Artifact evaluation committee: <a href="https://etaps.org/user-profile/archive/53-etaps-2022/491-esop-2022-artifact-evaluation">ESOP 2022</a></li>
 <li>Subreviewer: POPL 2022, CAV 2022, TASE 2024</li>
 <li>Student volunteer: PLDI 2021, SPLASH 2022</li>
+<li>Program committee: OCaml 2025</li>
 </ul>
 <h3 id="talks">Talks</h3>
 <ul>
@@ -428,7 +442,7 @@ header {
 			
 		</footer>
 
-		<!-- This page `/work/` was built on 2025-03-08T09:29:34.642Z -->
+		<!-- This page `/work/` was built on 2025-04-11T08:28:17.314Z -->
 		
 	</body>
 </html>

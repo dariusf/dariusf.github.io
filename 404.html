@@ -249,9 +249,11 @@ a[href] {
 	color: var(--link-color);
 	text-decoration: none;
 }
-a[href]:visited {
+
+/* a[href]:visited {
 	color: var(--link-visited-color);
-}
+} */
+
 /* a[href]:hover,
 a[href]:active { */
 	/* color: var(--text-color-link-active); */
@@ -331,6 +333,16 @@ pre:not([class*="language-"]) {
 	word-break: normal;
 	overflow-x: auto;
 }
+
+.scroll-when-overflowing, pre {
+	overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
+  display: none;
+}
 header {
 			/* display: flex; */
 			/* gap: 2em; */
@@ -408,7 +420,7 @@ This is compatible with:
 			
 		</footer>
 
-		<!-- This page `/404.html` was built on 2025-03-08T09:29:34.641Z -->
+		<!-- This page `/404.html` was built on 2025-04-11T08:28:17.313Z -->
 		
 	</body>
 </html>

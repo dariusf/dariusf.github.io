@@ -39,10 +39,6 @@ ul.blog-posts li span {
 	text-align: right;
 	margin-right: 20px;
 }
-
-ul.blog-posts li a:visited {
-	color: var(--link-visited-color);
-}
 /* This is an arbitrary CSS string added to the bundle */
 :root {
 	/* --font-family: -apple-system, system-ui, sans-serif; */
@@ -268,9 +264,11 @@ a[href] {
 	color: var(--link-color);
 	text-decoration: none;
 }
-a[href]:visited {
+
+/* a[href]:visited {
 	color: var(--link-visited-color);
-}
+} */
+
 /* a[href]:hover,
 a[href]:active { */
 	/* color: var(--text-color-link-active); */
@@ -350,6 +348,16 @@ pre:not([class*="language-"]) {
 	word-break: normal;
 	overflow-x: auto;
 }
+
+.scroll-when-overflowing, pre {
+	overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
+  display: none;
+}
 header {
 			/* display: flex; */
 			/* gap: 2em; */
@@ -405,6 +413,9 @@ header {
 
 		<main id="skip">
 			
+
+
+<div style="margin-top: 1em;"></div>
 
 
 
@@ -463,7 +474,7 @@ header {
 			
 		</footer>
 
-		<!-- This page `/drafts/` was built on 2025-03-08T09:29:34.641Z -->
+		<!-- This page `/drafts/` was built on 2025-04-11T08:28:17.312Z -->
 		
 	</body>
 </html>
