@@ -9,7 +9,9 @@ eleventyNavigation:
 
 <!-- ### Work -->
 
-My [resume](/resume.pdf) and extended [CV](/cv).
+My [resume](/resume.pdf).
+
+<!-- My [resume](/resume.pdf) and extended [CV](/cv). -->
 
 Much of my work can be found on [GitHub](https://www.github.com/dariusf).
 
