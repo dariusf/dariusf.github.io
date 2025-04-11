@@ -26,6 +26,7 @@ Much of my work can be found on [GitHub](https://www.github.com/dariusf).
 - Artifact evaluation committee: [ESOP 2022](https://etaps.org/user-profile/archive/53-etaps-2022/491-esop-2022-artifact-evaluation)
 - Subreviewer: POPL 2022, CAV 2022, TASE 2024
 - Student volunteer: PLDI 2021, SPLASH 2022
+- Program committee: OCaml 2025
 
 ### Talks
 
