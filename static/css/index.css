@@ -307,3 +307,13 @@ pre:not([class*="language-"]) {
 	word-break: normal;
 	overflow-x: auto;
 }
+
+.scroll-when-overflowing, pre {
+	overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
+  display: none;
+}
