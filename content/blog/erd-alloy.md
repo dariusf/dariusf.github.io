@@ -26,7 +26,7 @@ This means that `r1` is *one-to-many*: every `e1` is related to exactly one `e2`
 
 Here is an equivalent ER diagram[^1]:
 
-<div style="text-align: center" class="theme-affected">
+<div style="text-align: center" class="theme-affected scroll-when-overflowing">
 
 
 ```graphviz
@@ -55,7 +55,7 @@ sig e2 {}{ one this.~r1 }
 
 This means that each e1 is associated with exactly one e2 *and vice versa*.
 
-<div style="text-align: center" class="theme-affected">
+<div style="text-align: center" class="theme-affected scroll-when-overflowing">
 
 ```graphviz
 digraph G {
@@ -94,7 +94,7 @@ For example, we can verify simple properties, such as: that the cardinality cons
 
 Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint $c$ means...
 
-<div style="text-align: center" class="theme-affected">
+<div style="text-align: center" class="theme-affected scroll-when-overflowing">
 
 ```graphviz
 digraph G {
@@ -177,7 +177,7 @@ Executing "Check no_unrelated_e2 for 2"
 
 The counterexample produced demonstrates rather obviously that it is possible to have an `e2` not related to an `e1`.
 
-<div style="text-align: center" class="theme-affected">
+<div style="text-align: center" class="theme-affected scroll-when-overflowing">
 
 ```graphviz
 digraph G {
@@ -214,7 +214,7 @@ run { some e: e1 | some e.r1 } for 2
 
 Finding models can help us answer other kinds of questions, like:
 
-<div style="text-align: center" class="theme-affected">
+<div style="text-align: center" class="theme-affected scroll-when-overflowing">
 
 ```graphviz
 digraph G {
