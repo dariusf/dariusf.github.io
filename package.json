@@ -48,6 +48,7 @@
 		"zod-validation-error": "^3.3.1"
 	},
 	"dependencies": {
-		"markdown-it-footnote": "^4.0.0"
+		"markdown-it-footnote": "^4.0.0",
+		"markdown-it-mathjax3": "^4.3.2"
 	}
 }

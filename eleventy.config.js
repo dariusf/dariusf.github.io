@@ -9,8 +9,9 @@ import pluginNavigation from "@11ty/eleventy-navigation";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 
 import pluginFilters from "./_config/filters.js";
-import mathjaxPlugin from "./mathjax.js";
+// import mathjaxPlugin from "./mathjax.js";
 import markdownItFootnote from "markdown-it-footnote";
+import markdownItMathjax from "markdown-it-mathjax3";
 // import markdownIt from "markdown-it";
 import { execSync } from "child_process";
 
@@ -51,7 +52,7 @@ export default async function (eleventyConfig) {
 		toFileDirectory: "dist",
 	});
 
-	eleventyConfig.addPlugin(mathjaxPlugin);
+	// eleventyConfig.addPlugin(mathjaxPlugin);
 
 	// Official plugins
 	eleventyConfig.addPlugin(pluginSyntaxHighlight, {
@@ -136,6 +137,7 @@ export default async function (eleventyConfig) {
 		// 	linkify: true,
 		// });
 		mdLib.use(markdownItFootnote);
+		mdLib.use(markdownItMathjax);
 
 		// console.log(mdLib.renderer.rules);
 		renderGraphviz(mdLib);
