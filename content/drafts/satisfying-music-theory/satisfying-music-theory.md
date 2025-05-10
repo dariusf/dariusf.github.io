@@ -1,5 +1,5 @@
 ---
-title: "Satisfying Music Theory"
+title: "Satisfying Music Theory I"
 date: 2022-12-30
 math: true
 # toc: true
@@ -8,15 +8,466 @@ templateEngineOverride: md
 
 <script src="./abcjs-basic-min.js"></script>
 <link rel="stylesheet" type="text/css" href="./abcjs-audio.css">
-<script src="./abcjs.js"></script>
+<script src="./abcjs-driver.js"></script>
 
 <!-- TLDR -->
 
-This post is about my experiments in generating music using SMT.
+<span id="joy1">
+%%staves vs va vt (vch vb)
+X: 1
+T: Joy to the World
+L: 1/16
+K: C
+M: 4/4
+Q: 1/4=100
+V: vs name="S"
+V: va name="A"
+V: vt name="T"  clef=treble-8
+V: vb name="B"  clef=bass middle=d transpose=-24
+V: vch name=" "
+%
+V: vs
+%%MIDI program 40
+c4 B3 A1 G6 F2 | E4 D4 C6 G2 | A6 A2 B6 B2 | c6 c2 c2 B2 A2 G2 |
+ G3 F1 E2 c2 c2 B2 A2 G2 | G3 F1 E2 E2 E2 E2 E2 E1 F1 | G6 G1 F1 D2 D2 D2 D1 E1 | F6 E1 D1 C2 c4 A2 |
+ G3 F1 E2 F2 E4 D4 | C8 ||
+V: va
+%%MIDI program 41
+e4 G3 e1 d6 A2 | e4 B4 e6 d2 | e6 e2 d6 d2 | e6 A2 f2 e2 c2 d2 |
+ B3 F1 e2 e2 e2 d2 e2 d2 | d3 f1 e2 e2 e2 e2 e2 c1 f1 | d6 d1 f1 d2 d2 d2 d1 e1 | F6 e1 d1 e2 c4 e2 |
+ d3 f1 e2 f2 e4 d4 | e8 ||
+V: vt
+%%MIDI program 42
+c4 B3 C1 B6 c2 | c4 B4 c6 B2 | c6 c2 B6 B2 | c6 c2 c2 G2 c2 B2 |
+ B3 c1 c2 c2 c2 B2 c2 B2 | B3 c1 c2 C2 c2 c2 c2 C1 c1 | B6 B1 c1 B2 B2 B2 B1 c1 | c6 c1 B1 c2 c4 c2 |
+ B3 c1 c2 c2 c4 B4 | c8 ||
+V: vb
+%%MIDI program 42
+e4 d3 e1 d6 c2 | e4 d4 e6 d2 | e6 e2 d6 d2 | e6 e2 c2 e2 e2 d2 |
+ d3 c1 e2 e2 e2 d2 e2 d2 | G3 c1 e2 e2 e2 e2 e2 E1 c1 | d6 d1 c1 d2 d2 G2 d1 e1 | c6 e1 d1 e2 e4 e2 |
+ d3 c1 e2 c2 e4 G4 | e8 ||
+V: vch
+"vi"x4 "V"x3 "vi"x1 "V"x6 "IV"x2 | "vi"x4 "V"x4 "vi"x6 "V"x2 | "vi"x6 "vi"x2 "V"x6 "V"x2 | "vi"x6 "vi"x2 "IV"x2 "iii"x2 "vi"x2 "V"x2 |
+ "V"x3 "IV"x1 "vi"x2 "vi"x2 "vi"x2 "V"x2 "vi"x2 "V"x2 | "V"x3 "IV"x1 "vi"x2 "vi"x2 "vi"x2 "vi"x2 "vi"x2 "I"x1 "IV"x1 | "V"x6 "V"x1 "IV"x1 "V"x2 "V"x2 "V"x2 "V"x1 "vi"x1 | "IV"x6 "vi"x1 "V"x1 "vi"x2 "vi"x4 "vi"x2 |
+ "V"x3 "IV"x1 "vi"x2 "IV"x2 "vi"x4 "V"x4 | "vi"x8 ||
+</span>
+<script>
+// renderMusicIn('joy1', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('joy1');
+// renderMusicIn('joy1', { wrap: { minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 10 } });
+for (const v of [1, 2, 3, 4]) {
+  for (const e of document.querySelectorAll(`#joy1 .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#joy1 .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+</script>
+
+Reharmonization of Joy to the World. The melody is given and the other voices are subject to basic homophonic harmony constraints.
+
+<span id="joy2">
+%%staves vs va vt (vch vb)
+X: 1
+T: Joy to the World
+L: 1/16
+K: C
+M: 4/4
+Q: 1/4=100
+V: vs name="S"
+V: va name="A"
+V: vt name="T"  clef=treble-8
+V: vb name="B"  clef=bass middle=d transpose=-24
+V: vch name=" "
+%
+V: vs
+%%MIDI program 40
+c4 B3 A1 G6 F2 | E4 D4 C6 G2 | A6 A2 B6 B2 | c6 c2 c2 B2 A2 G2 |
+ G3 F1 E2 c2 c2 B2 A2 G2 | G3 F1 E2 E2 E2 E2 E2 E1 F1 | G6 G1 F1 D2 D2 D2 D1 E1 | F6 E1 D1 C2 c4 A2 |
+ G3 F1 E2 F2 E4 D4 | C8 ||
+V: va
+%%MIDI program 41
+G1 G1 F2 e6 (cc6 | cc2)  c1 G6 G6 (cc1 | cc4-c2-c1)  A1 B8 | G1 G4 G1 G2 c2 e2 A2 B2 |
+ B1 G1 d1 A1 G8 F1 F1 (GG2 | GG1)  c2 F1 A1 e1 G1 e1 G1 e3 G1 G1 c1 (cc1 | cc2)  G3 d8 d1 d1 G1 | A4 F1 f1 c1 G1 A8 |
+ G2 G1 f1 A8 G1 d3 | e8 ||
+V: vt
+%%MIDI program 42
+C4 E4 G1 (CC4-C2-C1 | CC1)  c2 G8 E4 (cc1 | cc4-c2-c1)  F1 B1 G6 G1 | E2 E4 C1 E1 C1 C1 B1 G1 C1 E2 (GG1 | GG3)
+ A1 G8 A2 c1 (EE1 | EE3)  F1 C1 C1 C1 E1 C1 C1 C1 E1 B1 E1 (cc2 | cc4)  D8 G2 G1 (CC1 | CC2)  C3 C1 G2 F1 A2 A2 C3 |
+ C3 A1 C6 A2 D4 | c8 ||
+V: vb
+%%MIDI program 42
+e1 c1 F2 E4 G4 (cc4 | cc4)  d4 c8 | c6 c1 F1 B2 G4 (GG2 | GG6)  E4 G2 c1 E1 (EE2 | EE1)
+ d3 E3 E3 E1 E1 F1 F1 (ee2 | ee2)  G1 d1 c2 E2 E3 E2 B1 c2 | c2 G1 G3 d2 d4 G1 G1 G1 (cc1 | cc4-c2-c1)  d1 F1 A1 F1 F1 F1 F1 F2 |
+ c8 E4 G2 G2 | e8 ||
+V: vch
+"I"x1 "I"x1 "IV"x2 "iii"x3 "vi"x1 "I"x6 "IV"x1 "IV"x1 | "I"x4 "V"x4 "I"x8 | "IV"x8 "V"x8 | "I"x6 "I"x4 "iii"x2 "IV"x1 "vi"x1 "iii"x1 "iii"x1 |
+ "iii"x1 "V"x2 "ii"x1 "I"x6 "iii"x2 "ii"x2 "I"x2 | "I"x2 "I"x1 "ii"x1 "vi"x1 "vi"x1 "I"x4 "I"x2 "iii"x2 "I"x1 "IV"x1 | "I"x3 "I"x1 "V"x3 "ii"x1 "ii"x4 "V"x2 "V"x1 "I"x1 | "IV"x6 "I"x1 "V"x1 "IV"x4 "IV"x4 |
+ "I"x3 "IV"x1 "vi"x2 "IV"x2 "vi"x3 "vi"x1 "V"x4 | "vi"x8 ||
+</span>
+<script>
+// renderMusicIn('joy2', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('joy2');
+// renderMusicIn('joy2', { wrap: { minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 10 } });
+for (const v of [1, 2, 3, 4]) {
+  for (const e of document.querySelectorAll(`#joy2 .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#joy2 .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+</script>
+
+Same as above, but without the homophonic constraint. Now the voices can move freely and independently, as long as they stick within any harmony constraints induced by the melody line.
+
+<span id="counterpoint1">
+%%staves vs (vch va)
+X: 1
+T: Counterpoint
+L: 1/4
+K: C
+M: 4/4
+Q: 1/4=60
+V: vs name="S"
+V: va name="A"
+V: vch name=" "
+%
+V: vs
+%%MIDI program 52
+e1 g1 e1 d1 | c1 B1 c1 e1 | d1 c1 d1 e1 | f1 e1 ||
+V: va
+%%MIDI program 52
+e1 e1 a1 g1 | c'1 g1 g1 a1 | g1 c'1 g1 g1 | c1 e1 ||
+V: vch
+"vi"x1 "iii"x1 "vi"x1 "V"x1 | "I"x1 "iii"x1 "I"x1 "vi"x1 | "V"x1 "I"x1 "V"x1 "I"x1 | "IV"x1 "vi"x1 ||
+</span>
+<script>
+// renderMusicIn('counterpoint1', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('counterpoint1');
+// {wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 }}
+for (const v of [1, 2]) {
+  for (const e of document.querySelectorAll(`#counterpoint1 .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#counterpoint1 .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+</script>
+
+<span id="counterpoint2">
+%%staves vs (vch va)
+X: 1
+T: Counterpoint 2
+L: 1/4
+K: C
+M: 4/4
+Q: 1/4=60
+V: vs name="S"
+V: va name="A"
+V: vch name=" "
+%
+V: vs
+%%MIDI program 52
+g1 e1 f1 e1 | d1 f1 g1 e1 | a1 g1 ||
+V: va
+%%MIDI program 52
+g1 g1 c'1 g1 | g1 d1 c1 g1 | c1 g1 ||
+V: vch
+"iii"x1 "I"x1 "IV"x1 "iii"x1 | "V"x1 "ii"x1 "I"x1 "iii"x1 | "vi"x1 "I"x1 ||
+</span>
+<script>
+// renderMusicIn('counterpoint2', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('counterpoint2');
+// {wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 }}
+for (const v of [1, 2]) {
+  for (const e of document.querySelectorAll(`#counterpoint2 .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#counterpoint2 .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+</script>
+
+Two example exercises, following most of the rules of [First Species Counterpoint](https://musictheory.pugetsound.edu/mt21c/FirstSpecies.html),
+as well as [general rules for melody](https://musictheory.pugetsound.edu/mt21c/RulesOfMelody.html).
+
+<span id="ode1">
+%%staves vs va vt (vch vb)
+X: 1
+T: Ode to Joy
+L: 1/8
+K: C
+M: 4/4
+Q: 1/4=100
+V: vs name="S"
+V: va name="A"
+V: vt name="T"  clef=treble-8
+V: vb name="B"  clef=bass middle=d transpose=-24
+V: vch name=" "
+%
+V: vs
+%%MIDI program 20
+e2 e2 f2 g2 | g2 f2 e2 d2 | c2 c2 d2 e2 | e3 d1 d4 |
+ e2 e2 f2 g2 | g2 f2 e2 d2 | c2 c2 d2 e2 | d3 c1 c4 |
+ d2 d2 e2 c2 | d2 e1 f1 e2 c2 | d2 e1 f1 e2 d2 | c2 d2 G4 |
+ e2 e2 f2 g2 | g2 f2 e2 d2 | c2 c2 d2 e2 | d3 c1 (cc4 | cc8)
+ ||
+V: va
+%%MIDI program 20
+c2 e2 f2 d2 | B2 A2 A2 d2 | e2 e2 d2 e2 | e3 d1 G4 |
+ e2 e2 A2 G2 | d2 f2 e2 d2 | e2 e2 d2 e2 | d3 e1 A4 |
+ B2 G2 e2 e2 | d2 e1 f1 e2 e2 | d2 e1 f1 e2 d2 | e2 G2 B4 |
+ c2 e2 f2 d2 | d2 f2 e2 d2 | e2 e2 d2 A2 | d3 e1 (ee4 | ee8)
+ ||
+V: vt
+%%MIDI program 20
+c2 c2 F2 B2 | B2 A2 C2 B2 | c2 c2 B2 c2 | c3 B1 B4 |
+ c2 C2 c2 B2 | B2 c2 c2 B2 | c2 c2 B2 c2 | B3 c1 c4 |
+ B2 B2 c2 c2 | B2 c1 c1 c2 c2 | B2 c1 c1 B2 D2 | c2 B2 B4 |
+ c2 C2 c2 B2 | B2 c2 c2 B2 | c2 c2 B2 c2 | B3 c1 (cc4 | cc8)
+ ||
+V: vb
+%%MIDI program 20
+e2 e2 c2 d2 | d2 A2 E2 d2 | e2 e2 d2 e2 | e3 G1 d4 |
+ e2 e2 c2 d2 | d2 c2 e2 d2 | e2 e2 d2 e2 | G3 e1 e4 |
+ d2 d2 e2 e2 | d2 e1 c1 e2 e2 | d2 e1 c1 e2 d2 | e2 d2 d4 |
+ e2 E2 c2 d2 | d2 c2 e2 d2 | e2 e2 d2 e2 | d3 e1 (ee4 | ee8)
+ ||
+V: vch
+"vi"x2 "vi"x2 "IV"x2 "V"x2 | "V"x2 "ii"x2 "vi"x2 "V"x2 | "vi"x2 "vi"x2 "V"x2 "vi"x2 | "vi"x3 "V"x1 "V"x4 |
+ "vi"x2 "vi"x2 "IV"x2 "V"x2 | "V"x2 "IV"x2 "vi"x2 "V"x2 | "vi"x2 "vi"x2 "V"x2 "vi"x2 | "V"x3 "vi"x1 "vi"x4 |
+ "V"x2 "V"x2 "vi"x2 "vi"x2 | "V"x2 "vi"x1 "IV"x1 "vi"x2 "vi"x2 | "V"x2 "vi"x1 "IV"x1 "iii"x2 "V"x2 | "vi"x2 "V"x2 "V"x4 |
+ "vi"x2 "I"x2 "IV"x2 "V"x2 | "V"x2 "IV"x2 "vi"x2 "V"x2 | "vi"x2 "vi"x2 "V"x2 "vi"x2 | "V"x3 "vi"x1 "vi"x4 | "vi"x8
+ ||
+</span>
+<script>
+// renderMusicIn('ode1', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('ode1');
+// {wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 }}
+for (const v of [1, 2, 3, 4]) {
+  for (const e of document.querySelectorAll(`#ode1 .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#ode1 .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+</script>
+
+Reharmonization of Ode to Joy. Same constraints and setup as the homophonic Joy to the World.
+
+<span id="ode2">
+%%staves vs va vt (vch vb)
+X: 1
+T: Ode to Joy
+L: 1/8
+K: C
+M: 4/4
+Q: 1/4=100
+V: vs name="S"
+V: va name="A"
+V: vt name="T"  clef=treble-8
+V: vb name="B"  clef=bass middle=d transpose=-24
+V: vch name=" "
+%
+V: vs
+%%MIDI program 20
+e2 e2 f2 g2 | g2 f2 e2 d2 | c2 c2 d2 e2 | e3 d1 d4 |
+ e2 e2 f2 g2 | g2 f2 e2 d2 | c2 c2 d2 e2 | d3 c1 c4 |
+ d2 d2 e2 c2 | d2 e1 f1 e2 c2 | d2 e1 f1 e2 d2 | c2 d2 G4 |
+ e2 e2 f2 g2 | g2 f2 e2 d2 | c2 c2 d2 e2 | d3 c1 (cc4 | cc8)
+ ||
+V: va
+%%MIDI program 20
+c4-c2-c1 (dd1 | dd2)  F1 F1 c2 G1 f1 | F1 f1 F1 c1 G2 (GG2 | GG3)  d1 G1 G1 G1 G1 |
+ A4-A1 F1 c1 (cc1 | cc2)  F2 e2 d2 | F4 d1 (AA3 | AA3)  A1 F1 c3 |
+ F4 e4 | d2 e1 A1 G2 f1 F1 | G1 G2 f1 A3 f1 | F1 F1 A1 d1 B2 (GG2 | GG1)
+ G1 B1 B1 (cc4 | cc2)  f1 (AA4-A1 | AA2)  G1 e1 G2 (GG2 | GG3)  A1 (ee4 | ee8)
+ ||
+V: vt
+%%MIDI program 20
+C3 C4 D1 | G2 C1 F1 C1 C1 D2 | F4 D1 D1 (CC2 | CC3)  D1 B4 |
+ A4-A1 F1 E1 c1 | G1 G1 D1 D1 (AA4 | AA4)  D1 A3 | D2 A1 c1 C1 F1 c1 c1 |
+ A4-A1 E1 E2 | G3 A1 C4 | D2 E1 A1 c1 c1 D2 | c1 c1 A2 B1 E1 B1 B1 |
+ E4 c1 (CC3 | CC2)  (AA6 | AA2)  C2 G4 | B3 c1 c1 (cc3 | cc8)
+ ||
+V: vb
+%%MIDI program 20
+A3 E1 F1 F1 c1 (dd1 | dd2)  F1 d1 E2 d1 F1 | A4 B2 (GG2 | GG4)  B3 G1 |
+ (cc8 | cc2)  F2 A1 E1 (FF2 | FF1)  F1 A1 F1 G1 d1 E2 | d3 (AA4-A1 | AA6)
+ A1 A1 | G1 B1 E1 F1 E1 E1 F1 A1 | B2 e1 F1 (AA4 | AA4)  (BB4 | BB1)
+ e1 G1 B1 A2 G1 G1 | c1 E1 A4 F1 d1 | e2 (GG6 | GG3)  e1 E1 e1 e1 (ee1 | ee8)
+ ||
+V: vch
+"vi"x4 "IV"x2 "I"x1 "V"x1 | "V"x1 "V"x1 "IV"x1 "ii"x1 "I"x2 "V"x1 "ii"x1 | "IV"x4 "V"x2 "I"x2 | "I"x3 "V"x1 "V"x4 |
+ "vi"x4 "IV"x1 "IV"x1 "I"x2 | "I"x2 "ii"x2 "vi"x1 "vi"x1 "ii"x2 | "IV"x4 "V"x1 "ii"x1 "vi"x2 | "ii"x3 "IV"x5 |
+ "ii"x3 "ii"x1 "vi"x1 "vi"x3 | "V"x2 "I"x1 "ii"x1 "I"x2 "IV"x1 "IV"x1 | "V"x2 "iii"x1 "ii"x1 "vi"x2 "ii"x2 | "IV"x2 "ii"x1 "ii"x1 "iii"x4 | "iii"x4
+ "IV"x2 "I"x2 | "I"x2 "ii"x2 "vi"x1 "vi"x1 "ii"x1 "ii"x1 | "vi"x2 "I"x2 "V"x2 "iii"x2 | "V"x2 "V"x1 "vi"x5 | "vi"x8
+ ||
+</span>
+<script>
+// renderMusicIn('ode2', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('ode2');
+// {wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 }}
+for (const v of [1, 2, 3, 4]) {
+  for (const e of document.querySelectorAll(`#ode2 .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#ode2 .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+</script>
+
+
+<span id="jingle">
+%%staves vs va vt (vch vb)
+X: 1
+T: Jingle Bells
+L: 1/16
+K: C
+M: 4/4
+Q: 1/4=120
+V: vs name="S"
+V: va name="A"
+V: vt name="T"  clef=treble-8
+V: vb name="B"  clef=bass middle=d transpose=-24
+V: vch name=" "
+%
+V: vs
+%%MIDI program 53
+G2 e2 d2 c2 G6 G1 G1 | G2 e2 d2 c2 A8 | A2 f2 e2 d2 B6 g2 | a2 g2 f2 d2 e8 |
+ G2 e2 d2 c2 G6 G1 G1 | G2 e2 d2 c2 A6 A2 | A2 f2 e2 d2 g2 g2 g2 g2 | a2 g2 f2 d2 c8 |
+ e2 e2 e4 e2 e2 e4 | e2 g2 c3 d1 e8 | f2 f2 f3 f1 f2 e2 e2 e1 e1 | e2 d2 d2 e2 d4 g4 |
+ e2 e2 e4 e2 e2 e4 | e2 g2 c3 d1 e8 | f2 f2 f3 f1 f2 e2 e2 e1 e1 | g2 g2 f2 d2 c8 |
+ ||
+V: va
+%%MIDI program 53
+G2 c2 A2 A2 d'6 d'1 d'1 | B2 A2 d'2 e'2 e'8 | e'2 f'2 c'2 d'2 b6 d'2 | e'2 g2 f'2 G2 e'8 |
+ e'2 e'2 d'2 e'2 d'6 d1 G1 | G2 a2 d'2 A2 e'6 c'2 | F2 f'2 e'2 d'2 d'2 d'2 d'2 e'2 | c'2 d'2 f'2 d'2 e'8 |
+ e'2 e'2 e'4 e'2 e'2 e'4 | e'2 b2 e3 d'1 e'8 | A2 f'2 f'3 f1 f'2 e'2 e'2 e'1 e'1 | e'2 G2 d'2 e'2 B4 d'4 |
+ e'2 A2 g4 G2 e'2 e'4 | e'2 d'2 e'3 f'1 c8 | a2 f'2 a3 F1 f'2 c'2 e'2 e'1 e'1 | d'2 d'2 f'2 d'2 e'8 |
+ ||
+V: vt
+%%MIDI program 53
+b2 c'2 A2 c'2 G6 b1 b1 | b2 c'2 b2 c'2 c'8 | c'2 c'2 C2 b2 b6 b2 | c'2 b2 c'2 b2 c'8 |
+ b2 c'2 b2 c'2 b6 b1 b1 | b2 E2 b2 c'2 c'6 c'2 | A2 c'2 c'2 b2 b2 b2 b2 b2 | c'2 b2 c'2 b2 c'8 |
+ c'2 c'2 c'4 c'2 c'2 c'4 | c'2 b2 c'3 b1 c'8 | f2 c'2 c'3 c'1 c'2 c'2 c'2 c'1 c'1 | c'2 b2 b2 G2 b4 B4 |
+ c'2 c'2 C4 b2 c'2 c'4 | c'2 b2 c'3 A1 c'8 | c'2 c'2 a3 c'1 c'2 c'2 c'2 c'1 c'1 | b2 b2 c'2 b2 c'8 |
+ ||
+V: vb
+%%MIDI program 53
+d'2 e'2 A2 e'2 d'6 d'1 d'1 | d'2 e'2 d'2 e'2 e'8 | e'2 c'2 E2 d'2 e'6 d'2 | e'2 d'2 c'2 d'2 e'8 |
+ e'2 e'2 d'2 e'2 b6 d'1 e'1 | d'2 e'2 d'2 e'2 e'6 e'2 | A2 c'2 e'2 d'2 d'2 b2 d'2 e'2 | c'2 d'2 c'2 d'2 e'8 |
+ e'2 e'2 e'4 e'2 e'2 e'4 | e'2 d'2 e'3 d'1 e'8 | A2 c'2 c'3 c'1 c'2 e'2 e'2 e'1 e'1 | e'2 d'2 d'2 E2 d'4 d'4 |
+ e'2 e'2 e'4 E2 e'2 e'4 | e'2 d'2 e'3 A1 e'8 | c'2 c'2 A3 c'1 c'2 e'2 e'2 e'1 e'1 | d'2 d'2 c'2 d'2 e'8 |
+ ||
+V: vch
+"V"x2 "vi"x2 "ii"x2 "vi"x2 "V"x6 "V"x1 "V"x1 | "V"x2 "vi"x2 "V"x2 "vi"x2 "vi"x8 | "vi"x2 "IV"x2 "I"x2 "V"x2 "iii"x6 "V"x2 | "vi"x2 "V"x2 "IV"x2 "V"x2 "vi"x8 |
+ "iii"x2 "vi"x2 "V"x2 "vi"x2 "V"x6 "V"x1 "iii"x1 | "V"x2 "vi"x2 "V"x2 "vi"x2 "vi"x6 "vi"x2 | "ii"x2 "IV"x2 "vi"x2 "V"x2 "V"x2 "V"x2 "V"x2 "iii"x2 | "IV"x2 "V"x2 "IV"x2 "V"x2 "vi"x8 |
+ "vi"x2 "vi"x2 "vi"x4 "vi"x2 "vi"x2 "vi"x4 | "vi"x2 "V"x2 "vi"x3 "V"x1 "vi"x8 | "ii"x2 "IV"x2 "IV"x3 "IV"x1 "IV"x2 "vi"x2 "vi"x2 "vi"x1 "vi"x1 | "vi"x2 "V"x2 "V"x2 "I"x2 "V"x4 "V"x4 |
+ "vi"x2 "vi"x2 "I"x4 "iii"x2 "vi"x2 "vi"x4 | "vi"x2 "V"x2 "vi"x3 "ii"x1 "vi"x8 | "IV"x2 "IV"x2 "ii"x3 "IV"x1 "IV"x2 "vi"x2 "vi"x2 "vi"x1 "vi"x1 | "V"x2 "V"x2 "IV"x2 "V"x2 "vi"x8 |
+ ||
+</span>
+<script>
+// renderMusicIn('jingle', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('jingle');
+// {wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 }}
+for (const v of [1, 2, 3, 4]) {
+  for (const e of document.querySelectorAll(`#jingle .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#jingle .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+</script>
+
+Jingle Bells. Fewer constraints to start with, so the middle voices can do crazier things.
+
+<span id="jingle1">
+%%staves vs va vt (vch vb)
+X: 1
+T: Jingle Bells
+L: 1/16
+K: C
+M: 4/4
+Q: 1/4=120
+V: vs name="S"
+V: va name="A"
+V: vt name="T"  clef=treble-8
+V: vb name="B"  clef=bass middle=d transpose=-24
+V: vch name=" "
+%
+V: vs
+%%MIDI program 53
+G2 e2 d2 c2 G6 G1 G1 | G2 e2 d2 c2 A8 | A2 f2 e2 d2 B6 g2 | a2 g2 f2 d2 e8 |
+ G2 e2 d2 c2 G6 G1 G1 | G2 e2 d2 c2 A6 A2 | A2 f2 e2 d2 g2 g2 g2 g2 | a2 g2 f2 d2 c8 |
+ e2 e2 e4 e2 e2 e4 | e2 g2 c3 d1 e8 | f2 f2 f3 f1 f2 e2 e2 e1 e1 | e2 d2 d2 e2 d4 g4 |
+ e2 e2 e4 e2 e2 e4 | e2 g2 c3 d1 e8 | f2 f2 f3 f1 f2 e2 e2 e1 e1 | g2 g2 f2 d2 c8 |
+ ||
+V: va
+%%MIDI program 53
+b4 a3 e'1 (cc8 | cc4)  d2 f6 d'1 A1 F1 F1 | F1 F1 F1 d'1 A1 B8-B2-B1 | A2 e1 e'1 F4 e4-e1 (bb3 | bb4)
+ d2 c2 G1 G2 G1 G2 e'2 | G1 g1 G1 e'1 g1 B1 e'1 c'1 f'1 f'1 c'1 (ff4-f1 | ff4)  G8 (dd4 | dd4)  d4 c'8 |
+ e3 e'1 A1 c'1 c'1 c'1 A1 e'1 A1 e'1 (e'e'4 | e'e'2)  g1 e'1 A1 c2 g1 e1 c'1 c'1 g4 e1 | f'8-f'2 e'1 a1 (c'c'4 | c'c'2)  d'1 b1 d'1 a3 d'8 |
+ c'8-c'2-c'1 c1 e'1 A1 e1 (ee1 | ee4)  A1 e'1 c'1 G1 c'1 e'3 e'1 A1 e1 a1 | c'8-c'4-c'1 G1 (ee2 | ee1)  e'2 g1 f'1 F1 d2 c8 |
+ ||
+V: vt
+%%MIDI program 53
+g4 a3 (gg8-g1 | gg4)  a2 a1 c'1 c'1 c'1 c'1 A1 (aa4 | aa1)  a1 f1 D1 e2 D1 B1 B8 | A1 A1 G2 a1 D1 a2 C4-C1 (bb3 | bb4-b1)
+ b1 C8 E2 | b1 b1 G1 E1 b1 b1 g1 c'1 (FF8 | FF4)  c'1 c'1 B1 G4-G1 D1 D1 b1 D1 | D4 F4 C1 c'1 F1 C4-C1 |
+ e2 A8-A1 (CC4-C1 | CC1)  A1 c'2 f1 e1 c'1 b2 c'1 E1 E3 c'2 | d8-d2 e1 A4-A1 | E1 E1 D4 c'2 b8 |
+ c'1 c'1 c'1 c'1 c'1 A1 c'1 c'1 c'1 c'4-c'2-c'1 | c'4-c'2-c'1 b1 (c'c'8 | c'c'1)  c'1 c1 a1 C1 c'1 c'1 C1 A1 c'3 (ee4 | ee3)  C2 D1 b2 c'8 |
+ ||
+V: vb
+%%MIDI program 53
+G4 a3 c'1 (c'c'8 | c'c'1)  c'1 c'1 c'1 A2 c'3 c'1 (ff6 | ff1)  a1 c'1 A1 e1 b8-b2-b1 | f1 f1 e2 F4 e1 e'1 A1 c1 c1 (BB3 | BB6)
+ c6 G2 e1 E1 | E1 B4 B1 E2 f1 F1 f3 (dd3 | dd3)  F1 E1 E1 g6 (dd4 | dd2)  G1 G1 F1 d'3 c4-c2-c1 c1 |
+ E12 E1 E1 E1 e'1 | e1 A1 E2 F1 E1 E1 g1 E1 e'1 c'1 G4 E1 | a8-a2-a1 e1 e'1 (e'e'3 | e'e'2)  G3 d'1 e2 G8 |
+ e'12 e'1 e'2 e'1 | e'1 e'1 e'1 e'2 e'1 e'1 G1 c'4-c'2-c'1 c'1 | c'1 c'4-c'2-c'1 c'1 c'2 E1 c'1 E1 c'2 | E4 F1 F1 G2 c'8 |
+ ||
+V: vch
+"V"x1 "iii"x3 "ii"x1 "ii"x1 "vi"x1 "I"x1 "I"x8 | "I"x3 "I"x1 "ii"x2 "IV"x5 "IV"x1 "ii"x4 | "ii"x1 "IV"x2 "ii"x1 "vi"x1 "iii"x1 "V"x10 | "ii"x2 "I"x2 "ii"x4 "vi"x5 "iii"x3 | "iii"x4
+ "V"x2 "IV"x1 "vi"x1 "I"x2 "I"x1 "I"x3 "iii"x2 | "iii"x4 "V"x2 "I"x2 "ii"x2 "IV"x1 "ii"x1 "ii"x1 "ii"x1 "ii"x2 | "ii"x4 "I"x2 "V"x2 "I"x2 "V"x1 "I"x1 "V"x4 | "ii"x2 "V"x2 "ii"x4 "IV"x3 "IV"x1 "IV"x4 |
+ "iii"x1 "vi"x1 "vi"x1 "vi"x8 "vi"x1 "vi"x4 | "vi"x1 "vi"x1 "I"x1 "I"x1 "IV"x1 "I"x1 "I"x1 "V"x1 "iii"x1 "vi"x2 "iii"x1 "I"x1 "I"x1 "I"x2 | "ii"x10 "vi"x6 | "vi"x2 "V"x3 "ii"x1 "vi"x2 "V"x8 |
+ "vi"x2 "vi"x8 "I"x1 "I"x1 "vi"x3 "I"x1 | "I"x4 "vi"x1 "vi"x1 "vi"x1 "V"x1 "vi"x8 | "IV"x9 "IV"x1 "vi"x1 "I"x2 "iii"x1 "vi"x1 "I"x1 | "I"x1 "I"x1 "iii"x1 "I"x1 "IV"x1 "ii"x1 "V"x2 "vi"x8 |
+ ||
+</span>
+<script>
+// renderMusicIn('jingle1', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('jingle1');
+// {wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 }}
+for (const v of [1, 2, 3, 4]) {
+  for (const e of document.querySelectorAll(`#jingle1 .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#jingle1 .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+</script>
+
+
+Without homophonic constraints.
+
+---
+
+Some notes on my experiments in generating music using SMT.
 
 As a teaser, here is a procedurally-generated harmonization of the first line of <!-- the English Christmas carol -->
 *Joy to the World*.
-Given the melody (in the soprano voice), the system produces the other three voices in a way that makes harmonic sense.
+Given the melody (in the soprano voice), the system produces the other three voices (drawn <span class='generated'>faded</span>) in a way that makes harmonic sense.
+
+<style>
+  .generated {
+    color:rgb(162, 162, 162)
+  }
+</style>
 
 <span id="joy">
 X: 1
@@ -39,7 +490,16 @@ A4 D4 G6 A2 E1 E3 D4 E4 E6 A6 G4 G1 G3 A6
 V: bass
 "vi" A4 "V" G3 "ii" F1 "I" G6 "ii" A1 "iii" d1 "V" G6 "I" G6 "I" c6 "vi" d6 "ii" G2 "iii" B3 "iii" G3 "vi" A6
 </span>
-<script>renderMusicIn('joy')</script>
+<script>
+renderMusicIn('joy');
+for (const v of [1, 2, 3]) {
+  for (const e of document.querySelectorAll(`#joy .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+</script>
+
+(If you are on iOS and can't hear any audio, disable silent mode)
 
 More examples [here](#examples). The rest of the post describes the journey (or at least the first part of it, since it appears to be far from over!).
 
@@ -340,7 +800,7 @@ Another is that the use of SMT allows _arbitrary_ constraints in standard theori
 With constraint solvers, the set of usable constraints is typically [large but limited](https://sofdem.github.io/gccat/) (no arbitrary disjunction!) and non-uniform across solvers, but solvable with more efficient specialized algorithms.
 They may be more appropriate if the set of constraints required is well-understood (not the case yet, in this work).
 
-Many of these libraries have been integrated into composition IDEs, such as 
+Many of these libraries have been integrated into composition IDEs, such as
 [Opusmodus](https://opusmodus.com/), [OpenMusic](https://openmusic-project.github.io/), and [PWGL (seemingly defunct, links no longer work)](https://en.wikiversity.org/wiki/Music/Software/PWGL). [Rhythm-Box](https://github.com/blapiere/Rhythm-Box) and [Melodizer](https://www.info.ucl.ac.be/~pvr/SPROCKEELS_68641400_2022.pdf) (mentioned earlier) are components of OpenMusic.
 
 Other systems this work was inspired by are [ANTON](https://arxiv.org/abs/1006.4948), which uses ASP for harmonization, [MusicTools](https://github.com/halfaya/MusicTools/blob/master/doc/farm22/abstract.pdf), an Agda library which also discharges musical synthesis via SMT, and [Type-Guided Music Composition](https://drive.google.com/file/d/18xE9Jmh2gq-KrIGmbKObxiFSWuoFqsi1/view), an approach which uses weighted refinement types to validate and synthesize music.
