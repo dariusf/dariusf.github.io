@@ -1,5 +1,5 @@
 ---
-title: "Satisfying Music Theory"
+title: "Satisfying Music Theory I"
 date: 2022-12-30
 math: true
 # toc: true
@@ -8,15 +8,110 @@ templateEngineOverride: md
 
 <script src="./abcjs-basic-min.js"></script>
 <link rel="stylesheet" type="text/css" href="./abcjs-audio.css">
-<script src="./abcjs.js"></script>
+<script src="./abcjs-driver.js"></script>
 
 <!-- TLDR -->
 
-This post is about my experiments in generating music using SMT.
+<span id="joy1">
+%%staves vs va vt (vch vb)
+X: 1
+T: Joy to the World
+L: 1/16
+K: C
+M: 4/4
+Q: 1/4=100
+V: vs name="S"
+V: va name="A"
+V: vt name="T" clef=treble-8
+V: vb name="B" clef=bass middle=d transpose=-24
+V: vch name=" "
+%
+V: vs
+%%MIDI program 40
+c4 B3 A1 G6 F2 | E4 D4 C6 G2 | A6 A2 B6 B2 | c6 c2 c2 B2 A2 G2 |
+ G3 F1 E2 c2 c2 B2 A2 G2 | G3 F1 E2 E2 E2 E2 E2 E1 F1 | G6 G1 F1 D2 D2 D2 D1 E1 | F6 E1 D1 C2 c4 A2 |
+ G3 F1 E2 F2 E4 D4 | C8
+V: va
+%%MIDI program 41
+e4 G3 e1 d6 A2 | e4 B4 e6 d2 | e6 e2 d6 d2 | e6 A2 f2 e2 c2 d2 |
+ B3 F1 e2 e2 e2 d2 e2 d2 | d3 f1 e2 e2 e2 e2 e2 c1 f1 | d6 d1 f1 d2 d2 d2 d1 e1 | F6 e1 d1 e2 c4 e2 |
+ d3 f1 e2 f2 e4 d4 | e8
+V: vt
+%%MIDI program 42
+c4 B3 C1 B6 c2 | c4 B4 c6 B2 | c6 c2 B6 B2 | c6 c2 c2 G2 c2 B2 |
+ B3 c1 c2 c2 c2 B2 c2 B2 | B3 c1 c2 C2 c2 c2 c2 C1 c1 | B6 B1 c1 B2 B2 B2 B1 c1 | c6 c1 B1 c2 c4 c2 |
+ B3 c1 c2 c2 c4 B4 | c8
+V: vb
+%%MIDI program 42
+e4 d3 e1 d6 c2 | e4 d4 e6 d2 | e6 e2 d6 d2 | e6 e2 c2 e2 e2 d2 |
+ d3 c1 e2 e2 e2 d2 e2 d2 | G3 c1 e2 e2 e2 e2 e2 E1 c1 | d6 d1 c1 d2 d2 G2 d1 e1 | c6 e1 d1 e2 e4 e2 |
+ d3 c1 e2 c2 e4 G4 | e8
+V: vch
+"vi"x4 "V"x3 "vi"x1 "V"x6 "IV"x2 | "vi"x4 "V"x4 "vi"x6 "V"x2 | "vi"x6 "vi"x2 "V"x6 "V"x2 | "vi"x6 "vi"x2 "IV"x2 "iii"x2 "vi"x2 "V"x2 |
+ "V"x3 "IV"x1 "vi"x2 "vi"x2 "vi"x2 "V"x2 "vi"x2 "V"x2 | "V"x3 "IV"x1 "vi"x2 "vi"x2 "vi"x2 "vi"x2 "vi"x2 "I"x1 "IV"x1 | "V"x6 "V"x1 "IV"x1 "V"x2 "V"x2 "V"x2 "V"x1 "vi"x1 | "IV"x6 "vi"x1 "V"x1 "vi"x2 "vi"x4 "vi"x2 |
+ "V"x3 "IV"x1 "vi"x2 "IV"x2 "vi"x4 "V"x4 | "vi"x8
+</span>
+<script>
+// renderMusicIn('joy1', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('joy1');
+for (const v of [1, 2, 3, 4]) {
+  for (const e of document.querySelectorAll(`#joy1 .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#joy1 .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+// , {wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 }});
+</script>
+
+<span id="counterpoint1">
+%%staves vs (vch va)
+X: 1
+T: Counterpoint
+L: 1/4
+K: C
+M: 4/4
+Q: 1/4=60
+V: vs name="S"
+V: va name="A"
+V: vch name=" "
+%
+V: vs
+%%MIDI program 40
+e1 g1 e1 d1 | c1 B1 c1 e1 | d1 c1 d1 e1 | f1 e1
+V: va
+%%MIDI program 41
+E1 E1 A1 G1 | c1 G1 G1 A1 | G1 c1 G1 G1 | C1 E1
+V: vch
+"vi"x1 "iii"x1 "vi"x1 "V"x1 | "I"x1 "iii"x1 "I"x1 "vi"x1 | "V"x1 "I"x1 "V"x1 "I"x1 | "IV"x1 "vi"x1
+</span>
+<script>
+// renderMusicIn('counterpoint1', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('counterpoint1');
+// {wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 }}
+for (const v of [1]) {
+  for (const e of document.querySelectorAll(`#counterpoint1 .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+for (const e of document.querySelectorAll(`#counterpoint1 .abcjs-chord`)) {
+  e.classList.add('generated');
+}
+</script>
+
+
+Some notes on my experiments in generating music using SMT.
 
 As a teaser, here is a procedurally-generated harmonization of the first line of <!-- the English Christmas carol -->
 *Joy to the World*.
-Given the melody (in the soprano voice), the system produces the other three voices in a way that makes harmonic sense.
+Given the melody (in the soprano voice), the system produces the other three voices (drawn <span class='generated'>faded</span>) in a way that makes harmonic sense.
+
+<style>
+  .generated {
+    color:rgb(162, 162, 162)
+  }
+</style>
 
 <span id="joy">
 X: 1
@@ -39,7 +134,34 @@ A4 D4 G6 A2 E1 E3 D4 E4 E6 A6 G4 G1 G3 A6
 V: bass
 "vi" A4 "V" G3 "ii" F1 "I" G6 "ii" A1 "iii" d1 "V" G6 "I" G6 "I" c6 "vi" d6 "ii" G2 "iii" B3 "iii" G3 "vi" A6
 </span>
-<script>renderMusicIn('joy')</script>
+<script>
+renderMusicIn('joy');
+for (const v of [1, 2, 3]) {
+  for (const e of document.querySelectorAll(`#joy .abcjs-v${v}.abcjs-note`)) {
+    e.classList.add('generated');
+  }
+}
+</script>
+
+<span id="jingle">
+X: 1
+T: Jingle Bells [A]
+C:James Lord Pierpont, 1857
+M: 2/4
+L: 1/8
+Q: 120
+K: A
+ Ec BA | E3 E/-E/ | Ec BA | F4 | Fd cB | G3 e | fe dB | c4 ||
+|| Ec BA | E3 E/-E/ | Ec BA | F3 F | Fd cB | ee ee | fe dB | A2 z2 |
+|: cc c2 | cc c2 | ce A>B | c4 | dd d>d | dc cc/c/ |1 cB Bc | B2 e2 :|2 ee dB | A4
+</span>
+<script>
+// renderMusicIn('jingle', {viewportHorizontal: false, scrollHorizontal: true});
+renderMusicIn('jingle', {wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 3 }});
+</script>
+
+
+(If you are on iOS and can't hear any audio, disable silent mode)
 
 More examples [here](#examples). The rest of the post describes the journey (or at least the first part of it, since it appears to be far from over!).
 
@@ -340,7 +462,7 @@ Another is that the use of SMT allows _arbitrary_ constraints in standard theori
 With constraint solvers, the set of usable constraints is typically [large but limited](https://sofdem.github.io/gccat/) (no arbitrary disjunction!) and non-uniform across solvers, but solvable with more efficient specialized algorithms.
 They may be more appropriate if the set of constraints required is well-understood (not the case yet, in this work).
 
-Many of these libraries have been integrated into composition IDEs, such as 
+Many of these libraries have been integrated into composition IDEs, such as
 [Opusmodus](https://opusmodus.com/), [OpenMusic](https://openmusic-project.github.io/), and [PWGL (seemingly defunct, links no longer work)](https://en.wikiversity.org/wiki/Music/Software/PWGL). [Rhythm-Box](https://github.com/blapiere/Rhythm-Box) and [Melodizer](https://www.info.ucl.ac.be/~pvr/SPROCKEELS_68641400_2022.pdf) (mentioned earlier) are components of OpenMusic.
 
 Other systems this work was inspired by are [ANTON](https://arxiv.org/abs/1006.4948), which uses ASP for harmonization, [MusicTools](https://github.com/halfaya/MusicTools/blob/master/doc/farm22/abstract.pdf), an Agda library which also discharges musical synthesis via SMT, and [Type-Guided Music Composition](https://drive.google.com/file/d/18xE9Jmh2gq-KrIGmbKObxiFSWuoFqsi1/view), an approach which uses weighted refinement types to validate and synthesize music.
