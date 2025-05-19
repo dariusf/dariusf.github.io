@@ -222,3 +222,23 @@ this is used in the formalization of staged logic
 Thank you to Li Yao on the coq zhlip for patiently answering my questions.
 
 [^1]: Coq implements so called *generalized rewriting*, where the relation can be weaker than an equivalence; it just has to be a [preorder](https://github.com/coq/coq/blob/master/theories/Classes/RelationClasses.v), which is not symmetric.
+
+<!--
+
+Semantic equality
+Deep embedding
+Doesn't coincide with syntactic
+To rewrite we then need setoid rewriting
+
+It can then be useful to weaken when rewriting
+Generalised rewriting
+
+Coq as logical framework
+Host for logics
+
+
+Primitives of coq for setoid blog post
+Inductive arrow forall
+https://cs.brown.edu/courses/cs195x/current/sf/html/Logic.html
+
+-->
