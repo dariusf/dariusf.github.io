@@ -1170,7 +1170,7 @@ We are, however, concerned with two different senses of &amp;quot;dynamic&amp;qu
 &lt;p&gt;It brings the succinctness and clarity of session types to a much more expressive specification language, one which scales up to real-world distributed protocols, which compute and branch, and are much closer to algorithms than sequences of transmissions.&lt;/p&gt;
 &lt;p&gt;The tradeoff is that Choreographic PlusCal models cannot be verified by simple type checking.
 Even properties such as deadlock-freedom cannot be guaranteed with things like &lt;code&gt;await FALSE;&lt;/code&gt; in the language.
-Fortunately, being a PlusCal dialect, it has access to TLC, making it an exceedingly practical point in the design space.&lt;/p&gt;
+Fortunately, being a PlusCal dialect, it has access to TLC, making it a very practical point in the design space.&lt;/p&gt;
 </content>
   </entry>
   <entry>
