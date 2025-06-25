@@ -24,17 +24,10 @@
 
 		
 		
-		<style>/* papers */
-  .paper-item svg {
+		<style>svg {
     width: 16px;
-    vertical-align: text-bottom;
+    vertical-align: text-top;
   }
-  /* .paper-item { */
-  /* margin-right: 5px; */
-  /* padding: 0px; */
-  /* border: solid var(--faint-color) 1px; */
-  /* border-radius: 7px; */
-  /* } */
 /* This is an arbitrary CSS string added to the bundle */
 :root {
 	/* --font-family: -apple-system, system-ui, sans-serif; */
@@ -424,311 +417,568 @@ header {
 <div style="margin: 1em 0;">
 <a href="https://dblp.org/pid/228/5744.html">dblp</a>, <a href="https://scholar.google.com/citations?user=5x9STk4AAAAJ">Google Scholar</a>
 </div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">Staged Specification Logic for Verifying Higher-Order Imperative Programs</div>
 
-<div style="font-weight: normal; margin-bottom: 2px">Staged Specification Logic for Verifying Higher-Order Imperative Programs</div>
-<div style="font-size: 0.9em">
-  <span>
-    
-    <a href="https://www.fm24.polimi.it/?page_id=612">FM 2024</a>
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
   
-  <a class="paper-item" title="PDF" href="https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/FM2024_TR.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Code" href="https://github.com/songyahui/AlgebraicEffect/tree/fm24"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
-     
-  <a class="paper-item" title="Slides" href="/fm24slides.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Slides" href="/MechanizingStagedLogic.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Transcript" href="/blog/staged-logic"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Formalization" href="https://github.com/dariusf/staged"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-</svg>
-  </a>
+
   
-</div>
-<div style="margin-bottom: 1.3em"></div>
-
-<div style="font-weight: normal; margin-bottom: 2px">Specification and Verification for Unrestricted Algebraic Effects and Handling</div>
-<div style="font-size: 0.9em">
-  <span>
-    
-    <a href="https://icfp24.sigplan.org/track/icfp-2024-papers">ICFP 2024</a>
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
+    <div style="font-size: 1em">
   
-  <a class="paper-item" title="PDF" href="https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/ICFP2024_TR.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Code" href="https://github.com/songyahui/AlgebraicEffect/tree/StagedSL"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
-    
-  <a class="paper-item" title="Video" href="https://www.youtube.com/watch?v=m4u1wHf74s8"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Slides" href="https://www.comp.nus.edu.sg/~yahuis/ICFP24/ICFP24_Slides.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
-     
-</div>
-<div style="margin-bottom: 1.3em"></div>
 
-<div style="font-weight: normal; margin-bottom: 2px">Protocol Conformance with Choreographic PlusCal</div>
-<div style="font-size: 0.9em">
-  <span>
-    
-    <a href="https://plrg-bristol.github.io/tase2023/accepted-papers.html">TASE 2023</a>
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
-  
-  <a class="paper-item" title="PDF" href="/cpluscal.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Code" href="https://github.com/dariusf/tlaplus/tree/cpcal"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
-     
-  <a class="paper-item" title="Slides" href="/TASE2023-CPlusCal-2025.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
-     
-</div>
-<div style="margin-bottom: 1.3em"></div>
-
-<div style="font-weight: normal; margin-bottom: 2px">Automated Temporal Verification for Algebraic Effects</div>
-<div style="font-size: 0.9em">
-  <span>
-    
-    <a href="https://conf.researchr.org/program/aplas-2022/program-aplas-2022/">APLAS 2022</a>
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
-  
-  <a class="paper-item" title="PDF" href="https://www.comp.nus.edu.sg/~yahuis/APLAS2022.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Code" href="https://github.com/songyahui/AlgebraicEffect/tree/main"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
-    
-  <a class="paper-item" title="Video" href="https://www.youtube.com/watch?v=gAl6TP-gBYQ"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Slides" href="https://www.comp.nus.edu.sg/~yahuis/APLAS22_Effects_my.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
-     
-</div>
-<div style="margin-bottom: 1.3em"></div>
-
-<div style="font-weight: normal; margin-bottom: 2px">Tracing OCaml Programs</div>
-<div style="font-size: 0.9em">
-  <span>
-    
-    <a href="https://icfp22.sigplan.org/details/ocaml-2022-papers/2/Tracing-OCaml-Programs">OCaml 2022</a>
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
-  
-  <a class="paper-item" title="PDF" href="https://arxiv.org/abs/2304.04937"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Code" href="https://github.com/dariusf/ppx_debug"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
-    
-  <a class="paper-item" title="Video" href="https://youtu.be/MwVeZrDyewU"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Slides" href="/tracing-ocaml22-slides.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
-     
-</div>
-<div style="margin-bottom: 1.3em"></div>
-
-<div style="font-weight: normal; margin-bottom: 2px">Automating Continuous Planning in SAFe</div>
-<div style="font-size: 0.9em">
-  <span>
-    
-    <a href="https://doi.org/10.1145/3387940.3391536">RCoSE 2020</a>
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
-  
-  <a class="paper-item" title="PDF" href="https://asankhaya.github.io/pdf/Automating-Continuous-Planning-in-SAFe.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Code" href="https://github.com/srcclr/sapling"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
-     
-  <a class="paper-item" title="Slides" href="/sapling-slides.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
-     
-</div>
-<div style="margin-bottom: 1.3em"></div>
-
-<div style="font-weight: normal; margin-bottom: 2px">The Dynamics of Software Composition Analysis</div>
-<div style="font-size: 0.9em">
-  <span>
-    
-    <a href="https://2019.ase-conferences.org/track/ase-2019-Late-Breaking-Results">ASE LBR 2019</a>
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
-  
-  <a class="paper-item" title="PDF" href="https://arxiv.org/abs/1909.00973"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
-    
-  <a class="paper-item" title="Poster" href="https://asankhaya.github.io/pdf/The-Dynamics-of-Software-Composition-Analysis-Poster.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
-       
-</div>
-<div style="margin-bottom: 1.3em"></div>
-
-<div style="font-weight: normal; margin-bottom: 2px">Efficient Static Checking of Library Updates</div>
-<div style="font-size: 0.9em">
-  <span>
-    
-    <a href="https://dl.acm.org/doi/10.1145/3236024.3275535">FSE 2018</a>
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
-  
-  <a class="paper-item" title="PDF" href="https://asankhaya.github.io/pdf/Efficient-Static-Checking-of-Library-Updates.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
+    <span>
       
-  <a class="paper-item" title="Slides" href="/update-advisor-slides.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
-     
-</div>
-<div style="margin-bottom: 1.3em"></div>
-
-<div style="font-weight: normal; margin-bottom: 2px">SGL: A DSL for large-scale analysis of open-source code</div>
-<div style="font-size: 0.9em">
-  <span>
-    
-    <a href="https://doi.org/10.1109/SecDev.2018.00016">SecDev 2018</a>
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
-  
-  <a class="paper-item" title="PDF" href="https://asankhaya.github.io/pdf/Security-Graph-Language.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
+      <a href="https://www.fm24.polimi.it/?page_id=612">FM 2024</a>
       
-  <a class="paper-item" title="Slides" href="/sgl-slides.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
+    </span>
+
      
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/FM2024_TR.pdf">pdf</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://github.com/songyahui/AlgebraicEffect/tree/fm24">code</a>
+        
+      
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="/fm24slides.pdf">slides</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="/blog/staged-logic">transcript</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="/MechanizingStagedLogic.pdf">slides</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://github.com/dariusf/staged">proofs</a>
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
 </div>
-<div style="margin-bottom: 1.3em"></div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">Specification and Verification for Unrestricted Algebraic Effects and Handling</div>
 
-<div style="font-weight: normal; margin-bottom: 2px">Higher-Order Debugging and Logging for OCaml</div>
-<div style="font-size: 0.9em">
-  <span>
-     Undergraduate dissertation (2016)
-    
-    
-  </span>
-  <!-- <br/> -->
-
-  <!-- https://heroicons.com/ -->
   
-  <a class="paper-item" title="PDF" href="https://github.com/dariusf/ppx_polyprint/raw/master/report.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
-</svg>
-  </a>
-   
-  <a class="paper-item" title="Code" href="https://github.com/dariusf/ppx_polyprint"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-</svg>
-  </a>
+
+  
+    <div style="font-size: 1em">
+  
+
+    <span>
+      
+      <a href="https://icfp24.sigplan.org/track/icfp-2024-papers">ICFP 2024</a>
+      
+    </span>
+
      
-  <a class="paper-item" title="Slides" href="https://github.com/dariusf/ppx_polyprint/raw/master/slides.pdf"><!-- prettier-ignore --><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"></path>
-</svg>
-  </a>
-     
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/ICFP2024_TR.pdf">pdf</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://github.com/songyahui/AlgebraicEffect/tree/StagedSL">code</a>
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://www.youtube.com/watch?v=m4u1wHf74s8">video</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://www.comp.nus.edu.sg/~yahuis/ICFP24/ICFP24_Slides.pdf">slides</a>
+        
+      
+        
+      
+        
+      
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
 </div>
-<div style="margin-bottom: 1.3em"></div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">Protocol Conformance with Choreographic PlusCal</div>
+
+  
+
+  
+    <div style="font-size: 1em">
+  
+
+    <span>
+      
+      <a href="https://plrg-bristol.github.io/tase2023/accepted-papers.html">TASE 2023</a>
+      
+    </span>
+
+     
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="/cpluscal.pdf">pdf</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://github.com/dariusf/tlaplus/tree/cpcal">code</a>
+        
+      
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="/TASE2023-CPlusCal-2025.pdf">slides</a>
+        
+      
+        
+      
+        
+      
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
+</div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">Automated Temporal Verification for Algebraic Effects</div>
+
+  
+
+  
+    <div style="font-size: 1em">
+  
+
+    <span>
+      
+      <a href="https://conf.researchr.org/program/aplas-2022/program-aplas-2022/">APLAS 2022</a>
+      
+    </span>
+
+     
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="https://www.comp.nus.edu.sg/~yahuis/APLAS2022.pdf">pdf</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://github.com/songyahui/AlgebraicEffect/tree/main">code</a>
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://www.youtube.com/watch?v=gAl6TP-gBYQ">video</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://www.comp.nus.edu.sg/~yahuis/APLAS22_Effects_my.pdf">slides</a>
+        
+      
+        
+      
+        
+      
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
+</div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">Tracing OCaml Programs</div>
+
+  
+
+  
+    <div style="font-size: 1em">
+  
+
+    <span>
+      
+      <a href="https://icfp22.sigplan.org/details/ocaml-2022-papers/2/Tracing-OCaml-Programs">OCaml 2022</a>
+      
+    </span>
+
+     
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="https://arxiv.org/abs/2304.04937">pdf</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://github.com/dariusf/ppx_debug">code</a>
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://youtu.be/MwVeZrDyewU">video</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="/tracing-ocaml22-slides.pdf">slides</a>
+        
+      
+        
+      
+        
+      
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
+</div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">Automating Continuous Planning in SAFe</div>
+
+  
+
+  
+    <div style="font-size: 1em">
+  
+
+    <span>
+      
+      <a href="https://doi.org/10.1145/3387940.3391536">RCoSE 2020</a>
+      
+    </span>
+
+     
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="https://asankhaya.github.io/pdf/Automating-Continuous-Planning-in-SAFe.pdf">pdf</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://github.com/srcclr/sapling">code</a>
+        
+      
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="/sapling-slides.pdf">slides</a>
+        
+      
+        
+      
+        
+      
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
+</div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">The Dynamics of Software Composition Analysis</div>
+
+  
+
+  
+    <div style="font-size: 1em">
+  
+
+    <span>
+      
+      <a href="https://2019.ase-conferences.org/track/ase-2019-Late-Breaking-Results">ASE LBR 2019</a>
+      
+    </span>
+
+     
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="https://arxiv.org/abs/1909.00973">pdf</a>
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://asankhaya.github.io/pdf/The-Dynamics-of-Software-Composition-Analysis-Poster.pdf">poster</a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
+</div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">Efficient Static Checking of Library Updates</div>
+
+  
+
+  
+    <div style="font-size: 1em">
+  
+
+    <span>
+      
+      <a href="https://dl.acm.org/doi/10.1145/3236024.3275535">FSE 2018</a>
+      
+    </span>
+
+     
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="https://asankhaya.github.io/pdf/Efficient-Static-Checking-of-Library-Updates.pdf">pdf</a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="/update-advisor-slides.pdf">slides</a>
+        
+      
+        
+      
+        
+      
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
+</div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">SGL: A DSL for large-scale analysis of open-source code</div>
+
+  
+
+  
+    <div style="font-size: 1em">
+  
+
+    <span>
+      
+      <a href="https://doi.org/10.1109/SecDev.2018.00016">SecDev 2018</a>
+      
+    </span>
+
+     
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="https://asankhaya.github.io/pdf/Security-Graph-Language.pdf">pdf</a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="/sgl-slides.pdf">slides</a>
+        
+      
+        
+      
+        
+      
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
+</div>
+<div style="line-height: 1.4;">
+  <div style="font-weight: normal">Higher-Order Debugging and Logging for OCaml</div>
+
+  
+
+  
+    <div style="font-size: 1em">
+  
+
+    <span>
+       Undergraduate dissertation (2016)
+      
+      
+    </span>
+
+     
+
+    
+      <br>
+      [ 
+      
+      
+        
+        
+        
+        <a class="paper-item" href="https://github.com/dariusf/ppx_polyprint/raw/master/report.pdf">pdf</a>
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://github.com/dariusf/ppx_polyprint">code</a>
+        
+      
+        
+      
+        
+      
+        
+        |
+        
+        <a class="paper-item" href="https://github.com/dariusf/ppx_polyprint/raw/master/slides.pdf">slides</a>
+        
+      
+        
+      
+        
+      
+        
+       ]
+    
+
+  </div>
+  <div style="margin-bottom: 1.3em"></div>
+</div>
 
 		</main>
 
@@ -736,7 +986,7 @@ header {
 			
 		</footer>
 
-		<!-- This page `/research/` was built on 2025-05-25T08:26:57.437Z -->
+		<!-- This page `/research/` was built on 2025-06-25T07:10:45.272Z -->
 		
 	</body>
 </html>
