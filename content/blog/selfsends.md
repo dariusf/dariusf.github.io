@@ -6,7 +6,7 @@ math: true
 
 <div style="display:none">
 {% raw %}
-$\newcommand{\m}[1]{\mmlToken{mi}[mathvariant=italic]{#1}}$
+$\newcommand{\m}[1]{\mathit{#1}}$
 $\newcommand{\kwproj}{\mathbin{\upharpoonright}}$
 $\newcommand{\gall}[3]{\forall #1 : #2 \cdot #3}$
 $\newcommand{\galls}[4]{\forall #1 : #2 \setminus #3 \cdot #4}$
@@ -15,7 +15,7 @@ $\newcommand{\gtransmit}[3]{#1 \to #2:#3}$
 $\newcommand{\kwpar}{\mathrel{||}}$
 $\newcommand{\spar}[2]{#1 \kwpar #2}$
 $\newcommand{\lsend}[2]{\m{send}\ #1\ #2}$
-$\newcommand{\lrecv}[1]{\m{recv\ #1}}$
+$\newcommand{\lrecv}[1]{\m{recv}\ #1}$
 $\newcommand{\s}[1]{\{#1\}}$
 $\newcommand{\sb}[1]{\textbf{\{}#1\textbf{\}}}$
 {% endraw %}
@@ -64,11 +64,14 @@ How do we compute such a projection?
 
 <!-- We write $G \upharpoonright S$ for the projection of global type $G$ on a set of parties $S$. -->
 
-$$(G_1; G_2) \upharpoonright p \equiv (G_1 \upharpoonright p); (G_2 \upharpoonright p)$$
+$$
+\begin{array}{r@{\hspace{0.3em}}l}
+(G_1; G_2) \upharpoonright p \equiv & (G_1 \upharpoonright p); (G_2 \upharpoonright p) \\
+a \to b: m \upharpoonright a \equiv & \m{send}\ b \\
+a \to b: m \upharpoonright b \equiv & \m{recv}\ a
+\end{array}
+$$
 
-$$a \to b: m \upharpoonright a \equiv \m{send}\ b$$
-
-$$a \to b: m \upharpoonright b \equiv \m{recv}\ a$$
 
 The rules are very simple for this tiny language:
 projection is "pushed through" sequential composition,
@@ -113,9 +116,14 @@ Notice that $\forall$ is just n-ary parallel composition for each party in the r
 
 Projection should give us
 
-$$L_c : \forall p:ps \cdot \m{send}\ p\ \m{prepare}$$
 
-$$L_p : \m{recv}\ c$$
+$$
+\begin{array}{r@{\hspace{0.3em}}l}
+L_c : & \forall p:ps \cdot \m{send}\ p\ \m{prepare} \\
+L_p : & \m{recv}\ c
+\end{array}
+$$
+
 
 which matches our intuition neatly:
 
@@ -124,9 +132,12 @@ which matches our intuition neatly:
 
 Here is the projection function for $\forall$, which is now defined with respect to a role $S$.
 
-$$\forall x:S \cdot G \upharpoonright S \equiv G \upharpoonright S$$
-
-$$\forall x:S \cdot G \upharpoonright S' \equiv \forall x:S \cdot (G \upharpoonright S)\\\ (S \neq S')$$
+$$
+\begin{array}{r@{\hspace{0.3em}}l}
+\forall x:S \cdot G \upharpoonright S \equiv & G \upharpoonright S \\
+\forall x:S \cdot G \upharpoonright S' \equiv & \forall x:S \cdot (G \upharpoonright S)\quad (S \neq S') \\
+\end{array}
+$$
 
 ## Self-sends
 
@@ -141,7 +152,7 @@ We call this sort of intra-role communication a _self-send_.
 
 The paper [Dynamic Multirole Session Types (2013)](http://mrg.doc.ic.ac.uk/publications/dynamic-multirole-session-types/dynamic-multirole-session-types.pdf) proposes an elegant solution, based on the following observation, or lemma: given an arbitrary party $z$ in role $S$, the following types are equivalent.
 
-$$\forall x:S\cdot G\\\ \equiv\\\ G[z/x]\ ||\ \forall x:S\setminus \s{z}\cdot G$$
+$$\forall x:S\cdot G\ \equiv\ G[z/x]\ ||\ \forall x:S\setminus \s{z}\cdot G$$
 
 That is, a universal quantification is just the parallel composition of "what $z$ does" and "what everyone else does".
 <!-- It turns out that projecting the parallel composition instead solves the problem! -->
@@ -157,7 +168,7 @@ Before, these were equivalent because we didn't need to be sensitive to which pa
 
 For explicitness, we'll refine $\forall$ with a set of exclusions $e$, which may be empty.
 
-$$G ::= ...\ |\ \forall x:S\setminus e \cdot G$$
+$$G ::= \ldots \mid \forall x:S\setminus e \cdot G$$
 
 <!-- There is a problem, however. This is certainly a valid MPST.
 There may be seen as a tiny part of what does, where there is only a single set of nodes exchanging messages, assuming different roles dynamically (e.g. when a leader is elected, or on timeout).
