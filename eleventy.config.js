@@ -11,7 +11,8 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import pluginFilters from "./_config/filters.js";
 // import mathjaxPlugin from "./mathjax.js";
 import markdownItFootnote from "markdown-it-footnote";
-import markdownItMathjax from "markdown-it-mathjax3";
+// import markdownItMathjax from "markdown-it-mathjax3";
+import markdownItMathjax from "./markdown-it-mathjax4.js";
 // import markdownIt from "markdown-it";
 import { execSync } from "child_process";
 

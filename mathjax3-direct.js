@@ -1,3 +1,6 @@
+// For rendering markdown in the html directly,
+// as opposed to letting markdown-it call it for things wrapped in $
+
 // https://github.com/mathjax/MathJax-demos-node/blob/master/direct/tex2svg-page
 // https://github.com/mathjax/MathJax/issues/3303
 

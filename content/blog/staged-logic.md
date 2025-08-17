@@ -68,7 +68,7 @@ The question we're concerned with in this work is: is there a *precise* and *gen
 
 <div style="display:none">
 {% raw %}
-$\newcommand{\m}[1]{\mmlToken{mi}[mathvariant=italic]{#1}}$
+$\newcommand{\m}[1]{\mathit{#1}}$
 $\newcommand{\foldr}{\m{foldr}}$
 $\newcommand{\xs}{\m{xs}}$
 $\newcommand{\ys}{\m{ys}}$
@@ -261,11 +261,11 @@ Now we can clearly see how this new kind of triple generalizes the standard one:
 To give a flavour of some reasoning rules, here is the standard separation logic rule for load/deference, followed by our new one.
 
 $$
-\frac{}{\s{x \mapsto y}\ !x\ \s{ r.\ x\mapsto y \wedge r =y }} \text{\scriptsize SLDeref}
+\frac{}{\s{x \mapsto y}\ !x\ \s{ r.\ x\mapsto y \wedge r =y }} {\scriptsize \text{SLDeref}}
 $$
 
 $$
-\frac{}{\sb{\varphi}\ !x\ \sb{\varphi; \exists y, r.\ \req{x\mapsto y}; \ens{r.\ x\mapsto y \wedge r=y} }} \text{\scriptsize StDeref}
+\frac{}{\sb{\varphi}\ !x\ \sb{\varphi; \exists y, r.\ \req{x\mapsto y}; \ens{r.\ x\mapsto y \wedge r=y} }} {\scriptsize \text{StDeref}}
 $$
 
 <!-- https://github.com/KaTeX/KaTeX/issues/471 -->
@@ -275,11 +275,11 @@ It shouldn't be too surprising, as it mostly follows the schema we just presente
 The advantage of having the precondition on the right becomes clearer with the rule for function application, which is the first place where our new logic fundamentally differs.
 
 $$
-\frac{(\forall y.\ \s{P_f}\ f(y)\ \s{ r.\ Q_f }) \quad P \vdash P_f[x/y] * F}{\s{P}\ f(x)\ \s{ r.\ Q_f[x/y] * F } } \text{\scriptsize SLApp}
+\frac{(\forall y.\ \s{P_f}\ f(y)\ \s{ r.\ Q_f }) \quad P \vdash P_f[x/y] * F}{\s{P}\ f(x)\ \s{ r.\ Q_f[x/y] * F } } {\scriptsize \text{SLApp}}
 $$
 
 $$
-\frac{}{\sb{ \varphi }\ f(x)\ \sb{ \varphi; \exists r.\ f(x,r) }} \text{\scriptsize StApp}
+\frac{}{\sb{ \varphi }\ f(x)\ \sb{ \varphi; \exists r.\ f(x,r) }} {\scriptsize \text{StApp}}
 $$
 
 First, we have the standard separation logic rule for function application. The key part is that some *knowledge* or *specification* of $f$ is required to prove that it is safe to call in a state satisfying $P$. Once this is done via the entailment on the right, a postcondition $Q_f$ (with appropriate substitutions) and frame $F$ are produced, allowing us to continue.
@@ -383,7 +383,7 @@ Comparing this to the previous specification, this time expressed as a single $\
 $$
 \begin{array}{l}
 \foldr(f, a, l, \m{res}) = \\
-\quad \exists P, \inv, \xs.\ \req{\m{List(l, \xs)} * \inv([], a) \wedge \m{all}(P, \xs)} \\
+\quad \exists P, \inv, \xs.\ \req{\m{List}(l, \xs) * \inv([], a) \wedge \m{all}(P, \xs)} \\
 \qquad \wedge f(x, a', r) \sqsubseteq (\exists ys.\ \req{\inv(\ys, a') \wedge P(x)}; \ens{\inv(x{::}\ys, r)}); \\
 \quad \ens{\m{List}(l, \xs) * \inv(\xs, \m{res})}
 \end{array}
@@ -411,7 +411,7 @@ and a user-provided specification (below), we can verify the above program by pr
 
 $$
 \begin{array}{rl}
-& \forall x, \xs, \m{init}, \res.\ \m{foldr_sum_state}(x, \xs, \m{init}, \res) \\
+& \forall x, \xs, \m{init}, \res.\ \m{foldr\_sum\_state}(x, \xs, \m{init}, \res) \\
 \sqsubseteq & \exists i,r.\ \req{x{\mapsto}i}; \ens{x{\mapsto}i{+}r{\wedge}\res{=}r{+}\m{init}{\wedge}r{=}\m{sum}(\xs)}
 \end{array}
 $$
