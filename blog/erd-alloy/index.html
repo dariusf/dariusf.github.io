@@ -607,6 +607,11 @@ pre:not([class*="language-"]) {
 .scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
   display: none;
 }
+
+/* mathjax v4, where display math is not centered */
+mjx-container {
+	margin: auto;
+}
 header {
 			/* display: flex; */
 			/* gap: 2em; */
@@ -821,7 +826,7 @@ sig e2 {}{ one this.~r1 }</code></pre>
 <h2 id="checking-properties">Checking properties</h2>
 <p>With this encoding, we can already reason mechanically about ER diagrams.
 For example, we can verify simple properties, such as: that the cardinality constraints we state do what we intend them to.</p>
-<p>Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint <mjx-container class="MathJax" jax="SVG" style="direction: ltr; position: relative;"><svg style="overflow: visible; min-height: 1px; min-width: 1px; vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.98ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 433 453" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z" style="stroke-width: 3;"></path></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline" style="top: 0px; left: 0px; clip: rect(1px, 1px, 1px, 1px); -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; position: absolute; padding: 1px 0px 0px 0px; border: 0px; display: block; width: auto; overflow: hidden;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi></math></mjx-assistive-mml></mjx-container> means...</p>
+<p>Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.864ex" height="1.025ex" role="img" focusable="false" viewBox="0 -479 414 491" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-3-STX-I-1D450" d="M358 123C327 85 288 57 219 57C161 57 109 77 109 184C109 300 170 446 280 446C312 446 329 434 329 419C329 403 310 375 310 349C310 327 324 314 348 314C385 314 404 346 404 386C404 451 353 479 290 479C146 479 26 335 26 169C26 68 71-12 179-12C269-12 334 44 375 108Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="c"><g data-mml-node="mi" data-latex="c"><use data-c="1D450" xlink:href="#MJX-3-STX-I-1D450"></use></g></g></g></svg></mjx-container> means...</p>
 <div style="text-align: center" class="theme-affected scroll-when-overflowing">
 
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
@@ -869,7 +874,7 @@ For example, we can verify simple properties, such as: that the cardinality cons
 <table>
 <thead>
 <tr>
-<th>Constraint <mjx-container class="MathJax" jax="SVG" style="direction: ltr; position: relative;"><svg style="overflow: visible; min-height: 1px; min-width: 1px; vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.98ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 433 453" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z" style="stroke-width: 3;"></path></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline" style="top: 0px; left: 0px; clip: rect(1px, 1px, 1px, 1px); -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; position: absolute; padding: 1px 0px 0px 0px; border: 0px; display: block; width: auto; overflow: hidden;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi></math></mjx-assistive-mml></mjx-container></th>
+<th>Constraint <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.864ex" height="1.025ex" role="img" focusable="false" viewBox="0 -479 414 491" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-4-STX-I-1D450" d="M358 123C327 85 288 57 219 57C161 57 109 77 109 184C109 300 170 446 280 446C312 446 329 434 329 419C329 403 310 375 310 349C310 327 324 314 348 314C385 314 404 346 404 386C404 451 353 479 290 479C146 479 26 335 26 169C26 68 71-12 179-12C269-12 334 44 375 108Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="c"><g data-mml-node="mi" data-latex="c"><use data-c="1D450" xlink:href="#MJX-4-STX-I-1D450"></use></g></g></g></svg></mjx-container></th>
 <th>Meaning</th>
 </tr>
 </thead>
@@ -897,7 +902,7 @@ For example, we can verify simple properties, such as: that the cardinality cons
 </tbody>
 </table>
 </div>
-<p>Given <mjx-container class="MathJax" jax="SVG" style="direction: ltr; position: relative;"><svg style="overflow: visible; min-height: 1px; min-width: 1px; vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.98ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 433 453" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z" style="stroke-width: 3;"></path></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline" style="top: 0px; left: 0px; clip: rect(1px, 1px, 1px, 1px); -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; position: absolute; padding: 1px 0px 0px 0px; border: 0px; display: block; width: auto; overflow: hidden;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi></math></mjx-assistive-mml></mjx-container> is (1, 1), all the models of a particular ER diagram should satisfy properties like:</p>
+<p>Given <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.864ex" height="1.025ex" role="img" focusable="false" viewBox="0 -479 414 491" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-5-STX-I-1D450" d="M358 123C327 85 288 57 219 57C161 57 109 77 109 184C109 300 170 446 280 446C312 446 329 434 329 419C329 403 310 375 310 349C310 327 324 314 348 314C385 314 404 346 404 386C404 451 353 479 290 479C146 479 26 335 26 169C26 68 71-12 179-12C269-12 334 44 375 108Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="c"><g data-mml-node="mi" data-latex="c"><use data-c="1D450" xlink:href="#MJX-5-STX-I-1D450"></use></g></g></g></svg></mjx-container> is (1, 1), all the models of a particular ER diagram should satisfy properties like:</p>
 <ol>
 <li>All <code>e1</code>s are related by <code>r1</code></li>
 <li>No <code>e1</code>s are related by <code>r1</code> multiple times</li>
@@ -1200,7 +1205,7 @@ It seems better to use Alloy's relations if aggregation isn't required.</p>
 			
 		</footer>
 
-		<!-- This page `/blog/erd-alloy/` was built on 2025-06-25T08:04:16.308Z -->
+		<!-- This page `/blog/erd-alloy/` was built on 2025-08-25T14:06:24.234Z -->
 		
 	</body>
 </html>
