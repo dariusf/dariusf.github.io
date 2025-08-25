@@ -61,11 +61,11 @@ const font = MathJax.startup.document.outputJax.font;
 const dynamic = fontData.dynamicFiles;
 fontPreloads.forEach((name) => dynamic[name].setup(font));
 
-function typeset(math, display = true) {
+function typeset(math, display) {
 	// console.log(math);
 	const adaptor = MathJax.startup.adaptor;
 	try {
-		const rendered = adaptor.outerHTML(MathJax.tex2svg(math));
+		const rendered = adaptor.outerHTML(MathJax.tex2svg(math, { display }));
 		if (rendered.includes("data-mjx-error=")) {
 			throw rendered;
 		}
