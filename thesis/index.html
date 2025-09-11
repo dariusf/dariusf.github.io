@@ -9,7 +9,7 @@
 		<meta property="og:url" content="https://dariusf.github.io">
 		<meta property="og:image" content="https://dariusf.github.io/avatar.png">
 
-		<title>Darius Foo</title>
+		<title>Thesis</title>
 		<meta name="description" content="PhD student, programming languages and formal verification">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
 
@@ -403,20 +403,13 @@ header {
 
 		<main id="skip">
 			
-<h1 id="404">404</h1>
-<!-- Go <a href="index.njk">home</a>. -->
-<!--
-
-Read more: https://www.11ty.dev/docs/quicktips/not-found/
-
-This is compatible with:
-
-- GitHub Pages: https://help.github.com/articles/creating-a-custom-404-page-for-your-github-pages-site/
-- GitLab Pages: https://docs.gitlab.com/ee/user/project/pages/introduction.html#custom-error-codes-pages
-- Netlify: https://www.netlify.com/docs/redirects/#custom-404
-- Cloudflare Pages: https://developers.cloudflare.com/pages/platform/serving-pages/#not-found-behavior
-- Vercel: https://vercel.com/guides/custom-404-page#static-site-generator-ssg
--->
+<h1 id="automated-verification-of-effectful-higher-order-programs">Automated Verification of Effectful Higher-order Programs</h1>
+<p><strong>Abstract</strong></p>
+<p>This dissertation describes <em>staged logic</em>, a new approach to the automated verification of effectful higher-order programs. Such programs are completely natural to write in most programming languages, but are challenging to handle in verifiers, due to the need to reason simultaneously about the ordering and semantics of effects and higher-order control. Today, support for effectful higher-order programs is largely limited to interactive verifiers, each employing disparate, often semantic specification and verification approaches; many automated verifiers either handle them partially or not at all.</p>
+<p>Staged logic offers a unified approach to effectful reasoning that is designed to bridge this gap. To support automation, it is syntactic in nature, based on refinement and rewriting. It is simple and general, and scales to complex language features, including effect handlers and delimited continuation operators. It serves as the basis for an automated tool, Heifer, that verifies annotated OCaml programs via SMT, and is mechanised in Rocq. Heifer has been used to verify a number of complex and challenging programs, demonstrating that staged logic can be effectively automated. This automation is achieved via a novel proof search procedure and a method of lemma synthesis for reasoning about control operators.</p>
+<p><a href="/thesis.pdf">latest draft</a></p>
+<p><a href="https://github.com/hipsleek/Heifer/">code</a></p>
+<p><a href="https://github.com/dariusf/staged">mechanisation</a></p>
 
 
 		</main>
@@ -425,7 +418,7 @@ This is compatible with:
 			
 		</footer>
 
-		<!-- This page `/404.html` was built on 2025-09-11T06:49:20.571Z -->
+		<!-- This page `/thesis/` was built on 2025-09-11T06:49:20.571Z -->
 		
 	</body>
 </html>
