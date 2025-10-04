@@ -10,6 +10,8 @@ Staged logic offers a unified approach to effectful reasoning that is designed t
 
 [latest draft](/thesis.pdf)
 
+[slides](/darius-thesis-proposal-slides.pdf)
+
 [code](https://github.com/hipsleek/Heifer/)
 
 [mechanisation](https://github.com/dariusf/staged)
