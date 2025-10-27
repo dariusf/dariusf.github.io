@@ -1,13 +1,13 @@
 ---
-title: Other
+title: Games
 eleventyNavigation:
-  key: Other
+  key: Games
   order: 4
 ---
 
 <!-- <h3 style="margin: 0">Games</h3> -->
 
-### Games
+<!-- ### Games -->
 
 My newer games are on [itch.io](https://dariusf.itch.io).
 
