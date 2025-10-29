@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
+		<meta property="og:title" content="Darius Foo">
+		<meta property="og:type" content="article">
+		<meta property="og:url" content="https://dariusf.github.io">
+		<meta property="og:image" content="https://dariusf.github.io/avatar.png">
+
+		<title>A primer on delimited control</title>
+		<meta name="description" content="PhD student, programming languages and formal verification">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
+
+
+		
+
+		
+
+		
+
+		
+
+		
+		
+		<style>@media (prefers-color-scheme: light) { /**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+ }
+@media (prefers-color-scheme: dark) { /**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+ }
+/* This is an arbitrary CSS string added to the bundle */
+:root {
+	/* --font-family: -apple-system, system-ui, sans-serif; */
+	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	*/
+
+    --font-family-monospace: Fira Code, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+
+  /*    --text-font: Crimson Text, serif;*/
+  /*    --text-font: Poppins, Verdana, sans-serif;*/
+  /*    --heading-font: Quicksand, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --heading-font: Open Sans, sans-serif;*/
+  /*    --text-font: Cabin, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --text-font: Roboto, sans-serif;*/
+
+  /*    --heading-font: Roboto, sans-serif;*/
+  /*    --heading-font: Cabin, sans-serif;*/
+  /*    --heading-font: Dosis, sans-serif;*/
+
+  /*    --heading-font: Work Sans, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+
+      /* --heading-font: Nunito, sans-serif; */
+      --heading-font: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+  /*    --text-font: PT Sans, sans-serif;*/
+
+  /*    --heading-font: Varela Round, sans-serif;*/
+  /*    --text-font: Noto Serif, serif;*/
+
+  /*    --text-font: Lato, sans-serif;*/
+      --text-font-size: 17px;
+
+  /*    --text-font: Merriweather, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+
+  /* https://css-tricks.com/snippets/css/system-font-stack/ */
+  /* https://systemfontstack.com/ */
+
+    /* system font on all platforms */
+  /*    --heading-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;*/
+      /* --text-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu; */
+      --text-font: -apple-system, system-ui, sans-serif;
+			/* system-ui, sans-serif; */
+
+
+/* Theme colors */
+
+	/* --color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333; */
+
+	--background-color: #fff;
+
+	/* --text-color: var(--color-gray-90); */
+	/* --text-color-link: #082840; */
+
+	/* --text-color-link: #ff0000; */
+	/* --text-color-link-active: #5f2b48; */
+	/* --text-color-link-visited: #17050F; */
+
+
+	/* --syntax-tab-size: 2; */
+
+	--bright-text-color: #222;
+	--link-color: #3273dc;
+	/* --link-color: #ff5e6c; */
+	--link-visited-color: #6e4bbe;
+	--background-color: #fff;
+	--text-color: #444;
+	--faded-text-color: #777;
+	--blockquote-text-color: var(--bright-text-color);
+	--faint-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* --color-gray-20: #e0e0e0; */
+		/* --color-gray-50: #C0C0C0; */
+		/* --color-gray-90: #dad8d8; */
+
+		/* --text-color is assigned to --color-gray-_ above */
+		/* --text-color-link: #1493fb; */
+		/* --text-color-link-active: #6969f7; */
+		/* --text-color-link-visited: #a6a6f8; */
+
+		--background-color: #15202b;
+
+		--bright-text-color: #eee;
+		--link-color: #8cc2dd;
+		--link-visited-color: #b9a9e0;
+		--background-color: #333;
+		--text-color: #ddd;
+		--faded-text-color: #aaa;
+		--slightly-dimmer-text-color: #ccc;
+		--blockquote-text-color: var(--slightly-dimmer-text-color);
+		--faint-color: #666;
+
+		color-scheme: dark; /* sets scrollbar colour */
+	}
+
+	.theme-affected {
+		filter: invert(.8);
+	}
+}
+
+body {
+	box-sizing: border-box;
+
+	/* https://github.com/sindresorhus/github-markdown-css */
+	min-width: 200px;
+	/* max from old blog */
+	/* max-width: 40em; */
+	/* tiny bit wider because prism adds some padding */
+	max-width: 726px;
+
+	margin: 0 auto;
+	padding: 0 20px;
+
+	/* enable ligatures */
+	text-rendering: optimizeLegibility;
+
+	font-family: var(--text-font);
+	font-size: var(--text-font-size);
+	color: var(--text-color);
+	background-color: var(--background-color);
+
+	/*
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	*/
+	/* line-height: 1.5; */
+}
+
+@media (max-width: 767px) {
+	body {
+		padding: 0px 1em;
+	}
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+html {
+	overflow-y: scroll;
+}
+
+/* https://github.com/Kimeiga/bahunya/blob/master/src/parts/_typography.css */
+ul, ol {
+  padding-left: 2em;
+}
+
+li {
+	line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--heading-font);
+	color: var(--bright-text-color);
+	font-weight: normal;
+	line-height: 1.25;
+}
+
+footer {
+	padding: 35px;
+}
+
+/* header {
+	border-bottom: 1px dashed var(--color-gray-20);
+} */
+
+
+/* misc changes from here on */
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+p:has(img) {
+	text-align: center;
+}
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+/* img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+} */
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--link-color);
+	text-decoration: none;
+}
+
+/* a[href]:visited {
+	color: var(--link-visited-color);
+} */
+
+/* a[href]:hover,
+a[href]:active { */
+	/* color: var(--text-color-link-active); */
+	/* text-decoration: underline; */
+	/* text-decoration-thickness: 2px; */
+/* } */
+
+/* main :first-child {
+	margin-top: 0;
+} */
+
+/* .links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+} */
+
+table {
+	margin: 1em 0;
+	border-collapse: collapse;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+/* table thead tr th {
+  border-bottom: solid var(--text-color) 2px;
+  border-top: solid var(--text-color) 2px;
+} */
+
+.table-lines td {
+  border-bottom: solid var(--text-color) 1px;
+  border-top: solid var(--text-color) 1px;
+}
+
+/* pre,
+code {
+	font-family: var(--font-family-monospace) !important;
+	font-size: 14px !important;
+} */
+
+/* override prism */
+/* https://github.com/orgs/PrismJS/discussions/2859 */
+code[class*="language-"],
+pre[class*="language-"] {
+	font-family: var(--font-family-monospace);
+	font-size: 14px;
+}
+
+pre[class*="language-"] {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	/* -moz-tab-size: var(--syntax-tab-size); */
+	/* -o-tab-size: var(--syntax-tab-size); */
+	/* tab-size: var(--syntax-tab-size); */
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+
+.scroll-when-overflowing, pre {
+	overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
+  display: none;
+}
+
+/* mathjax v4, where display math is not centered */
+mjx-container {
+	margin: auto;
+}
+header {
+			/* display: flex; */
+			/* gap: 2em; */
+			border-right: 10px;
+			/* flex-wrap: wrap; */
+			/* justify-content: space-between; */
+			/* align-items: center; */
+			align-items: end;
+			padding-top: 1em;
+			/* padding: 1em; */
+		}
+.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
+			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		
+
+		<header>
+
+			
+			
+			
+			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">Darius Foo</a>
+			
+				
+				
+				
+				
+				
+				
+			
+			
+			<nav style="display: inline-block">
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					<li class="nav-item"><a href="/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/research/">Research</a></li>
+					<li class="nav-item"><a href="/work/">Work</a></li>
+					<li class="nav-item"><a href="/games/">Games</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+
+<h1 style="margin-top: 1rem; margin-bottom: 0.2em" id="a-primer-on-delimited-control">A primer on delimited control</h1>
+
+
+
+<div class="post-metadata">
+	
+	<time style="font-size: 0.9em;" datetime="2025-10-27">27 Oct 2025</time>
+	
+	
+</div>
+
+<div class="blog-content">
+<p>The literature on continuations and delimited control is vast.
+This blog post is intended as an opinionated starting point, to introduce the key ideas and issues at a high level and provide pointers to the relevant papers.</p>
+<h1 id="programming-with-shift-and-reset">Programming with shift and reset</h1>
+<p>A good starting point is to get some intuition writing programs which use shift and reset, in a sense the most well-behaved of the family of operators.
+<a href="https://www.is.ocha.ac.jp/~asai/cw2011tutorial/main-e.pdf">Kenichi Asai's tutorial</a> has many examples.</p>
+<p>The easiest language to try them in today is Racket, which has the most complete <a href="https://docs.racket-lang.org/reference/cont.html">library</a> of operators.</p>
+<pre class="language-racket" tabindex="0"><code class="language-racket"><span class="token punctuation">(</span><span class="token function">example</span><span class="token punctuation">)</span></code></pre>
+<p>A close second is OCaml, using <a href="https://github.com/kayceesrk/delimcc_of_fxhandler">delimcc_of_fxhandler</a>.
+Two caveats are that 1. a library is needed for multishot continuations, and 2. the type system does not help.
+An alternative is <a href="https://gist.github.com/dariusf/fd9a93de6b9e20dd1cf2f64b146b8e53">this port</a> of Oleg Kiselyov's <em>Genuine Shift/Reset</em>, which provides a typed monadic API.</p>
+<pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token punctuation">(</span>example<span class="token punctuation">)</span></code></pre>
+<!-- javascript https://github.com/nythrox/effects.js/ -->
+<h2 id="use-cases">Use cases</h2>
+<ul>
+<li>Nondeterminism</li>
+<li><a href="https://homes.luddy.indiana.edu/ccshan/rational/dsl-paper.pdf">Probabilistic programming</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3341700">Automatic differentiation</a></li>
+</ul>
+<p>There is significant overlap in <a href="https://github.com/ocaml-multicore/effects-examples/">use cases</a> with effect handlers.</p>
+<h1 id="semantics-of-shift-and-reset">Semantics of shift and reset</h1>
+<h1 id="answer-type-modification">Answer-type modification</h1>
+<h1 id="other-operators-in-the-family">Other operators in the family</h1>
+<h2 id="distinguishing-shift-and-control">Distinguishing shift and control</h2>
+<h2 id="distinguishing-shift-and-shift0">Distinguishing shift and shift0</h2>
+<h2 id="distinguishing-control-and-control0">Distinguishing control and control0</h2>
+<h2 id="in-what-sense-is-shift-static-and-control-dynamic">In what sense is shift static, and control dynamic?</h2>
+<p>importantly, not the same as lexical scope and dynamic scope.</p>
+<h2 id="relation-to-algebraic-effects">Relation to algebraic effects</h2>
+<p>shift0 corresponds to deep handlers, and control0 corresponds to shallow.</p>
+<ul>
+<li><a href="https://dl.acm.org/doi/10.1145/3110257">On the expressive power of user-defined effects: effect handlers, monadic reflection, delimited control</a></li>
+<li><a href="https://maciejpirog.github.io/papers/typed-equivalence-fscd2019.pdf">Typed Equivalence of Effect Handlers and Delimited Control</a></li>
+</ul>
+<!-- # An incomplete history
+
+Prompts in the REPL -->
+<!--
+
+** continuations
+
+---
+title: "Getting started with delimited continuations"
+date: 2025-04-23
+---
+
+- [shift/reset](#shiftreset)
+- [Semantics](#semantics)
+- [Answer-type modification](#answer-type-modification)
+- [Other operators](#other-operators)
+- [Defunctionalization](#defunctionalization)
+- [Refunctionalization](#refunctionalization)
+- [Algebraic effects](#algebraic-effects)
+- [monadic reflection](#monadic-reflection)
+
+<!-- temporary hack for vs code simple browser -->
+<!-- <style>
+html {
+  filter: invert(1);
+}
+</style> -->
+<!-- Continuations have a long and storied history, so it can be hard to figure out where to start with them.
+The key concepts are scattered across many classic papers.
+
+This is the overview I wished existed when I first started learning about them. It introduces the big ideas intuitively, using examples, and gives pointers to the important papers.
+
+The main prerequisite is that you have heard of CPS and roughly know what it is. There are many excellent introductions to it.
+
+- [A Gentle Run-through of Continuation Passing Style and Its Use Cases ](https://free.cofree.io/2020/01/02/cps/)
+- [By example: Continuation-passing style in JavaScript](https://matt.might.net/articles/by-example-continuation-passing-style/)
+- [Continuations by example: Exceptions, time-traveling search, generators, threads, and coroutines](https://matt.might.net/articles/programming-with-continuations--exceptions-backtracking-search-threads-generators-coroutines/) -->
+<!-- This post is an introduction to the world of delimited continuations, with a focus on conveying intuition. -->
+<!-- There will be pointers to the key papers for further reading. -->
+<!-- ### What?
+
+Continuations represent *the rest of the computation*[^1].
+
+```js
+(3 * 5) + 1
+```
+
+In a <abbr title="call-by-value">typical</abbr> language, the
+subexpression
+`(3 * 5)`
+evaluates first.
+The surrounding *context*, `• + 1`, is the continuation.
+
+`•` is (rather unimaginatively) called a *hole* and indicates where the result of `(3 * 5)` gets plugged into to continue the computation.
+
+Here, we have just a simple expression, but the continuation may be the rest of the entire program, which may be very large.
+
+When referring to "continuations" as a programming language feature, we usually mean the ability to manipulate them as first-class values.
+This means the context `• + 1` is <abbr title="reified">made available</abbr> in the program as the lambda expression `(v => v + 1)`, a value. -->
+<!-- ### Why?
+
+Why are continuations interesting to have in a programming language?
+They allow one to implement, *as libraries*, a wide variety of control flow features, including: break/continue, exceptions, coroutines, nondeterminism, async-await, and arbitrary monadic effects.
+
+Moreover, they allow users to write programs using these features in *direct style*, without monads.
+
+You may have heard this mentioned as an advantage of *algebraic effects* in OCaml 5.
+Indeed, there is a [close correspondence](#algebraic-effects) between algebraic effects and continuations. -->
+<!-- ## CPS
+
+The most primitive way to work with continuations is to write programs in *continuation-passing style* (CPS).
+
+A function in CPS have an extra parameter, the continuation, usually named `k`. Rather than return, they invoke the continuation on the value that would have been returned, in tail position.
+
+```ocaml
+let f x k =
+  k (x + 1)
+```
+
+Note that here, the call to the `(+)` function is in direct style - it returns normally, not by invoking a continuation passed as an argument.
+When programming in CPS, we might allow ourselves to mix CPS and direct style, but strictly speaking, if the entire program is in CPS, `(+)` should return via a continuation as well.
+
+```ocaml
+let f x k =
+  plus x 1 (fun v -> k v)
+```
+
+This can be done more systematically using the *CPS transform*, a global program transformation.
+
+CPS is useful in its own right as an [intermediate representation](https://en.wikipedia.org/wiki/Continuation-passing_style) for compilers, as well as a semantics for the operators which will be shown next.
+-->
+<!-- ## shift/reset
+
+We'll start by getting a feel for the *shift* and *reset* operators, which are the most well-behaved of the bunch.
+Once we have some fluency with their use (and quirks), we'll talk about their semantics, and only then move on to the other operators.
+
+```
+```
+
+*continuation-composing style*.
+
+- why and motivation. shift reset is most fundamental. there are implementations in many langs. autodiff
+
+Asai's [Introduction to Programming with Shift and Reset](http://pllab.is.ocha.ac.jp/~asai/cw2011tutorial/main-e.pdf) shows many interesting programs which can be written with them.
+
+We'll focus on the *shift* and *reset* operators, which in my opinion have the most intuitive semantics.
+
+with other operators presented as variations of the core ideas here.
+
+- intuition. must find the delimiter. a slice of the stack with a recursive function. shift as a conversion to cps
+- patterns. asai
+- answer type modification and solutions via types. ochacaml. we propose in our paper, hoare
+- semantics. reducton rules in racket
+- prompt control, zero or not. 4 places. side by side. don't gain anything from shan04
+- relation to effects. equivalence
+- reasoning. httcc? heifer
+
+
+## Semantics
+
+reduction
+cps
+definition interpreter
+our semantics
+
+
+Abstracting Control - Danvy & Filinski 90
+
+- shift reset first proposed, as compose and identity for continuation functions
+
+
+## Answer-type modification
+
+
+
+## Other operators
+
+call/cc
+shift0
+Prompt/control -->
+<!-- ```
+    (reset val) => val
+    (reset E[(shift k expr)]) => (reset ((lambda (k) expr)
+                                         (lambda (v) (reset E[v]))))
+      ; where E has no reset
+
+(prompt val) => val
+(prompt E[(control k expr)]) => (prompt ((lambda (k) expr)
+                                         (lambda (v) E[v])))
+  ; where E has no prompt
+
+    (prompt0 val) => val
+    (prompt0 E[(control0 k expr)]) => ((lambda (k) expr)
+                                       (lambda (v) E[v]))
+    (reset0 val) => val
+    (reset0 E[(shift0 k expr)]) => ((lambda (k) expr)
+                                    (lambda (v) (reset0 E[v])))
+
+
+
+    (prompt E[(control0 k expr)]) => (prompt ((lambda (k) expr)
+                                              (lambda (v) E[v])))
+    (reset E[(shift0 k expr)]) => (reset ((lambda (k) expr)
+                                          (lambda (v) (reset0 E[v]))))
+    (prompt0 E[(control k expr)]) => (prompt0 ((lambda (k) expr)
+                                               (lambda (v) E[v])))
+    (reset0 E[(shift k expr)]) => (reset0 ((lambda (k) expr)
+                                           (lambda (v) (reset E[v]))))
+
+```
+
+(reset0 val) => val
+(reset0 E[(shift0 k expr)]) => ((lambda (k) expr)
+                                (lambda (v) (reset0 E[v])))
+
+
+if we don't have a reset around E, we get something like a shallow effect handler
+
+for example, in `<shift0 k B ^ shift0 ...>`, k will be bound in B as `λx. <x ^ shift0 ...>` (with reset) vs `λx. x ^ shift0 ...` (without)
+
+if we have further shift0s in B, they will be allowed to "escape", to access enclosing continuations. but any shift0s in k should not escape - looking at the first program, both the shift0s there should be delimited by the same reset
+
+
+<shift0 k B ^ shift0 ...>
+E = [.] ^ shift0 ...
+k = λx. <x ^ shift0 ...>
+expr = B
+
+
+does reset/shift0 behave the same as reset/shift?
+
+i'm not sure if reset/shift0 has a defined semantics, it may just be undefined behavior
+
+
+That is, both the prompt/reset and control/shift sites must agree for 0-like behavior, otherwise the non-0 behavior applies.
+
+
+if we don't have reset around E, we will continue with `B` instead, which will have an unhandled shift0 when invoking k
+
+if we have a reset around E, we continue with `<B>` -->
+<!-- ---
+
+simple, accessible, intuitive explanation of what they are and what the benefits are
+
+understanding them as cpsing functions
+
+Functions are delimited
+
+I would like to get hold of the cont
+Now imagine any delim
+
+What I don't get is the shift body. Surely I have to use the cont? But if I don't, the function just returns. Extra logical already, no correspondence
+
+---
+
+let main k = f (λx. x)
+metacontinuation
+
+---
+
+Systematically translating shift-reset to CPS
+
+For simple cases where we translate a single function in CPS, it's fairly direct.
+
+1. Remove k argument and move function body under shift
+2. Move call site of function under reset, with continuation passed as argument
+
+Examples
+
+let f = shift (fun k -> ... k 1)
+in reset (1 + f)
+<->
+let f k = ... k 1
+in f (fun x -> 1 + x)
+
+
+let f = shift (fun k -> k)
+in (reset (1 + f)) 1
+<->
+let f k = k
+in (f (fun x -> 1 + x)) 1
+
+
+Not all cases are simple.
+
+- shifts may appear in pieces of code which do not correspond nicely to function boundaries
+- Not all branches of a computation may use a continuation
+
+An example of both is append. -->
+<!-- ## Defunctionalization
+
+## Refunctionalization
+
+## Algebraic effects
+
+## monadic reflection
+
+bridge between delimited continuations and monads
+reflect/shift lets you treat monadic value as normal value in direct style
+
+reify/reset lets you turn a direct style computation into a monadic one
+dual to shift and reset but instead of capturing continuations, they capture monadic effects
+
+https://github.com/ocaml-multicore/effects-examples/blob/master/reify_reflect.ml
+
+
+[^1]: [Introduction to Programming with Shift and Reset](http://pllab.is.ocha.ac.jp/~asai/cw2011tutorial/main-e.pdf) -->
+<!-- ** ./lit-reviews/delimited-control.md
+---
+title: "delimited-control"
+date: 2022-12-27 13:27:09 +0800
+---
+
+all about continuations
+
+# call/cc
+
+unknown origin
+http://www.madore.org/~david/computers/callcc.html#sec_whoinv
+
+run by pasting into dr racket and pressing cmd+r
+
+```
+brew install --cask racket
+```
+
+```
+#lang racket
+
+(let ((a 0))
+  (call/cc
+   (lambda (k)
+     (+ (* 2 3) (/ 10 (if (zero? a) (k +inf.0) a))))))
+
+(display
+  (call/cc (lambda (cc)
+            (display "I got here.\n")
+            (cc "This string was passed to the continuation.\n")
+            (cc "Here is another one.\n")
+            (display "But not here.\n"))))
+(display "---\n")
+
+(let ((k (call/cc (lambda (cc) cc))))
+  (if (string? k)
+      (begin (display "str\n") (display k))
+      (begin (display "cont\n") (k "lol"))
+      )
+  )
+(display "hi again\n")
+```
+
+call/cc binds the entirety of the rest of the program, hence why it is not compositional. it's like a goto.
+
+programming with call/cc is very tricky. very primitive.
+to even write programs with it you need the helper procedure matt might defines.
+
+need macros. need things like dynamic wind. idk if simple things like exceptions can be implemented without them.
+
+backtracking requires you to manually keep track of the stack of places to go back to.
+
+https://matt.might.net/articles/programming-with-continuations--exceptions-backtracking-search-threads-generators-coroutines/
+
+the operational semantics of callcc.
+
+slide 9 of https://www.pauldownen.com/presentations/compositional-continuations-slides.pdf
+
+v is a value. eval ctxs are values (continuations k). m, n are functions, things which can be applied. eval ctxs specify that in fn apps, the fn is reduced first, then the arg.
+
+callcc applies its arg (some kind of function) to [E], which is *the context in which callcc appears*.
+applying the continuation replaces the current evaluation context with it
+
+notably, it's a goto. it abandons the current context
+
+# delimited continuations
+
+```
+#lang racket
+
+(require racket/control)
+(* 2 (reset (+ 10 (shift k (k (k 2))))))
+(* 2 (reset (+ 10 (shift k (k 12)))))
+(* 2 22)
+
+(string-append "Alice" (reset (string-append " has " (shift k (string-append (k "a dog") " and the dog" (k "a bone"))))))
+```
+
+introduced in danvy90
+Danvy and Filinski’s
+
+## shift/reset
+
+reset delimits a region, like a handler
+shift is perform
+there is now a stack
+
+slides
+https://shonan.nii.ac.jp/archives/seminar/103/wp-content/uploads/sites/122/2016/09/effdel.pdf
+
+tutorial
+http://pllab.is.ocha.ac.jp/~asai/cw2011tutorial/main-e.pdf
+
+slide 21 of https://www.pauldownen.com/presentations/compositional-continuations-slides.pdf
+https://docs.racket-lang.org/reference/cont.html#%28form._%28%28lib._racket%2Fcontrol..rkt%29._reset%29%29
+
+see op semantics.
+when whatever is inside reset has a redex involving shift, the value given to shift (a lambda) is applied to another lambda (which is bound to k). when k is called with some value x, the result is the captured context E with x substituted inside, *inside another reset*. all of this remains inside (the outer) reset.
+
+once whatever is inside reset is a value, reset is gone
+
+## shift0/reset0
+
+materzok 2011
+
+```
+#lang racket
+
+(require racket/control)
+
+(reset0
+ (string-append
+  "Alice"
+  (reset0 (string-append " has " (shift0 k1 (shift0 k2 (string-append "A cat" (k1 (k2 ".")))))))))
+```
+
+slide 23 of https://www.pauldownen.com/presentations/compositional-continuations-slides.pdf
+
+slide 7 of https://shonan.nii.ac.jp/archives/seminar/103/wp-content/uploads/sites/122/2016/09/effdel.pdf
+
+when nesting reset0, each successive shift0 gives us the ability to refer to enclosing delimited contexts which are further and further away. shift0 refers to the closest
+
+slide 12 compares them
+the difference with shift0 is that the outer reset is removed
+
+# effect handlers
+
+plotkin 2001
+
+the difference with delimited continuations:
+
+handlers get access to the continuation. in contrast, reset delimits, but shift binds the continuation, and inside there is what the perform body would do
+
+these structure delimited continuations. why?
+
+untyped delimited continuations can macro express effect handlers
+simply typed delimited continuations cannot macro express effect handlers!
+see forster 2017
+there's a comparison with the same examples at the end of https://shonan.nii.ac.jp/archives/seminar/103/wp-content/uploads/sites/122/2016/09/effdel.pdf
+
+-->
+<!-- ** continuations blog posts
+
+The two continuation model of streams
+Simple non deterministic programming with cps
+
+continuations blog post
+
+Pointers and introductory reading to get started with continuations
+Broad overview of topics
+
+- different operators and the differences
+- How to think about shift and reset
+- Meta contexts shift 0
+- The cps transform
+- The cps hierarchy
+- De and re func
+- Uses. Backtracking
+- The two continuation model
+- Inversion of control
+- algebraic effects
+- Answer type modification
+  - The answer type is r and can be different
+- Monadic encoding and ways to have it in your favourite language
+- the continuation monad
+
+Questions
+
+- does a meta continuation only arise when some part of a computation is in cps but some part is not?
+- How is shift and reset translated to cps? What's the delimited version of a cps program?
+- How is prompt control translated? What's the representation of the outermost reset?
+- what is shift 1, shift 2? Does it correspond to the cps hierarchy?
+- Why does the cps hierarchy arise? Does it have to do with cps transforming meta continuations? Isn't the cps transform one shot, in that it recurses all the way down an expression? Why does it need to be iterated? Is it because there can always be a program calling a cps program and that has to be transformed too?
+- Is meta context and meta continuation the same?
+- what a syntactic theory? -->
+</div>
+
+		</main>
+
+		<footer>
+			
+		</footer>
+
+		<!-- This page `/drafts/delimited-control/` was built on 2025-10-29T09:29:33.524Z -->
+		
+	</body>
+</html>
