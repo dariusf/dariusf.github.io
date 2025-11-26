@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
+		<meta property="og:title" content="Darius Foo">
+		<meta property="og:type" content="article">
+		<meta property="og:url" content="https://dariusf.github.io">
+		<meta property="og:image" content="https://dariusf.github.io/avatar.png">
+
+		<title>The Functorial Approach to Binding</title>
+		<meta name="description" content="PhD student, programming languages and formal verification">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Darius Foo">
+
+
+		
+
+		
+
+		
+
+		
+
+		
+		
+		<style>@media (prefers-color-scheme: light) { /**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+ }
+@media (prefers-color-scheme: dark) { /**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+ }
+/* This is an arbitrary CSS string added to the bundle */
+:root {
+	/* --font-family: -apple-system, system-ui, sans-serif; */
+	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	*/
+
+    --font-family-monospace: Fira Code, Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+
+  /*    --text-font: Crimson Text, serif;*/
+  /*    --text-font: Poppins, Verdana, sans-serif;*/
+  /*    --heading-font: Quicksand, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --heading-font: Open Sans, sans-serif;*/
+  /*    --text-font: Cabin, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+  /*    --text-font: Roboto, sans-serif;*/
+
+  /*    --heading-font: Roboto, sans-serif;*/
+  /*    --heading-font: Cabin, sans-serif;*/
+  /*    --heading-font: Dosis, sans-serif;*/
+
+  /*    --heading-font: Work Sans, sans-serif;*/
+  /*    --text-font: Open Sans, sans-serif;*/
+
+      /* --heading-font: Nunito, sans-serif; */
+      --heading-font: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+  /*    --text-font: PT Sans, sans-serif;*/
+
+  /*    --heading-font: Varela Round, sans-serif;*/
+  /*    --text-font: Noto Serif, serif;*/
+
+  /*    --text-font: Lato, sans-serif;*/
+      --text-font-size: 17px;
+
+  /*    --text-font: Merriweather, sans-serif;*/
+  /*    --text-font-size: 16px;*/
+
+  /* https://css-tricks.com/snippets/css/system-font-stack/ */
+  /* https://systemfontstack.com/ */
+
+    /* system font on all platforms */
+  /*    --heading-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;*/
+      /* --text-font: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu; */
+      --text-font: -apple-system, system-ui, sans-serif;
+			/* system-ui, sans-serif; */
+
+
+/* Theme colors */
+
+	/* --color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333; */
+
+	--background-color: #fff;
+
+	/* --text-color: var(--color-gray-90); */
+	/* --text-color-link: #082840; */
+
+	/* --text-color-link: #ff0000; */
+	/* --text-color-link-active: #5f2b48; */
+	/* --text-color-link-visited: #17050F; */
+
+
+	/* --syntax-tab-size: 2; */
+
+	--bright-text-color: #222;
+	--link-color: #3273dc;
+	/* --link-color: #ff5e6c; */
+	--link-visited-color: #6e4bbe;
+	--background-color: #fff;
+	--text-color: #444;
+	--faded-text-color: #777;
+	--blockquote-text-color: var(--bright-text-color);
+	--faint-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* --color-gray-20: #e0e0e0; */
+		/* --color-gray-50: #C0C0C0; */
+		/* --color-gray-90: #dad8d8; */
+
+		/* --text-color is assigned to --color-gray-_ above */
+		/* --text-color-link: #1493fb; */
+		/* --text-color-link-active: #6969f7; */
+		/* --text-color-link-visited: #a6a6f8; */
+
+		--background-color: #15202b;
+
+		--bright-text-color: #eee;
+		--link-color: #8cc2dd;
+		--link-visited-color: #b9a9e0;
+		--background-color: #333;
+		--text-color: #ddd;
+		--faded-text-color: #aaa;
+		--slightly-dimmer-text-color: #ccc;
+		--blockquote-text-color: var(--slightly-dimmer-text-color);
+		--faint-color: #666;
+
+		color-scheme: dark; /* sets scrollbar colour */
+	}
+
+	.theme-affected {
+		filter: invert(.8);
+	}
+}
+
+body {
+	box-sizing: border-box;
+
+	/* https://github.com/sindresorhus/github-markdown-css */
+	min-width: 200px;
+	/* max from old blog */
+	/* max-width: 40em; */
+	/* tiny bit wider because prism adds some padding */
+	max-width: 726px;
+
+	margin: 0 auto;
+	padding: 0 20px;
+
+	/* enable ligatures */
+	text-rendering: optimizeLegibility;
+
+	font-family: var(--text-font);
+	font-size: var(--text-font-size);
+	color: var(--text-color);
+	background-color: var(--background-color);
+
+	/*
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	*/
+	/* line-height: 1.5; */
+}
+
+@media (max-width: 767px) {
+	body {
+		padding: 0px 1em;
+	}
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+html {
+	overflow-y: scroll;
+}
+
+/* https://github.com/Kimeiga/bahunya/blob/master/src/parts/_typography.css */
+ul, ol {
+  padding-left: 2em;
+}
+
+li {
+	line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--heading-font);
+	color: var(--bright-text-color);
+	font-weight: normal;
+	line-height: 1.25;
+}
+
+footer {
+	padding: 35px;
+}
+
+/* header {
+	border-bottom: 1px dashed var(--color-gray-20);
+} */
+
+
+/* misc changes from here on */
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+p:has(img) {
+	text-align: center;
+}
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+/* img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+} */
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--link-color);
+	text-decoration: none;
+}
+
+/* a[href]:visited {
+	color: var(--link-visited-color);
+} */
+
+/* a[href]:hover,
+a[href]:active { */
+	/* color: var(--text-color-link-active); */
+	/* text-decoration: underline; */
+	/* text-decoration-thickness: 2px; */
+/* } */
+
+/* main :first-child {
+	margin-top: 0;
+} */
+
+/* .links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+} */
+
+table {
+	margin: 1em 0;
+	border-collapse: collapse;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+/* table thead tr th {
+  border-bottom: solid var(--text-color) 2px;
+  border-top: solid var(--text-color) 2px;
+} */
+
+.table-lines td {
+  border-bottom: solid var(--text-color) 1px;
+  border-top: solid var(--text-color) 1px;
+}
+
+/* pre,
+code {
+	font-family: var(--font-family-monospace) !important;
+	font-size: 14px !important;
+} */
+
+/* override prism */
+/* https://github.com/orgs/PrismJS/discussions/2859 */
+code[class*="language-"],
+pre[class*="language-"] {
+	font-family: var(--font-family-monospace);
+	font-size: 14px;
+}
+
+pre[class*="language-"] {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	/* -moz-tab-size: var(--syntax-tab-size); */
+	/* -o-tab-size: var(--syntax-tab-size); */
+	/* tab-size: var(--syntax-tab-size); */
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+
+.scroll-when-overflowing, pre {
+	overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
+  display: none;
+}
+
+/* mathjax v4, where display math is not centered */
+mjx-container {
+	margin: auto;
+}
+header {
+			/* display: flex; */
+			/* gap: 2em; */
+			border-right: 10px;
+			/* flex-wrap: wrap; */
+			/* justify-content: space-between; */
+			/* align-items: center; */
+			align-items: end;
+			padding-top: 1em;
+			/* padding: 1em; */
+		}
+.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
+			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		
+
+		<header>
+
+			
+			
+			
+			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">Darius Foo</a>
+			
+				
+				
+				
+				
+				
+				
+			
+			
+			<nav style="display: inline-block">
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul style="list-style: none; padding: 0; margin: 0;">
+					<li class="nav-item"><a href="/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/research/">Research</a></li>
+					<li class="nav-item"><a href="/work/">Work</a></li>
+					<li class="nav-item"><a href="/games/">Games</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+
+<h1 style="margin-top: 1rem; margin-bottom: 0.2em" id="the-functorial-approach-to-binding">The Functorial Approach to Binding</h1>
+
+
+
+<div class="post-metadata">
+	
+	<time style="font-size: 0.9em;" datetime="2025-11-27">27 Nov 2025</time>
+	
+	
+</div>
+
+<div class="blog-content">
+<p>I became aware of a very interesting library recently.
+It uses a combination of dependent types and typeclasses to support a surprisingly usable and boilerplate-free approach to the representation of binders.</p>
+<!-- It's so cutting edge that the paper points to a subdirectory of a recent formalisation for the latest source code. -->
+<p>It deserves to be more widely known, so here is a small tutorial covering
+the intuition behind it, and how to use it,
+with a minimum of category theory.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">From</span> Stdlib <span class="token keyword">Require</span> <span class="token keyword">Import</span> Utf8<span class="token punctuation">.</span>
+<span class="token keyword">Require</span> <span class="token keyword">Import</span> Binding<span class="token punctuation">.</span>Lib Binding<span class="token punctuation">.</span><span class="token keyword">Set</span><span class="token punctuation">.</span></code></pre>
+<p>We'll use a lambda calculus to explain the key ideas.</p>
+<p>First, a syntax <code>expr</code> can be thought of as a functor over some type of variables <code>V</code>.</p>
+<p>We define it as follows.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Inductive</span> expr <span class="token punctuation">(</span>V <span class="token punctuation">:</span> <span class="token keyword">Set</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">Set</span> <span class="token operator">:=</span>
+  <span class="token operator">|</span> ret <span class="token punctuation">:</span> val V → expr V
+  <span class="token operator">|</span> app <span class="token punctuation">:</span> expr V → expr V → expr V
+
+<span class="token keyword">with</span> val <span class="token punctuation">(</span>V <span class="token punctuation">:</span> <span class="token keyword">Set</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">Set</span> <span class="token operator">:=</span>
+  <span class="token operator">|</span> var <span class="token punctuation">:</span> V → val V
+  <span class="token operator">|</span> lam <span class="token punctuation">:</span> expr <span class="token punctuation">(</span>inc V<span class="token punctuation">)</span> → val V<span class="token punctuation">.</span>
+
+<span class="token keyword">Arguments</span> ret <span class="token punctuation">{</span>V<span class="token punctuation">}</span> v<span class="token punctuation">.</span>
+<span class="token keyword">Arguments</span> app <span class="token punctuation">{</span>V<span class="token punctuation">}</span><span class="token punctuation">.</span>
+<span class="token keyword">Arguments</span> var <span class="token punctuation">{</span>V<span class="token punctuation">}</span> x<span class="token punctuation">.</span>
+<span class="token keyword">Arguments</span> lam <span class="token punctuation">{</span>V<span class="token punctuation">}</span> e<span class="token punctuation">.</span></code></pre>
+<!-- (* Coercion ret : val >-> expr. *) -->
+<p>The only unexpected thing is that we have an extra <code>inc</code> constructor in the type of the lambda body, to indicate the presence of a binder.
+There is otherwise no explicit binder, similar to the use of de Bruijn indices.</p>
+<p>With this, <code>V</code> may be more appropriately thought of as a <em>scope</em>: a set of free variables that may occur in a given <code>expr V</code>.
+More on this in a bit.</p>
+<h2 id="first-does-the-functorial-view-buy-us">First, does the functorial view buy us?</h2>
+<p>For one, <code>fmap</code>, of type <code>(A → B) → expr A → expr B</code>, corresponds to <em>renaming</em>: replacing the variables with of type <code>A</code> at the leaves of a term with variables of type <code>B</code>, preserving the structure of the term.</p>
+<p>For another, <em>a substitution</em> can be thought of as a function <code>A → expr B</code>. This makes sense because it maps variables to expressions of a possibly-different scope.</p>
+<p><em>The action of substitution</em> takes a substitution and an expression and produces an expression, i.e. it has type <code>(A → expr B) → expr A → expr B</code>, which is just monadic bind.</p>
+<p>Both of these hint at structure that we can take advantage of: some way to factor out lemmas relating to renaming and substitution, so developments don't have to be bogged down with them.</p>
+<p>Let's get these definitions and some boilerplate out of the way, so we can see some examples.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
+<span class="token keyword">Instance</span> SetPureCore_val <span class="token punctuation">:</span> SetPureCore val <span class="token operator">:=</span>
+  <span class="token punctuation">{</span> set_pure <span class="token operator">:=</span> <span class="token operator">@</span>var <span class="token punctuation">}</span><span class="token punctuation">.</span>
+
+<span class="token keyword">Fixpoint</span> emap <span class="token punctuation">{</span>A B <span class="token punctuation">:</span> <span class="token keyword">Set</span><span class="token punctuation">}</span> <span class="token punctuation">(</span>f <span class="token punctuation">:</span> A <span class="token punctuation">[</span>→<span class="token punctuation">]</span> B<span class="token punctuation">)</span> <span class="token punctuation">(</span>e <span class="token punctuation">:</span> expr A<span class="token punctuation">)</span> <span class="token punctuation">:</span> expr B <span class="token operator">:=</span>
+  <span class="token keyword">match</span> e <span class="token keyword">with</span>
+  <span class="token operator">|</span> ret v <span class="token operator">=></span> ret <span class="token punctuation">(</span>vmap f v<span class="token punctuation">)</span>
+  <span class="token operator">|</span> app e1 e2 <span class="token operator">=></span> app <span class="token punctuation">(</span>emap f e1<span class="token punctuation">)</span> <span class="token punctuation">(</span>emap f e2<span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+
+<span class="token keyword">with</span> vmap <span class="token punctuation">{</span>A B <span class="token punctuation">:</span> <span class="token keyword">Set</span><span class="token punctuation">}</span> <span class="token punctuation">(</span>f <span class="token punctuation">:</span> A <span class="token punctuation">[</span>→<span class="token punctuation">]</span> B<span class="token punctuation">)</span> <span class="token punctuation">(</span>v <span class="token punctuation">:</span> val A<span class="token punctuation">)</span> <span class="token punctuation">:</span> val B <span class="token operator">:=</span>
+  <span class="token keyword">match</span> v <span class="token keyword">with</span>
+  <span class="token operator">|</span> var x <span class="token operator">=></span> var <span class="token punctuation">(</span>f x<span class="token punctuation">)</span>
+  <span class="token operator">|</span> lam e <span class="token operator">=></span> lam <span class="token punctuation">(</span>emap <span class="token punctuation">(</span>lift f<span class="token punctuation">)</span> e<span class="token punctuation">)</span>
+  <span class="token keyword">end</span><span class="token punctuation">.</span>
+
+<span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
+<span class="token keyword">Instance</span> FunctorCore_emap <span class="token punctuation">:</span> FunctorCore expr <span class="token operator">:=</span> <span class="token operator">@</span>emap<span class="token punctuation">.</span>
+<span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
+<span class="token keyword">Instance</span> FunctorCore_vmap <span class="token punctuation">:</span> FunctorCore val <span class="token operator">:=</span> <span class="token operator">@</span>vmap<span class="token punctuation">.</span>
+
+<span class="token keyword">Fixpoint</span> ebind <span class="token punctuation">{</span>A B <span class="token punctuation">:</span> <span class="token keyword">Set</span><span class="token punctuation">}</span> <span class="token punctuation">(</span>f <span class="token punctuation">:</span> A <span class="token punctuation">[</span>⇒<span class="token punctuation">]</span> B<span class="token punctuation">)</span> <span class="token punctuation">(</span>e <span class="token punctuation">:</span> expr A<span class="token punctuation">)</span> <span class="token punctuation">:</span> expr B <span class="token operator">:=</span>
+  <span class="token keyword">match</span> e <span class="token keyword">with</span>
+  <span class="token operator">|</span> ret v <span class="token operator">=></span> ret <span class="token punctuation">(</span>vbind f v<span class="token punctuation">)</span>
+  <span class="token operator">|</span> app e1 e2 <span class="token operator">=></span> app <span class="token punctuation">(</span>ebind f e1<span class="token punctuation">)</span> <span class="token punctuation">(</span>ebind f e2<span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+
+<span class="token keyword">with</span> vbind <span class="token punctuation">{</span>A B <span class="token punctuation">:</span> <span class="token keyword">Set</span><span class="token punctuation">}</span> <span class="token punctuation">(</span>f <span class="token punctuation">:</span> A <span class="token punctuation">[</span>⇒<span class="token punctuation">]</span> B<span class="token punctuation">)</span> <span class="token punctuation">(</span>v <span class="token punctuation">:</span> val A<span class="token punctuation">)</span> <span class="token punctuation">:</span> val B <span class="token operator">:=</span>
+  <span class="token keyword">match</span> v <span class="token keyword">with</span>
+  <span class="token operator">|</span> var x <span class="token operator">=></span> f x
+  <span class="token operator">|</span> lam e <span class="token operator">=></span> lam <span class="token punctuation">(</span>ebind <span class="token punctuation">(</span>lift f<span class="token punctuation">)</span> e<span class="token punctuation">)</span>
+  <span class="token keyword">end</span><span class="token punctuation">.</span>
+
+<span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
+<span class="token keyword">Instance</span> BindCore_ebind <span class="token punctuation">:</span> BindCore expr <span class="token operator">:=</span> <span class="token operator">@</span>ebind<span class="token punctuation">.</span>
+
+<span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
+<span class="token keyword">Instance</span> BindCore_vbind <span class="token punctuation">:</span> BindCore val <span class="token operator">:=</span> <span class="token operator">@</span>vbind<span class="token punctuation">.</span></code></pre>
+<p>The only nonstandard things in the definitions were the use of infix operators <code>[→]</code> and <code>[⇒]</code> where we would expect function arrows <code>→</code>, and the <code>lift</code> combinator.</p>
+<p><code>A [→] B</code> can roughly be understood as <code>A → B</code>, and <code>A [⇒] B</code> as <code>A → expr B</code>.
+The latter is a substitution.</p>
+<p><code>lift</code> lifts both of these over <code>inc</code> constructors: Its type is, roughly, <code>(A [→] B) → inc A [→] inc B</code>.</p>
+<p>(This is a simplified, specialisd view, to get some intuition before we are exposed to the full generality of the library.)</p>
+<!-- A [⇒] B == Sub A B =~ A → F B but with more instances -->
+<p>With the definitions down, we can look at some examples.</p>
+<h2 id="well-scoped-terms">Well-scoped terms</h2>
+<p>First, we have that the types of terms tell us how many free variables occur in them.
+In other words, this is a well-scoped representation.
+A <code>val ∅</code> is a closed term.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a1<span class="token punctuation">:</span> val ∅ <span class="token operator">:=</span> lam <span class="token punctuation">(</span>ret <span class="token punctuation">(</span>var <span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+
+<span class="token keyword">Definition</span> a4<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token operator">:=</span> var <span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+<span class="token keyword">Definition</span> a2<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token operator">:=</span> lam <span class="token punctuation">(</span>ret <span class="token punctuation">(</span>var <span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span></code></pre>
+<p><code>&amp;0</code> and <code>&amp;1</code> are variables, represented as de Bruijn indices,
+with types <code>inc ∅</code>, <code>inc (inc ∅)</code>, etc.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> b1 <span class="token punctuation">:</span> inc ∅ <span class="token operator">:=</span> <span class="token operator">&amp;</span><span class="token number">0</span><span class="token punctuation">.</span>
+<span class="token keyword">Definition</span> b3 <span class="token punctuation">:</span> inc <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token operator">:=</span> <span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">.</span></code></pre>
+<p><code>∅</code> is defined as <code>Empty_set</code>, so it has no inhabitants, which is consistent with how it denotes the absence of free variables.</p>
+<p>Next, the number of free variables is an overapproximation of how many free variables there actually are in a term.
+In other words, <em>weakening</em> of scopes is allowed by construction.</p>
+<p>Here we have an identity function, but we've given it a type indicating that it has up to one free variable.
+This is fineing
+It is also fine to give <code>&amp;0</code> a similarly more &quot;permissive&quot; type.</p>
+<!-- (* weakening allowed in polymorphic setting *) -->
+<!-- (* Definition a5: val (inc ∅) := a1. *) -->
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a3<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token operator">:=</span> lam <span class="token punctuation">(</span>ret <span class="token punctuation">(</span>var <span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+
+<span class="token keyword">Definition</span> b2 <span class="token punctuation">:</span> inc <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token operator">:=</span> <span class="token operator">&amp;</span><span class="token number">0</span><span class="token punctuation">.</span></code></pre>
+<p>Expressions with multiple free variables can be typed by weakening appropriately.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a10 <span class="token punctuation">:</span> expr <span class="token punctuation">(</span>inc <span class="token punctuation">(</span>∅<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:=</span> ret <span class="token punctuation">(</span>var <span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+<span class="token keyword">Definition</span> a11 <span class="token punctuation">:</span> expr <span class="token punctuation">(</span>inc <span class="token punctuation">(</span>inc <span class="token punctuation">(</span>∅<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:=</span> ret <span class="token punctuation">(</span>var <span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+
+<span class="token keyword">Definition</span> a13 <span class="token punctuation">:</span> expr <span class="token punctuation">(</span>inc <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:=</span> ret <span class="token punctuation">(</span>var <span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+
+<span class="token keyword">Definition</span> a12 <span class="token punctuation">:</span> expr <span class="token punctuation">(</span>inc <span class="token punctuation">(</span>inc <span class="token punctuation">(</span>∅<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:=</span> app a11 a13<span class="token punctuation">.</span></code></pre>
+<h2 id="substitution">Substitution</h2>
+<p>The substitution operation used to descend into lambda bodies is called <code>subst</code>.
+It has type <code>expr (inc A) → expr A → expr A</code>, consistent with how it removes one free variable.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a42 <span class="token punctuation">(</span>v<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> val ∅ <span class="token operator">:=</span> subst v a1<span class="token punctuation">.</span></code></pre>
+<!-- Definition a41 (v: expr (inc ∅)) : expr ∅ := subst v a1. -->
+<!--
+
+```coq
+Inductive contr {V : Set} : expr V → expr V → Prop :=
+| contr_beta : ∀ e (v : val V),
+    contr (app (ret (lam e)) (ret v)) (subst (Inc:=inc) e v)
+.
+
+Print contr.
+Print a1.
+Print a2.
+(* Set Printing All. *)
+(* Check subst. *)
+(* Print subst. *)
+Print mk_subst.
+Print bind.
+Print contr.
+
+Goal forall v, exists (e:expr ∅), e = subst v a1.
+Abort.
+
+(* Set Printing All. *)
+Print a1.
+
+Definition a7 : val ∅ := subst a2 a1.
+
+(* how to produce a substitution? *)
+Locate "[⇒]".
+Print Sub.
+
+(* weakening is already possible at this level *)
+(* Definition b4 : inc (inc ∅) := VS (VS VZ). *)
+(* this doesn't typecheck *)
+
+```
+-->
+<p>What is typically called <em>parallel substitution</em>, where a substitution is applied to a term, is called <code>bind</code>.
+Here is an instance of it with a specialised type.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a6 <span class="token punctuation">(</span>γ<span class="token punctuation">:</span> <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token punctuation">[</span>⇒<span class="token punctuation">]</span> ∅<span class="token punctuation">)</span> <span class="token punctuation">(</span>a<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> val ∅ <span class="token operator">:=</span>
+  bind γ a<span class="token punctuation">.</span></code></pre>
+<p>Typically we will quantify over substitutions of a given type (commonly, <code>γ : V [⇒] ∅</code>, to say that the codomain consists of closed values),
+and not construct one manually, but here's how one can be made out of a function,
+to give some intuition for how things work.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a8 <span class="token punctuation">(</span>a<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> val ∅ <span class="token operator">:=</span>
+  <span class="token keyword">let</span> γ<span class="token number">1</span> <span class="token punctuation">:</span> <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token punctuation">[</span>⇒<span class="token punctuation">]</span> ∅ <span class="token operator">:=</span> Build_Sub val <span class="token keyword">_</span> <span class="token keyword">_</span> <span class="token keyword">_</span> <span class="token punctuation">(</span><span class="token keyword">fun</span> s <span class="token operator">=></span> a1<span class="token punctuation">)</span> <span class="token keyword">in</span>
+  bind γ<span class="token number">1</span> a<span class="token punctuation">.</span></code></pre>
+<p>The parameter <code>s</code> can be matched on to replace a specific variable.
+Very interestingly, the type of the substitution <code>γ</code> constrains what <code>s</code> can be!
+The match on <code>s</code> is exhaustive even though we only cover the <code>&amp;0</code> case... given enough annotations.
+<code>&amp;0</code> is notation for <code>NZ</code>.</p>
+<p>In words, <code>γ</code> replaces only one free variable, and we have to give a value for only that one.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a9 <span class="token punctuation">(</span>a<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> val ∅ <span class="token operator">:=</span>
+  <span class="token keyword">let</span> γ <span class="token punctuation">:</span> <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token punctuation">[</span>⇒<span class="token punctuation">]</span> ∅ <span class="token operator">:=</span> Build_Sub val <span class="token keyword">_</span> <span class="token keyword">_</span> <span class="token keyword">_</span> <span class="token punctuation">(</span><span class="token keyword">fun</span> s <span class="token operator">=></span>
+    <span class="token keyword">match</span> s <span class="token keyword">with</span>
+    <span class="token operator">|</span> NZ <span class="token operator">=></span> a1
+    <span class="token keyword">end</span><span class="token punctuation">)</span>
+  <span class="token keyword">in</span>
+  bind γ a<span class="token punctuation">.</span></code></pre>
+<!--
+```coq
+Goal forall v, exists (v1:val ∅), v1 = subst v a1.
+Abort.
+
+Definition a22: val (inc (inc ∅)) := lam (ret (var (&2))).
+Definition a22': val (inc (inc ∅)) := lam (ret (var (&0))).
+
+(* a2 = (λ x. y), has one free variable *)
+Print a2.
+Goal forall γ,
+  γ = Build_Sub val _ _ _
+  (* (inc (inc ∅)) (inc ∅) *)
+    (fun (s:inc ∅) => match s with
+    (* | VS VZ => a1 *)
+    | VZ => a1 (* we can only target that free variable? *)
+    (* this can only be zero so the substitution can only be filled to this extent *)
+    (* | VS VZ => a1 *)
+    | _ => a1 (* we can give this but it will not be used *)
+    end) →
+  exists (v1:val ∅), v1 = bind γ a2.
+  intros.
+  unfold bind.
+  (* substitution is a function, so we can use it to bind *)
+  unfold BindCore_vbind.
+  unfold a2.
+  unfold vbind.
+  (* bind is defined in terms of lifting *)
+  (* lifting substitution to ? *)
+  (* Set Printing All. *)
+  (* Unset Printing Notations. Set Printing Coercions. Set Printing Parentheses. *)
+  (* Print lift. *)
+  (* Print LiftableCore. *)
+  unfold lift, SLiftableCore_inc.
+  (* lifting is defined in terms of shifting *)
+  unfold nth_inc.
+  (* unfold apply_sub. *)
+  simpl.
+  Check shift.
+  (* need to know about γ to continue *)
+  (* apply subst to 0, then shift. shift because we went under a lambda? *)
+  (* zero is also in inc ∅, the sub kept its type *)
+  (* the weird part is how we're now looking up something different in the sub? *)
+  (* if the sub were mapping 1 to something, now it's targeting zero *)
+  (* the type says the sub maps 0 to emp, but idk *)
+  (*
+
+    For example, if we substitute 0 1 (both free vars) for the variable bound by the
+    outermost λ in λ.λ.1 we should get λ.λ.2 3, not λ.λ.0 1.
+
+    we shift 0 1 by 2. this gives us 2 3.
+    this can be done shifting after replacing, or shifting the codomain of the substitution list.
+
+    do we change the var we're substituting /for/?
+  *)
+  (* the shift is right. it's being applied to the codomain *)
+  (* the problem is the var we're looking up in the sub changed,
+    and the sub didn't change *)
+  (* the fix is that the type ensures we can only target that free variable... *)
+Abort.
+
+Definition a81 (a: val (inc ∅)) : val ∅ :=
+  let γ1 : (inc ∅) [⇒] ∅ := Build_Sub val _ _ _
+    (fun s => match s with
+    (* | VS VZ => a1 *)
+    | VZ => a1
+    | _ => a1
+    end) in
+  bind γ1 a.
+
+(* V [⇒] ∅, usually, just saying that the codomain is all closed values.
+  it's hard to make a subst that targets multiple values *)
+
+Unset Printing Notations. Set Printing Coercions. Set Printing Parentheses.
+(* Set Printing All. *)
+Print a8.
+
+Locate "≡".
+Locate equal.
+Print equal.
+Print EqCore.
+Check bind_pure.
+Check bind_pure'.
+
+Check (ret (var (&0))).
+(* like the empty list *)
+Check nil.
+
+Check (ret (var (&0 : inc ∅))).
+
+(* multiple free vars *)
+
+(* Print a10.
+Print a11. *)
+```
+-->
+<!--
+(* Check mk_subst. *)
+
+  (* substitute a1 into a *)
+
+  (* lam (ret (var (&1))). *)
+
+(* equality? *)
+
+-->
+<h2 id="experiences-with-this-approach-in-formalisations">Experiences with this approach in formalisations</h2>
+<!-- ## Tradeoffs -->
+<!-- TODO ours -->
+<p>A great showcase of what the library can do is the formalisation for the paper <a href="https://github.com/ppolesiuk/untyped-logrel">Untyped Logical Relations at Work: Control Operators, Contextual Equivalence and Full Abstraction</a>.</p>
+<p>We are developing a formalisation in similar style.</p>
+<!-- TODO -->
+<!-- We have developed a formalisation in similar style. -->
+<p>The use of a well-scoped representation shines when definitions pertain to e.g. closed terms only. Associating the closedness property with terms by construction not only saves us from re-proving the same closedness obligations over and over, but seems more expressive than explicit premises, as it is possible to carry around such assumptions without having to prove them in cases where the definition appears contravariantly.</p>
+<p>For example, when proving transitivity of a relation, if closedness premises as used, we will not not be able to prove closedness about the middle element; the appropriate place for the property is together with the element, and not in the relation.</p>
+<pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Parameter</span> exp <span class="token punctuation">:</span> <span class="token keyword">Type</span><span class="token punctuation">.</span>
+<span class="token keyword">Parameter</span> closed <span class="token punctuation">:</span> exp → <span class="token keyword">Prop</span><span class="token punctuation">.</span>
+<span class="token keyword">Parameter</span> related <span class="token punctuation">:</span> exp → exp → <span class="token keyword">Prop</span><span class="token punctuation">.</span>
+
+<span class="token keyword">Definition</span> rel <span class="token punctuation">(</span>e1 e2<span class="token punctuation">:</span> exp<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">Prop</span> <span class="token operator">:=</span>
+  closed e1 → closed e2 → related e1 e2<span class="token punctuation">.</span>
+
+<span class="token keyword">From</span> Stdlib <span class="token keyword">Require</span> <span class="token keyword">Import</span> <span class="token keyword">Classes</span><span class="token punctuation">.</span>RelationClasses<span class="token punctuation">.</span>
+
+<span class="token keyword">Goal</span> Transitive rel<span class="token punctuation">.</span>
+  unfold Transitive<span class="token punctuation">,</span> rel<span class="token punctuation">.</span> intros<span class="token punctuation">.</span>
+  <span class="token comment">(* we are stuck, as we cannot prove y is closed *)</span>
+<span class="token keyword">Abort</span><span class="token punctuation">.</span></code></pre>
+<!-- Generally type annotations have to be supplied. -->
+<p>The big question: how does this compare to a first-order representation of names, like de Bruijn indices with Autosubst?
+It's better in some ways but worse in others.
+Better because the syntax is well-scoped by construction, and many properties come for free.
+Worse because more annotation is needed. Perhaps this is an artifact of the typeclass-heavy design of the library, and could be lessened by making it less generic.</p>
+<!-- [[https://ii.uni.wroc.pl/~ppolesiuk/papers/coqpl2024.pdf][paper]]
+[[https://homepages.inf.ed.ac.uk/gdp/publications/Abstract_Syn.pdf][FPT paper]]
+[[https://www.youtube.com/watch?v=2CNR62apGFI][coqpl presentation]]
+[[https://github.com/ppolesiuk/untyped-logrel][latest code]] -->
+<!--
+A sub is an arrow
+Fmap bind
+
+
+Objects are free names
+Arrows are renamings
+Substituting is a renaming into a term
+Fmap
+
+Two free names, then how? They are represented as 1 and 2 values, with types inc and inc inc
+
+Given it's a type of names, can it be strings
+
+-->
+</div>
+
+		</main>
+
+		<footer>
+			
+		</footer>
+
+		<!-- This page `/drafts/functorial-binding/` was built on 2025-11-26T16:24:05.223Z -->
+		
+	</body>
+</html>
