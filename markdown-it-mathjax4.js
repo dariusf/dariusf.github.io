@@ -12,10 +12,9 @@ for rendering output.
 // import type StateInline from "markdown-it/lib/rules_inline/state_inline";
 // import type StateBlock from "markdown-it/lib/rules_block/state_block";
 
-// import { typeset } from "./mathjax4.js";
 import { randomUUID } from "node:crypto";
 // import { typeset } from "./mathjax4-sync.js";
-import { typeset } from "./mathjax4-async.js";
+import { typesetAsync } from "./mathjax4-async.js";
 
 // import { mathjax } from "mathjax-full/js/mathjax.js";
 // import { TeX } from "mathjax-full/js/input/tex.js";
@@ -143,7 +142,8 @@ function math_inline(on_parse) {
 		if (!silent) {
 			const token = state.push("math_inline", "math", 0);
 			token.markup = "$";
-			token.content = on_parse(state.src.slice(start, match), false);
+			const content = state.src.slice(start, match);
+			token.content = on_parse(content, false);
 		}
 
 		state.pos = match + 1;
@@ -209,28 +209,29 @@ function math_block(on_parse) {
 
 		const token = state.push("math_block", "math", 0);
 		token.block = true;
-		token.content = on_parse(
+
+		const content =
 			(firstLine && firstLine.trim() ? firstLine + "\n" : "") +
-				state.getLines(start + 1, next, state.tShift[start], true) +
-				(lastLine && lastLine.trim() ? lastLine : ""),
-			true
-		);
+			state.getLines(start + 1, next, state.tShift[start], true) +
+			(lastLine && lastLine.trim() ? lastLine : "");
+
+		token.content = on_parse(content, true);
 		token.map = [start, state.line];
 		token.markup = "$$";
 		return true;
 	};
 }
 
-const state = new Map();
+const mathjaxRendered = new Map();
 
 async function awaitAll() {
-	for (const k of state.keys()) {
-		state.set(k, await state.get(k));
+	for (const k of mathjaxRendered.keys()) {
+		mathjaxRendered.set(k, await mathjaxRendered.get(k));
 	}
 }
 
-function clearState() {
-	state.clear();
+function startRenderingDocument() {
+	mathjaxRendered.clear();
 }
 
 function plugin(md /*: MarkdownIt */, options /*: any */) {
@@ -245,8 +246,9 @@ function plugin(md /*: MarkdownIt */, options /*: any */) {
 	// }
 
 	function on_parse(txt, display) {
+		// could a symbol be used here? wouldn't be well-typed but possible
 		const key = "mathjaxrender" + randomUUID();
-		state.set(key, typeset(txt, display));
+		mathjaxRendered.set(key, typesetAsync(txt, display));
 		return key;
 	}
 
@@ -261,14 +263,20 @@ function plugin(md /*: MarkdownIt */, options /*: any */) {
 		tokens /*: Token[] */,
 		idx /*: number */
 	) {
-		return state.get(tokens[idx].content);
+		const uuid = tokens[idx].content;
+		return mathjaxRendered.get(uuid);
 	};
 	md.renderer.rules.math_block = function (
 		tokens /*: Token[] */,
 		idx /*: number */
 	) {
-		return state.get(tokens[idx].content);
+		const uuid = tokens[idx].content;
+		return mathjaxRendered.get(uuid);
 	};
 }
 
-export default { plugin, awaitAll, clearState };
+async function renderEffectOnly(defs) {
+	await typesetAsync(defs);
+}
+
+export default { plugin, awaitAll, startRenderingDocument, renderEffectOnly };

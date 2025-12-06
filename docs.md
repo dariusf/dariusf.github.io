@@ -32,3 +32,6 @@ The [solution](https://github.com/markdown-it/markdown-it/issues/256#issuecommen
 As soon as it is parsed, the LaTeX is immediately rendered using async MathJax, and a UUID is left in its place.
 The markdown-it render entry point is overridden so it awaits all the render promises before invoking the render rules, which now only replace the UUIDs with HTML fragments.
 This makes the plugin API more complicated but is acceptable for now.
+
+Because fragments of math are rendered asynchronously, dependencies between them need to be sequentialised.
+The only dependency at the moment is uses of newcommands, so these are now placed at the top and rendered for their side effects before the rest of the math in posts.

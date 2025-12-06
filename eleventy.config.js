@@ -176,10 +176,18 @@ export default async function (eleventyConfig) {
 		};
 
 		mdLib.render = async function (src, env) {
-			markdownItMathjax.clearState();
+			// env.title
+			// if (env.math) {
+			markdownItMathjax.startRenderingDocument();
+			if (env.mathDefs) {
+				await markdownItMathjax.renderEffectOnly(env.mathDefs);
+			}
+			// }
 			env = env || {};
 			const tokens = this.parse(src, env);
+			// if (env.math) {
 			await markdownItMathjax.awaitAll();
+			// }
 			return this.renderer.render(tokens, this.options, env);
 		};
 	});

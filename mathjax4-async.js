@@ -1,7 +1,5 @@
 // https://docs.mathjax.org/en/latest/server/components.html
 
-import { adjustOutput } from "./mathjax4-sync.js";
-
 global.MathJax = {
 	loader: {
 		paths: { mathjax: "@mathjax/src/bundle" },
@@ -20,9 +18,30 @@ const EM = 16; // size of an em in pixels
 const EX = 8; // size of an ex in pixels
 const WIDTH = 80 * EM; // width of container for linebreaking
 
-function typeset(math, display = true) {
+function adjustOutput(rendered, display) {
+	// console.log(adjustOutput, rendered, display);
+	try {
+		if (rendered.includes("data-mjx-error=")) {
+			throw rendered;
+		}
+		if (display) {
+			return `<div style="display: flex; align-items: center;">${rendered}</div>`;
+		} else {
+			return rendered;
+		}
+		// return adaptor.outerHTML(MathJax.tex2chtml(math));
+	} catch (e) {
+		// if (display) {
+		// 	return `<div style="color: red; border: solid red 1px;">Rendering error due to ${e.toString()}</div>`;
+		// } else {
+		return `<span style="color: red; border: solid red 1px;">Rendering error due to ${e.toString()}</span>`;
+		// }
+	}
+}
+
+function typesetAsync(math, display = true) {
 	return MathJax.tex2svgPromise(math, {
-		display: display,
+		display,
 		em: EM,
 		ex: EX,
 		containerWidth: WIDTH,
@@ -43,4 +62,4 @@ function done() {
 	MathJax.done();
 }
 
-export { typeset };
+export { typesetAsync };

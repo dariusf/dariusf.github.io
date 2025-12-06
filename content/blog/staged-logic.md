@@ -3,6 +3,20 @@
 title: "Verifying effectful higher-order programs with staged logic"
 date: 2024-08-16
 math: true
+mathDefs: |
+    \newcommand{\m}[1]{\mathit{#1}}
+    \newcommand{\foldr}{\m{foldr}}
+    \newcommand{\xs}{\m{xs}}
+    \newcommand{\ys}{\m{ys}}
+    \newcommand{\res}{\m{res}}
+    \newcommand{\inv}{\m{Inv}}
+    \newcommand{\islist}{\m{isList}}
+    \newcommand{\list}{\m{List}}
+    \newcommand{\emp}{\m{emp}}
+    \newcommand{\req}[1]{\mathbf{req}\ #1}
+    \newcommand{\ens}[1]{\mathbf{ens}\ #1}
+    \newcommand{\s}[1]{\{ #1 \}}
+    \newcommand{\sb}[1]{\textbf{\{}#1\textbf{\}}}
 ---
 
 <!-- (23 Aug 2024) -->
@@ -65,24 +79,6 @@ A second issue is that even when higher-order functions are supported, they tend
 The question we're concerned with in this work is: is there a *precise* and *general* way to support effectful higher-order functions in *automated* program verifiers?
 
 # Specifying higher-order functions today
-
-<div style="display:none">
-{% raw %}
-$\newcommand{\m}[1]{\mathit{#1}}$
-$\newcommand{\foldr}{\m{foldr}}$
-$\newcommand{\xs}{\m{xs}}$
-$\newcommand{\ys}{\m{ys}}$
-$\newcommand{\res}{\m{res}}$
-$\newcommand{\inv}{\m{Inv}}$
-$\newcommand{\islist}{\m{isList}}$
-$\newcommand{\list}{\m{List}}$
-$\newcommand{\emp}{\m{emp}}$
-$\newcommand{\req}[1]{\mathbf{req}\ #1}$
-$\newcommand{\ens}[1]{\mathbf{ens}\ #1}$
-$\newcommand{\s}[1]{\{ #1 \}}$
-$\newcommand{\sb}[1]{\textbf{\{}#1\textbf{\}}}$
-{% endraw %}
-</div>
 
 We'll use the classic $\foldr$ function as a running example.
 

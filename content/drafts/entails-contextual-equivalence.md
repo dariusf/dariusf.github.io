@@ -2,26 +2,22 @@
 title: "From entailment to contextual refinement"
 date: 2025-10-29
 math: true
+mathDefs: |
+  \newcommand{\m}[1]{\mathit{#1}}
+  \newcommand{\flow}{\varphi}
+  \newcommand{\sreq}[1]{\mathbf{req}\ #1}
+  \newcommand{\sens}[1]{\mathbf{ens}\ #1}
+  \newcommand{\sensr}[2]{\mathbf{ens}\ #1. #2}
+  \newcommand{\defeq}{\triangleq}
+  \newcommand{\entails}{\sqsubseteq}
+  \newcommand{\implies}{\Rightarrow}
+  \newcommand{\ctxrefines}{\preceq}
+  \newcommand{\ctxequiv}{\equiv^{ctx}}
+  \newcommand{\app}[2]{#1\ #2}
+  \newcommand{\vlambda}[2]{\lambda #1. #2}
+  \newcommand{\bigstep}[4]{\langle #1, #2 \rangle \to \langle #3, #4 \rangle}
+  \newcommand{\bind}[1]{; #1.}
 ---
-
-<div style="display:none">
-{% raw %}
-$\newcommand{\m}[1]{\mathit{#1}}$
-$\newcommand{\flow}{\varphi}$
-$\newcommand{\sreq}[1]{\mathbf{req}\ #1}$
-$\newcommand{\sens}[1]{\mathbf{ens}\ #1}$
-$\newcommand{\sensr}[2]{\mathbf{ens}\ #1. #2}$
-$\newcommand{\defeq}{\triangleq}$
-$\newcommand{\entails}{\sqsubseteq}$
-$\newcommand{\implies}{\Rightarrow}$
-$\newcommand{\ctxrefines}{\preceq}$
-$\newcommand{\ctxequiv}{\equiv^{ctx}}$
-$\newcommand{\app}[2]{#1\ #2}$
-$\newcommand{\vlambda}[2]{\lambda #1. #2}$
-$\newcommand{\bigstep}[4]{\langle #1, #2 \rangle \to \langle #3, #4 \rangle}$
-$\newcommand{\bind}[1]{; #1.}$
-{% endraw %}
-</div>
 
 This post is about one particularly thorny obstacle on the journey to developing a mechanisation of staged logic for my PhD thesis.
 

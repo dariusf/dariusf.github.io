@@ -1,6 +1,7 @@
 
 .PHONY: all
 all:
+	rm -rf _build
 	npx @11ty/eleventy --serve
 
 # css changes won't trigger a rebuild of blog posts in incremental mode,
