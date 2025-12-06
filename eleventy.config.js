@@ -135,6 +135,8 @@ export default async function (eleventyConfig) {
 	// add markdown footnotes
 	// https://github.com/11ty/eleventy-base-blog/issues/167
 	eleventyConfig.amendLibrary("md", (mdLib) => {
+		mdLib.set({ typographer: true });
+
 		// const md = markdownIt({
 		// 	html: true,
 		// 	linkify: true,
