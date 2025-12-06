@@ -31,13 +31,13 @@ export default async function (eleventyConfig) {
 		.addPassthroughCopy({
 			"./static/": "/",
 		})
-		.addPassthroughCopy("./content/feed/pretty-atom-feed.xsl")
-		.addPassthroughCopy("./content/blog/**/*.js")
-		.addPassthroughCopy("./content/blog/**/*.css")
-		.addPassthroughCopy("./content/blog/**/*.svg")
-		.addPassthroughCopy("./content/drafts/**/*.js")
-		.addPassthroughCopy("./content/drafts/**/*.svg")
-		.addPassthroughCopy("./content/drafts/**/*.css");
+		.addPassthroughCopy("./content/feed/pretty-atom-feed.xsl");
+	// .addPassthroughCopy("./content/blog/**/*.js")
+	// .addPassthroughCopy("./content/blog/**/*.css")
+	// .addPassthroughCopy("./content/blog/**/*.svg")
+	// .addPassthroughCopy("./content/drafts/**/*.js")
+	// .addPassthroughCopy("./content/drafts/**/*.svg")
+	// .addPassthroughCopy("./content/drafts/**/*.css")
 
 	// Run Eleventy when these files change:
 	// https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
