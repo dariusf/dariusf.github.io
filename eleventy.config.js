@@ -11,7 +11,6 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import pluginFilters from "./_config/filters.js";
 // import mathjaxPlugin from "./mathjax.js";
 import markdownItFootnote from "markdown-it-footnote";
-// import markdownItMathjax from "markdown-it-mathjax3";
 import markdownItMathjax from "./markdown-it-mathjax4.js";
 // import markdownIt from "markdown-it";
 import { execSync } from "child_process";
@@ -141,7 +140,7 @@ export default async function (eleventyConfig) {
 		// 	linkify: true,
 		// });
 		mdLib.use(markdownItFootnote);
-		mdLib.use(markdownItMathjax);
+		mdLib.use(markdownItMathjax.plugin);
 
 		// console.log(mdLib.renderer.rules);
 		renderGraphviz(mdLib);
@@ -174,6 +173,14 @@ export default async function (eleventyConfig) {
 			// 	n += ":" + tokens[idx].meta.subId;
 			// }
 			return n;
+		};
+
+		mdLib.render = async function (src, env) {
+			markdownItMathjax.clearState();
+			env = env || {};
+			const tokens = this.parse(src, env);
+			await markdownItMathjax.awaitAll();
+			return this.renderer.render(tokens, this.options, env);
 		};
 	});
 }

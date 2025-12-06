@@ -1,28 +1,20 @@
-// import MathJax from "@mathjax/src";
-// await MathJax.init({
-// 	loader: { load: ["input/tex"] },
-// 	output: {
-// 		font: "mathjax-stix2",
-// 	},
-// });
-// const mml = await MathJax.tex2svgPromise("x+y");
-// console.log(mml);
-
 // https://docs.mathjax.org/en/latest/server/components.html
+
+import { adjustOutput } from "./mathjax4-sync.js";
 
 global.MathJax = {
 	loader: {
 		paths: { mathjax: "@mathjax/src/bundle" },
 		load: ["input/tex", "output/svg", "adaptors/liteDOM"],
 		require: (file) => import(file),
+		tex: {
+			packages: { "[+]": ["ams", "newcommand", "color", "html"] },
+		},
 	},
-	output: { font: "mathjax-newcm" },
+	output: { font: "mathjax-stix2" },
 };
 await import("@mathjax/src/bundle/startup.js");
 await MathJax.startup.promise;
-
-// const mml = await MathJax.tex2svgPromise("x+y");
-// console.log(mml);
 
 const EM = 16; // size of an em in pixels
 const EX = 8; // size of an ex in pixels
@@ -37,17 +29,18 @@ function typeset(math, display = true) {
 	})
 		.then((node) => {
 			const adaptor = MathJax.startup.adaptor;
-			return adaptor.serializeXML(adaptor.tags(node, "svg")[0]);
+			const rendered = adaptor.outerHTML(node);
+			return adjustOutput(rendered, display);
 		})
 		.catch((err) => console.error(err));
 }
 
-// const mml = await typeset("x+y");
-// console.log(mml);
-
-// import { MathJaxStix2Font } from "@mathjax/mathjax-stix2-font/js/chtml.js";
-// import { CHTML } from "@mathjax/src/js/output/chtml.js";
-
-// const chtml = new CHTML({ fontData: MathJaxStix2Font });
+// there doesn't seem to be a good time to call this with eleventy
+function done() {
+	// shut down worker threads
+	// https://docs.mathjax.org/en/latest/upgrading/whats-new-4.0/explorer.html#technical-details
+	// https://docs.mathjax.org/en/latest/server/components.html#configuring-mathjax-for-use-with-import
+	MathJax.done();
+}
 
 export { typeset };

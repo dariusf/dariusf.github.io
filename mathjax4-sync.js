@@ -61,11 +61,9 @@ const font = MathJax.startup.document.outputJax.font;
 const dynamic = fontData.dynamicFiles;
 fontPreloads.forEach((name) => dynamic[name].setup(font));
 
-function typeset(math, display) {
-	// console.log(math);
-	const adaptor = MathJax.startup.adaptor;
+function adjustOutput(rendered, display) {
+	// console.log(adjustOutput, rendered, display);
 	try {
-		const rendered = adaptor.outerHTML(MathJax.tex2svg(math, { display }));
 		if (rendered.includes("data-mjx-error=")) {
 			throw rendered;
 		}
@@ -84,5 +82,11 @@ function typeset(math, display) {
 	}
 }
 
+function typeset(math, display) {
+	const adaptor = MathJax.startup.adaptor;
+	const rendered = adaptor.outerHTML(MathJax.tex2svg(math, { display }));
+	return adjustOutput(rendered, display);
+}
+
 // console.log(typeset(`a\\ b`));
-export { typeset };
+export { typeset, adjustOutput };
