@@ -711,7 +711,7 @@ http://requestforlogic.blogspot.com/2011/08/holey-data-part-13-almost-difference
 
 A Functional Representation of Data Structures with a Hole
 -->
-<p>What would work for us is a difference list with a variable number of holes that don't all appear at the end.</p>
+<p>What would work for us is a difference list with a variable number of holes that don’t all appear at the end.</p>
 <h2 id="difference-trees">Difference trees</h2>
 <p>First, the type of our difference tree.</p>
 <pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">type</span> t <span class="token operator">=</span> int <span class="token operator">*</span> <span class="token punctuation">(</span>expr list <span class="token operator">-></span> expr<span class="token punctuation">)</span>
@@ -738,7 +738,7 @@ A Functional Representation of Data Structures with a Hole
   <span class="token punctuation">(</span>dts_arities<span class="token punctuation">,</span> f<span class="token punctuation">)</span></code></pre>
 <p>If we substitute two trees with m and n holes into another with just two holes, the resulting tree should have (m + n) holes.
 Furthermore, the holes <code>r</code> of the resulting tree <code>f</code> should be distributed amongst the child trees according to their arities.</p>
-<p>We try a few examples and...</p>
+<p>We try a few examples and…</p>
 <pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">fun</span> <span class="token punctuation">[</span>e<span class="token punctuation">]</span> <span class="token operator">-></span> Plus <span class="token punctuation">(</span>e<span class="token punctuation">,</span> One<span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">fun</span> <span class="token punctuation">[</span>e<span class="token punctuation">]</span> <span class="token operator">-></span> Plus <span class="token punctuation">(</span>One<span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token keyword">fun</span> <span class="token punctuation">[</span>e1<span class="token punctuation">;</span> e2<span class="token punctuation">]</span> <span class="token operator">-></span> Plus <span class="token punctuation">(</span>e1<span class="token punctuation">,</span> e2<span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -748,9 +748,9 @@ Furthermore, the holes <code>r</code> of the resulting tree <code>f</code> shoul
 
 <span class="token punctuation">#</span> c'<span class="token punctuation">;;</span>
 <span class="token operator">-</span> <span class="token punctuation">:</span> expr <span class="token operator">=</span> Plus <span class="token punctuation">(</span>Plus <span class="token punctuation">(</span>Hole<span class="token punctuation">,</span> One<span class="token punctuation">)</span><span class="token punctuation">,</span> Plus <span class="token punctuation">(</span>One<span class="token punctuation">,</span> Hole<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
-<p>... it works! A wrinkle is that we had to keep the <code>Hole</code> constructor around to be able to render the tree.</p>
+<p>… it works! A wrinkle is that we had to keep the <code>Hole</code> constructor around to be able to render the tree.</p>
 <h2 id="partial-application">Partial application</h2>
-<p>Holes are usually filled one by one, and it'd be nice if we didn't have to store all the arguments somewhere before using them.
+<p>Holes are usually filled one by one, and it’d be nice if we didn’t have to store all the arguments somewhere before using them.
 We can extend substitution so that not all arguments have to be supplied upfront, and the remaining holes are preserved in the new tree.</p>
 <pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> sub dts <span class="token punctuation">(</span>i<span class="token punctuation">,</span> t<span class="token punctuation">)</span> <span class="token operator">=</span>
   <span class="token keyword">assert</span> <span class="token punctuation">(</span>List<span class="token punctuation">.</span>length dts <span class="token operator">&lt;=</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -769,9 +769,9 @@ We can extend substitution so that not all arguments have to be supplied upfront
     t <span class="token punctuation">(</span>child_trees <span class="token operator">@</span> rem_trees<span class="token punctuation">)</span>
   <span class="token keyword">in</span>
   <span class="token punctuation">(</span>dts_arities <span class="token operator">+</span> remaining<span class="token punctuation">,</span> f<span class="token punctuation">)</span></code></pre>
-<p>This version is rather subtle: given a difference tree <code>(i, t)</code>, it produces another difference tree which knows how to rearrange its arguments so the complete application of <code>(i, t)</code> occurs (which is why we didn't have to handle partial application of child trees).
+<p>This version is rather subtle: given a difference tree <code>(i, t)</code>, it produces another difference tree which knows how to rearrange its arguments so the complete application of <code>(i, t)</code> occurs (which is why we didn’t have to handle partial application of child trees).
 It also ensures that all the holes of parent trees are filled before those of child trees.<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup></p>
-<p>Now we're able to supply arguments to <code>c</code> one at a time:</p>
+<p>Now we’re able to supply arguments to <code>c</code> one at a time:</p>
 <pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token keyword">let</span> c' <span class="token operator">=</span> concretize <span class="token punctuation">(</span>sub <span class="token punctuation">[</span>b<span class="token punctuation">]</span> <span class="token punctuation">(</span>sub <span class="token punctuation">[</span>a<span class="token punctuation">]</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
 <pre class="language-ocaml" tabindex="0"><code class="language-ocaml"><span class="token punctuation">#</span> c'<span class="token punctuation">;;</span>
 <span class="token operator">-</span> <span class="token punctuation">:</span> expr <span class="token operator">=</span> Plus <span class="token punctuation">(</span>Plus <span class="token punctuation">(</span>Hole<span class="token punctuation">,</span> One<span class="token punctuation">)</span><span class="token punctuation">,</span> Plus <span class="token punctuation">(</span>One<span class="token punctuation">,</span> Hole<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
@@ -797,7 +797,7 @@ First, a type for the number of holes that a difference tree contains.</p>
     <span class="token keyword">match</span> i <span class="token keyword">with</span>
     <span class="token operator">|</span> S i <span class="token operator">-></span> concretize <span class="token punctuation">(</span>i<span class="token punctuation">,</span> t Hole<span class="token punctuation">)</span>
     <span class="token operator">|</span> Z <span class="token operator">-></span> t</code></pre>
-<p>Unfortunately that was as far as I was able (and motivated) to go: it's unclear to me how to build an <code>f</code> with a number of arguments that depends on <code>(i, t)</code>, even if we change <code>dts</code> from a list to a single argument.
+<p>Unfortunately that was as far as I was able (and motivated) to go: it’s unclear to me how to build an <code>f</code> with a number of arguments that depends on <code>(i, t)</code>, even if we change <code>dts</code> from a list to a single argument.
 Even if we overcame that, all the folding and rearranging of arguments would certainly cause difficulty down the line.</p>
 <h2 id="hoas">HOAS?</h2>
 <p>This is a much more coarse-grained notion of binding than what, say, <a href="https://github.com/rlepigre/ocaml-bindlib">bindlib</a> implements, so if your trees have not just holes but free variables, or even binders lower in the tree instead of all at the top, definitely check that out.</p>
@@ -806,7 +806,7 @@ Even if we overcame that, all the folding and rearranging of arguments would cer
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>Ignoring the fact that our goal with top-down synthesis is not to let the trees get too large... <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p>Ignoring the fact that our goal with top-down synthesis is not to let the trees get too large… <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
 <li id="fn2" class="footnote-item"><p><a href="https://www.cs.cmu.edu/~fp/courses/lp/lectures/11-diff.pdf">Difference Lists</a>, section 11.6 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
@@ -823,7 +823,7 @@ Even if we overcame that, all the folding and rearranging of arguments would cer
 			
 		</footer>
 
-		<!-- This page `/blog/trees-with-holes/` was built on 2025-12-06T09:14:11.334Z -->
+		<!-- This page `/blog/trees-with-holes/` was built on 2025-12-06T09:27:00.080Z -->
 		
 	</body>
 </html>

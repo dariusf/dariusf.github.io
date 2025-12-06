@@ -688,7 +688,7 @@ the intuition behind it, and how to use it,
 with a minimum of category theory.</p>
 <pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">From</span> Stdlib <span class="token keyword">Require</span> <span class="token keyword">Import</span> Utf8<span class="token punctuation">.</span>
 <span class="token keyword">Require</span> <span class="token keyword">Import</span> Binding<span class="token punctuation">.</span>Lib Binding<span class="token punctuation">.</span><span class="token keyword">Set</span><span class="token punctuation">.</span></code></pre>
-<p>We'll use a lambda calculus to explain the key ideas.</p>
+<p>We’ll use a lambda calculus to explain the key ideas.</p>
 <p>First, a syntax <code>expr</code> can be thought of as a functor over some type of variables <code>V</code>.</p>
 <p>We define it as follows.</p>
 <pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Inductive</span> expr <span class="token punctuation">(</span>V <span class="token punctuation">:</span> <span class="token keyword">Set</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">Set</span> <span class="token operator">:=</span>
@@ -712,8 +712,8 @@ More on this in a bit.</p>
 <p>For one, <code>fmap</code>, of type <code>(A → B) → expr A → expr B</code>, corresponds to <em>renaming</em>: replacing the variables with of type <code>A</code> at the leaves of a term with variables of type <code>B</code>, preserving the structure of the term.</p>
 <p>For another, <em>a substitution</em> can be thought of as a function <code>A → expr B</code>. This makes sense because it maps variables to expressions of a possibly-different scope.</p>
 <p><em>The action of substitution</em> takes a substitution and an expression and produces an expression, i.e. it has type <code>(A → expr B) → expr A → expr B</code>, which is just monadic bind.</p>
-<p>Both of these hint at structure that we can take advantage of: some way to factor out lemmas relating to renaming and substitution, so developments don't have to be bogged down with them.</p>
-<p>Let's get these definitions and some boilerplate out of the way, so we can see some examples.</p>
+<p>Both of these hint at structure that we can take advantage of: some way to factor out lemmas relating to renaming and substitution, so developments don’t have to be bogged down with them.</p>
+<p>Let’s get these definitions and some boilerplate out of the way, so we can see some examples.</p>
 <pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token attribute attr-name"><span class="token punctuation">#[</span>global<span class="token punctuation">]</span></span>
 <span class="token keyword">Instance</span> SetPureCore_val <span class="token punctuation">:</span> SetPureCore val <span class="token operator">:=</span>
   <span class="token punctuation">{</span> set_pure <span class="token operator">:=</span> <span class="token operator">@</span>var <span class="token punctuation">}</span><span class="token punctuation">.</span>
@@ -774,9 +774,9 @@ with types <code>inc ∅</code>, <code>inc (inc ∅)</code>, etc.</p>
 <p><code>∅</code> is defined as <code>Empty_set</code>, so it has no inhabitants, which is consistent with how it denotes the absence of free variables.</p>
 <p>Next, the number of free variables is an overapproximation of how many free variables there actually are in a term.
 In other words, <em>weakening</em> of scopes is allowed by construction.</p>
-<p>Here we have an identity function, but we've given it a type indicating that it has up to one free variable.
+<p>Here we have an identity function, but we’ve given it a type indicating that it has up to one free variable.
 This is fineing
-It is also fine to give <code>&amp;0</code> a similarly more &quot;permissive&quot; type.</p>
+It is also fine to give <code>&amp;0</code> a similarly more “permissive” type.</p>
 <!-- (* weakening allowed in polymorphic setting *) -->
 <!-- (* Definition a5: val (inc ∅) := a1. *) -->
 <pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a3<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token operator">:=</span> lam <span class="token punctuation">(</span>ret <span class="token punctuation">(</span>var <span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
@@ -835,14 +835,14 @@ Here is an instance of it with a specialised type.</p>
 <pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a6 <span class="token punctuation">(</span>γ<span class="token punctuation">:</span> <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token punctuation">[</span>⇒<span class="token punctuation">]</span> ∅<span class="token punctuation">)</span> <span class="token punctuation">(</span>a<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> val ∅ <span class="token operator">:=</span>
   bind γ a<span class="token punctuation">.</span></code></pre>
 <p>Typically we will quantify over substitutions of a given type (commonly, <code>γ : V [⇒] ∅</code>, to say that the codomain consists of closed values),
-and not construct one manually, but here's how one can be made out of a function,
+and not construct one manually, but here’s how one can be made out of a function,
 to give some intuition for how things work.</p>
 <pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a8 <span class="token punctuation">(</span>a<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> val ∅ <span class="token operator">:=</span>
   <span class="token keyword">let</span> γ<span class="token number">1</span> <span class="token punctuation">:</span> <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span> <span class="token punctuation">[</span>⇒<span class="token punctuation">]</span> ∅ <span class="token operator">:=</span> Build_Sub val <span class="token keyword">_</span> <span class="token keyword">_</span> <span class="token keyword">_</span> <span class="token punctuation">(</span><span class="token keyword">fun</span> s <span class="token operator">=></span> a1<span class="token punctuation">)</span> <span class="token keyword">in</span>
   bind γ<span class="token number">1</span> a<span class="token punctuation">.</span></code></pre>
 <p>The parameter <code>s</code> can be matched on to replace a specific variable.
 Very interestingly, the type of the substitution <code>γ</code> constrains what <code>s</code> can be!
-The match on <code>s</code> is exhaustive even though we only cover the <code>&amp;0</code> case... given enough annotations.
+The match on <code>s</code> is exhaustive even though we only cover the <code>&amp;0</code> case… given enough annotations.
 <code>&amp;0</code> is notation for <code>NZ</code>.</p>
 <p>In words, <code>γ</code> replaces only one free variable, and we have to give a value for only that one.</p>
 <pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">Definition</span> a9 <span class="token punctuation">(</span>a<span class="token punctuation">:</span> val <span class="token punctuation">(</span>inc ∅<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> val ∅ <span class="token operator">:=</span>
@@ -982,7 +982,7 @@ Print a11. *)
 <span class="token keyword">Abort</span><span class="token punctuation">.</span></code></pre>
 <!-- Generally type annotations have to be supplied. -->
 <p>The big question: how does this compare to a first-order representation of names, like de Bruijn indices with Autosubst?
-It's better in some ways but worse in others.
+It’s better in some ways but worse in others.
 Better because the syntax is well-scoped by construction, and many properties come for free.
 Worse because more annotation is needed. Perhaps this is an artifact of the typeclass-heavy design of the library, and could be lessened by making it less generic.</p>
 <!-- [[https://ii.uni.wroc.pl/~ppolesiuk/papers/coqpl2024.pdf][paper]]
@@ -1013,7 +1013,7 @@ Given it's a type of names, can it be strings
 			
 		</footer>
 
-		<!-- This page `/drafts/functorial-binding/` was built on 2025-12-06T09:14:11.333Z -->
+		<!-- This page `/drafts/functorial-binding/` was built on 2025-12-06T09:27:00.079Z -->
 		
 	</body>
 </html>

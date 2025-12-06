@@ -681,11 +681,11 @@ header {
 
 <div class="blog-content">
 <p>PL papers tend to use lots of <a href="https://www.jsoftware.com/papers/tot.htm">notation</a>.
-To manage this, paper sources usually include a &quot;macros.tex&quot; containing a slew of <code>\newcommand</code>s, defining wonderful languages of terms and naming all the clever judgments and syntactic sugar.</p>
+To manage this, paper sources usually include a “macros.tex” containing a slew of <code>\newcommand</code>s, defining wonderful languages of terms and naming all the clever judgments and syntactic sugar.</p>
 <p>While notation can increase clarity, it can cause <a href="https://blog.sigplan.org/2020/09/29/pl-notation-is-a-barrier-to-entry/">difficulty</a> to readers, who
-haven't had the hundreds of hours of practice the authors have had using and reading those intricate strings of symbols, and internalizing their precedences and meaning.
+haven’t had the hundreds of hours of practice the authors have had using and reading those intricate strings of symbols, and internalizing their precedences and meaning.
 Readers will forget what things denote and will have to scroll up and down repeatedly in a careful reading of the work.</p>
-<p>In an attempt to alleviate this and make my work more accessible, I've been using a small set of macros to enable jump-to-definition for the important (or obscure) symbols:</p>
+<p>In an attempt to alleviate this and make my work more accessible, I’ve been using a small set of macros to enable jump-to-definition for the important (or obscure) symbols:</p>
 <!-- \usepackage[hidelinks]{hyperref} also works -->
 <pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token comment">% somewhere above</span>
 <span class="token function selector">\usepackage</span><span class="token punctuation">[</span>colorlinks=true<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">hyperref</span><span class="token punctuation">}</span>
@@ -696,8 +696,8 @@ Readers will forget what things denote and will have to scroll up and down repea
 <span class="token function selector">\newcommand*</span><span class="token punctuation">{</span><span class="token function selector">\notation</span><span class="token punctuation">}</span><span class="token punctuation">[</span>2<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token comment">%</span>
   <span class="token function selector">\expandafter</span><span class="token function selector">\newcommand</span><span class="token function selector">\csname</span> #1<span class="token function selector">\endcsname</span><span class="token punctuation">{</span><span class="token function selector">\notationlink</span><span class="token punctuation">{</span>#1<span class="token punctuation">}</span><span class="token punctuation">{</span>#2<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token comment">%</span>
   <span class="token function selector">\expandafter</span><span class="token function selector">\newcommand</span><span class="token function selector">\csname</span> #1Def<span class="token function selector">\endcsname</span><span class="token punctuation">{</span><span class="token function selector">\notationtarget</span><span class="token punctuation">{</span>#1<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre>
-<p>The idea is to link uses of notation to their definitions. All that's really needed for that is to pepper <code>\hyperlink</code> and <code>\hypertarget</code> everywhere, and this is what people <a href="https://damaru2.github.io/general/notations_with_links/">already do</a>.</p>
-<p>We can be a little more structured. First, for macros.tex enjoyers, we'll use the command <code>\notation</code> to define a new symbol, so all the definitions can go in one place. For example,</p>
+<p>The idea is to link uses of notation to their definitions. All that’s really needed for that is to pepper <code>\hyperlink</code> and <code>\hypertarget</code> everywhere, and this is what people <a href="https://damaru2.github.io/general/notations_with_links/">already do</a>.</p>
+<p>We can be a little more structured. First, for macros.tex enjoyers, we’ll use the command <code>\notation</code> to define a new symbol, so all the definitions can go in one place. For example,</p>
 <pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\notation</span><span class="token punctuation">{</span>trace<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\tau</span><span class="token punctuation">}</span></code></pre>
 <p>This defines the command <code>\trace</code> as a macro for <code>\tau</code>.
 More importantly, it defines the paired command <code>\traceDef</code>, which is used to mark the definition site of this symbol, and which every occurrence of <code>\trace</code> unobtrusively links to.</p>
@@ -707,17 +707,17 @@ More importantly, it defines the paired command <code>\traceDef</code>, which is
 <pre class="language-latex" tabindex="0"><code class="language-latex">A <span class="token function selector">\traceDef</span><span class="token function selector">\emph</span><span class="token punctuation">{</span>trace<span class="token punctuation">}</span> <span class="token equation string">$<span class="token equation-command regex">\trace</span>$</span> is a sequence of states...</code></pre>
 <p>Subsequent uses of <code>\trace</code> (even the one right after) will now contain links back to this part of the paper.</p>
 <p>Doing this has benefits for authors too.
-The introduction of a new concept is now made explicit, which may help you consider if you're doing a &quot;forward definition&quot;;
+The introduction of a new concept is now made explicit, which may help you consider if you’re doing a “forward definition”;
 if you forget the definition, you get a compilation warning.
 Furthermore, paired with SyncTex, you can really zip around the paper.</p>
-<p>For an example of this in action, I've annotated my most recent paper <a href="https://arxiv.org/abs/2308.00988">here</a>.</p>
-<p>The amount of effort was very low for the value – it's very much pay-as-you-go, and easy to do while proofreading.
+<p>For an example of this in action, I’ve annotated my most recent paper <a href="https://arxiv.org/abs/2308.00988">here</a>.</p>
+<p>The amount of effort was very low for the value – it’s very much pay-as-you-go, and easy to do while proofreading.
 To prioritize, focus on important notations first (which readers will frequently have to refer back to), then obscure ones or those with a large distance to their definitions.</p>
 <!-- Of course, all this only helps if it goes on top of focused effort to simplify and standardize your notation. -->
 <!-- Read on for a discussion of the [design](#design-decisions) and more advanced [use cases](#more-use-cases). -->
 <h1 id="design-decisions">Design decisions</h1>
 <details><summary>Why don't both commands take any parameters?</summary>
-<p>For <code>\traceDef</code>, it's so it can be placed anywhere, alongside what is written. To repeat the example from before:</p>
+<p>For <code>\traceDef</code>, it’s so it can be placed anywhere, alongside what is written. To repeat the example from before:</p>
 <pre class="language-latex" tabindex="0"><code class="language-latex">A <span class="token function selector">\traceDef</span><span class="token function selector">\emph</span><span class="token punctuation">{</span>trace<span class="token punctuation">}</span> <span class="token equation string">$<span class="token equation-command regex">\trace</span>$</span> is a sequence of states...</code></pre>
 <p>On the other hand, <code>\trace</code> taking no argument may seem like a deficiency: how should we replace a <code>\newcommand</code> with parameters?</p>
 <pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\newcommand*</span><span class="token punctuation">{</span><span class="token function selector">\bigstep</span><span class="token punctuation">}</span><span class="token punctuation">[</span>3<span class="token punctuation">]</span><span class="token punctuation">{</span>#1<span class="token function selector">\leadsto</span>_<span class="token punctuation">{</span>#2<span class="token punctuation">}</span>#3<span class="token punctuation">}</span>
@@ -725,7 +725,7 @@ To prioritize, focus on important notations first (which readers will frequently
 
 <span class="token comment">% a use</span>
 We define the relation <span class="token function selector">\bigstep</span><span class="token punctuation">{</span>e<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\trace</span><span class="token punctuation">}</span><span class="token punctuation">{</span>v<span class="token punctuation">}</span> as follows...</code></pre>
-<p>The reason is that we seldom want the entire term to become a link: it's possible we want to introduce notation for subterms, like the metavariable <code>e</code>.</p>
+<p>The reason is that we seldom want the entire term to become a link: it’s possible we want to introduce notation for subterms, like the metavariable <code>e</code>.</p>
 <p>My suggested way forward is to define notation for some essential symbol in the term, then use it in the definition of the term macro.</p>
 <pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\notation</span><span class="token punctuation">{</span>bigstepto<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\leadsto</span><span class="token punctuation">}</span>
 <span class="token function selector">\newcommand*</span><span class="token punctuation">{</span><span class="token function selector">\bigstep</span><span class="token punctuation">}</span><span class="token punctuation">[</span>3<span class="token punctuation">]</span><span class="token punctuation">{</span>#1<span class="token function selector">\bigstepto</span>_<span class="token punctuation">{</span>#2<span class="token punctuation">}</span>#3<span class="token punctuation">}</span>
@@ -740,12 +740,12 @@ We would also have to handle the case of a command having parameters (see previo
 </details>
 <details><summary>Could we automatically link to the first use?</summary>
 <p>An early version of this defined a command that redefined itself after the first time it was used, so subsequent uses would link back to the first one.
-This seemed like a nice idea, based on the assumption that &quot;forward definitions&quot; should be avoided.</p>
+This seemed like a nice idea, based on the assumption that “forward definitions” should be avoided.</p>
 <p>However, this can be fragile when used with figures, which may end up ordered before any given text on a page, and it is sometimes natural to defer a formal definition until after an intuitive use has been explained.</p>
 <p>The current simpler design, relying on manual annotation of the definition site, seems more robust.</p>
 </details>
 <h1 id="more-use-cases">More use cases</h1>
-<p>It's sometimes useful to use the lower-level <code>\notationlink</code> and <code>\notationtarget</code> directly.
+<p>It’s sometimes useful to use the lower-level <code>\notationlink</code> and <code>\notationtarget</code> directly.
 For example, say you typeset the names of inference rules in a special font.</p>
 <pre class="language-latex" tabindex="0"><code class="language-latex"><span class="token function selector">\newcommand</span><span class="token punctuation">{</span><span class="token function selector">\rulen</span><span class="token punctuation">}</span><span class="token punctuation">[</span>1<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token function selector">\ensuremath</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token function selector">\bf</span> <span class="token function selector">\scriptstyle</span> #1<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre>
 <p>You can instrument it so that it adds a link, and define another variant for introducing a definition, which you then use in your inference rule.</p>
@@ -850,7 +850,7 @@ latex blog post
 			
 		</footer>
 
-		<!-- This page `/blog/latex-notation/` was built on 2025-12-06T09:14:11.334Z -->
+		<!-- This page `/blog/latex-notation/` was built on 2025-12-06T09:27:00.080Z -->
 		
 	</body>
 </html>

@@ -680,11 +680,11 @@ header {
 </div>
 
 <div class="blog-content">
-<p>I'm teaching an introductory programming class this semester, which introduced students to the runtime stack and the heap in one of the early tutorials.</p>
+<p>I’m teaching an introductory programming class this semester, which introduced students to the runtime stack and the heap in one of the early tutorials.</p>
 <p>For consistency across face-to-face and online classes, I decided to have the diagrams in my slides instead of drawing them terribly over and over.</p>
-<p>While there were lots of references for drawing such diagrams by hand, there didn't seem to be any small and simple tools for <em>generating</em> them.
+<p>While there were lots of references for drawing such diagrams by hand, there didn’t seem to be any small and simple tools for <em>generating</em> them.
 I only found <a href="http://tug.ctan.org/tex-archive/macros/latex/contrib/drawstack/">drawstack.sty</a> (which does what it says on the box and only handles the stack), and everyone else seemed to use TikZ directly, which felt a little too low-level for this.</p>
-<p>So here's a tiny Python DSL for drawing a bunch of heap objects.
+<p>So here’s a tiny Python DSL for drawing a bunch of heap objects.
 It uses the OG constraint-based graphic design tool, GraphViz.</p>
 <p>First, a cons list.</p>
 <p><img width="407" height="191" class="theme-affected" alt="cons list" src="./conslist.svg"></p>
@@ -701,7 +701,7 @@ eleventy img in the prod build is a bit too correct, in that it reads the sizes
 from the svgs and the images end up too small.
 -->
 <p><img width="439" height="221" class="theme-affected" alt="stack which contains references to heap objects" src="./stackheap.svg"></p>
-<p>It's divided into named <em>frames</em>, each of which contains many local variables for a particular function call.
+<p>It’s divided into named <em>frames</em>, each of which contains many local variables for a particular function call.
 We can show arrays too, and have arbitrary object graphs.</p>
 <pre class="language-python" tabindex="0"><code class="language-python">v1 <span class="token operator">=</span> Obj<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">'Vector2D'</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'x'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> ident<span class="token operator">=</span><span class="token string">'v2'</span><span class="token punctuation">)</span>
 t1 <span class="token operator">=</span> Obj<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">'Transform'</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'parent'</span><span class="token punctuation">:</span> <span class="token string">'_self'</span><span class="token punctuation">,</span> <span class="token string">'pos'</span><span class="token punctuation">:</span> v1<span class="token punctuation">}</span><span class="token punctuation">,</span> ident<span class="token operator">=</span><span class="token string">'t1'</span><span class="token punctuation">)</span>
@@ -739,7 +739,7 @@ generate<span class="token punctuation">(</span>stack<span class="token operator
 			
 		</footer>
 
-		<!-- This page `/blog/stack-heap/` was built on 2025-12-06T09:14:11.334Z -->
+		<!-- This page `/blog/stack-heap/` was built on 2025-12-06T09:27:00.080Z -->
 		
 	</body>
 </html>

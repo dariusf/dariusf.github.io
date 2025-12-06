@@ -686,9 +686,9 @@ play <span class="token symbol">:c</span>
 sleep <span class="token number">1</span>
 sample <span class="token symbol">:drum_cowbell</span></code></pre>
 <p>The drum sample and note can be thought of as starting simultaneously, and the cowbell will play precisely one second<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup> after.
-In other words, <code>sleep</code> there isn't actually POSIX's <code>sleep</code> - it can be thought of as delimiting a section on a virtual timeline, a section which <em>does not include the time taken to start playing the sample and note</em>.</p>
+In other words, <code>sleep</code> there isn’t actually POSIX’s <code>sleep</code> - it can be thought of as delimiting a section on a virtual timeline, a section which <em>does not include the time taken to start playing the sample and note</em>.</p>
 <p>This enables a simple and declarative programming model.
-Setting up two live loops like the following works as you would expect, i.e. they won't drift out of sync. If the sound card is overloaded, some sounds may not play, but live loops will remain in phase.</p>
+Setting up two live loops like the following works as you would expect, i.e. they won’t drift out of sync. If the sound card is overloaded, some sounds may not play, but live loops will remain in phase.</p>
 <pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:hihat</span> <span class="token keyword">do</span>
   sample <span class="token symbol">:drum_cymbal_closed</span>
   sleep <span class="token number">0.25</span>
@@ -699,9 +699,9 @@ live_loop <span class="token symbol">:drums</span> <span class="token keyword">d
   sleep <span class="token number">1</span>
 <span class="token keyword">end</span></code></pre>
 <p>Well, mostly.
-Live loops are Ruby threads, which are scheduled nondeterministically. As a result, events across threads within one time &quot;partition&quot; are unordered.</p>
-<p>Consider this simplified example, which features communication across live loops. It's a fairly common scenario: we have a control loop that determines the key we're playing in, and one or more loops which adapt accordingly.</p>
-<p>We're using <code>set</code> and <code>get</code> for deterministic (timeline-synced) state updates, and the <code>sync:</code> parameter to ensure that <code>melody</code> only starts when receiving a  <em>cue</em> from <code>control</code>. Cues are sent every time a live loop begins executing its block.</p>
+Live loops are Ruby threads, which are scheduled nondeterministically. As a result, events across threads within one time “partition” are unordered.</p>
+<p>Consider this simplified example, which features communication across live loops. It’s a fairly common scenario: we have a control loop that determines the key we’re playing in, and one or more loops which adapt accordingly.</p>
+<p>We’re using <code>set</code> and <code>get</code> for deterministic (timeline-synced) state updates, and the <code>sync:</code> parameter to ensure that <code>melody</code> only starts when receiving a  <em>cue</em> from <code>control</code>. Cues are sent every time a live loop begins executing its block.</p>
 <pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:control</span> <span class="token keyword">do</span>
   set <span class="token symbol">:n</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token symbol">:c</span><span class="token punctuation">,</span> <span class="token symbol">:d</span><span class="token punctuation">,</span> <span class="token symbol">:e</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tick
   sleep <span class="token number">1</span>
@@ -721,7 +721,7 @@ live_loop <span class="token symbol">:melody</span><span class="token punctuatio
   set <span class="token symbol">:n</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token symbol">:c</span><span class="token punctuation">,</span> <span class="token symbol">:d</span><span class="token punctuation">,</span> <span class="token symbol">:e</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tick
   sleep <span class="token number">1</span>
 <span class="token keyword">end</span></code></pre>
-<p>This happens because of Ruby's imperative nature and nondeterministic thread scheduling: when the first live loop starts executing in a thread, the cue it subsequently sends is unordered with respect to the second <code>live_loop</code> call (which executes on the main thread). Most of the time the cue is sent before the melody loop starts, causing it to miss playing the first note.
+<p>This happens because of Ruby’s imperative nature and nondeterministic thread scheduling: when the first live loop starts executing in a thread, the cue it subsequently sends is unordered with respect to the second <code>live_loop</code> call (which executes on the main thread). Most of the time the cue is sent before the melody loop starts, causing it to miss playing the first note.
 Thus the cue should be delayed until after the melody loop has (presumably<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>) started.</p>
 <!-- The referenced forum thread contains a neat metaphor: musicians in a real-life orchestra should all be ready before the conductor gives them the cue start playing. Software does allow us to do better, however... -->
 <p>To address the second issue of notes missing, we could remove the <code>sync:</code> parameter and try using <code>sync</code> instead of <code>get</code>, which makes melody loop wait for the <a href="https://in-thread.sonic-pi.net/t/a-tiny-script-for-your-hipster-lounge/4448/10">next</a> note.</p>
@@ -730,7 +730,7 @@ Thus the cue should be delayed until after the melody loop has (presumably<sup c
   sleep <span class="token number">1</span>
 <span class="token keyword">end</span></code></pre>
 <p>Now, however, we hear only every other note.
-The problem is that it is possible for the melody loop to miss cues while it is sleeping. I'm not sure if this is due to the time abstraction leaking (where we can observe one thread sleeping while another acts, despite the time &quot;partition&quot; being the same), or the ordering of cues not being well-defined with respect to other events in live loops.</p>
+The problem is that it is possible for the melody loop to miss cues while it is sleeping. I’m not sure if this is due to the time abstraction leaking (where we can observe one thread sleeping while another acts, despite the time “partition” being the same), or the ordering of cues not being well-defined with respect to other events in live loops.</p>
 <p>Nevertheless, the solution is to ensure that the melody loop is not asleep when control loop cues. A simple way is to make sure there is always less sleep time in the former loop.</p>
 <pre class="language-ruby" tabindex="0"><code class="language-ruby">live_loop <span class="token symbol">:control</span><span class="token punctuation">,</span> <span class="token symbol">delay</span><span class="token operator">:</span> <span class="token number">0.1</span> <span class="token keyword">do</span>
   set <span class="token symbol">:n</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token symbol">:c</span><span class="token punctuation">,</span> <span class="token symbol">:d</span><span class="token punctuation">,</span> <span class="token symbol">:e</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tick
@@ -744,13 +744,13 @@ live_loop <span class="token symbol">:melody</span> <span class="token keyword">
 <h1 id="conclusion">Conclusion</h1>
 <p>These are awfully subtle issues for beginners to debug.
 I wish Sonic Pi had a simpler, more synchronous concurrency model, or at least provided more guarantees about the interleaving of events within a time partition.
-It's quite likely that this is difficult to implement efficiently with its wealth of features, though.</p>
+It’s quite likely that this is difficult to implement efficiently with its wealth of features, though.</p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
 <li id="fn1" class="footnote-item"><p>One beat, actually, but at the default BPM of 60, one beat occurs every second. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn2" class="footnote-item"><p>Technically we're still not guaranteed that the second loop has started. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+<li id="fn2" class="footnote-item"><p>Technically we’re still not guaranteed that the second loop has started. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
@@ -763,7 +763,7 @@ It's quite likely that this is difficult to implement efficiently with its wealt
 			
 		</footer>
 
-		<!-- This page `/blog/sonic-pi-time/` was built on 2025-12-06T09:14:11.334Z -->
+		<!-- This page `/blog/sonic-pi-time/` was built on 2025-12-06T09:27:00.080Z -->
 		
 	</body>
 </html>

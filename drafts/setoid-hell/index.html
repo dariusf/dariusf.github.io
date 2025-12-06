@@ -681,10 +681,10 @@ header {
 
 <div class="blog-content">
 <p>An intuitive look at setoid rewriting</p>
-<p>The use case I'm familiar with</p>
+<p>The use case I’m familiar with</p>
 <p>When working with a deep embedding of a logic in Coq, you will probably end up needing to face the beast that is setoid rewriting.
 The use case for this is rewriting terms using your entailment relation modulo some <em>interpretation</em>, which bridges the semantics of your logic and the logic of Coq.</p>
-<p>Here's an example.</p>
+<p>Here’s an example.</p>
 <pre class="language-coq" tabindex="0"><code class="language-coq"><span class="token keyword">From</span> Coq <span class="token keyword">Require</span> <span class="token keyword">Import</span> ZArith<span class="token punctuation">.</span>
 <span class="token keyword">From</span> Coq <span class="token keyword">Require</span> <span class="token keyword">Import</span> <span class="token keyword">Setoid</span> Morphisms <span class="token attribute attr-name">Program</span><span class="token punctuation">.</span>Basics<span class="token punctuation">.</span>
 
@@ -744,7 +744,7 @@ The use case for this is rewriting terms using your entailment relation modulo s
   rewrite <span class="token operator">&lt;-</span> or_comm<span class="token punctuation">.</span> <span class="token comment">(* Uses Proper_satisfies *)</span>
   rewrite <span class="token operator">&lt;-</span> and_comm<span class="token punctuation">.</span> <span class="token comment">(* Uses Proper_satisfies, Proper_Or, and Reflexive_entails *)</span></code></pre>
 <h1 id="setoids">Setoids</h1>
-<p>What is a setoid? Other people have explained it better, but it's a type with an equivalence<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup> relation.</p>
+<p>What is a setoid? Other people have explained it better, but it’s a type with an equivalence<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup> relation.</p>
 <p>TODO li yao post, penn pl club</p>
 <p>This relation can be used to rewrite terms deep in some context, provided the relation is <em>proper</em> with respect to the context.
 This is easier.</p>
@@ -820,21 +820,21 @@ For example,</p>
   rewrite <span class="token operator">&lt;-</span> and_comm<span class="token punctuation">.</span> <span class="token comment">(* Uses Proper_satisfies, Proper_Or, and Reflexive_entails *)</span></code></pre>
 <h1 id="errors-and-debugging">Errors and debugging</h1>
 <p>While futzing around defining proper instances, you will see the dreaded failed to understand</p>
-<p>This is a known issue. Unfortunately it's been a known issue for 6 years with no resolution
+<p>This is a known issue. Unfortunately it’s been a known issue for 6 years with no resolution
 https://github.com/coq/coq/issues/6141</p>
 <p>the typeclass errors can get really large, leaving you with no choice other than to bisect your code until you find the error.
 https://github.com/coq/coq/issues/13942</p>
 <h2 id="heuristics-for-understanding-errors">Heuristics for understanding errors</h2>
 <p>The Proper instances in the context give you roughly those needed on the way</p>
-<p>However they don't give the full story. First enable debug
+<p>However they don’t give the full story. First enable debug
 Gross gives some tips.
 https://stackoverflow.com/questions/50989017/proper-instance-for-nested-matching/51015288#51015288</p>
 <p>looking for lines with proper_subrelation immediately followed by something about a proper instance tells you when typeclass resolution failed, which typically says something about the instance you need.</p>
 <p>unfortunately, typeclass resolution errors show up for a variety of reasons.
-it's possible such an error message doesn't occur, and the error is actually about something else.
-the worst part is that you still see the Proper instances in the initial error message (without debugging on), so at first glance it seems like it's a missing instance that's causing the problem.</p>
+it’s possible such an error message doesn’t occur, and the error is actually about something else.
+the worst part is that you still see the Proper instances in the initial error message (without debugging on), so at first glance it seems like it’s a missing instance that’s causing the problem.</p>
 <p>in particular, you get the same error from insufficiently instantiated arguments.
-if you try to rewrite with a lemma and don't.</p>
+if you try to rewrite with a lemma and don’t.</p>
 <pre class="language-coq" tabindex="0"><code class="language-coq">rewrite <span class="token punctuation">(</span><span class="token operator">@</span>lem <span class="token keyword">_</span> a<span class="token punctuation">)</span> <span class="token keyword">in</span> H<span class="token punctuation">.</span>
 
 <span class="token comment">(* the more common form, where it's unclear *)</span>
@@ -882,7 +882,7 @@ https://cs.brown.edu/courses/cs195x/current/sf/html/Logic.html
 			
 		</footer>
 
-		<!-- This page `/drafts/setoid-hell/` was built on 2025-12-06T09:14:11.333Z -->
+		<!-- This page `/drafts/setoid-hell/` was built on 2025-12-06T09:27:00.079Z -->
 		
 	</body>
 </html>

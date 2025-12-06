@@ -680,10 +680,10 @@ header {
 </div>
 
 <div class="blog-content">
-<p>I've been curious for a while about how Alloy and ER diagrams are related.
+<p>I’ve been curious for a while about how Alloy and ER diagrams are related.
 Both are technically logics for describing relational models.
-It makes sense that we should be able to encode ER diagrams in Alloy and get access to the latter's model-finding capabilities.</p>
-<p>Here's a straightforward, by-example mapping between both formalisms, paying special attention to the differences.</p>
+It makes sense that we should be able to encode ER diagrams in Alloy and get access to the latter’s model-finding capabilities.</p>
+<p>Here’s a straightforward, by-example mapping between both formalisms, paying special attention to the differences.</p>
 <h2 id="entity-sets-relationship-sets-and-cardinality">Entity sets, relationship sets, and cardinality</h2>
 <p>A direct way to represent an entity set is as an Alloy <a href="https://alloy.readthedocs.io/en/latest/language/signatures.html">signature</a>.
 Relationship sets map to <a href="https://alloy.readthedocs.io/en/latest/language/signatures.html#relations">relations</a> (or fields) of the signature.</p>
@@ -822,11 +822,11 @@ sig e2 {}{ one this.~r1 }</code></pre>
 </tbody>
 </table>
 </div>
-<p>More on encodings <a href="#attributes-and-aggregation">later</a>. Let's look at some applications first.</p>
+<p>More on encodings <a href="#attributes-and-aggregation">later</a>. Let’s look at some applications first.</p>
 <h2 id="checking-properties">Checking properties</h2>
 <p>With this encoding, we can already reason mechanically about ER diagrams.
 For example, we can verify simple properties, such as: that the cardinality constraints we state do what we intend them to.</p>
-<p>Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.864ex" height="1.025ex" role="img" focusable="false" viewBox="0 -479 414 491" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-3-STX-I-1D450" d="M358 123C327 85 288 57 219 57C161 57 109 77 109 184C109 300 170 446 280 446C312 446 329 434 329 419C329 403 310 375 310 349C310 327 324 314 348 314C385 314 404 346 404 386C404 451 353 479 290 479C146 479 26 335 26 169C26 68 71-12 179-12C269-12 334 44 375 108Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="c"><g data-mml-node="mi" data-latex="c"><use data-c="1D450" xlink:href="#MJX-3-STX-I-1D450"></use></g></g></g></svg></mjx-container> means...</p>
+<p>Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.864ex" height="1.025ex" role="img" focusable="false" viewBox="0 -479 414 491" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-3-STX-I-1D450" d="M358 123C327 85 288 57 219 57C161 57 109 77 109 184C109 300 170 446 280 446C312 446 329 434 329 419C329 403 310 375 310 349C310 327 324 314 348 314C385 314 404 346 404 386C404 451 353 479 290 479C146 479 26 335 26 169C26 68 71-12 179-12C269-12 334 44 375 108Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="c"><g data-mml-node="mi" data-latex="c"><use data-c="1D450" xlink:href="#MJX-3-STX-I-1D450"></use></g></g></g></svg></mjx-container> means…</p>
 <div style="text-align: center" class="theme-affected scroll-when-overflowing">
 
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
@@ -985,7 +985,7 @@ check no_unrelated_e2 for 2</code></pre>
 An immediate use of this is to look at examples of models, to get a feel for what an ER diagram means.</p>
 <p>The simplest way to do this is to write a command specifying only the scope</p>
 <pre class="language-alloy" tabindex="0"><code class="language-alloy">run {} for 2</code></pre>
-<p>and select &quot;Show New Solution&quot; repeatedly.</p>
+<p>and select “Show New Solution” repeatedly.</p>
 <p>We can also write constraints to select models, to confirm their presence.
 Say we want a model where <code>e1</code> and <code>e2</code> are related:</p>
 <pre class="language-alloy" tabindex="0"><code class="language-alloy">run { some e: e1 | some e.r1 } for 2</code></pre>
@@ -1082,7 +1082,7 @@ run {} for exactly 2 e1, exactly 0 e2</code></pre>
 <p>To build tools on top of this encoding, a way to invoke Alloy programmatically is required.</p>
 <p>Alloy <a href="https://alloytools.discourse.group/t/commandline-options-clash/214">does</a> <a href="https://alloytools.discourse.group/t/how-can-i-run-alloy-in-command-line/275">not</a> have a CLI.
 However, it has a <a href="https://alloytools.org/documentation/alloy-api/index.html">well-documented Java API</a> and <a href="https://github.com/AlloyTools/org.alloytools.alloy/tree/master/org.alloytools.alloy.application/src/test/java/edu/mit/csail/sdg/alloy4whole">examples of use</a>.
-Here's a minimal example of how it might be used to process an Alloy source file and export the resulting model to, e.g., GraphViz or JSON, to interoperate with other tools.
+Here’s a minimal example of how it might be used to process an Alloy source file and export the resulting model to, e.g., GraphViz or JSON, to interoperate with other tools.
 The default XML exporter does not seem to work, crashing when I tried it.</p>
 <details>
 <summary>Minimal.java</summary>
@@ -1171,7 +1171,7 @@ In Section 4.3.2, they give a translation scheme very briefly.</p>
 <p>However, we chose to use signatures for representing both the entity types and the relationship types. We think this captures the relationship set semantics more accurately, and provides its own structure.</p>
 </blockquote>
 <p>This is useful for encoding <abbr title="the use of a relationship set as an entity set">aggregation</abbr>.
-Here's an example.</p>
+Here’s an example.</p>
 <pre class="language-alloy" tabindex="0"><code class="language-alloy">sig Bottle {}
 sig Session {}
 one sig Opened {
@@ -1186,13 +1186,13 @@ run {} for exactly 1 Session, exactly 2 Bottle, exactly 2 Member </code></pre>
 <!-- it seems hard to render aggregation using graphviz -->
 <p>The tradeoff is that writing constraints for ternary relations and above <a href="https://alloy.readthedocs.io/en/latest/language/signatures.html#multirelations">gets complex</a>,
 and that the default visualization is less intuitive.
-It seems better to use Alloy's relations if aggregation isn't required.</p>
+It seems better to use Alloy’s relations if aggregation isn’t required.</p>
 <!-- </details> -->
 <!-- TODO subtyping, covering, overlap -->
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>We're using <a href="https://michael-fuchs-sql.netlify.app/2021/03/03/entity-relationship-diagram-erd/#min-max-notation">min-max</a> <a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model#Cardinalities">notation</a>. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p>We’re using <a href="https://michael-fuchs-sql.netlify.app/2021/03/03/entity-relationship-diagram-erd/#min-max-notation">min-max</a> <a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model#Cardinalities">notation</a>. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
@@ -1205,7 +1205,7 @@ It seems better to use Alloy's relations if aggregation isn't required.</p>
 			
 		</footer>
 
-		<!-- This page `/blog/erd-alloy/` was built on 2025-12-06T09:14:11.333Z -->
+		<!-- This page `/blog/erd-alloy/` was built on 2025-12-06T09:27:00.079Z -->
 		
 	</body>
 </html>

@@ -680,11 +680,11 @@ header {
 </div>
 
 <div class="blog-content">
-<p>Backing up an iOS device is nice and simple: there's iCloud, or connecting your device, opening Finder, and clicking <em>Back Up Now</em>.
+<p>Backing up an iOS device is nice and simple: there’s iCloud, or connecting your device, opening Finder, and clicking <em>Back Up Now</em>.
 Unfortunately this process is also rather opaque: all we can do in Finder is to create and restore backups, not view their contents.
-I'd like to be able to extract individual files and archive them elsewhere.</p>
-<p>At the time of writing there are no up-to-date and polished open source apps for simply viewing backup data in an open format, so here we'll explore how iOS backups are structured and figure out how to extract the raw files.</p>
-<p><strong>All this applies to Big Sur + iOS 14.2</strong>. Since we're depending on undocumented internals, it's entirely possible that this changes across versions<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>, in which case all this spelunking would have to be repeated.</p>
+I’d like to be able to extract individual files and archive them elsewhere.</p>
+<p>At the time of writing there are no up-to-date and polished open source apps for simply viewing backup data in an open format, so here we’ll explore how iOS backups are structured and figure out how to extract the raw files.</p>
+<p><strong>All this applies to Big Sur + iOS 14.2</strong>. Since we’re depending on undocumented internals, it’s entirely possible that this changes across versions<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>, in which case all this spelunking would have to be repeated.</p>
 <h1 id="diving-in">Diving in</h1>
 <p>To start, create an unencrypted local backup with Finder over USB. This writes to <code>~/Library/Application Support/MobileSync/Backup</code>. To access that directory, I had to go to <code>System Preferences &gt; Security &amp; Privacy &gt; Privacy &gt; Full Disk Access</code> and whitelist iTerm.</p>
 <!-- https://apple.stackexchange.com/a/390593 -->
@@ -712,7 +712,7 @@ aa500a604b1acbfc35306db49185824d974b58f4|AppDomainPlugin-com.apple.quicklook.ext
 </code></pre>
 <p>We can use these to scavenge data owned by different apps.</p>
 <h1 id="voice-memos">Voice Memos</h1>
-<p>Let's start with Voice Memos -- a great example because it has a simple data model (audio files presumably stored as-is on disk).</p>
+<p>Let’s start with Voice Memos – a great example because it has a simple data model (audio files presumably stored as-is on disk).</p>
 <p>After some poking around, we find the audio files under <code>Media/Recordings</code>:</p>
 <pre><code>sqlite&gt; select fileID, domain, relativePath from Files where relativePath like 'Media/Recordings/%.m4a' limit 1;
 fileID|domain|relativePath
@@ -722,9 +722,9 @@ e41d74a1b3680375ab2055a45a09053f646d1cc6|MediaDomain|Media/Recordings/20190704 2
 <pre><code>$ file e4/e41d74a1b3680375ab2055a45a09053f646d1cc6
 e4/e41d74a1b3680375ab2055a45a09053f646d1cc6: ISO Media, Apple iTunes ALAC/AAC-LC (.M4A) Audio
 </code></pre>
-<p>A more in-depth analysis of Voice Memos' data model is available <a href="https://iopscience.iop.org/article/10.1088/1742-6596/1345/5/052053/pdf">here</a>, but given that it changes from version to version, it's probably best to keep our dependence on it to a minimum.</p>
+<p>A more in-depth analysis of Voice Memos’ data model is available <a href="https://iopscience.iop.org/article/10.1088/1742-6596/1345/5/052053/pdf">here</a>, but given that it changes from version to version, it’s probably best to keep our dependence on it to a minimum.</p>
 <h1 id="books">Books</h1>
-<p>Books is equally simple, so here's the query to find all PDFs.</p>
+<p>Books is equally simple, so here’s the query to find all PDFs.</p>
 <pre><code>sqlite&gt; select fileID, domain, relativePath from Files where relativePath like '%.pdf' and relativePath like '%iBooks%';
 fileID|domain|relativePath
 a6879231503984af93da6b4da2d1486abe251c2d|HomeDomain|Library/Mobile Documents/iCloud~com~apple~iBooks/Documents/lightweight-static-capabilities.pdf
@@ -737,20 +737,20 @@ fileID|domain|relativePath
 <h1 id="whatsapp">WhatsApp</h1>
 <p>WhatsApp is notable because it only stores data locally, and thus relies on a third-party service (Google Drive or iCloud) to opaquely move data across devices.
 It also has a much more complex data model.</p>
-<p>Most of WhatsApp's data is in an SQLite database called <code>ChatStorage.sqlite</code>.</p>
+<p>Most of WhatsApp’s data is in an SQLite database called <code>ChatStorage.sqlite</code>.</p>
 <pre><code>sqlite&gt; select fileID, domain, relativePath from Files where relativePath like '%ChatStorage.sqlite';
 fileID|domain|relativePath
 7c7fba66680ef796b916b067077cc246adacf01d|AppDomainGroup-group.net.whatsapp.WhatsApp.shared|ChatStorage.sqlite
 </code></pre>
-<p>Fortunately, it's structured in a fairly standard relational manner. The main tables are <code>ZWAMESSAGE</code> and <code>ZWACHATSESSION</code> (representing messages and DMs/groups). Joining other tables gives us contact names and pointers to media, which are stored as paths to other files in the backup.</p>
-<p>I've written a <a href="https://github.com/dariusf/ios-backup">script</a> which codifies all this and reconstructs message history as a directory of HTML files. It improves on <a href="https://medium.com/@1522933668924/extracting-whatsapp-messages-from-backups-with-code-examples-49186de94ab4">earlier</a> <a href="https://github.com/pixel3rr0r/whatsapp_chat_dump">work</a> by supporting groups and taking care to copy out all referenced media, so the entire directory can be archived as-is.</p>
+<p>Fortunately, it’s structured in a fairly standard relational manner. The main tables are <code>ZWAMESSAGE</code> and <code>ZWACHATSESSION</code> (representing messages and DMs/groups). Joining other tables gives us contact names and pointers to media, which are stored as paths to other files in the backup.</p>
+<p>I’ve written a <a href="https://github.com/dariusf/ios-backup">script</a> which codifies all this and reconstructs message history as a directory of HTML files. It improves on <a href="https://medium.com/@1522933668924/extracting-whatsapp-messages-from-backups-with-code-examples-49186de94ab4">earlier</a> <a href="https://github.com/pixel3rr0r/whatsapp_chat_dump">work</a> by supporting groups and taking care to copy out all referenced media, so the entire directory can be archived as-is.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>Now we can do dead-simple manual backups, like on Android.</p>
-<p>As this depends on the internals of iOS backups as well as of the apps involved, it'll likely bitrot quickly, but hopefully then it'll serve as a starting point for people who want to do something similar in future.</p>
+<p>As this depends on the internals of iOS backups as well as of the apps involved, it’ll likely bitrot quickly, but hopefully then it’ll serve as a starting point for people who want to do something similar in future.</p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>Here's an <a href="https://commons.erau.edu/cgi/viewcontent.cgi?article=1099&amp;context=jdfsl">example</a> of a prior attempt to document this that is now out of date, though it was useful as a starting point. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p>Here’s an <a href="https://commons.erau.edu/cgi/viewcontent.cgi?article=1099&amp;context=jdfsl">example</a> of a prior attempt to document this that is now out of date, though it was useful as a starting point. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
@@ -763,7 +763,7 @@ fileID|domain|relativePath
 			
 		</footer>
 
-		<!-- This page `/blog/ios-backups/` was built on 2025-12-06T09:14:11.334Z -->
+		<!-- This page `/blog/ios-backups/` was built on 2025-12-06T09:27:00.080Z -->
 		
 	</body>
 </html>

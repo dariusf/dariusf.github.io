@@ -1150,7 +1150,7 @@ for (const v of [1, 2, 3]) {
   }
 }
 </script>
-<p>(If you are on iOS and can't hear any audio, disable silent mode)</p>
+<p>(If you are on iOS and can’t hear any audio, disable silent mode)</p>
 <p>More examples <a href="#examples">here</a>. The rest of the post describes the journey (or at least the first part of it, since it appears to be far from over!).</p>
 <h1 id="procedural-music-composition">Procedural music composition</h1>
 <!--
@@ -1160,11 +1160,11 @@ Motivation
 
 The beauty of Renaissance polyphony is deeply intriguing to me.
 -->
-<p>I've always found Renaissance polyphony deeply beautiful and intriguing. As an example, here is a performance of <a href="https://www.youtube.com/watch?v=Pdv9vmGo4EE">Sicut Cervus</a>, one of the hallmark pieces of the period.</p>
+<p>I’ve always found Renaissance polyphony deeply beautiful and intriguing. As an example, here is a performance of <a href="https://www.youtube.com/watch?v=Pdv9vmGo4EE">Sicut Cervus</a>, one of the hallmark pieces of the period.</p>
 <!-- {{< youtube Pdv9vmGo4EE >}} -->
 <p>Here is a <a href="https://www.youtube.com/watch?v=0AgZuB9HuIc">visualization</a> of the piece which shows how the four voices move and interact. The voices have individual character, sometimes engage with each other, and all fit together to create cohesive harmony.</p>
 <!-- {{< youtube 0AgZuB9HuIc >}} -->
-<p>Here's another example, <a href="https://www.youtube.com/watch?v=VvK6awPV8VQ">Though Amaryllis Dance in Green</a>.</p>
+<p>Here’s another example, <a href="https://www.youtube.com/watch?v=VvK6awPV8VQ">Though Amaryllis Dance in Green</a>.</p>
 <!-- {{< youtube VvK6awPV8VQ >}} -->
 <!-- what is this song about? -->
 <!-- As an example. Amaryllis. Like a dance. Voices dancing. See how the lines cross and make up for each other and interact, and yet if you the individual lines they have a character of their own. The singer of each line has clear phrases -->
@@ -1179,7 +1179,7 @@ The beauty of Renaissance polyphony is deeply intriguing to me.
 </script>
 -->
 <blockquote>
-<p>What makes the piece special - and very fun to hear and to sing - is the liveliness of Byrd's setting. The five parts are extremely independent of each other, each filled with syncopations and leaps, like five dancers improvising, individually but in relation to each other. It makes me think of <a href="https://www.invaluable.com/auction-lot/schomer-frank-lichtner-wisconsin-1905-2006-dancers-89-c-cf06fdea43">this wonderful painting</a> by Frank Schomer Lichtner.</p>
+<p>What makes the piece special - and very fun to hear and to sing - is the liveliness of Byrd’s setting. The five parts are extremely independent of each other, each filled with syncopations and leaps, like five dancers improvising, individually but in relation to each other. It makes me think of <a href="https://www.invaluable.com/auction-lot/schomer-frank-lichtner-wisconsin-1905-2006-dancers-89-c-cf06fdea43">this wonderful painting</a> by Frank Schomer Lichtner.</p>
 </blockquote>
 <!--
 Fugues are layered puzzles
@@ -1192,14 +1192,14 @@ Fugues are layered puzzles
 [part 2](https://www.youtube.com/watch?v=RZ6DrEWjVnQ)
 -->
 <p>How are such intricate pieces created? Can it be done systematically?</p>
-<p>The simple approach of choosing chords first, then choosing notes which fit wouldn't result in independent voices.
+<p>The simple approach of choosing chords first, then choosing notes which fit wouldn’t result in independent voices.
 Perhaps a nice, pleasing melody would work as a base, then the other voices could be written, ensuring they work with the harmony, which now emerges from the voices.
 Presumably this would get harder and harder with each voice added, as new ideas would necessitate revisions of earlier voices to admit them and keep everything cohesive.
 And this would be done iteratively until the piece is complete.</p>
 <!-- This whole process would be iterated to a fixed point. -->
 <!-- And this is only the basic level, before creating the texture you want with all kinds of chords. -->
 <p>This sort of interleaved and iterative process of refinement might remind one of constraint propagation algorithms, and indeed, computer-aided composition using constraint solvers is its own subfield.
-The &quot;omnidirectional&quot; nature of the solving process points to modelling the entire thing as a single constraint satisfaction problem <a href="https://adamsmith.as/papers/fdg2013_shortcuts.pdf">for more effective propagation</a>.</p>
+The “omnidirectional” nature of the solving process points to modelling the entire thing as a single constraint satisfaction problem <a href="https://adamsmith.as/papers/fdg2013_shortcuts.pdf">for more effective propagation</a>.</p>
 <!-- section 5.5 -->
 <!--
 Interdependent constraints
@@ -1236,7 +1236,7 @@ Specializing them to our musical use case:</p>
 <h1 id="encoding">Encoding</h1>
 <p>There are many possible logical encodings for musical scores and concepts, with different tradeoffs with respect to expressiveness and solver performance.
 For example, a naive one would be to represent rhythm as a fixed grid of boolean variables, which would work for some kinds of music.
-The <a href="https://strasheela.sourceforge.net/documents/TorstenAnders-PhDThesis.pdf">Strasheela thesis</a> covers numerous encoding schemes, so I'll just go over my specific choices.</p>
+The <a href="https://strasheela.sourceforge.net/documents/TorstenAnders-PhDThesis.pdf">Strasheela thesis</a> covers numerous encoding schemes, so I’ll just go over my specific choices.</p>
 <!-- The encoding I settled on may seem simple, even naive, but the finding here is that with only limited understanding of how theory solvers work, a good heuristic for solver performance is to keep constraints dead simple. -->
 <p>Pitch is represented by bounded integer variables.</p>
 <div style="display: flex; align-items: center;"><mjx-container class="MathJax" jax="SVG" overflow="overflow" display="true"><svg style="vertical-align: -0.858ex;" xmlns="http://www.w3.org/2000/svg" width="54.458ex" height="2.354ex" role="img" focusable="false" viewBox="0 -716.5 26085.3 1127.4" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-261-STX-MI-70" d="M225-11C376-11 488 119 488 307C488 423 428 479 353 479C303 479 261 450 215 396L215 397L211 397L225 474L206 474L63 459L63 434C63 434 80 436 95 436C121 436 132 427 132 407C132 400 131 394 130 388L5-220L201-220L208-193C128-193 107-166 107-143C107-129 109-111 111-101L135 15C155 3 194-11 225-11M146 65L196 307C223 368 262 423 324 423C352 423 400 402 400 307C400 131 334 32 232 32C191 32 163 50 146 65Z"></path><path id="MJX-261-STX-MI-69" d="M115-9C181-9 220 47 255 96L235 111C219 93 191 59 157 59C145 59 139 65 139 78C139 92 144 120 144 120L219 476L197 476L57 465L57 438C57 438 74 440 91 440C118 440 123 424 123 411C123 394 120 380 120 380L69 142C56 83 52 61 52 44C52 9 75-9 115-9M188 556C218 556 243 576 243 610C243 643 224 665 191 665C158 665 136 644 136 610C136 575 158 556 188 556Z"></path><path id="MJX-261-STX-MI-74" d="M115-9C194-9 236 65 265 104L245 119C210 74 189 59 160 59C146 59 143 69 143 80C143 97 150 130 150 130L211 428L310 428L318 467L219 467L245 593L215 593C165 506 140 482 76 449L72 428L129 428L61 101C59 91 54 61 54 44C54 13 73-9 115-9Z"></path><path id="MJX-261-STX-MI-63" d="M183-13C273-13 336 46 376 108L359 123C329 85 290 57 225 57C150 57 117 95 117 183C117 300 176 446 282 446C313 446 330 434 330 419C330 403 311 375 311 349C311 327 325 314 349 314C386 314 405 346 405 386C405 451 354 479 292 479C152 479 34 337 34 167C34 58 85-13 183-13Z"></path><path id="MJX-261-STX-MI-68" d="M384-10C456-10 496 60 522 97L501 112C486 93 462 60 426 60C413 60 407 68 407 79C407 91 411 103 411 103L467 334C470 348 476 382 476 408C476 444 461 479 411 479C296 479 206 334 165 259L157 259L182 377L253 705L230 705L93 694L93 668C93 668 114 670 127 670C147 670 159 659 159 644C159 629 156 610 156 610L31 0L113 0L148 160C179 230 290 407 361 407C383 407 390 390 390 367C390 347 383 319 383 319L324 88C322 83 319 65 319 49C319 19 334-10 384-10Z"></path><path id="MJX-261-STX-I-1D45D" d="M275-220L282-193C202-193 181-166 181-143C181-129 183-111 185-101L209 15C229 3 268-11 300-11C456-11 572 119 572 307C572 423 510 479 432 479C380 479 338 451 290 397L285 397L299 474L280 474L137 459L137 434C137 434 154 436 169 436C195 436 206 427 206 407C206 400 205 394 204 388L77-220M272 311C300 370 340 423 404 423C434 423 484 402 484 307C484 131 415 32 308 32C266 32 238 49 221 64Z"></path><path id="MJX-261-STX-N-2261" d="M658 28L658 96L62 96L62 28M658 225L658 293L62 293L62 225M658 422L658 489L62 489L62 422Z"></path><path id="MJX-261-STX-N-7B" d="M25 245C72 240 115 233 115 173C115 126 96 8 96-52C96-167 184-197 282-197L282-165C225-165 170-150 170-64C170-13 185 68 185 129C185 212 144 247 93 267L93 273C144 293 185 328 185 411C185 472 170 552 170 603C170 689 225 704 282 704L282 736C184 736 96 706 96 591C96 531 115 414 115 367C115 307 72 300 25 295Z"></path><path id="MJX-261-STX-I-1D70C" d="M122 104L130 104C143 54 175-11 249-11C387-11 495 133 495 307C496 432 433 481 362 481C213 481 124 383 71 141C48 42 27-80-5-213L8-216C100-216 103-155 109-45C111-3 114 47 122 104M147 191C148 333 259 395 338 395C390 395 446 371 446 273C446 148 355 71 254 71C194 71 147 103 147 191Z"></path><path id="MJX-261-STX-I-1D456" d="M219 476L197 476L57 465L57 438C57 438 74 440 91 440C118 440 123 424 123 411C123 394 120 380 120 380L69 142C56 83 52 61 52 44C52 9 75-9 115-9C181-9 220 47 255 96L235 111C219 93 191 59 157 59C145 59 139 65 139 78C139 92 144 120 144 120M243 610C243 643 224 665 191 665C158 665 136 644 136 610C136 575 158 556 188 556C218 556 243 576 243 610Z"></path><path id="MJX-261-STX-N-2223" d="M170-194L170 706L102 706L102-194Z"></path><path id="MJX-261-STX-I-1D45A" d="M403 0L435 138C472 228 587 407 649 407C672 407 679 390 679 367C679 346 670 308 663 282L612 88C611 83 607 65 607 49C607 19 622-10 673-10C744-10 784 60 810 97L790 112C774 93 750 60 715 60C702 60 696 68 696 79C696 91 699 103 699 103L754 334C757 348 764 382 764 408C764 444 750 479 700 479C596 479 514 346 471 270L463 270L480 334C481 339 489 379 489 408C489 444 476 479 426 479C312 479 227 338 185 259L177 259L227 476L204 476L66 465L66 438C66 438 85 440 98 440C122 440 130 430 130 413C130 398 127 380 127 380L47 0L129 0L160 137C210 250 309 407 375 407C398 407 405 390 405 367C405 351 400 328 399 325C375 215 349 107 320 0Z"></path><path id="MJX-261-STX-I-1D45B" d="M521 112C506 93 481 60 447 60C433 60 428 68 428 79C428 91 430 103 430 103L487 334C490 348 496 382 496 408C496 444 481 479 430 479C312 479 227 334 185 259L177 259L227 476L205 476L66 465L66 438C66 438 86 440 99 440C122 440 131 430 131 413C131 398 128 380 128 380L47 0L129 0L165 158C197 227 307 407 380 407C403 407 410 390 410 367C410 347 403 319 403 319L344 88C343 83 339 65 339 49C339 19 354-10 404-10C476-10 516 60 542 97Z"></path><path id="MJX-261-STX-N-2264" d="M650 52L650 116L207 337L650 557L650 623L71 342L71 332M650-106L650-38L71-38L71-106Z"></path><path id="MJX-261-STX-I-1D44E" d="M502 472L449 472L413 426L409 426C388 456 358 479 305 479C174 479 49 341 49 159C49 43 100-12 172-12C229-12 288 22 339 85L346 85C343 67 339 53 339 38C339 5 359-10 395-10C455-10 497 33 539 97L519 112C506 95 477 60 445 60C429 60 425 68 425 81C425 96 430 118 430 118M389 344C389 313 378 240 358 181C329 96 285 54 218 54C168 54 138 77 138 169C138 303 202 441 302 441C358 441 389 397 389 344Z"></path><path id="MJX-261-STX-I-1D465" d="M315 298L312 298L300 349C286 403 267 447 243 475L228 475L89 459L89 429C89 429 104 432 120 432C186 433 203 406 230 322L258 231L186 126C147 70 129 69 125 69C108 69 84 82 62 82C38 82 23 60 23 40C23 15 38-9 81-9C141-9 174 38 206 90L270 194L274 194L299 93C313 28 335-10 381-10C449-10 491 58 520 102L499 118C472 82 453 62 427 62C396 62 376 99 348 191L327 259L388 356C405 384 419 398 442 398C455 398 478 388 494 388C521 388 540 411 540 435C540 463 528 479 490 479C431 479 391 430 364 382Z"></path><path id="MJX-261-STX-N-2C" d="M70-132C110-114 194-80 194 33C194 88 167 121 117 121C77 121 55 94 55 62C55 33 71 8 110 8C121 8 130 10 141 14C141-67 95-91 58-107Z"></path><path id="MJX-261-STX-N-30" d="M468 317C468 523 378 642 249 642C104 642 27 510 27 320C27 143 86-11 247-11C404-11 468 146 468 317M371 311C371 119 326 25 247 25C167 25 123 121 123 315C123 513 167 608 246 608C328 608 371 514 371 311Z"></path><path id="MJX-261-STX-N-3C" d="M650-25L650 42L207 260L650 478L650 547L71 265L71 255Z"></path><path id="MJX-261-STX-N-7D" d="M302 295C255 300 212 307 212 367C212 414 231 531 231 591C231 706 143 736 45 736L45 704C102 704 157 689 157 603C157 552 142 472 142 411C142 328 183 293 234 273L234 267C183 247 142 212 142 129C142 68 157-13 157-64C157-150 102-165 45-165L45-197C143-197 231-167 231-52C231 8 212 126 212 173C212 233 255 240 302 245Z"></path><path id="MJX-261-STX-N-2208" d="M646 293L155 293C165 390 223 476 352 476L646 476L646 543L347 543C183 543 75 411 75 260C75 108 181-26 344-26L646-26L646 42L353 42C224 42 166 128 155 225L646 225Z"></path><path id="MJX-261-STX-I-1D446" d="M505 473L539 667L515 667C505 646 493 638 476 638C454 638 431 667 344 667C232 667 126 604 126 488C126 396 181 358 247 316C248 316 248 315 249 315C319 270 384 229 383 144C382 67 321 30 238 30C137 29 103 63 94 201L66 201L24-15L54-15C58 5 73 18 87 18C110 18 140-12 244-12C368-12 476 64 476 191C476 287 405 327 332 375C267 415 211 456 211 517C211 589 260 631 343 631C444 631 472 583 476 473Z"></path><path id="MJX-261-STX-I-1D434" d="M642 0L648 30C588 30 574 53 561 119L482 661L440 661L94 160C19 46 0 30-55 30L-62 0L147 0L154 30C110 30 96 36 96 57C96 76 107 94 121 113L191 219L449 219L459 129C460 117 461 103 461 87C461 37 430 30 381 30L375 0M445 259L215 259L409 548L412 548Z"></path><path id="MJX-261-STX-I-1D447" d="M628 484L658 657L121 657L80 484L112 484C156 593 167 618 278 618L335 618L236 131C217 40 203 30 119 30L113 0L398 0L404 30C319 30 307 40 326 131L425 618L482 618C593 618 597 593 597 484Z"></path><path id="MJX-261-STX-I-1D435" d="M413 349C508 371 588 420 588 528C588 600 540 657 371 657L118 657L112 627C186 627 205 616 188 536L103 125C86 42 69 30-7 30L-13 0L275 0C432 0 556 73 556 207C556 291 491 333 413 344M233 322L292 322C376 322 453 296 453 204C453 56 328 36 237 36C212 36 199 37 176 39M241 362L293 616C314 618 323 619 343 619C455 619 489 575 489 521C489 422 437 362 299 362Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="\mathit{pitch}_p \equiv \{\, \rho_i \mid min_p \le \rho_i \le max_p,\, 0 \le i < n \,\},\, p \in \{\,S, A, T, B\,\}
@@ -1252,7 +1252,7 @@ Ties and measures are not represented and are treated as a rendering concern.</p
 <p>To apply melodic constraints, we must know if two notes are <em>consecutive</em>, and to apply harmonic constraints, we must know if a chord and note are <em>simultaneous</em>.
 In a very general setting like ours,
 this information may not yet be available, since it may be produced as a result of the search.</p>
-<p>For example, we won't know if a chord and note are simultaneous if we have not yet determined their rhythm, which may in turn be affected by harmonic constraints, as a certain rhythm may not be allowed if it results in a dissonant chord.
+<p>For example, we won’t know if a chord and note are simultaneous if we have not yet determined their rhythm, which may in turn be affected by harmonic constraints, as a certain rhythm may not be allowed if it results in a dissonant chord.
 This is called the <em>inaccessible score context problem</em>, from Section 6.3 of the <a href="https://strasheela.sourceforge.net/documents/TorstenAnders-PhDThesis.pdf">Strasheela thesis</a>.</p>
 <p>The solution we use is logical implication, which this representation makes easy.
 A chord and note are simultaneous if their duration variables overlap, and harmony constraints are applied if the simultaneous note is not a rest.</p>
@@ -1269,7 +1269,7 @@ My initial naive encodings with Z3 had disappointing performance.
 I then tried extending <a href="http://facile.recherche.enac.fr/">FaCiLe</a> with table constraints, but implementing propagators correctly is notoriously difficult and I experienced that firsthand.
 Then I tried or-tools, which worked well until I encountered a <a href="https://github.com/google/or-tools/discussions/3373">limitation</a> with reified constraints.
 At this point I went back to Z3 and committed to finding an efficient encoding.</p>
-<p>The takeaway: start with SMT. There probably is an efficient SMT encoding. If there isn't (and you have confirmed this!), you will likely have to look into a custom theory solver for your domain.</p>
+<p>The takeaway: start with SMT. There probably is an efficient SMT encoding. If there isn’t (and you have confirmed this!), you will likely have to look into a custom theory solver for your domain.</p>
 <p>A few examples of subpar encodings:</p>
 <ul>
 <li>Use of modulo to handle octaves - unrolling is faster</li>
@@ -1301,9 +1301,9 @@ sat
 Ode to Joy.musicxml
 Ode to Joy.abc
 </code></pre>
-<p>It turns out that Z3's Python API <a href="https://stackoverflow.com/a/26385910">has significant overhead</a>.
+<p>It turns out that Z3’s Python API <a href="https://stackoverflow.com/a/26385910">has significant overhead</a>.
 I found other examples where just adding the constraints took 5s, but solving them was instant, evidenced by running Z3 on the generated SMTLIB file.</p>
-<p>The usual move from here is to rewrite in Rust, so that's what I did. This significantly improved solving time...</p>
+<p>The usual move from here is to rewrite in Rust, so that’s what I did. This significantly improved solving time…</p>
 <pre><code>$ ./run.sh examples/ode.py
 Using music4.so
 Constraints     446.5ms
@@ -1312,12 +1312,12 @@ Sat
 Ode to Joy.musicxml
 Ode to Joy.abc
 </code></pre>
-<p>... at the cost of having to maintain a second, slightly-different implementation. I would have liked to retire the Python version, but there are reasons to keep it:</p>
+<p>… at the cost of having to maintain a second, slightly-different implementation. I would have liked to retire the Python version, but there are reasons to keep it:</p>
 <ul>
-<li>It's significantly more accessible (i.e. why the Z3 Python API is so popular). Having to install a Rust toolchain and wait for Z3 to compile is not great for just trying out someone's code.</li>
+<li>It’s significantly more accessible (i.e. why the Z3 Python API is so popular). Having to install a Rust toolchain and wait for Z3 to compile is not great for just trying out someone’s code.</li>
 <li>It serves as a reference implementation for the much more verbose Rust version.</li>
 </ul>
-<p>Maybe it could be used for differential testing someday...</p>
+<p>Maybe it could be used for differential testing someday…</p>
 <!--
 For all of Rust's virtues, APIs in it aren't pretty. Rust is great for writing fast production code, but the compile time and annotation overhead may not be worth it for a small research project.
 
@@ -1356,7 +1356,7 @@ V: bass
 <h1 id="related-work">Related work</h1>
 <!-- I've not done much related work beyond the immediate questions I needed to get answered. This is my hobby project. Cannot delve into it with the same level of commitment. -->
 <p>The most closely related works are the constraint programming libraries <a href="https://github.com/tanders/strasheela">Strasheela (Oz)</a> (which I took a lot of inspiration from) and <a href="https://github.com/tanders/cluster-engine">cluster-engine (Common Lisp)</a>. Others are <a href="https://github.com/slemouton/gecodeMCP">gecodeMCP (C++)</a> and <a href="https://github.com/openmusic-project/Clouds">OMClouds (Common Lisp)</a>.</p>
-<p>I have not yet tried most of them, but given their maturity I'm assuming they can handle all these benchmarks.
+<p>I have not yet tried most of them, but given their maturity I’m assuming they can handle all these benchmarks.
 One salient difference is the language the user must write constraints in (annotated above).</p>
 <p>Another is that the use of SMT allows <em>arbitrary</em> constraints in standard theories (e.g. LIA) to be expressed.
 With constraint solvers, the set of usable constraints is typically <a href="https://sofdem.github.io/gccat/">large but limited</a> (no arbitrary disjunction!) and non-uniform across solvers, but solvable with more efficient specialized algorithms.
@@ -1366,8 +1366,8 @@ They may be more appropriate if the set of constraints required is well-understo
 <p>Other systems this work was inspired by are <a href="https://arxiv.org/abs/1006.4948">ANTON</a>, which uses ASP for harmonization, <a href="https://github.com/halfaya/MusicTools/blob/master/doc/farm22/abstract.pdf">MusicTools</a>, an Agda library which also discharges musical synthesis via SMT, and <a href="https://drive.google.com/file/d/18xE9Jmh2gq-KrIGmbKObxiFSWuoFqsi1/view">Type-Guided Music Composition</a>, an approach which uses weighted refinement types to validate and synthesize music.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>This is very much early work.
-Nevertheless, I'm publishing it to document my progress, get feedback, and allow others to play with the code.
-I've spent way too long working on this in isolation.</p>
+Nevertheless, I’m publishing it to document my progress, get feedback, and allow others to play with the code.
+I’ve spent way too long working on this in isolation.</p>
 <p>Here are a few ideas for how this work could be brought forward.</p>
 <p>The prototype is currently limited to a single key (C maj) and 6 diatonic chords.
 Lifting these restrictions or improving the background theory (e.g. richer melody constraints, rhythmic constraints, more contrapunctal rules) would be great.
@@ -1378,7 +1378,7 @@ There are many <a href="http://erichorvitz.com/chi99horvitz.pdf">UX problems</a>
 In particular, the UI should be cognizant of the limitations and potential of the use of SMT, and should provide the right affordances for creating music without requiring users to dive into the underlying theory.
 The NP-hardness of SMT suggests that the UI should provide a means to localize solving.</p>
 <p>The stability of produced outputs is another consideration: it is possible that the unconstrained parts of the piece could be entirely different between two solver calls. This would be a problem if users are working with the system in true mixed-initiative fashion, using its feedback to refine a synthesized piece.
-<a href="https://github.com/srcclr/sapling">My previous work</a> suffers from the same problem and utilized manual pinning of parts of the solution to mitigate this, but I'm sure there is a better way.</p>
+<a href="https://github.com/srcclr/sapling">My previous work</a> suffers from the same problem and utilized manual pinning of parts of the solution to mitigate this, but I’m sure there is a better way.</p>
 <p>Code <a href="https://github.com/dariusf/allez">here</a>.</p>
 
 </div>
@@ -1389,7 +1389,7 @@ The NP-hardness of SMT suggests that the UI should provide a means to localize s
 			
 		</footer>
 
-		<!-- This page `/drafts/satisfying-music-theory/` was built on 2025-12-06T09:14:11.333Z -->
+		<!-- This page `/drafts/satisfying-music-theory/` was built on 2025-12-06T09:27:00.079Z -->
 		
 	</body>
 </html>
