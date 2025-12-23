@@ -694,10 +694,10 @@ A few examples of subpar encodings:
 
 Even with SMT, straying from the golden path and using newer SMTLIB features tends to lead to frustration, e.g. bugs and lacking support in solver APIs.
 
-# Rust will find a way
+<!-- # Rust will find a way -->
 <!-- # Implementation -->
 
-My original Python implementation got unreasonably slow past a certain point.
+<!-- My original Python implementation got unreasonably slow past a certain point.
 
 ```
 $ ./run.sh examples/ode.py
@@ -740,7 +740,7 @@ Ode to Joy.abc
 - It's significantly more accessible (i.e. why the Z3 Python API is so popular). Having to install a Rust toolchain and wait for Z3 to compile is not great for just trying out someone's code.
 - It serves as a reference implementation for the much more verbose Rust version.
 
-Maybe it could be used for differential testing someday...
+Maybe it could be used for differential testing someday... -->
 
 <!--
 For all of Rust's virtues, APIs in it aren't pretty. Rust is great for writing fast production code, but the compile time and annotation overhead may not be worth it for a small research project.
@@ -787,11 +787,11 @@ V: bass
 </span>
 <script>renderMusicIn('ode')</script>
 
-# Related work
+<!-- # Related work -->
 
 <!-- I've not done much related work beyond the immediate questions I needed to get answered. This is my hobby project. Cannot delve into it with the same level of commitment. -->
 
-The most closely related works are the constraint programming libraries [Strasheela (Oz)](https://github.com/tanders/strasheela) (which I took a lot of inspiration from) and [cluster-engine (Common Lisp)](https://github.com/tanders/cluster-engine). Others are [gecodeMCP (C++)](https://github.com/slemouton/gecodeMCP) and [OMClouds (Common Lisp)](https://github.com/openmusic-project/Clouds).
+<!-- The most closely related works are the constraint programming libraries [Strasheela (Oz)](https://github.com/tanders/strasheela) (which I took a lot of inspiration from) and [cluster-engine (Common Lisp)](https://github.com/tanders/cluster-engine). Others are [gecodeMCP (C++)](https://github.com/slemouton/gecodeMCP) and [OMClouds (Common Lisp)](https://github.com/openmusic-project/Clouds).
 
 I have not yet tried most of them, but given their maturity I'm assuming they can handle all these benchmarks.
 One salient difference is the language the user must write constraints in (annotated above).
@@ -803,13 +803,13 @@ They may be more appropriate if the set of constraints required is well-understo
 Many of these libraries have been integrated into composition IDEs, such as
 [Opusmodus](https://opusmodus.com/), [OpenMusic](https://openmusic-project.github.io/), and [PWGL (seemingly defunct, links no longer work)](https://en.wikiversity.org/wiki/Music/Software/PWGL). [Rhythm-Box](https://github.com/blapiere/Rhythm-Box) and [Melodizer](https://www.info.ucl.ac.be/~pvr/SPROCKEELS_68641400_2022.pdf) (mentioned earlier) are components of OpenMusic.
 
-Other systems this work was inspired by are [ANTON](https://arxiv.org/abs/1006.4948), which uses ASP for harmonization, [MusicTools](https://github.com/halfaya/MusicTools/blob/master/doc/farm22/abstract.pdf), an Agda library which also discharges musical synthesis via SMT, and [Type-Guided Music Composition](https://drive.google.com/file/d/18xE9Jmh2gq-KrIGmbKObxiFSWuoFqsi1/view), an approach which uses weighted refinement types to validate and synthesize music.
+Other systems this work was inspired by are [ANTON](https://arxiv.org/abs/1006.4948), which uses ASP for harmonization, [MusicTools](https://github.com/halfaya/MusicTools/blob/master/doc/farm22/abstract.pdf), an Agda library which also discharges musical synthesis via SMT, and [Type-Guided Music Composition](https://drive.google.com/file/d/18xE9Jmh2gq-KrIGmbKObxiFSWuoFqsi1/view), an approach which uses weighted refinement types to validate and synthesize music. -->
 
 # Conclusion
 
-This is very much early work.
+<!-- This is very much early work.
 Nevertheless, I'm publishing it to document my progress, get feedback, and allow others to play with the code.
-I've spent way too long working on this in isolation.
+I've spent way too long working on this in isolation. -->
 
 Here are a few ideas for how this work could be brought forward.
 
@@ -826,4 +826,4 @@ The NP-hardness of SMT suggests that the UI should provide a means to localize s
 The stability of produced outputs is another consideration: it is possible that the unconstrained parts of the piece could be entirely different between two solver calls. This would be a problem if users are working with the system in true mixed-initiative fashion, using its feedback to refine a synthesized piece.
 [My previous work](https://github.com/srcclr/sapling) suffers from the same problem and utilized manual pinning of parts of the solution to mitigate this, but I'm sure there is a better way.
 
-Code [here](https://github.com/dariusf/allez).
+<!-- Code [here](https://github.com/dariusf/allez). -->
