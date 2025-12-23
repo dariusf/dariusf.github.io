@@ -1279,10 +1279,12 @@ At this point I went back to Z3 and committed to finding an efficient encoding.<
 </ul>
 <!-- - Unnecessary uses of abs - just use disjunction! -->
 <p>Even with SMT, straying from the golden path and using newer SMTLIB features tends to lead to frustration, e.g. bugs and lacking support in solver APIs.</p>
-<h1 id="rust-will-find-a-way">Rust will find a way</h1>
+<!-- # Rust will find a way -->
 <!-- # Implementation -->
-<p>My original Python implementation got unreasonably slow past a certain point.</p>
-<pre><code>$ ./run.sh examples/ode.py
+<!-- My original Python implementation got unreasonably slow past a certain point.
+
+```
+$ ./run.sh examples/ode.py
 music4.so not built, using Python implementation
 Constraint (melody)             0.01s
 Constraint (basics)             0.03s
@@ -1300,24 +1302,29 @@ Solving                         59.69s
 sat
 Ode to Joy.musicxml
 Ode to Joy.abc
-</code></pre>
-<p>It turns out that Z3’s Python API <a href="https://stackoverflow.com/a/26385910">has significant overhead</a>.
-I found other examples where just adding the constraints took 5s, but solving them was instant, evidenced by running Z3 on the generated SMTLIB file.</p>
-<p>The usual move from here is to rewrite in Rust, so that’s what I did. This significantly improved solving time…</p>
-<pre><code>$ ./run.sh examples/ode.py
+```
+
+It turns out that Z3's Python API [has significant overhead](https://stackoverflow.com/a/26385910).
+I found other examples where just adding the constraints took 5s, but solving them was instant, evidenced by running Z3 on the generated SMTLIB file.
+
+The usual move from here is to rewrite in Rust, so that's what I did. This significantly improved solving time...
+
+```
+$ ./run.sh examples/ode.py
 Using music4.so
 Constraints     446.5ms
 Solving         15.1s
 Sat
 Ode to Joy.musicxml
 Ode to Joy.abc
-</code></pre>
-<p>… at the cost of having to maintain a second, slightly-different implementation. I would have liked to retire the Python version, but there are reasons to keep it:</p>
-<ul>
-<li>It’s significantly more accessible (i.e. why the Z3 Python API is so popular). Having to install a Rust toolchain and wait for Z3 to compile is not great for just trying out someone’s code.</li>
-<li>It serves as a reference implementation for the much more verbose Rust version.</li>
-</ul>
-<p>Maybe it could be used for differential testing someday…</p>
+```
+
+... at the cost of having to maintain a second, slightly-different implementation. I would have liked to retire the Python version, but there are reasons to keep it:
+
+- It's significantly more accessible (i.e. why the Z3 Python API is so popular). Having to install a Rust toolchain and wait for Z3 to compile is not great for just trying out someone's code.
+- It serves as a reference implementation for the much more verbose Rust version.
+
+Maybe it could be used for differential testing someday... -->
 <!--
 For all of Rust's virtues, APIs in it aren't pretty. Rust is great for writing fast production code, but the compile time and annotation overhead may not be worth it for a small research project.
 
@@ -1353,21 +1360,25 @@ V: bass
 "iii" G8 "ii" d8 "V" d8 "ii" A8 "vi" A8 "ii" B4 "vi" c2 "V" g8 "I" d4 "iii" a2 "V" d'4 "ii" c'8 "V" f4 "ii" g4 "vi" d4 "vi" A4 "ii" A2 "V" A2 "iii" d4 "V" c6 "ii" c2 "vi" G2 "V" d2 "vi" g2 "V" g2 "iii" d'2 "iii" d'2 "ii" d'2 "vi" c'2 "I" c'8
 </span>
 <script>renderMusicIn('ode')</script>
-<h1 id="related-work">Related work</h1>
+<!-- # Related work -->
 <!-- I've not done much related work beyond the immediate questions I needed to get answered. This is my hobby project. Cannot delve into it with the same level of commitment. -->
-<p>The most closely related works are the constraint programming libraries <a href="https://github.com/tanders/strasheela">Strasheela (Oz)</a> (which I took a lot of inspiration from) and <a href="https://github.com/tanders/cluster-engine">cluster-engine (Common Lisp)</a>. Others are <a href="https://github.com/slemouton/gecodeMCP">gecodeMCP (C++)</a> and <a href="https://github.com/openmusic-project/Clouds">OMClouds (Common Lisp)</a>.</p>
-<p>I have not yet tried most of them, but given their maturity I’m assuming they can handle all these benchmarks.
-One salient difference is the language the user must write constraints in (annotated above).</p>
-<p>Another is that the use of SMT allows <em>arbitrary</em> constraints in standard theories (e.g. LIA) to be expressed.
-With constraint solvers, the set of usable constraints is typically <a href="https://sofdem.github.io/gccat/">large but limited</a> (no arbitrary disjunction!) and non-uniform across solvers, but solvable with more efficient specialized algorithms.
-They may be more appropriate if the set of constraints required is well-understood (not the case yet, in this work).</p>
-<p>Many of these libraries have been integrated into composition IDEs, such as
-<a href="https://opusmodus.com/">Opusmodus</a>, <a href="https://openmusic-project.github.io/">OpenMusic</a>, and <a href="https://en.wikiversity.org/wiki/Music/Software/PWGL">PWGL (seemingly defunct, links no longer work)</a>. <a href="https://github.com/blapiere/Rhythm-Box">Rhythm-Box</a> and <a href="https://www.info.ucl.ac.be/~pvr/SPROCKEELS_68641400_2022.pdf">Melodizer</a> (mentioned earlier) are components of OpenMusic.</p>
-<p>Other systems this work was inspired by are <a href="https://arxiv.org/abs/1006.4948">ANTON</a>, which uses ASP for harmonization, <a href="https://github.com/halfaya/MusicTools/blob/master/doc/farm22/abstract.pdf">MusicTools</a>, an Agda library which also discharges musical synthesis via SMT, and <a href="https://drive.google.com/file/d/18xE9Jmh2gq-KrIGmbKObxiFSWuoFqsi1/view">Type-Guided Music Composition</a>, an approach which uses weighted refinement types to validate and synthesize music.</p>
+<!-- The most closely related works are the constraint programming libraries [Strasheela (Oz)](https://github.com/tanders/strasheela) (which I took a lot of inspiration from) and [cluster-engine (Common Lisp)](https://github.com/tanders/cluster-engine). Others are [gecodeMCP (C++)](https://github.com/slemouton/gecodeMCP) and [OMClouds (Common Lisp)](https://github.com/openmusic-project/Clouds).
+
+I have not yet tried most of them, but given their maturity I'm assuming they can handle all these benchmarks.
+One salient difference is the language the user must write constraints in (annotated above).
+
+Another is that the use of SMT allows _arbitrary_ constraints in standard theories (e.g. LIA) to be expressed.
+With constraint solvers, the set of usable constraints is typically [large but limited](https://sofdem.github.io/gccat/) (no arbitrary disjunction!) and non-uniform across solvers, but solvable with more efficient specialized algorithms.
+They may be more appropriate if the set of constraints required is well-understood (not the case yet, in this work).
+
+Many of these libraries have been integrated into composition IDEs, such as
+[Opusmodus](https://opusmodus.com/), [OpenMusic](https://openmusic-project.github.io/), and [PWGL (seemingly defunct, links no longer work)](https://en.wikiversity.org/wiki/Music/Software/PWGL). [Rhythm-Box](https://github.com/blapiere/Rhythm-Box) and [Melodizer](https://www.info.ucl.ac.be/~pvr/SPROCKEELS_68641400_2022.pdf) (mentioned earlier) are components of OpenMusic.
+
+Other systems this work was inspired by are [ANTON](https://arxiv.org/abs/1006.4948), which uses ASP for harmonization, [MusicTools](https://github.com/halfaya/MusicTools/blob/master/doc/farm22/abstract.pdf), an Agda library which also discharges musical synthesis via SMT, and [Type-Guided Music Composition](https://drive.google.com/file/d/18xE9Jmh2gq-KrIGmbKObxiFSWuoFqsi1/view), an approach which uses weighted refinement types to validate and synthesize music. -->
 <h1 id="conclusion">Conclusion</h1>
-<p>This is very much early work.
-Nevertheless, I’m publishing it to document my progress, get feedback, and allow others to play with the code.
-I’ve spent way too long working on this in isolation.</p>
+<!-- This is very much early work.
+Nevertheless, I'm publishing it to document my progress, get feedback, and allow others to play with the code.
+I've spent way too long working on this in isolation. -->
 <p>Here are a few ideas for how this work could be brought forward.</p>
 <p>The prototype is currently limited to a single key (C maj) and 6 diatonic chords.
 Lifting these restrictions or improving the background theory (e.g. richer melody constraints, rhythmic constraints, more contrapunctal rules) would be great.
@@ -1379,8 +1390,7 @@ In particular, the UI should be cognizant of the limitations and potential of th
 The NP-hardness of SMT suggests that the UI should provide a means to localize solving.</p>
 <p>The stability of produced outputs is another consideration: it is possible that the unconstrained parts of the piece could be entirely different between two solver calls. This would be a problem if users are working with the system in true mixed-initiative fashion, using its feedback to refine a synthesized piece.
 <a href="https://github.com/srcclr/sapling">My previous work</a> suffers from the same problem and utilized manual pinning of parts of the solution to mitigate this, but I’m sure there is a better way.</p>
-<p>Code <a href="https://github.com/dariusf/allez">here</a>.</p>
-
+<!-- Code [here](https://github.com/dariusf/allez). -->
 </div>
 
 		</main>
@@ -1389,7 +1399,7 @@ The NP-hardness of SMT suggests that the UI should provide a means to localize s
 			
 		</footer>
 
-		<!-- This page `/drafts/satisfying-music-theory/` was built on 2025-12-06T09:27:00.079Z -->
+		<!-- This page `/drafts/satisfying-music-theory/` was built on 2025-12-23T13:51:49.038Z -->
 		
 	</body>
 </html>
