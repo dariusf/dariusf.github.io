@@ -9,10 +9,11 @@ eleventyNavigation:
 
 <!-- ### Games -->
 
-My newer games are on [itch.io](https://dariusf.itch.io).
+My newer games are [my itch page](https://dariusf.itch.io).
 
+- [The Coffee Cake Caper](https://dariusf.itch.io/the-coffee-cake-caper), an interactive mystery for [Spring Thing 2026](https://springthing.net/2026/play.html)
 - [Entailment](https://dariusf.itch.io/entailment), a cute puzzle/idle game for [the first LittleJS Game Jam](https://itch.io/jam/littlejs-game-jam)
-- [Primordial](https://dariusf.itch.io/primordial), an interactive fiction piece for [Neo-Twiny Jam 24](https://itch.io/jam/neo-twiny-jam-24)
+- [Primordial](https://dariusf.itch.io/primordial), an interactive fiction micro-RPG for [Neo-Twiny Jam 24](https://itch.io/jam/neo-twiny-jam-24)
 - [Logophile](https://play.google.com/store/apps/details?id=io.github.dariusf.logophile), a small game about words <!-- https://web.archive.org/web/20151117225124/https://play.google.com/store/apps/details?id=io.github.dariusf.logophile -->
 - [Shrink Simulator](https://globalgamejam.org/2015/games/shrink-simulator-2015), Global Game Jam 2015
 - [Vigilante](https://globalgamejam.org/2014/games/vigilante), an artsy game for Global Game Jam 2014
