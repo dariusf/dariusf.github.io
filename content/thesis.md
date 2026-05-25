@@ -4,14 +4,22 @@ title: PhD Thesis
 
 # Automated Verification of Effectful Higher-order Programs
 
-This dissertation describes *staged logic*, a new approach to the automated verification of effectful higher-order programs. Such programs are completely natural to write in most programming languages, but are challenging to handle in verifiers, due to the need to reason simultaneously about the ordering and semantics of effects and higher-order control. Today, support for effectful higher-order programs is largely limited to interactive verifiers, each employing disparate, often semantic specification and verification approaches; many automated verifiers either handle them partially or not at all.
+Higher-order functions and computational effects (such as mutable state, exceptions, and algebraic effects) are ubiquitous in real-world programs. However, verifying programs which use them together remains challenging: these features interact in ways that require nonlocal reasoning, necessitating handcrafted auxiliary specifications (such as invariants or protocols). This creates a conundrum, where automated verifiers provide only partial support or none at all, while interactive verifiers rely on semantic, manual approaches with no clear route to automation.
 
-Staged logic offers a unified approach to effectful reasoning that is designed to bridge this gap. To support automation, it is syntactic in nature, based on refinement and rewriting. It is simple and general, and scales to complex language features, including effect handlers and delimited continuation operators. It serves as the basis for an automated tool, Heifer, that verifies annotated OCaml programs via SMT, and is mechanised in Rocq. Heifer has been used to verify a number of complex and challenging programs, demonstrating that staged logic can be effectively automated. This automation is achieved via a novel proof search procedure and a method of lemma synthesis for reasoning about control operators.
+To address this, this dissertation introduces staged logic, a refinement-based approach to reasoning about effectful higher-order programs. Its central insight is that maintaining precision in specifications -- by internalising effects in the logic rather than relying on auxiliary specifications -- significantly simplifies proofs, which in turn enables automation via a syntactic proof search procedure. This is realised in Heifer, an automated SMT-based verifier for annotated OCaml programs, which has been evaluated on a range of challenging case studies. To validate its metatheory, two fragments of staged logic have also been mechanised in Rocq. Together, these efforts demonstrate that staged logic is a practical and effective foundation for the automated verification of effectful higher-order programs.
 
-[latest draft](/thesis.pdf)
+[Latest draft](/thesis.pdf) (updated 25 May 2026)
 
-[slides](/darius-thesis-proposal-slides.pdf)
+<!-- [Proposal slides](/darius-thesis-proposal-slides.pdf) -->
 
-[code](https://github.com/hipsleek/Heifer/)
+[Defence slides](/thesis-defence)
 
-[mechanisation](https://github.com/dariusf/staged)
+<!-- [Regex interpreter](https://github.com/dariusf/staged) -->
+
+[Heifer](https://github.com/hipsleek/Heifer/)
+
+[Mechanisation 1](https://github.com/dariusf/staged)
+
+Mechanisation 2 (coming soon)
+
+Lean version (coming soon)
