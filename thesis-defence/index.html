@@ -1,0 +1,3273 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Thesis Defence</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      :root {
+        --fg: #1f2328;
+        --muted: #6a737d;
+        --accent: #0b62d6;
+
+        /* --page-bg: #fbf7ee; */
+        --page-bg: #ffffff;
+
+        /* Palette — must match web.tex */
+        --bg-yellow: #f5e6a3;
+        --bg-green: #cde0c2;
+        --bg-blue: #c5dae9;
+        --bg-red: #efc9d0;
+        --bg-orange: #f2d2a9;
+        --bg-purple: #d8cce6;
+
+        --fg-yellow: #8a6d00;
+        --fg-green: #2f6b3e;
+        --fg-blue: #1f4e79;
+        --fg-red: #8b2d4f;
+        --fg-orange: #8a4b00;
+        --fg-purple: #553c7b;
+
+        /* Code-block chrome. Override per slideshow with a <style> block:
+         *   :root { --code-bg: #f6f8fa; --code-border: 1px solid #e5e7eb; }
+         */
+        --code-bg: transparent;
+        --code-border: none;
+        --code-radius: 6px;
+      }
+      body {
+        font-family:
+          "Charter", "Bitstream Charter", "Sitka Text", "Iowan Old Style",
+          "Source Serif 4", "Palatino Linotype", "URW Palladio L", P052, serif;
+        color: var(--fg);
+        background: var(--page-bg);
+        -webkit-font-smoothing: antialiased;
+      }
+      .remark-slide-scaler,
+      .remark-slide-content {
+        background: var(--page-bg);
+      }
+
+      /* ---- Highlight backgrounds ----
+       * Apply to any inline span: `.hly[some text]` highlights with yellow.
+       * Mix freely with .fg-* for both bg and fg. Counterparts in web.tex
+       * (\hly, \hlg, \hlb, \hlp, \hlo, \hlv) for math content.
+       * Morph: safe to use within or as descendants of morph elements; bg
+       * colour is one of the morph-animated properties.
+       */
+      .hly {
+        --chrome-bg: var(--bg-yellow);
+        background: var(--chrome-bg);
+      }
+      .hlg {
+        --chrome-bg: var(--bg-green);
+        background: var(--chrome-bg);
+      }
+      .hlb {
+        --chrome-bg: var(--bg-blue);
+        background: var(--chrome-bg);
+      }
+      .hlr {
+        --chrome-bg: var(--bg-red);
+        background: var(--chrome-bg);
+      }
+      .hlo {
+        --chrome-bg: var(--bg-orange);
+        background: var(--chrome-bg);
+      }
+      .hlp {
+        --chrome-bg: var(--bg-purple);
+        background: var(--chrome-bg);
+      }
+
+      /* ---- Foreground colour classes ----
+       * `.fg-blue[some text]` makes the text dark blue. Combine with .hl*
+       * for matched bg+fg pairs. Morph-safe (color is animated).
+       */
+      .fg-yellow {
+        color: var(--fg-yellow);
+      }
+      .fg-green {
+        color: var(--fg-green);
+      }
+      .fg-blue {
+        color: var(--fg-blue);
+      }
+      .fg-red {
+        color: var(--fg-red);
+      }
+      .fg-orange {
+        color: var(--fg-orange);
+      }
+      .fg-purple {
+        color: var(--fg-purple);
+      }
+
+      /* Inline highlight chrome — applies to bg-* and .hl* classes. Mirrors
+         the LaTeX \hlbox (rounded corners=3pt, inner xsep=2pt).
+         Uses box-shadow instead of padding so the chrome extends visually
+         without consuming layout width (no surrounding-text shift). Each
+         class sets --chrome-bg to its own background colour, to abstract away the exact mechanism used. */
+      [class*="bg-"],
+      .hly,
+      .hlg,
+      .hlb,
+      .hlr,
+      .hlo,
+      .hlp,
+      .remark-code-span-highlighted {
+        border-radius: 3px;
+        padding: 0;
+        margin: 0;
+        box-shadow:
+          -2px 0 0 var(--chrome-bg),
+          2px 0 0 var(--chrome-bg);
+
+        /* For wrapped lines */
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+      }
+      .remark-slide-content {
+        padding: 2.5em 3.5em 2em;
+        font-size: 26px;
+        line-height: 1.55;
+      }
+      h1,
+      h2,
+      h3 {
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--fg);
+      }
+      h1 {
+        font-size: 1.8em;
+        margin: 0 0 0.8em;
+      }
+      .no-heading-padding h1 {
+        margin-bottom: 0;
+      }
+      h2 {
+        font-size: 1.4em;
+        margin: 0 0 0.6em;
+      }
+      h3 {
+        font-size: 1.15em;
+      }
+      p,
+      pre {
+        margin: 0 0 0.9em;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      em {
+        font-style: italic;
+      }
+      strong {
+        font-weight: 600;
+      }
+      ul,
+      ol {
+        margin: 0 0 0.9em 0;
+        padding-left: 1.4em;
+      }
+      li {
+        margin-bottom: 0.35em;
+      }
+      li > ul,
+      li > ol {
+        margin-top: 0.35em;
+      }
+      .remark-code,
+      .remark-inline-code {
+        font-family:
+          "Maple Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.85em;
+      }
+      .remark-inline-code {
+        background: var(--code-bg);
+        border: var(--code-border);
+        border-radius: 4px;
+        padding: 0;
+      }
+      .remark-code,
+      .hljs,
+      pre code {
+        background: var(--code-bg) !important;
+        border: var(--code-border);
+        border-radius: var(--code-radius);
+        padding: 0.8em 1em;
+      }
+      /* ---- Tables ----
+       * Markdown `| a | b |` tables. Booktabs-style: rules at top, under the
+       * header, and at bottom; no vertical lines. Centered by default.
+       * Override per-slide by targeting `.my-slide table { ... }`.
+       */
+      table {
+        border-collapse: collapse;
+        margin: 0.6em auto 1em;
+        font-size: 0.95em;
+      }
+      th,
+      td {
+        padding: 0.35em 1em;
+        text-align: left;
+        border: none;
+      }
+      thead th {
+        border-top: 1.5px solid var(--fg);
+        border-bottom: 1px solid var(--fg);
+        font-weight: 600;
+      }
+      tbody tr:last-child td {
+        border-bottom: 1.5px solid var(--fg);
+      }
+      /* Center any column whose header is a single short token
+       * (✔ / ? / ✗ / numbers) — covers the common "matrix" case. */
+      td:not(:first-child) {
+        text-align: center;
+      }
+      th:not(:first-child) {
+        text-align: center;
+      }
+      .center-code {
+        text-align: center;
+      }
+      .center-code pre {
+        display: inline-block;
+        text-align: left;
+        max-width: 100%;
+        margin: 0;
+      }
+
+      /* ---- Code-span anchors & labels ----
+       * Backtick-wrapped spans inside a code fence become
+       * `.remark-code-span` (requires `highlightSpans: true`). Each one
+       * gets a stable anchor-name `--code-span<n>` based on document order, so
+       * `.label-code-span<n>[...]` paragraphs can position themselves under
+       * (or beside) the corresponding code span via CSS anchor positioning.
+       * Resolution-independent — anchor() reads the live box.
+       */
+      /* Default: backticked spans get no chrome — they're anchor targets only.
+       * Apply `.code-span-hly` / `-hlg` / `-hlb` / `-hlr` / `-hlo` / `-hlp` (or the
+       * same classes directly on a span) to actually colour one. */
+      .remark-code-span-highlighted {
+        background: var(--chrome-bg);
+      }
+      /* anchor-name is assigned per-span at runtime (see script below) — pure
+       * CSS can't number code spans globally across multiple
+       * `.remark-code-line` parents. */
+
+      /* Labels default to sitting *below* the code span. Add a placement class
+       * to override: `.above`, `.left`, `.right`. Two CSS custom properties
+       * tune position:
+       *
+       *   --label-gap   : distance away from the anchor's edge   (default 6px)
+       *   --label-shift : distance along the anchor's edge        (default 0)
+       *
+       * The placement class decides which axis each one controls:
+       *   above / below  →  gap = vertical,   shift = horizontal
+       *   left / right   →  gap = horizontal, shift = vertical
+       *
+       * Override per-label or per-slide via <style>:
+       *   .label-code-span1 { --label-gap: 1.4em; --label-shift: 20px; }
+       */
+      [class^="label-code-span"],
+      [class*=" label-code-span"] {
+        --label-gap: 6px;
+        --label-shift: 0px;
+        position: absolute;
+        font-size: 0.9em;
+        white-space: nowrap;
+        opacity: 0.6;
+        /* default = below */
+        top: calc(anchor(bottom) + var(--label-gap));
+        left: anchor(center);
+        translate: calc(-50% + var(--label-shift)) 0;
+      }
+      [class^="label-code-span"].above,
+      [class*=" label-code-span"].above {
+        top: auto;
+        bottom: calc(anchor(top) + var(--label-gap));
+        left: anchor(center);
+        translate: calc(-50% + var(--label-shift)) 0;
+      }
+      [class^="label-code-span"].left,
+      [class*=" label-code-span"].left {
+        top: anchor(center);
+        left: auto;
+        right: calc(anchor(left) + var(--label-gap));
+        translate: 0 calc(-50% + var(--label-shift));
+      }
+      [class^="label-code-span"].right,
+      [class*=" label-code-span"].right {
+        top: anchor(center);
+        left: calc(anchor(right) + var(--label-gap));
+        translate: 0 calc(-50% + var(--label-shift));
+      }
+      .label-code-span1 {
+        position-anchor: --code-span1;
+      }
+      .label-code-span2 {
+        position-anchor: --code-span2;
+      }
+      .label-code-span3 {
+        position-anchor: --code-span3;
+      }
+      .label-code-span4 {
+        position-anchor: --code-span4;
+      }
+      .label-code-span5 {
+        position-anchor: --code-span5;
+      }
+      .label-code-span6 {
+        position-anchor: --code-span6;
+      }
+      .label-code-span7 {
+        position-anchor: --code-span7;
+      }
+      .label-code-span8 {
+        position-anchor: --code-span8;
+      }
+      .label-code-span9 {
+        position-anchor: --code-span9;
+      }
+      .label-code-span10 {
+        position-anchor: --code-span10;
+      }
+
+      /* ---- Generic anchor positioning ----
+       * Wrap any positioning anchor + its labels in `.anchored[...]`.
+       * Inside, mark ONE element `.anchor` — it becomes the position target.
+       * Then add `.label.at-XX[text]` for each label.
+       *
+       * Placement classes (`at-XX`) pick a corner/edge:
+       *   at-tl  at-t   at-tr      (above the anchor)
+       *   at-l          at-r       (beside, vertically centered)
+       *   at-bl  at-b   at-br      (below the anchor)
+       *
+       * Two CSS vars (em-based, so resolution-independent) tune the offset:
+       *   --dx  : horizontal nudge,  + = right     (default 0)
+       *   --dy  : vertical nudge,    + = outward   (default 0.3em)
+       *
+       * Per-label override:
+       *   .label.at-tl { --dx: -0.4em; --dy: 0.1em; }
+       */
+      .anchored {
+        position: relative;
+        anchor-scope: --a;
+      }
+      .anchored .anchor,
+      .anchored img.math-display,
+      .anchored img.math-inline,
+      .anchored > img {
+        anchor-name: --a;
+      }
+      .label {
+        --dx: 0em;
+        --dy: 0.3em;
+        position: absolute;
+        font-size: 0.9em;
+        white-space: nowrap;
+        margin: 0;
+      }
+      /* Above the anchor */
+      .label.at-tl {
+        left: calc(anchor(--a left) + var(--dx));
+        top: calc(anchor(--a top) - var(--dy));
+        translate: 0 -100%;
+      }
+      .label.at-t {
+        left: calc(anchor(--a center) + var(--dx));
+        top: calc(anchor(--a top) - var(--dy));
+        translate: -50% -100%;
+      }
+      .label.at-tr {
+        left: calc(anchor(--a right) + var(--dx));
+        top: calc(anchor(--a top) - var(--dy));
+        translate: -100% -100%;
+      }
+      /* Sides — vertically centered on the anchor */
+      .label.at-l {
+        right: calc(anchor(--a left) + var(--dx));
+        top: anchor(--a center);
+        translate: 0 -50%;
+      }
+      .label.at-r {
+        left: calc(anchor(--a right) + var(--dx));
+        top: anchor(--a center);
+        translate: 0 -50%;
+      }
+      /* Side corners — aligned to top or bottom edge of the anchor */
+      .label.at-lt {
+        right: calc(anchor(--a left) + var(--dx));
+        top: calc(anchor(--a top) + var(--dy));
+      }
+      .label.at-lb {
+        right: calc(anchor(--a left) + var(--dx));
+        top: calc(anchor(--a bottom) - var(--dy));
+        translate: 0 -100%;
+      }
+      .label.at-rt {
+        left: calc(anchor(--a right) + var(--dx));
+        top: calc(anchor(--a top) + var(--dy));
+      }
+      .label.at-rb {
+        left: calc(anchor(--a right) + var(--dx));
+        top: calc(anchor(--a bottom) - var(--dy));
+        translate: 0 -100%;
+      }
+      /* On-edge (overlay) — label centered on the anchor's edge, overlapping
+         the anchor. `--dy` shifts inward (+) / outward (-) from the edge. */
+      .label.at-ot {
+        left: calc(anchor(--a center) + var(--dx));
+        top: calc(anchor(--a top) + var(--dy));
+        translate: -50% -50%;
+      }
+      .label.at-ob {
+        left: calc(anchor(--a center) + var(--dx));
+        top: calc(anchor(--a bottom) - var(--dy));
+        translate: -50% -50%;
+      }
+      .label.at-ol {
+        left: calc(anchor(--a left) + var(--dx));
+        top: anchor(--a center);
+        translate: -50% -50%;
+      }
+      .label.at-or {
+        left: calc(anchor(--a right) - var(--dx));
+        top: anchor(--a center);
+        translate: -50% -50%;
+      }
+      /* Below the anchor */
+      .label.at-bl {
+        left: calc(anchor(--a left) + var(--dx));
+        top: calc(anchor(--a bottom) + var(--dy));
+      }
+      .label.at-b {
+        left: calc(anchor(--a center) + var(--dx));
+        top: calc(anchor(--a bottom) + var(--dy));
+        translate: -50% 0;
+      }
+      .label.at-br {
+        left: calc(anchor(--a right) + var(--dx));
+        top: calc(anchor(--a bottom) + var(--dy));
+        translate: -100% 0;
+      }
+
+      /* ---- Arrows between code-span anchors ----
+       * Write `.arrow[ 1 -> 3 ]` (or `code-span1 -> code-span3`, `1 <- 3`, `1 <-> 3`)
+       * inside a slide to draw an arrow between the Nth and Mth highlighted
+       * code spans on that slide. Add `.curve` for a bezier; add `.right`
+       * (with `.curve`) to bend the other way. The `.arrow` paragraph itself
+       * is hidden — it's just a descriptor for the renderer.
+       */
+      .arrow {
+        display: none;
+      }
+      /* `.code-span-faded[1, 3]` on a slide fades the Nth highlighted code spans
+       * (same numbering as `--code-spanN`). The directive itself is hidden. */
+      .code-span-faded {
+        display: none;
+      }
+      .remark-code-span-highlighted.code-span-faded {
+        display: inline;
+        background: transparent;
+        box-shadow: none;
+        opacity: 0.4;
+      }
+
+      /* `.code-span-hlg[1, 3]` (and -hly/-hlb/-hlr/-hlo/-hlp) on a slide recolours
+       * the Nth highlighted code spans, mirroring the `.hl*` palette used for
+       * prose and the `\hl*` macros used for LaTeX math. Default is yellow.
+       * The directive paragraphs are hidden; the same class names, when
+       * applied to a code span via the runtime, set --chrome-bg. */
+      .code-span-hly,
+      .code-span-hlg,
+      .code-span-hlb,
+      .code-span-hlr,
+      .code-span-hlo,
+      .code-span-hlp {
+        display: none;
+      }
+      .remark-code-span-highlighted.code-span-hly {
+        display: inline;
+        --chrome-bg: var(--bg-yellow);
+      }
+      .remark-code-span-highlighted.code-span-hlg {
+        display: inline;
+        --chrome-bg: var(--bg-green);
+      }
+      .remark-code-span-highlighted.code-span-hlb {
+        display: inline;
+        --chrome-bg: var(--bg-blue);
+      }
+      .remark-code-span-highlighted.code-span-hlr {
+        display: inline;
+        --chrome-bg: var(--bg-red);
+      }
+      .remark-code-span-highlighted.code-span-hlo {
+        display: inline;
+        --chrome-bg: var(--bg-orange);
+      }
+      .remark-code-span-highlighted.code-span-hlp {
+        display: inline;
+        --chrome-bg: var(--bg-purple);
+      }
+      .remark-slide-content:has(.arrow) {
+        position: relative;
+      }
+      svg.arrow-layer {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        color: #d33;
+        overflow: visible;
+        z-index: 5;
+      }
+      blockquote {
+        border-left: 3px solid #d0d7de;
+        color: var(--muted);
+        margin: 0 0 0.9em;
+        padding: 0.2em 1em;
+      }
+      /* Page number */
+      .remark-slide-number {
+        font-size: 14px;
+        color: black;
+        opacity: 0.6;
+      }
+      /* Math */
+      img.math-inline {
+        /* `vertical-align` is set per-image via inline style by build_slides.py
+           (computed from the SVG viewBox depth) so glyphs with descenders
+           hang below the text baseline correctly. Default (baseline) applies
+           to depth-0 images. zoom scales it with the SVG, so the depth
+           offset stays correct under .math-* size classes too. */
+        zoom: 1.8;
+      }
+      img.math-display {
+        display: block;
+        margin: 0.4em auto;
+        /* zoom (not `scale`) so layout box matches visual size — required
+           for morph FLIP, which works off layout rects via getBoundingClientRect. */
+        zoom: 1.8;
+      }
+      /* Remark wraps `$$ ... $$` in a <p>, whose default bottom margin
+         compounds with the img margin and any outer .zoom-N to produce
+         huge gaps around display math. Strip the wrapper margin when it
+         only contains a display-math image. */
+      .remark-slide-content p:has(> img.math-display:only-child) {
+        margin: 0;
+      }
+      /* ---- Alignment helpers ----
+       * `.align-left[content]`, `.align-right[content]` push an element to
+       * one side of its container. Implementation: `width: fit-content`
+       * (shrink-fit) + `margin-auto` on the opposing side.
+       *
+       * Morph caveat: `width: fit-content` makes the element's
+       * getBoundingClientRect track its layout box, which doesn't always
+       * match the inner visual content exactly (subpixel/wrap differences).
+       * For pixel-perfect morph alignment, prefer explicit `width: Npx`
+       * with `margin` for positioning. See morph.md.
+       */
+      .align-left,
+      .align-right {
+        width: fit-content;
+        max-width: 100%;
+      }
+      .align-left {
+        margin-left: 0;
+        margin-right: auto;
+        text-align: left;
+      }
+      .align-right {
+        margin-left: auto;
+        margin-right: 0;
+        text-align: right;
+      }
+      .align-left img.math-display {
+        margin-left: 0;
+        margin-right: auto;
+      }
+      .align-right img.math-display {
+        margin-left: auto;
+        margin-right: 0;
+      }
+
+      /* ---- Generic scale helpers ----
+       * `.zoom-11[anything]` scales the element to 1.5× its natural size.
+       * Works on any element kind: text, images, math, divs.
+       * Uses CSS `zoom` so layout (not just visual) is scaled — the parent's
+       * fit-content / inline-block sizes adapt accordingly. Levels step by
+       * 0.05: `.zoom--19` (0.05×) … `.zoom-1` (1×) … `.zoom-41` (3×). Composes
+       * multiplicatively (`.zoom-6[.zoom-6[x]]` = 1.5625×).
+       *
+       * Morph: safe as a *child* of a morph element (its zoom shows up in
+       * the morph element's bounding rect, so FLIP captures the size change).
+       * NEVER apply directly to a morph element — `zoom` multiplies the
+       * element's local coords and breaks the FLIP `translate`.
+       */
+      .zoom--19 {
+        zoom: 0.05;
+      }
+      .zoom--18 {
+        zoom: 0.1;
+      }
+      .zoom--17 {
+        zoom: 0.15;
+      }
+      .zoom--16 {
+        zoom: 0.2;
+      }
+      .zoom--15 {
+        zoom: 0.25;
+      }
+      .zoom--14 {
+        zoom: 0.3;
+      }
+      .zoom--13 {
+        zoom: 0.35;
+      }
+      .zoom--12 {
+        zoom: 0.4;
+      }
+      .zoom--11 {
+        zoom: 0.45;
+      }
+      .zoom--10 {
+        zoom: 0.5;
+      }
+      .zoom--9 {
+        zoom: 0.55;
+      }
+      .zoom--8 {
+        zoom: 0.6;
+      }
+      .zoom--7 {
+        zoom: 0.65;
+      }
+      .zoom--6 {
+        zoom: 0.7;
+      }
+      .zoom--5 {
+        zoom: 0.75;
+      }
+      .zoom--4 {
+        zoom: 0.8;
+      }
+      .zoom--3 {
+        zoom: 0.85;
+      }
+      .zoom--2 {
+        zoom: 0.9;
+      }
+      .zoom--1 {
+        zoom: 0.95;
+      }
+      .zoom-1 {
+        zoom: 1;
+      }
+      .zoom-2 {
+        zoom: 1.05;
+      }
+      .zoom-3 {
+        zoom: 1.1;
+      }
+      .zoom-4 {
+        zoom: 1.15;
+      }
+      .zoom-5 {
+        zoom: 1.2;
+      }
+      .zoom-6 {
+        zoom: 1.25;
+      }
+      .zoom-7 {
+        zoom: 1.3;
+      }
+      .zoom-8 {
+        zoom: 1.35;
+      }
+      .zoom-9 {
+        zoom: 1.4;
+      }
+      .zoom-10 {
+        zoom: 1.45;
+      }
+      .zoom-11 {
+        zoom: 1.5;
+      }
+      .zoom-12 {
+        zoom: 1.55;
+      }
+      .zoom-13 {
+        zoom: 1.6;
+      }
+      .zoom-14 {
+        zoom: 1.65;
+      }
+      .zoom-15 {
+        zoom: 1.7;
+      }
+      .zoom-16 {
+        zoom: 1.75;
+      }
+      .zoom-17 {
+        zoom: 1.8;
+      }
+      .zoom-18 {
+        zoom: 1.85;
+      }
+      .zoom-19 {
+        zoom: 1.9;
+      }
+      .zoom-20 {
+        zoom: 1.95;
+      }
+      .zoom-21 {
+        zoom: 2;
+      }
+      .zoom-22 {
+        zoom: 2.05;
+      }
+      .zoom-23 {
+        zoom: 2.1;
+      }
+      .zoom-24 {
+        zoom: 2.15;
+      }
+      .zoom-25 {
+        zoom: 2.2;
+      }
+      .zoom-26 {
+        zoom: 2.25;
+      }
+      .zoom-27 {
+        zoom: 2.3;
+      }
+      .zoom-28 {
+        zoom: 2.35;
+      }
+      .zoom-29 {
+        zoom: 2.4;
+      }
+      .zoom-30 {
+        zoom: 2.45;
+      }
+      .zoom-31 {
+        zoom: 2.5;
+      }
+      .zoom-32 {
+        zoom: 2.55;
+      }
+      .zoom-33 {
+        zoom: 2.6;
+      }
+      .zoom-34 {
+        zoom: 2.65;
+      }
+      .zoom-35 {
+        zoom: 2.7;
+      }
+      .zoom-36 {
+        zoom: 2.75;
+      }
+      .zoom-37 {
+        zoom: 2.8;
+      }
+      .zoom-38 {
+        zoom: 2.85;
+      }
+      .zoom-39 {
+        zoom: 2.9;
+      }
+      .zoom-40 {
+        zoom: 2.95;
+      }
+      .zoom-41 {
+        zoom: 3;
+      }
+
+      /* ---- Math-specific size overrides ----
+       * Targets `img.math-display` only. Use as `.math-lg[$$ ... $$]`.
+       * These *replace* the default math zoom (1.8) rather than multiplying,
+       * giving absolute t-shirt-scale sizes:
+       *   xs=1, sm=1.4, md=1.8 (default), lg=2.2, xl=2.8.
+       *
+       * To tweak math relative to its current size, wrap with .zoom-N
+       * (e.g. `.zoom-6[$$x$$]` for 1.25× whatever the math baseline is).
+       * Morph-safe; works on the inner image so the morph element's rect
+       * tracks correctly.
+       */
+      .math-xs img.math-display,
+      .math-xs img.math-inline {
+        zoom: 1;
+      }
+      .math-sm img.math-display,
+      .math-sm img.math-inline {
+        zoom: 1.4;
+      }
+      .math-md img.math-display,
+      .math-md img.math-inline {
+        zoom: 1.8;
+      }
+      .math-lg img.math-display,
+      .math-lg img.math-inline {
+        zoom: 2.2;
+      }
+      .math-xl img.math-display,
+      .math-xl img.math-inline {
+        zoom: 2.8;
+      }
+      .big img {
+        margin: 0 auto;
+        width: 50% !important;
+        display: block;
+      }
+
+      /* ---- Layout helpers ----
+       * `.cols-2[...]` / `.cols-3[...]` split content into equal columns.
+       * `.center[...]` horizontally centers inline content.
+       * `.stack[...]` overlays its children on top of each other (grid).
+       * `.gap-sm[]` / `.gap-md[]` / `.gap-lg[]` are empty vertical spacers.
+       */
+      .cols-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5em;
+      }
+      .cols-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1.5em;
+      }
+      .center {
+        text-align: center;
+      }
+      .stack {
+        display: grid;
+      }
+      .stack > * {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .gap-sm {
+        display: block;
+        height: 0.6em;
+      }
+      .gap-md {
+        display: block;
+        height: 1.4em;
+      }
+      .gap-lg {
+        display: block;
+        height: 2.8em;
+      }
+
+      .inline-children > * {
+        display: inline-block;
+      }
+      .inline-children.align-top > * {
+        vertical-align: top;
+      }
+
+      /* ---- Emphasis & annotation ----
+       * `.faded[...]` lightens content; `.dim[...]` does so harder.
+       * `.strike[...]` strikes through. `.boxed[...]` adds a thin frame.
+       * `.callout-info|warn|note[...]` is a colored left-border block.
+       * `.kbd[Cmd+S]` renders keyboard-key chrome.
+       * `.spoiler[...]` hides until hovered.
+       */
+      .faded {
+        opacity: 0.4;
+      }
+      .dim {
+        opacity: 0.2;
+      }
+      .strike {
+        text-decoration: line-through;
+        text-decoration-thickness: 1.5px;
+      }
+      /* place a box around inline text */
+      .boxed {
+        display: inline-block;
+        border: 1px solid var(--muted);
+        border-radius: 4px;
+        padding: 0.05em 0.4em;
+      }
+      .callout-info,
+      .callout-warn,
+      .callout-note {
+        display: block;
+        border-left: 3px solid var(--muted);
+        padding: 0.5em 1em;
+        margin: 0.6em 0;
+        border-radius: 0 3px 3px 0;
+      }
+      .callout-info {
+        border-left-color: var(--fg-blue);
+        background: color-mix(in srgb, var(--bg-blue) 45%, white);
+      }
+      .callout-warn {
+        border-left-color: var(--fg-red);
+        background: color-mix(in srgb, var(--bg-red) 45%, white);
+      }
+      .callout-note {
+        border-left-color: var(--fg-yellow);
+        background: color-mix(in srgb, var(--bg-yellow) 45%, white);
+      }
+      .kbd {
+        display: inline-block;
+        font-family:
+          "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+          monospace;
+        font-size: 0.8em;
+        line-height: 1;
+        padding: 0.25em 0.5em;
+        border: 1px solid #c8ccd1;
+        border-bottom-width: 2px;
+        border-radius: 4px;
+        background: #f6f8fa;
+        color: #24292f;
+        vertical-align: 0.08em;
+      }
+      .spoiler {
+        background: #2b2b2b;
+        color: transparent;
+        border-radius: 3px;
+        padding: 0 3px;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        cursor: help;
+      }
+      .spoiler:hover {
+        background: transparent;
+        color: inherit;
+      }
+
+      /* ---- Image variants ----
+       * `.small[![](...)]` / `.medium[![](...)]` size figures inline; pair
+       * with `.big` (50%, already defined). `.shadow img` adds a soft drop
+       * shadow, `.frame img` a thin border, `.round img` rounded corners.
+       */
+      .small img {
+        margin: 0 auto;
+        width: 25% !important;
+        display: block;
+      }
+      .medium img {
+        margin: 0 auto;
+        width: 38% !important;
+        display: block;
+      }
+      .shadow img {
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+      }
+      /* for images only, adds some padding.
+        mnemonic: photo frame */
+      .frame img {
+        border: 1px solid #d0d7de;
+        padding: 4px;
+        background: #fff;
+      }
+      .round img {
+        border-radius: 10px;
+      }
+      /* `.paper[![](...)]` pins a centered image to the bottom of the
+         slide with a soft drop shadow — designed for UI screenshots that
+         should "sit on" the slide below the heading and supporting copy. */
+      /* Anchor against the slide-content box so `bottom: 0` lands on the
+         slide's outer edge (no border, so padding-box == border-box). */
+      .remark-slide-content:has(.paper) {
+        position: relative;
+      }
+      .paper {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+      }
+      .remark-slide-content .paper img {
+        max-width: 80%;
+        max-height: 14em;
+        display: inline-block;
+        margin: 0;
+        vertical-align: bottom;
+        border-radius: 6px 6px 0 0;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+      }
+
+      /* `.aligned[...]` lays out children in a 2-col grid: odd children
+       * right-aligned (labels), even children left-aligned (values). The
+       * pair meets on a shared centre gutter, so rows line up on the colon.
+       * Children flow in source order: label, value, label, value, ...
+       */
+      .aligned {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        column-gap: 0.4em;
+        row-gap: 0.2em;
+        justify-content: center;
+      }
+      .aligned > :nth-child(odd) {
+        text-align: right;
+      }
+      .aligned > :nth-child(even) {
+        text-align: left;
+      }
+      /* Remark wraps bare text children in <p> with a default bottom margin
+       * — strip it so row-gap is the only vertical spacing. */
+      .aligned > p {
+        margin: 0;
+      }
+
+      /* `.TODO[text]` flags unfinished content in bright red. */
+      .TODO {
+        background: #ff1744;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 3px;
+        padding: 0 4px;
+      }
+      .TODO::before {
+        content: "TODO: ";
+      }
+
+      /* ---- Text shape ---- */
+      .smallcaps {
+        font-variant: small-caps;
+        letter-spacing: 0.04em;
+      }
+
+      /* ---- Citation / footnote ----
+       * `.cite[—  Knuth, 1984]` is a small italic right-aligned attribution.
+       * `.footnote[...]` pins to the bottom of the slide.
+       * `.fn[1]` renders a small raised marker; reuse in the footnote text
+       *   to pair the two, e.g. `.footnote[.fn[1] See Sergey et al., 2018.]`.
+       */
+      .fn {
+        font-size: 0.7em;
+        vertical-align: super;
+        line-height: 0;
+        color: var(--accent);
+        margin-left: 0.1em;
+      }
+      .cite {
+        display: block;
+        text-align: right;
+        font-style: italic;
+        font-size: 0.85em;
+        color: var(--muted);
+        margin-top: 0.4em;
+      }
+      .footnote {
+        position: absolute;
+        bottom: 2.2em;
+        left: 5em;
+        right: 5em;
+        font-size: 0.75em;
+        color: var(--muted);
+        border-top: 1px solid #e5e7eb;
+        padding-top: 0.5em;
+      }
+
+      /* Title slide */
+      .title-slide {
+        padding: 3em 4em !important;
+      }
+      .title-slide h1 {
+        font-size: 2.4em;
+        font-weight: 600;
+        text-align: center;
+        margin: 1.8em auto 0.5em;
+        max-width: 18em;
+        line-height: 1.2;
+      }
+      .title-slide .subtitle {
+        font-style: italic;
+        font-size: 1.15em;
+        color: var(--muted);
+        text-align: center;
+        margin: 0.5em 0 2em;
+      }
+      .title-slide p {
+        text-align: center;
+        font-size: 1.05em;
+      }
+      .title-slide .remark-slide-number {
+        display: none;
+      }
+      /* Default image: natural size. Use .zoom-N[![](img)] to scale. */
+      .remark-slide-content img {
+        width: auto;
+        height: auto;
+      }
+      /* Two-column helper */
+      .col2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5em;
+      }
+      .center-img img {
+        display: block;
+        margin: 0 auto;
+      }
+
+      /* .remark-fading {
+              animation: fadeOut 0.1s forwards;
+            } */
+
+      /* .remark-visible { */
+      /* animation: fadeIn 0.5s forwards; */
+      /* animation: fadeIn 0.1s forwards 0.1s; */
+      /* opacity: 0; */
+      /* } */
+
+      /* ---- Overview ----
+       * Press `o` to toggle a grid overview of every slide. Click a tile
+       * to jump to that slide. Current slide gets a blue ring; already-
+       * shown slides are dimmed.
+       */
+      #overview-mode {
+        position: fixed;
+        inset: 0;
+        background: var(--page-bg);
+        overflow-y: auto;
+        z-index: 1000;
+        padding: 1.5em 2em 3em;
+        box-sizing: border-box;
+      }
+      #overview-header {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: var(--muted);
+        margin: 0 0 1em;
+        text-align: center;
+      }
+      /* Responsive grid: as many columns as fit at a min tile width of
+       * --overview-min, each filling its share of the row. Tile aspect ratio
+       * matches the slide via --slide-ar (set from JS). The slide-scaler
+       * transform is driven by --overview-scale, updated on resize. */
+      #overview-grid {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(var(--overview-min, 220px), 1fr)
+        );
+        gap: 14px;
+      }
+      #overview-mode .overview-tile {
+        padding: 6px;
+        border-radius: 6px;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        cursor: pointer;
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s,
+          border-color 0.12s;
+      }
+      #overview-mode .overview-tile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        border-color: var(--accent);
+      }
+      #overview-mode .overview-frame.current-overview-tile {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+      #overview-mode .overview-container {
+        overflow: hidden;
+        position: relative;
+        background: var(--page-bg);
+        width: 100%;
+        /* height set inline by JS — column-width × slideHeight/slideWidth. */
+      }
+      #overview-mode .remark-slide-scaler {
+        transform-origin: top left;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: scale(var(--overview-scale, 1));
+      }
+
+      /* direction-aware */
+      /* .remark-browsing-forwards .remark-fading {
+              animation: fadeOutLeft 0.5s forwards;
+            }
+            .remark-browsing-forwards .remark-visible {
+              animation: fadeInRight 0.5s forwards;
+            }
+            .remark-browsing-backwards .remark-fading {
+              animation: fadeOutRight 0.5s forwards;
+            }
+            .remark-browsing-backwards .remark-visible {
+              animation: fadeInLeft 0.5s forwards;
+            } */
+
+      /* for printing to pdf; see https://github.com/gnab/remark/issues/50#issuecomment-223887379 */
+      @page {
+        margin: 0;
+        size: 1210px 681px;
+      }
+      @media print {
+        .remark-slide-scaler {
+          width: 1210px !important;
+          height: 681px !important;
+          transform: scale(1) !important;
+          left: 0 !important;
+          top: 0 !important;
+          box-shadow: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source" style="display: none">
+class: title-slide
+
+<style>
+  .title-slide .nus-logo img {
+    width: 200px;
+    display: block;
+    margin: 0;
+    float: left;
+  }
+</style>
+
+.nus-logo[![](images/image1.jpeg)]
+
+# Automated Verification of Effectful Higher-order Programs
+
+<!-- .subtitle[*Thesis Defence*] -->
+
+Darius Foo
+
+.aligned[
+**Advisor**:
+
+A/P Chin Wei Ngan
+
+**Panel**:
+
+A/P Ilya Sergey<br>Prof. Olivier Danvy
+]
+
+---
+
+# Pure higher-order functions
+
+.center-code[
+```ocaml
+let foldr f xs acc =
+  match xs with
+  | [] -> acc
+  | x :: t -> f x (foldr f t acc)
+```
+]
+
+Say we want to prove that `foldr (fun x t -> x + t) xs 0` computes the sum of `xs`.
+
+---
+
+# Two approaches
+
+- __Approach 1__: view <img class="math-inline" src="2bb96d8995686123.svg" alt="\m{foldr}" style="vertical-align: -2.835pt" /> as a mathematical function and prove this directly
+
+  <img class="math-display" src="e1ce3f158939ba3d.svg" alt="\foldr\ (\vlambda{x\,t}{x + t})\ \xs\ 0 = \psum{\xs}" />
+
+  The proof goes straightforwardly by induction on <img class="math-inline" src="52f06aefdff3f535.svg" alt="\xs" style="vertical-align: -0.131pt" />.
+
+--
+- __Approach 2__: view `foldr` as a program and use a program logic
+
+  <img class="math-display" src="6821b7cda2e42706.svg" alt="\htripleres{\vtrue}{\,\m{foldr}\ (\vlambda{x\,t}{x + t})\ \xs\ 0}{r}{r = \psum{\xs}}" />
+
+  We need a triple for `foldr`, but given one, this can be proved in many tools, e.g. Why3.
+
+---
+
+# Imperative higher-order functions
+
+Suppose we wanted to prove that this program also computes the sum of `xs`.
+
+.center-code[
+```ocaml
+let l = ref 0 in
+foldr (fun x () -> l := x + !l) xs (); !l
+```
+]
+
+--
+- __Approach 1__: .fg-red[inapplicable]; <img class="math-inline" src="2bb96d8995686123.svg" alt="\m{foldr}" style="vertical-align: -2.835pt" />'s argument isn't a mathematical function
+
+--
+- __Approach 2__: this works, via the following separation logic triple
+
+  <img class="math-display" src="cb3abb94a8d3280d.svg" alt="\htripleres{\heapto{l}{v}}{\m{foldr}\ (\vlambda{x\,\vunit}{...})\ \xs\ \vunit}{\res}{\heapto{l}{(v{+}\psum{\xs})} \sep \hpure{\m{res}{=}\vunit}}" />
+
+--
+  We still need a triple for `foldr`.
+
+  Let's see how this is done, starting with the pure case.
+
+---
+layout: true
+
+# The pure case (Why3)
+
+---
+
+```why3
+let rec foldr `(ghost inv : list 'a -> 'b -> bool)`
+    (f:'a -> 'b -> 'b) (xs: list 'a) (acc: 'b) : 'b
+  `requires { inv Nil acc }`
+  `requires { forall acc x ys.`
+               `inv ys acc -> inv (Cons x ys) (f x acc) }`
+  `ensures  { inv xs result }`
+= match xs with
+  | Nil -> acc
+  | Cons x t -> `f` x (foldr `inv` f t acc)
+  end
+```
+
+.code-span-faded[1, 2, 3, 4, 5, 7]
+
+.code-span-hlr[6]
+
+---
+
+count: false
+
+```why3
+let rec foldr `(ghost inv : list 'a -> 'b -> bool)`
+    (f:'a -> 'b -> 'b) (xs: list 'a) (acc: 'b) : 'b
+  `requires { inv Nil acc }`
+  `requires { forall acc x ys.`
+               `inv ys acc -> inv (Cons x ys) (f x acc) }`
+  `ensures  { inv xs result }`
+= match xs with
+  | Nil -> acc
+  | Cons x t -> f x (foldr `inv` f t acc)
+  end
+```
+
+.code-span-faded[2, 3, 4, 5]
+
+---
+
+count: false
+
+```why3
+let rec foldr `(ghost inv : list 'a -> 'b -> bool)`
+    (f:'a -> 'b -> 'b) (xs: list 'a) (acc: 'b) : 'b
+  `requires { inv Nil acc }`
+  `requires { forall acc x ys.`
+               `inv ys acc -> inv (Cons x ys) (f x acc) }`
+  `ensures  { inv xs result }`
+= match xs with
+  | Nil -> acc
+  | Cons x t -> f x (foldr `inv` f t acc)
+  end
+```
+
+.code-span-faded[3, 4, 5]
+
+---
+
+count: false
+
+```why3
+let rec foldr `(ghost inv : list 'a -> 'b -> bool)`
+    (f:'a -> 'b -> 'b) (xs: list 'a) (acc: 'b) : 'b
+  `requires { inv Nil acc }`
+  `requires { forall acc x ys.`
+               `inv ys acc -> inv (Cons x ys) (f x acc) }`
+  `ensures  { inv xs result }`
+= match xs with
+  | Nil -> acc
+  | Cons x t -> f x (foldr `inv` f t acc)
+  end
+```
+
+.code-span-faded[5]
+
+---
+
+class: foldr-invariant-slide
+count: false
+
+```why3
+let rec foldr (ghost `inv` : list 'a -> 'b -> bool)
+    (`f`:'a -> 'b -> 'b) (xs: list 'a) (acc: 'b) : 'b
+  requires { inv Nil acc }
+  requires { forall acc x ys.
+               inv ys acc -> inv (Cons x ys) (`f` x acc) }
+  ensures  { inv xs result }
+= match xs with
+  | Nil -> acc
+  | Cons x t -> f x (foldr inv f t acc)
+  end
+```
+
+--
+
+.label-code-span3[`f`, a program fragment, is treated as a mathematical function. <br> We can only do this because it is pure.]
+
+<style>.foldr-invariant-slide .label-code-span3 { --label-gap: 1em; --label-shift: 5em; }</style>
+
+.arrow[ 2 -> 3 ]
+
+---
+layout: true
+
+# The imperative case (Iris)
+
+---
+
+<img class="math-display" src="eaba7afe8335d31f.svg" alt="\begin{array}{l} \all{\inv\,f\,\xs\,\acc} \\ \quad \begin{array}{c} \biggl\{\, \begin{aligned} &amp; \inv\ []\ \acc\ \sep \\ &amp; \all{x\,\acc\,\ys} \{ \inv\ \ys\ \acc \}~f\ x\ \acc~\{ r.\ \inv\ (x{::}\ys)\ r \} \end{aligned} \,\biggr\} \\ \m{foldr}\ f\ \xs\ \acc \\ \{ \res.\ \inv\ \xs\ \res \} \end{array} \end{array}" />
+
+---
+
+count: false
+
+<img class="math-display" src="3dfd4b11335481fe.svg" alt="\begin{array}{l} \all{\hlo{\inv}\,f\,\xs\,\acc} \\ \quad \begin{array}{c} \biggl\{\, \begin{aligned} &amp; \hlo{\inv\ []\ \acc}\ \sep \\ &amp; \all{x\,\acc\,\ys} \{ \hlo{\inv\ \ys\ \acc} \}~f\ x\ \acc~\{ r.\ \hlo{\inv\ (x{::}\ys)\ r} \} \end{aligned} \,\biggr\} \\ \m{foldr}\ f\ \xs\ \acc \\ \{ \res.\ \hlo{\inv\ \xs\ \res} \} \end{array} \end{array}" />
+
+<img class="math-inline" src="ded8614b3a4aa6cd.svg" alt="\m{Inv}" style="vertical-align: -0.131pt" /> is now a _separation logic_ invariant, which can express state changes.
+
+---
+
+count: false
+
+<img class="math-display" src="e110388e1128ae03.svg" alt="\begin{array}{l} \all{\inv\,f\,\xs\,\acc} \\ \quad \begin{array}{c} \biggl\{\, \begin{aligned} &amp; \inv\ []\ \acc\ \sep \\ &amp; \all{x\,\acc\,\ys} \hlb{\{ \inv\ \ys\ \acc \}~f\ x\ \acc~\{ r.\ \inv\ (x{::}\ys)\ r \}} \end{aligned} \,\biggr\} \\ \m{foldr}\ f\ \xs\ \acc \\ \{ \res.\ \inv\ \xs\ \res \} \end{array} \end{array}" />
+
+<img class="math-inline" src="076fb1de630d4392.svg" alt="\inv" style="vertical-align: -0.131pt" /> is now a _separation logic_ invariant, which can express state changes.
+
+<img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> is now treated as a program.
+A nested triple is used to say that <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> preserves <img class="math-inline" src="076fb1de630d4392.svg" alt="\inv" style="vertical-align: -0.131pt" />.
+
+---
+
+count: false
+
+<img class="math-display" src="28825e449a7039c8.svg" alt="\begin{array}{l} \all{\hlg{\inv}\,f\,\xs\,\acc} \\ \quad \begin{array}{c} \biggl\{\, \begin{aligned} &amp; \inv\ []\ \acc\ \sep \\ &amp; \all{x\,\acc\,\ys} \{ \inv\ \ys\ \acc \}~f\ x\ \acc~\{ r.\ \inv\ (x{::}\ys)\ r \} \end{aligned} \,\biggr\} \\ \m{foldr}\ f\ \xs\ \acc \\ \{ \res.\ \inv\ \xs\ \res \} \end{array} \end{array}" />
+
+<img class="math-inline" src="076fb1de630d4392.svg" alt="\inv" style="vertical-align: -0.131pt" /> is now a _separation logic_ invariant, which can express state changes.
+
+<img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> is now treated as a program.
+A nested triple is used to say that <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> preserves <img class="math-inline" src="076fb1de630d4392.svg" alt="\inv" style="vertical-align: -0.131pt" />.
+
+Invariant needed: <img class="math-inline" src="9f0d6508c81ed265.svg" alt="(\vlambda{\m{suff}\,r}{\heapto{l}{(\psum{\m{suff}})}\sep\hpure{r=\vunit}})" style="vertical-align: -2.835pt" />
+
+---
+
+layout: false
+
+# A problem
+
+> Different clients may instantiate _foldr_ with some very different functions, hence it can be hard to give a specification for _f_ that is reasonable and general enough to support all these choices. In particular knowing when one has found a good and provable specification can be difficult in itself.
+
+.cite[Lecture Notes on Iris]
+
+<!-- &mdash;  -->
+---
+
+# A problem
+
+Suppose we wanted <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> to rely on a property of the individual list elements.
+
+<img class="math-display" src="b9927983c5807e9e.svg" alt="\begin{array}{l} \all{\inv\,P\,f\,\xs\,\acc} \\ \quad \begin{array}{c} \biggl\{\, \begin{aligned} &amp; \hpure{\m{all}\ P\ \xs} \sep \inv\ []\ \acc\ \sep \\ &amp; \all{x\,\acc\,\ys} \{ \hpure{P\ x} \sep \inv\ \ys\ \acc \}~f\ x\ \acc~\{ r.\ \inv\ (x{::}\ys)\ r \} \end{aligned} \,\biggr\} \\ \m{foldr}\ f\ \xs\ \acc \\ \{ \res.\ \inv\ \xs\ \res \} \end{array} \end{array}" />
+
+---
+
+count: false
+
+# A problem
+
+Suppose we wanted <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> to rely on a property of the individual list elements.
+
+<img class="math-display" src="eb815c5df662376b.svg" alt="\begin{array}{l} \all{\inv\,\hlg{P}\,f\,\xs\,\acc} \\ \quad \begin{array}{c} \biggl\{\, \begin{aligned} &amp; \hlg{\hpure{\m{all}\ P\ \xs}} \sep \inv\ []\ \acc\ \sep \\ &amp; \all{x\,\acc\,\ys} \{ \hlg{\hpure{P\ x}} \sep \inv\ \ys\ \acc \}~f\ x\ \acc~\{ r.\ \inv\ (x{::}\ys)\ r \} \end{aligned} \,\biggr\} \\ \m{foldr}\ f\ \xs\ \acc \\ \{ \res.\ \inv\ \xs\ \res \} \end{array} \end{array}" />
+
+--
+
+We have to propagate it outwards using <img class="math-inline" src="8f0691efdd1d43d2.svg" alt="\m{all}" style="vertical-align: -0.131pt" />.
+
+Moreover, the unary form of <img class="math-inline" src="0683df3ba66239ed.svg" alt="P" style="vertical-align: -0.024pt" /> is fixed.
+
+---
+
+# A problem
+
+Suppose we wanted to rely on a property of consecutive elements of the list.
+
+<img class="math-display" src="897cc26b59816765.svg" alt="\begin{array}{l} \all{\inv\,\hly{P_1}\,f\,\xs\,\acc} \\ \quad \begin{array}{c} \biggl\{\, \begin{aligned} &amp; \hly{\hpure{P_1\ \xs}} \sep \inv\ []\ \acc\ \sep \\ &amp; \all{x\,\acc\,\ys} \{ \inv\ \ys\ \acc \}~f\ x\ \acc~\{ r.\ \inv\ (x{::}\ys)\ r \} \end{aligned} \,\biggr\} \\ \m{foldr}\ f\ \xs\ \acc \\ \{ \res.\ \inv\ \xs\ \res \} \end{array} \end{array}" />
+
+We would need a new specification with a property parameterised over <img class="math-inline" src="52f06aefdff3f535.svg" alt="\xs" style="vertical-align: -0.131pt" />.
+
+---
+
+# A problem
+
+What if we passed the argument <img class="math-inline" src="b8ed8feab5422408.svg" alt="(\vlambda{x\,t}{\m{assert}\ x \ge t; x + t})" style="vertical-align: -2.406pt" />?
+
+<img class="math-display" src="0a5220491fe8e509.svg" alt="\begin{array}{l} \all{\inv\,\hlr{P_2}\,f\,\xs\,\acc} \\ \quad \begin{array}{c} \biggl\{\, \begin{aligned} &amp; \inv\ []\ \acc\ \sep \\ &amp; \all{x\,\acc\,\ys} \{ \hlr{\hpure{P_2\ x\ \acc}} \sep \inv\ \ys\ \acc \}~f\ x\ \acc~\{ r.\ \inv\ (x{::}\ys)\ r \} \end{aligned} \,\biggr\} \\ \m{foldr}\ f\ \xs\ \acc \\ \{ \res.\ \inv\ \xs\ \res \} \end{array} \end{array}" />
+
+This would require a binary property <img class="math-inline" src="71f593086b77aefb.svg" alt="P_2" style="vertical-align: -1.819pt" /> relating each element and suffix-sum.
+Again, neither <img class="math-inline" src="0683df3ba66239ed.svg" alt="P" style="vertical-align: -0.024pt" />, <img class="math-inline" src="0c21ddc2b565e446.svg" alt="P_1" style="vertical-align: -1.819pt" />, nor <img class="math-inline" src="076fb1de630d4392.svg" alt="\inv" style="vertical-align: -0.131pt" /> would be sufficient.
+
+---
+
+# Another problem
+
+What if we passed the argument <img class="math-inline" src="b8fa9bfd4a8381b6.svg" alt="(\vlambda{x\,t}{\m{raise}\ E})" style="vertical-align: -2.406pt" />?
+
+We would need a creative encoding in either the program (e.g. monad) or logic (e.g. exceptional postcondition)...
+
+<img class="math-display" src="a9b14a30d877f21d.svg" alt="\begin{array}{l} \all{\inv\,\hlb{Q_E}\,f\,\xs\,\acc} \\ \quad \begin{array}{c} \biggl\{\, \begin{aligned} &amp; \inv\ []\ \acc\ \sep \\ &amp; \all{x\,\acc\,\ys} \{ \inv\ \ys\ \acc \}~f\ x\ \acc~\{ r.\ \inv\ (x{::}\ys)\ r \}\ \hlb{\{ E.\ Q_E\ E \}} \end{aligned} \,\biggr\} \\ \m{foldr}\ f\ \xs\ \acc \\ \{ \res.\ \inv\ \xs\ \res \}\ \hlb{\{ E.\ Q_E\ E \}} \end{array} \end{array}" />
+
+Approach 2 really only supports effects _that can be represented in the underlying logic_.
+
+---
+
+# A conundrum
+
+To recap,
+
+- **Approach 1**: almost automated for pure functions, but .fg-red[inapplicable] to effectful ones
+
+- **Approach 2**: requires creativity to come up with specification _and_ instantiate it; "one-spec-per-use problem"; relies on underlying logic being able to represent effects
+
+--
+
+.morph-element.morph-table[
+|            | pure               | effectful          |
+| ---------- | ------------------ | ------------------ |
+| Approach 1 | ✔                  | ✘                  |
+| Approach 2 | ✔<sup>\*\*\*</sup> | ✔<sup>\*\*\*</sup> |
+]
+
+---
+
+# Towards a solution
+
+Can we find a version of Approach 1 which overcomes the downsides of Approach 2?
+
+.morph-element.morph-table[
+|            | pure               | effectful          |
+| ---------- | ------------------ | ------------------ |
+| Approach 1 | ✔                  | .hlr[✘]            |
+| Approach 2 | ✔<sup>\*\*\*</sup> | ✔<sup>\*\*\*</sup> |
+]
+
+---
+
+# Thesis
+
+.center[Staged logic is an effective means of automating the <br>verification of higher-order effectful programs.]
+
+---
+
+# Outline
+
+- __Staged logic and higher-order functions__
+- Effect handlers and shift/reset
+- Implementation and mechanisation
+- Conclusion
+
+---
+
+# Outline
+
+- __Staged logic and higher-order functions__
+  1. How staged logic works (on the <img class="math-inline" src="fc4839c012bfda35.svg" alt="\foldr" style="vertical-align: -2.835pt" /> example)
+  2. Two more case studies
+  3. How automation works
+- Effect handlers and shift/reset
+- Implementation and mechanisation
+- Conclusion
+
+---
+
+# Staged logic
+
+<img class="math-display" src="c799e9767ac0bcd6.svg" alt="&#36;\begin{array}{r@{\ \,}ll} \flow ::= &amp; \sreq{H} \mid \sens{H} &amp; \text{Specifications} \\ % \mid &amp; f(v,r) \mid \flow_1; \flow_2 \mid ... &amp; \text{Program elements} \\ \mid &amp; \vlambda{x}{\flow} \mid \flow_1 \app \flow_2 \mid \flow_1\bind{r} \flow_2 \mid \sreturn{v} \mid ... &amp; \text{Program elements} \\ \mid &amp; \flow_1 \vee \flow_2 \mid \flow_1 \wedge \flow_2 \mid \ex{x} \flow \mid \all{x} \flow &amp; \text{Logical connectives} \end{array}&#36;" />
+
+.gap-sm[]
+
+--
+- Syntactically, a lambda calculus with specifications and logical connectives
+
+--
+- <img class="math-inline" src="ca9462695fb637bb.svg" alt="\req" style="vertical-align: -2.811pt" /> and <img class="math-inline" src="6bf4fd89d2391bee.svg" alt="\ens" style="vertical-align: -0.137pt" /> are separation logic _assume_/_consume_/_exhale_ and _assert_/_produce_/_inhale_
+
+---
+
+class: staged-logic-slide
+
+# Staged logic as a program logic
+
+- Staged logic generalises Hoare logic
+
+.gap-sm[]
+
+.cols-2[
+.anchored[
+.two.label.at-tl[History]
+.two.label.at-br[Behaviour]
+<img class="math-display" src="7578ef4090f63cdc.svg" alt="\htriple{\hlb{\flow}}{e}{\hlo{\flow}}" />
+]
+
+<img class="math-display" src="57130afcaf694a27.svg" alt="\htriple{P}{e}{Q} \defeq \htriple{\sens{P}}{e}{\sens{Q}}" />
+]
+
+--
+
+.gap-sm[]
+
+- Key to the design is the rule for application of unknown functions
+
+  <img class="math-display" src="3488638cfe99ab86.svg" alt="\inferrule*[right=App]{ }{\htriple{\flow}{f\ v}{\flow; f\ v}}" />
+
+<style>
+  .staged-logic-slide .two.label.at-tl { --dx: -1.5em; }
+  .staged-logic-slide .two.label.at-br { --dx:  2.5em; }
+</style>
+
+---
+
+class: staged-logic-slide
+
+# Staged logic as a program logic
+
+- In the rule of consequence, _refinement_ relates staged logic terms
+
+<img class="math-display" src="49afe1cf41fa5352.svg" alt="\inferrule*[right=Conseq]{\htriple{\flow_3}{e}{\flow_4} \\ \flow_1 \stagesubs \flow_3 \\ \flow_4 \stagesubs \flow_2}{\htriple{\flow_1}{e}{\flow_2}}" />
+
+--
+
+- When working with refinement, staged logic can also be seen as a higher-order IVL
+
+.gap-sm[]
+
+.anchored[
+.one.label.at-tl[Higher-order IVL]
+.one.label.at-br[Specification]
+
+<img class="math-display" src="2880861f7f33a30c.svg" alt="\hlg{\flow} \stagesubs \hlr{\flow}" />
+]
+
+.gap-md[]
+
+<img class="math-display" src="6ad50dace95d458c.svg" alt="\htriple{P}{e}{Q} \defeq \m{translate}\ e \stagesubs \sreq{P}; \sens{Q}" />
+
+<style>
+  .staged-logic-slide .one.label.at-tl { --dx: -6.5em; }
+  .staged-logic-slide .one.label.at-br { --dx: 5em; }
+</style>
+
+---
+
+# A specification for _foldr_
+
+.cols-2[
+```ocaml
+let foldr f init xs =
+  match xs with
+  | [] => init
+  | h :: t =>
+    f h (foldr f init t)
+```
+
+<img class="math-display" src="73edbd89c23f5be8.svg" alt="\begin{array}{l} \foldr\ f\ \init\ \xs \defeq \\ \quad \sens{\xs{=}[]; \sreturn{\init}} \\ \quad \vee\ \exists h\,t. \sens{\xs{=}h{::}t}; \foldr\ f\ \m{init}\ t \bind{r} f\ h\ r \end{array}" />
+]
+
+--
+Given `let g x () = l := x + !l`, we would like to prove:
+
+<img class="math-display" src="daa5c6fc6a7a8792.svg" alt="\inferrule{g\ x\ \vunit \stagesubs \ex{v}\sreq{\heapto{l}{v}};\sensr{r}{\heapto{l}{(v{+}x)}\sep[r{=}\vunit]}}{\foldr\ g\ \vunit\ \xs \stagesubs \ex{v}\sreq{\heapto{l}{v}}; \sensr{r}{\heapto{l}{(v{+}\psum{\xs})} \sep [r = \vunit]}}" />
+
+---
+
+# Stateful _foldr_
+
+**Inductive case**
+
+<img class="math-display" src="faf8ceb745d55a19.svg" alt="\begin{array}{rl@{\hspace{1.5em}}l} &amp; \sens{\xs{=}h{::}t};\ \foldr\ g\ \vunit\ t \bind{r}\, g\ h\ r \\ \stagesubs &amp; \sens{\xs{=}h{::}t};\ \big(\ex{v_1}\sreq{\heapto{l}{v_1}};\sensr{r}{\heapto{l}{(v_1{+}\psum{t})}\sep[r{=}\vunit]}\big) \bind{r}\, g\ h\ r &amp; \text{Ind. hyp.} \\ \stagesubs &amp; \sens{\xs{=}h{::}t};\ \ex{v_1}\sreq{\heapto{l}{v_1}};\sensr{r}{\heapto{l}{(v_1{+}\psum{t})}\sep[r{=}\vunit]}; \\ &amp; \quad \ex{v_2}\sreq{\heapto{l}{v_2}};\sensr{r_1}{\heapto{l}{(v_2{+}h)}\sep[r_1{=}\vunit]} &amp; \text{Unfold } g \\ \stagesubs &amp; \ex{v}\sreq{\heapto{l}{v}};\sensr{r_1}{\heapto{l}{(v{+}\psum{\xs})}\sep[r_1{=}\vunit]} &amp; \textsc{NormEnsReq} \end{array}" />
+
+--
+
+The final step relies on biabduction to symbolically execute the <img class="math-inline" src="ca9462695fb637bb.svg" alt="\req" style="vertical-align: -2.811pt" /> and <img class="math-inline" src="6bf4fd89d2391bee.svg" alt="\ens" style="vertical-align: -0.137pt" /> away.
+
+<img class="math-display" src="23f12b11c258cb93.svg" alt="\infrule{H_A \sep H_1 \vdash H_2 \sep H_F}{\sens{H_1}; \sreq{H_2} \stagesubs \sreq{H_A}; \sens{H_F}}{NormEnsReq}" />
+
+---
+
+# Stateful _foldr_
+
+This proof ultimately comes down to
+
+<img class="math-display" src="77df88cb33d059a0.svg" alt="(v_2{=}v_1{+}\psum{t}) \sep \heapto{l}{(v_1{+}\psum{t})} \sep [r{=}\vunit] \vdash \heapto{l}{v_2} \sep [r{=}\vunit]" />
+
+and
+
+<img class="math-display" src="a2477b1f35180e41.svg" alt="\xs{=}h{::}t \implies (v_1 + \psum{t}) + h = v_1 + \psum{\xs}" />
+
+<!-- ... both of which can be discharged by existing provers. -->
+
+---
+
+# Key idea: maintaining precision
+
+Approach 2 forces us to commit to an _abstraction_ of the behaviour of an unknown function <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> (e.g. an invariant-parameterised triple) _before we even know what <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> is_.
+
+Any choice is necessarily _imprecise_ (wrt the operational semantics) because <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" />'s behaviour depends on things external to <img class="math-inline" src="2bb96d8995686123.svg" alt="\m{foldr}" style="vertical-align: -2.835pt" />, i.e. its callers.
+
+---
+
+# Key idea: maintaining precision
+
+Being able to leave <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> in specifications allows us to precisely track its behaviour, effects, and their ordering, without abstraction.
+
+Consequence: proofs stay _syntactic_, making them possible to automate.
+
+To keep things tractable, we do, however, want to abstract once we can.
+
+<img class="math-display" src="2a28f8b718373047.svg" alt="\m{foldr}\ \m{f}\ 0\ \xs \stagesubs \underbrace{f\ x_1\ ...;\ f\ x_2\ ...;\ ...}_{\text{precise, but very concrete}} \stagesubs \underbrace{\sreq{...};\sens{...}}_{\text{once &#36;f&#36; is known, abstract}}" />
+
+---
+
+# Case study: Landin's knot
+
+Recursion via a mutable ref holding a closure:
+
+<img class="math-display" src="dee6426a93a82745.svg" alt="\m{fact_f}\ \m{self}\ r\ n \defeq \sens{n{\le}0};\sreturn{1} \vee \sens{n{&gt;}0}; \m{self}\ r\ (n{-}1)\bind{k}\sreturn{n{\cdot}k}" />
+
+--
+<img class="math-display" src="89704815cc31c4f0.svg" alt="\m{knot}\ r\ n \defeq \ex{p}\sreq{\heapto{r}{p}};\sens{\heapto{r}{p}};\ \m{fact_f}\ p\ r\ n" />
+
+--
+<img class="math-display" src="c6b45582f57321e5.svg" alt="\m{landin}\ n \defeq \ex{r}\ \heapto{r}{\m{id}};\ \heapto{r}{\m{knot}};\ \m{knot}\ r\ n" />
+
+--
+
+The approach: symbolically execute to expose the recursion before doing induction:
+
+<img class="math-display" src="ca00d79dd99dc76c.svg" alt="\begin{array}{rl@{\hspace{1.5em}}l} &amp; \m{landin}\ n \\ \stagesubs &amp; \ex{r}\heapto{r}{\m{knot}};\m{knot}\ r\ n &amp; \text{cancel } \heapto{r}{\m{id}} \\ \stagesubs &amp; \ex{r\,v}\heapto{r}{v};\sreturn{n!} &amp; \text{induction on &#36;n&#36;} \end{array}" />
+
+---
+
+# Case study: _foldl_
+
+A classic question: how do _foldr_ and _foldl_ relate?
+
+<img class="math-display" src="89fa9861bdcbcee1.svg" alt="\inferrule{f\ x\ y \stagesubs f\ y\ x \qquad f\ x\ y;r.\,f\ r\ z \;\stagesubs\; f\ y\ z;r.\,f\ x\ r}{\m{foldl}\ f\ a\ \xs \stagesubs \m{foldr}\ f\ a\ \xs}" />
+
+It suffices that <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> is commutative and associative. Note that <img class="math-inline" src="f795e30f7fc76447.svg" alt="f" style="vertical-align: -2.835pt" /> is arbitrarily stateful.
+
+--
+
+This needs two lemmas:
+
+<img class="math-display" src="faf07e1ded05bcf0.svg" alt="\m{foldr}\ f\ \init\ \ys \bind{r} f\ y\ r \stagesubs \m{foldr}\ f\ \init\ (y{::}\ys)" />
+
+<img class="math-display" src="518525a50d37e165.svg" alt="f\ \init\ v \bind{r} \m{foldr}\ f\ r\ \xs \stagesubs \m{foldr}\ f\ \init\ \xs \bind{r} f\ v\ r" />
+
+(The other direction is symmetric)
+
+---
+
+# Flavours of proof rules
+
+1\. Reduction
+
+<img class="math-display" src="d1baa5534110ce56.svg" alt="\begin{mathpar} \inferrule*{ }{(\flow_1 \bind{x} g_1) \bind{y} g_2 \stagesubs \flow_1 \bind{x} (g_1(x) \bind{y} g_2)} \inferrule*{ }{\m{ret}\ v \bind{x} g \stagesubs g\ v} \end{mathpar}" />
+
+2\. Rewriting
+
+<img class="math-display" src="ebe4d3b72b2b814d.svg" alt="\begin{mathpar} \inferrule*{(\sreq{\hpure{P}};\flow_1) \stagesubs \flow_2}{\flow_1 \stagesubs (\sens{\hpure{P}};\flow_2)} \inferrule*{ }{\sens{\hpure{\vfalse}};\flow \stagesubs \flow_1} \end{mathpar}" />
+
+3\. Entailment
+
+<img class="math-display" src="b951f2154ebcced1.svg" alt="\begin{mathpar} \inferrule*{\all{x}(\flow \stagesubs g\ x)}{\flow \stagesubs \all{x}g\ x} \inferrule*{P \\ \flow_1 \stagesubs \flow}{\sens{\hpure{P}};\flow_1 \,\stagesubs\, \flow} \inferrule*{\flow_1 \stagesubs \flow_3 \\ \flow_2 \stagesubs \flow_3}{\flow_1 \vee \flow_2 \stagesubs \flow_3} \end{mathpar}" />
+
+---
+
+# Proof search
+
+Applications of three rule families are interleaved in a syntax-directed loop:
+
+- Simplifications
+  - Reduction never loses information and is confluent and terminating
+  - Safe entailment and rewriting, e.g. intro, trivial asserts, symbolic execution
+
+--
+- Search with bounded depth
+  - Unsafe entailment/rewriting rules
+  - User-provided lemmas
+  - Heuristics for quantifiers
+
+---
+
+# Outline
+
+- Staged logic and higher-order functions
+- __Effect handlers and shift/reset__
+- Implementation and mechanisation
+- Conclusion
+
+<!-- - .morph-element.morph-effects-title[Effect handlers] -->
+
+---
+
+# Outline
+
+- Staged logic and higher-order functions
+- __Effect handlers and shift/reset__
+  1. Effect handlers and how to reason about them
+  2. The problem of multishot continuations
+  3. Shift and reset in staged logic
+- Implementation and mechanisation
+- Conclusion
+
+---
+
+# Effect handlers
+
+<!-- # .morph-element.morph-effects-title[Effect handlers] -->
+
+.cols-2[
+.col[
+```ocaml
+type _ Effect.t +=
+  XCHG: int -> int Effect.t
+
+let exchange n =
+  perform (XCHG n)
+```
+
+```ocaml
+let client () =
+  exchange (exchange 42)
+```
+]
+
+```ocaml
+let main () =
+  let p = ref 0 in
+  try client () with
+  | v -> v
+  | effect XCHG n, k ->
+    let p0 = !p in
+    p := n;
+    continue k p0
+```
+]
+
+---
+
+# Key questions
+
+1. What should we do at `perform`?
+
+   <img class="math-inline" src="a4f2b92469089e95.svg" alt="\inferrule*{ ? }{\htriple{P}{\m{perform}\ E\ v}{Q}}" style="vertical-align: -2.835pt" />
+
+2. What should we do at handlers?
+
+   <img class="math-inline" src="4efc19652c6f3f56.svg" alt="\inferrule*{ \htriple{?}{e_b}{?} }{\htriple{P}{\m{try}\ e\ \m{with}\ E\ k \to e_b}{Q}}" style="vertical-align: -2.769pt" />
+
+---
+
+# Existing work
+
+1. What should we do at `perform`? __Require a user-provided _protocol___ <img class="math-inline" src="39456b401ec23cba.svg" alt="\Psi" style="vertical-align: -0.036pt" />.fn[1]
+
+   <img class="math-inline" src="cba405a1c0bbad2d.svg" alt="\inferrule*{\Psi = E\ \#\ !\hbrace{P}. ? \hbrace{Q}}{\htriple{P}{\m{perform}\ E\ v}{Q}\langle \Psi \rangle}" style="vertical-align: -2.835pt" />
+
+2. What should we do at handlers? __A user-provided _handler invariant_.fn[2] serves as the postcondition of `continue` and must be re-established at the end of the handler__
+
+
+.footnote[.fn[1] A Separation Logic for Effect Handlers, de Vilhena et al., POPL 2021 <br>
+.fn[2] A Framework for the Automated Verification of Algebraic Effects and Handlers, Soares et al., CoRR 2023]
+
+---
+
+# Protocols
+
+.cols-2[
+.col[
+```ocaml
+type _ Effect.t +=
+  XCHG: int -> int Effect.t
+
+let exchange n =
+  perform (XCHG n)
+  (* ensures !p = x &&
+    reply = old !p *)
+```
+
+```ocaml
+let client () =
+  exchange (exchange 42)
+  (* ensures result = 42 *)
+```
+]
+.col[
+```ocaml
+let main () =
+  let p = ref 0 in
+  (* invariant: !p = old !p && result = 42 *)
+  try client () with
+  | v -> v
+  | effect XCHG n, k ->
+    (* assume: true *)
+    let p0 = !p in
+    p := n;
+    (* prove: !p = x && p0 = old !p *)
+    continue k p0
+    (* re-establish invariant *)
+```
+]
+]
+
+---
+
+# Problem: the need to abstract handlers
+
+The protocol and handler invariant similarly force an upfront abstraction of every handler the effect will be used under, similar to spec for <img class="math-inline" src="fc4839c012bfda35.svg" alt="\foldr" style="vertical-align: -2.835pt" />.
+
+- Both are nontrivial to synthesise, as they are parametrised over higher-order properties
+- Multiply so for _multishot_ continuations, as the handler invariant must work for any number of resumptions
+
+---
+
+# Staged logic
+
+1. What should we do at `perform`? __Treat the effect as unknown__
+
+   <img class="math-inline" src="8a5818c618cfadee.svg" alt="\inferrule*{ }{\htriple{\flow}{\m{perform}\ E\ v}{\flow; E\ v}}" style="vertical-align: -2.835pt" />
+
+2. What should we do at handlers? __Internalise handlers and symbolically execute them away__
+
+---
+
+# Exchange in staged logic
+
+Model the both programs:
+
+<img class="math-display" src="075f1e8c56c9a7b9.svg" alt="\begin{array}{rl} \m{client} \defeq &amp; \xchg{42}\bind{r}{\xchg{r}} \\ \m{main} \defeq &amp; \ex{p}\sens{\heapto{p}{0}}; \stagetry{\m{client}}{\xchg{n}}{k}{} \\ &amp; \quad (\ex{o}\sreq{\heapto{p}{o}};\sens{\heapto{p}{n}}; k\ o) \end{array}" />
+
+We then prove:
+
+<img class="math-display" src="d652988fe66f4d24.svg" alt="\m{main} \stagesubs \ex{p} \sensr{r}{\heapto{p}{0}\wedge r{=}42}" />
+
+---
+
+# Proof
+
+The proof in this case is automated by symbolic execution.
+
+<img class="math-display" src="87a1b09478f6568f.svg" alt="\begin{array}{rl@{\hspace{1.5em}}l} &amp; \sens{\heapto{p}{0}}; \stagetry{\m{client}}{\xchg{n}}{k}{...} \\ \stagesubs &amp; \sens{\heapto{p}{0}}; &amp; \text{Handle} \\ \phantom{\stagesubs} &amp; \sens{k{=}(\vlambda{x}{\stagetry{\xchg{x}}{\xchg{n}}{k}{...}})} \\ \phantom{\stagesubs} &amp; \ex{o}\sreq{\heapto{p}{o}}; \sens{\heapto{p}{42}}; k\ o \\ \stagesubs &amp; \sens{k{=}(\vlambda{x}{\stagetry{\xchg{x}}{\xchg{n}}{k}{...}})}; &amp; \text{Biab} \\ \phantom{\stagesubs} &amp; \sens{\heapto{p}{42}}; k\ 0 \\ \stagesubs &amp; \sens{\heapto{p}{42}}; \stagetry{\xchg{0}}{\xchg{n}}{k}{...} &amp; \text{Simplify} \\ \stagesubs &amp; \sens{\heapto{p}{42}}; \ex{o}\sreq{\heapto{p}{o}};\sens{\heapto{p}{n}}; k\ o &amp; \text{Handle} \\ \stagesubs &amp; \sensr{r}{\heapto{p}{0}\wedge r{=}42} &amp; \text{Biab} \\ \end{array}" />
+
+Maintaining precision significantly simplifies the problem.
+
+---
+
+# Multishot continuations
+
+```ocaml
+let call b =
+  b := 0;
+  f ();
+  b := !b + 1;
+  assert (!b = 1)
+```
+
+---
+
+# Multishot continuations
+
+.cols-2[
+```ocaml
+let call b =
+  b := 0;
+  perform E;
+  b := !b + 1;
+  assert (!b = 1) ❌
+```
+
+```ocaml
+let main () =
+  try client () with
+  | effect E n, k ->
+    continue k ();
+    continue k ()
+```
+]
+
+---
+
+# Multishot continuations
+
+.inline-children[
+```ocaml
+let call b =
+  b := 0;
+  perform E;
+  b := !b + 1;
+  assert (!b = 1)
+```
+
+.gap-lg[]
+
+.gap-lg[]
+
+.gap-lg[]
+
+.gap-lg[]
+
+.gap-lg[]
+
+<img class="math-display" src="0a9f297ddf191a58.svg" alt="\begin{align*} \stagetry{\m{call}}{E}{k}{-1} &amp; \stagesubs \all{b} \sensr{r}{\heapto{b}{0} \wedge r{=}-1} \\ \stagetry{\m{call}}{E}{k}{k ()} &amp; \stagesubs \all{b} \sensr{r}{\heapto{b}{1}\wedge r{=}\vunit} \\ \stagetry{\m{call}}{E}{k}{k (); k ()} &amp; \stagesubs \sreq{\vfalse} \end{align*}" />
+]
+
+- Staged logic: all can be proved by symbolic execution
+
+--
+- The protocol approach.fn[1]: 287 LoC using Iris, involving an intricate ghost state construction.fn[2] for threading an invariant through the protocol to track the value of the location across calls to the continuation
+
+.footnote[.fn[1] Hazel, case_studies/song_et_al_icfp24.v; .fn[2] a history of replies in an auth RA, and one-shot RA for the shared location]
+
+---
+
+# Shift and reset
+
+.inline-children[
+```ocaml
+let do_toss () =
+  shift k. k true + k false
+```
+
+```ocaml
+let toss () =
+  reset (if do_toss () then 1 else 0)
+```
+]
+
+`shift` captures the continuation up to the enclosing `reset` (here, .boxed[`if □ then 1 else 0`]), reifying it as a function `k`.
+
+The result of using `k` twice is `1 + 0` <img class="math-inline" src="4f5b285a4cc6b9c6.svg" alt="=" /> `1`, the number of `true` tosses.
+
+---
+
+# Reasoning about shift and reset
+
+1. Encode as effect and use a protocol, parameterised over an "answer postcondition"
+
+   <img class="math-display" src="7f421b785789245f.svg" alt="\begin{align*} \sshiftz{k}{e_b} &amp; \approx \mathbf{perform}\ \m{Shift} \\ \sreset{e} &amp; \approx \stagetry{e}{\m{Shift}}{k}{e_b} \end{align*}" />
+
+2. Non-context-local triples.fn[1]
+
+  <img class="math-display" src="e4ed8bd4e4e88282.svg" alt="\inferrule*{\htriple{P}{C[v]}{Q}}{\htriple{P}{C[\sshift{k}{(k\ v)}]}{Q}}" />
+
+3. Staged logic (next)
+
+.footnote[.fn[1] Mechanized Relational Verification of Concurrent Programs
+with Continuations, Timany et al., ICFP 2019]
+
+---
+
+layout: true
+
+# Case study: tossing many coins
+
+---
+
+.center-code[
+```ocaml
+let rec do_toss_n n =
+  if n = 0 then true
+  else
+    let r1 = do_toss () in
+    let r2 = do_toss_n (n-1) in
+    r1 && r2
+```
+]
+
+`do_toss_n` tosses <img class="math-inline" src="7774ce1796b85f71.svg" alt="n" style="vertical-align: -0.131pt" /> coins and takes the conjunction of all the results, i.e. it returns `true` if all the coin tosses give `true`.
+
+???
+
+<img class="math-display" src="d0c6eb5e8302ccd4.svg" alt="\begin{array}{l} \m{do\_toss_{n}}\ n \defeq \\ \quad \sens{\hpure{n = 0}}; \sreturn{\vtrue} \\ \quad \vee\ \sens{\hpure{n \neq 0}}; \m{do\_toss}\ () \bind{r_1} \\ \qquad \m{do\_toss_{n}}\ (n{-}1) \bind{r_2} \\ \qquad \sreturn{(r_1 \wedge r_2)} \end{array}" />
+
+---
+
+.center-code[
+```ocaml
+let rec toss_n n =
+  reset (if do_toss_n n then 1 else 0)
+```
+]
+
+`toss_n` enumerates all the outcomes, returning the number of all-`true` _sequences_ of tosses.
+
+There should be only one such sequence:
+
+<img class="math-display" src="d4521d98402fdb3d.svg" alt="\m{toss_{n}}\ n \stagesubs \sreturn{1}" />
+
+???
+
+<img class="math-display" src="2f88eb0952ab5408.svg" alt="\begin{array}{l} \m{toss_{n}}\ n \defeq \\ \quad \sreset{\m{do\_toss_{n}}\ n \bind{r} \\ \qquad (\sens{\hpure{r}}; \sreturn{1} \vee \sens{\hpure{\neg r}}; \sreturn{0})} \end{array}" />
+
+---
+
+For <img class="math-inline" src="04736f2eddbf06e3.svg" alt="n=3" style="vertical-align: -0.137pt" />, `toss_n` explores a binary tree of depth 3. There is only one all-`true` path.
+
+<style>
+  svg.toss-tree line { stroke: #b0b6bf; stroke-width: 1.5; }
+  svg.toss-tree line.hl { stroke: #d33; stroke-width: 3; }
+  svg.toss-tree circle { fill: #fff; stroke: #555; stroke-width: 1.5; }
+  svg.toss-tree circle.hl { stroke: #d33; stroke-width: 2.5; }
+  svg.toss-tree text { font-family: inherit; font-size: 14px; text-anchor: middle; dominant-baseline: central; fill: #333; }
+  svg.toss-tree text.leaf { font-size: 13px; }
+  svg.toss-tree text.elabel { font-size: 11px; fill: #666; }
+</style>
+
+<svg class="toss-tree" viewBox="0 0 600 260" style="width:70%;display:block;margin:1em auto">
+  <!-- depth 1 -->
+  <line x1="300" y1="30"  x2="150" y2="95"  class="hl"/>
+  <line x1="300" y1="30"  x2="450" y2="95"/>
+  <!-- depth 2 -->
+  <line x1="150" y1="95"  x2="75"  y2="160" class="hl"/>
+  <line x1="150" y1="95"  x2="225" y2="160"/>
+  <line x1="450" y1="95"  x2="375" y2="160"/>
+  <line x1="450" y1="95"  x2="525" y2="160"/>
+  <!-- depth 3 (to leaves) -->
+  <line x1="75"  y1="160" x2="40"  y2="225" class="hl"/>
+  <line x1="75"  y1="160" x2="110" y2="225"/>
+  <line x1="225" y1="160" x2="190" y2="225"/>
+  <line x1="225" y1="160" x2="260" y2="225"/>
+  <line x1="375" y1="160" x2="340" y2="225"/>
+  <line x1="375" y1="160" x2="410" y2="225"/>
+  <line x1="525" y1="160" x2="490" y2="225"/>
+  <line x1="525" y1="160" x2="560" y2="225"/>
+  <!-- edge labels -->
+  <text class="elabel" x="215" y="54">T</text>
+  <text class="elabel" x="385" y="54">F</text>
+  <text class="elabel" x="108" y="118">T</text>
+  <text class="elabel" x="192" y="118">F</text>
+  <text class="elabel" x="408" y="118">T</text>
+  <text class="elabel" x="492" y="118">F</text>
+  <text class="elabel" x="53"  y="183">T</text>
+  <text class="elabel" x="97"  y="183">F</text>
+  <text class="elabel" x="203" y="183">T</text>
+  <text class="elabel" x="247" y="183">F</text>
+  <text class="elabel" x="353" y="183">T</text>
+  <text class="elabel" x="397" y="183">F</text>
+  <text class="elabel" x="503" y="183">T</text>
+  <text class="elabel" x="547" y="183">F</text>
+  <!-- internal nodes -->
+  <circle cx="300" cy="30"  r="10"/>
+  <circle cx="150" cy="95"  r="10" class="hl"/>
+  <circle cx="450" cy="95"  r="10"/>
+  <circle cx="75"  cy="160" r="10" class="hl"/>
+  <circle cx="225" cy="160" r="10"/>
+  <circle cx="375" cy="160" r="10"/>
+  <circle cx="525" cy="160" r="10"/>
+  <!-- leaves -->
+  <text class="leaf" x="40"  y="232" fill="#d33"><tspan font-weight="bold">1</tspan></text>
+  <text class="leaf" x="110" y="232">0</text>
+  <text class="leaf" x="190" y="232">0</text>
+  <text class="leaf" x="260" y="232">0</text>
+  <text class="leaf" x="340" y="232">0</text>
+  <text class="leaf" x="410" y="232">0</text>
+  <text class="leaf" x="490" y="232">0</text>
+  <text class="leaf" x="560" y="232">0</text>
+</svg>
+
+---
+
+The proof requires this lemma, itself proved by induction:
+
+<img class="math-display" src="d88ea3649c0651a0.svg" alt="\begin{array}{l} \all{n\,\acc} \\ \quad \sreset{\m{do\_toss_{n}}\ n \bind{r} (\sens{\hpure{\acc{\wedge}r{=}\vtrue}}; \sreturn{1} \vee \sens{\hpure{\acc{\wedge}r{=}\vfalse}}; \sreturn{0})} \\ \quad \stagesubs \sens{\hpure{\acc{=}\vtrue}}; \sreturn{1} \vee \sens{\hpure{\acc{=}\vfalse}} \end{array}" />
+
+1. The statement must be generalised over an accumulator of intermediate results
+2. The continuation is applied at both <img class="math-inline" src="b0aa1e4c37beb817.svg" alt="k\ \vtrue" style="vertical-align: -0.131pt" /> and <img class="math-inline" src="4a3476ac4e3da4f2.svg" alt="k\ \vfalse" style="vertical-align: -2.835pt" />, so we need to know the behaviours of both
+
+This sort of generalisation is difficult to automate, so this statement is user-provided.
+
+---
+
+A stateful variant: suppose we instrument the program to count the number of continuation resumptions, using a global `ref` `x`.
+
+.center-code[
+```ocaml
+let do_toss () =
+  shift k.
+    x := !x+1;
+    let r1 = k true in
+    x := !x+1;
+    let r2 = k false in
+    r1 + r2
+```
+]
+
+This counts the number of edges in the tree, which is <img class="math-inline" src="a081100033826ff1.svg" alt="2^{n{+}1}-2" style="vertical-align: -0.036pt" />.
+
+---
+
+The statement and lemma are accordingly generalised:
+
+<img class="math-display" src="1449409b67eeed7f.svg" alt="\m{toss_{n}}\ n \stagesubs \ex{v}\sreq{\heapto{x}{v}};\sens{\heapto{x}{(v{+}2^{n{+}1}{-}2)}};\sreturn{1}" />
+
+<img class="math-display" src="82f24b27cfb1d101.svg" alt="\begin{array}{l} \all{x\,n\,\acc} \\ \quad \sreset{\m{do\_toss_{n}}\ n \bind{r} (\sens{\hpure{\acc\wedge r=\vtrue}}; \sreturn{1} \vee \sens{\hpure{\acc\wedge r = \vfalse}}; \sreturn{0})} \\ \quad \stagesubs \ex{v} \sreq{\heapto{x}{v}} \\ \qquad \sens{\heapto{x}{v{+}2^{n+1}{-}2}}; (\sens{\hpure{\acc=\vtrue}}; \sreturn{1} \vee \sens{\hpure{\acc = \vfalse}}) \end{array}" />
+
+but this can otherwise be proved the same way, without any new machinery.
+
+???
+
+<img class="math-display" src="3c3cdde05a3eb138.svg" alt="\begin{array}{l} \m{do\_toss}\ () \defeq \sshift{k}{\ex{v}} \\ \quad \sreq{\heapto{x}{v}}; \sens{\heapto{x}{v{+}1}}; k\ \vtrue \bind{r_1} \\ \quad \ex{v_1} \sreq{\heapto{x}{v_1}}; \sens{\heapto{x}{v_1{+}1}}; \\ \quad k\ \vfalse \bind{r_2} \sreturn{(r_1 + r_2)} \end{array}" />
+
+---
+
+layout: false
+
+# Outline
+
+- Staged logic and higher-order functions
+- Effect handlers and shift/reset
+- __Implementation and mechanisation__
+- Conclusion
+
+---
+
+# Implementation and mechanisation
+
+- An SMT-based verifier, Heifer.fn[1]
+- Two mechanisations in Rocq, based on
+  1. simple behavioural refinement
+  2. contextual refinement
+- Present effort
+
+.footnote[.fn[1] Higher-order Effectful Imperative Function Entailments and Reasoning]
+
+---
+
+# Heifer
+
+Accepts annotated OCaml programs and searches for proofs, assuming user-provided lemmas.
+Built on Why3 (SMT, non-foundational).
+Some interactive facilities.
+
+.zoom--1.inline-children.align-top[
+```ocaml
+let [@pure] rec sum
+    (li: int list) : int =
+  match li with
+  | [] -> 0
+  | x :: xs ->
+    x + sum xs
+```
+
+```ocaml
+let rec foldr f li acc =
+  match li with
+  | [] -> acc
+  | x :: xs ->
+    f x (foldr f xs acc)
+```
+
+```ocaml
+let foldr_sum xs k
+(*@ ens res=sum(xs)+k @*)
+= let g c t = c + t in
+  foldr g xs k
+```
+]
+
+---
+
+# Heifer
+
+Case studies
+
+- foldr and many small higher-order programs
+- Loop fusion
+- Regex interpreter
+- append, times, and toss using shift/reset
+
+---
+
+# Mechanisation 1
+
+- Deeply-embedded syntax, `Inductive` big-step semantics
+  - Shallowly-embedded binders (and separation logic)
+  - Function pointers instead of lambda due to positivity restriction
+- Bubble-up semantics for shift/reset
+  - Associativity of bind fails; experimental fix using bisimulation of bubbles
+- Some tactic automation
+
+---
+
+# Mechanisation 1
+
+- Case studies
+  - All the `foldr` examples
+  - Landin's knot
+  - append using shift/reset (bisimulation)
+
+---
+class: no-heading-padding
+
+# Mechanisation 1
+
+.center.zoom--15[
+![](images/rocq-simple.png)
+]
+
+---
+
+# Mechanisation 2
+
+- Lambda calculus fragment with deeply-embedded binders
+- (Meta-)contextual small-step semantics for shift/reset
+- Biorthogonal logical relation to define contextual refinement
+  - IxFree for step-indexed relations
+
+---
+
+# Towards a unified system in Lean
+
+My present effort is a Lean implementation of all three systems.
+
+Its metaprogramming and extensibility allow:
+
+- A usable, Heifer-like frontend
+- Abstraction over binder representation
+- Implementing sophisticated automation
+
+---
+class: no-heading-padding
+
+# Lean: simple behavioural refinement
+
+.center[
+.zoom--15[![](images/staged-lean.png)]
+]
+
+---
+class: no-heading-padding
+
+# Lean: higher-level tactics
+
+.center[
+.zoom--15[![](images/auto.png)]
+]
+
+---
+class: no-heading-padding
+
+# Lean: Heifer (against axiomatization)
+
+.center[
+.zoom--15[![](images/heifer-lean.png)]
+]
+
+---
+
+# Outline
+
+- Staged logic and higher-order functions
+- Effect handlers and shift/reset
+- Implementation and mechanisation
+- __Conclusion__
+
+---
+
+# Thesis
+
+.center[Staged logic is an effective means of automating the <br>verification of higher-order effectful programs.]
+
+--
+Contributions
+
+- A novel refinement-based logic for reasoning about higher-order programs with imperative and control effects
+- Effective: amenable to proof search, with an implementation (Heifer)
+- Mechanisations of two useful fragments in Rocq
+
+---
+
+# Future work
+
+- Mechanise the whole framework
+  - True higher-order store
+  - WIP port of indirection theory
+- A unified verifier in Lean
+- Effect-based concurrency via (contextual) refinement
+
+---
+
+# Thank you!
+
+.center.zoom--10[![](images/qr.png)]
+
+.center[https://dariusf.github.io/thesis]
+
+---
+</textarea>
+
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script>
+      // --- Custom syntax highlighting -----------------------------------
+      // remark bundles highlight.js privately. It's reachable as
+      // `remark.highlighter.engine` — there's no global `hljs`. Two
+      // patterns:
+      //
+      // (1) Extend an existing language: pull its definition, splice
+      //     extra keywords in, re-register under the same name. Used
+      //     here to teach `ocaml` the Why3 dialect's contract clauses.
+      //
+      // (2) Define a brand-new language: register a fresh definition.
+      //     Used here for a small fictional DSL called "rulez" so the
+      //     demo can show off the pattern without depending on a real
+      //     external grammar.
+      (function () {
+        const hljs = remark.highlighter.engine;
+        const ocaml = hljs.getLanguage("ocaml");
+        if (ocaml) {
+          hljs.registerLanguage("ocaml", () => ({
+            ...ocaml,
+            keywords: {
+              ...ocaml.keywords,
+              keyword:
+                ocaml.keywords.keyword + " shift reset effect perform continue",
+            },
+          }));
+          hljs.registerLanguage("cameleer", () => ({
+            ...ocaml,
+            keywords: {
+              ...ocaml.keywords,
+              keyword:
+                ocaml.keywords.keyword + " ghost requires ensures forall",
+            },
+          }));
+          hljs.registerLanguage("why3", () => ({
+            ...ocaml,
+            keywords: {
+              ...ocaml.keywords,
+              keyword:
+                ocaml.keywords.keyword +
+                " goal lemma ghost requires ensures forall result",
+            },
+          }));
+        }
+
+        hljs.registerLanguage("rulez", () => ({
+          name: "Rulez",
+          aliases: ["rulz"],
+          keywords: {
+            keyword:
+              "rule premise conclusion where given when then otherwise" +
+              " forall exists return yield emit",
+            type: "Nat Bool Set Prop Heap Stack",
+            literal: "true false unit",
+          },
+          contains: [
+            hljs.HASH_COMMENT_MODE,
+            hljs.QUOTE_STRING_MODE,
+            { className: "number", begin: /\b\d+\b/ },
+            // Identifiers ending in `!` are "effectful" — paint them as
+            // built-ins so they stand out in the demo.
+            { className: "built_in", begin: /\b[a-z_][\w]*!/ },
+          ],
+        }));
+      })();
+
+      var slideshow = remark.create({
+        ratio: "16:9",
+        highlightStyle: "github",
+        highlightSpans: true,
+        highlightLines: true,
+        countIncrementalSlides: false,
+      });
+
+      // Force every image across every slide to fetch+decode upfront so
+      // nothing pops in as you navigate. Remark renders all slides into
+      // the DOM, but browsers may still defer images inside hidden slide
+      // containers; this works around that.
+      (function preloadAllImages() {
+        const imgs = document.querySelectorAll(
+          ".remark-slides-area img, .remark-slide-container img",
+        );
+        imgs.forEach((img) => {
+          img.loading = "eager";
+          img.fetchPriority = "high";
+          if (img.decode) img.decode().catch(() => {});
+        });
+      })();
+
+      // Assign --code-spanN anchor-names to backticked code spans, numbered
+      // per slide in document order. Pairs with `.label-code-spanN[...]`
+      // paragraphs.
+      function assignCodeSpanAnchors() {
+        document.querySelectorAll(".remark-slide-content").forEach((slide) => {
+          const spans = slide.querySelectorAll(".remark-code-span-highlighted");
+          spans.forEach((span, i) => {
+            span.style.anchorName = `--code-span${i + 1}`;
+          });
+          const applyCodeSpanDirective = (selector, cls) => {
+            slide.querySelectorAll(selector).forEach((directive) => {
+              directive.textContent
+                .split(/[,\s]+/)
+                .map((s) => parseInt(s.replace(/^code-span/, ""), 10))
+                .filter(
+                  (n) => Number.isInteger(n) && n >= 1 && n <= spans.length,
+                )
+                .forEach((n) => spans[n - 1].classList.add(cls));
+            });
+          };
+          applyCodeSpanDirective(".code-span-faded", "code-span-faded");
+          ["hly", "hlg", "hlb", "hlr", "hlo", "hlp"].forEach((c) =>
+            applyCodeSpanDirective(`.code-span-${c}`, `code-span-${c}`),
+          );
+        });
+      }
+
+      // Closest point on `rect`'s perimeter along the line toward (tx, ty).
+      function edgePoint(rect, tx, ty) {
+        const cx = (rect.left + rect.right) / 2;
+        const cy = (rect.top + rect.bottom) / 2;
+        const dx = tx - cx,
+          dy = ty - cy;
+        if (dx === 0 && dy === 0) return { x: cx, y: cy };
+        const hw = rect.width / 2,
+          hh = rect.height / 2;
+        const scale = 1 / Math.max(Math.abs(dx) / hw, Math.abs(dy) / hh);
+        return { x: cx + dx * scale, y: cy + dy * scale };
+      }
+
+      function parseArrowSpec(el) {
+        const m = el.textContent
+          .trim()
+          .match(/(?:code-span)?(\d+)\s*(<->|->|<-)\s*(?:code-span)?(\d+)/);
+        if (!m) return null;
+        return { from: +m[1], dir: m[2], to: +m[3] };
+      }
+
+      let arrowMarkerSeq = 0;
+
+      function drawArrows() {
+        const scale = scalerScale();
+        document.querySelectorAll(".remark-slide-content").forEach((slide) => {
+          const arrows = slide.querySelectorAll(".arrow");
+          if (!arrows.length) return;
+
+          // Skip slides that aren't laid out (remark hides non-current ones).
+          const slideRect = slide.getBoundingClientRect();
+          if (slideRect.width === 0 || slideRect.height === 0) return;
+
+          const codeSpans = {};
+          slide
+            .querySelectorAll(".remark-code-span-highlighted")
+            .forEach((s, i) => (codeSpans[i + 1] = s));
+
+          const SVG_NS = "http://www.w3.org/2000/svg";
+          let svg = slide.querySelector(":scope > svg.arrow-layer");
+          let markerId;
+          if (!svg) {
+            svg = document.createElementNS(SVG_NS, "svg");
+            svg.setAttribute("class", "arrow-layer");
+            markerId = `arrowhead-${++arrowMarkerSeq}`;
+            svg.dataset.markerId = markerId;
+            const defs = document.createElementNS(SVG_NS, "defs");
+            const marker = document.createElementNS(SVG_NS, "marker");
+            marker.setAttribute("id", markerId);
+            marker.setAttribute("viewBox", "0 0 10 10");
+            marker.setAttribute("refX", "9");
+            marker.setAttribute("refY", "5");
+            marker.setAttribute("markerWidth", "7");
+            marker.setAttribute("markerHeight", "7");
+            marker.setAttribute("orient", "auto-start-reverse");
+            const head = document.createElementNS(SVG_NS, "path");
+            head.setAttribute("d", "M0,0 L10,5 L0,10 z");
+            head.setAttribute("fill", "currentColor");
+            marker.appendChild(head);
+            defs.appendChild(marker);
+            svg.appendChild(defs);
+            slide.appendChild(svg);
+          } else {
+            markerId = svg.dataset.markerId;
+          }
+          svg.querySelectorAll("path.arrow-path").forEach((p) => p.remove());
+
+          const w = slideRect.width / scale;
+          const h = slideRect.height / scale;
+          svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+
+          const toLocal = (r) => ({
+            left: (r.left - slideRect.left) / scale,
+            right: (r.right - slideRect.left) / scale,
+            top: (r.top - slideRect.top) / scale,
+            bottom: (r.bottom - slideRect.top) / scale,
+            width: r.width / scale,
+            height: r.height / scale,
+          });
+
+          arrows.forEach((arrow) => {
+            const spec = parseArrowSpec(arrow);
+            if (!spec) return;
+            const fromEl = codeSpans[spec.from],
+              toEl = codeSpans[spec.to];
+            if (!fromEl || !toEl) return;
+
+            const r1 = toLocal(fromEl.getBoundingClientRect());
+            const r2 = toLocal(toEl.getBoundingClientRect());
+            const c1 = {
+              x: (r1.left + r1.right) / 2,
+              y: (r1.top + r1.bottom) / 2,
+            };
+            const c2 = {
+              x: (r2.left + r2.right) / 2,
+              y: (r2.top + r2.bottom) / 2,
+            };
+            const p1 = edgePoint(r1, c2.x, c2.y);
+            const p2 = edgePoint(r2, c1.x, c1.y);
+
+            let d;
+            if (arrow.classList.contains("curve")) {
+              const mx = (p1.x + p2.x) / 2,
+                my = (p1.y + p2.y) / 2;
+              const dx = p2.x - p1.x,
+                dy = p2.y - p1.y;
+              const len = Math.hypot(dx, dy) || 1;
+              const nx = -dy / len,
+                ny = dx / len;
+              const side = arrow.classList.contains("right") ? -1 : 1;
+              const k = 40 * side;
+              d = `M ${p1.x} ${p1.y} Q ${mx + nx * k} ${my + ny * k} ${p2.x} ${p2.y}`;
+            } else {
+              d = `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`;
+            }
+
+            const path = document.createElementNS(SVG_NS, "path");
+            path.setAttribute("class", "arrow-path");
+            path.setAttribute("d", d);
+            path.setAttribute("fill", "none");
+            path.setAttribute("stroke", "currentColor");
+            path.setAttribute("stroke-width", "1.5");
+            if (spec.dir === "->" || spec.dir === "<->")
+              path.setAttribute("marker-end", `url(#${markerId})`);
+            if (spec.dir === "<-" || spec.dir === "<->")
+              path.setAttribute("marker-start", `url(#${markerId})`);
+            svg.appendChild(path);
+          });
+        });
+      }
+
+      // Fix for multi-line syntax tokens (e.g. OCaml `(* ... *)` comments,
+      // template strings, heredocs) losing highlighting on every line after
+      // the first.
+      //
+      // Why: remark's per-line wrapper does `innerHTML.split('\n').map(l =>
+      // '<div class="remark-code-line">'+l+'</div>').join('')`. The browser's
+      // HTML parser then auto-closes any `<span>` left open at a `\n` and
+      // discards the matching `</span>` on the next line as a stray tag.
+      // Search for `remark-code-line` in remark-latest.min.js (function `u`)
+      // to see this. Remark does it this way because the per-line divs are
+      // needed for line-highlighting (`*line` prefix) and `min-height: 1em`.
+      //
+      // Our workaround: re-highlight the full block ourselves and re-split
+      // by `\n`, this time closing open spans at the break and reopening
+      // them on the next line. We can't do this purely from the post-remark
+      // DOM because the `</span>` was already discarded — we need a fresh
+      // hljs pass to know where the token actually ends.
+      //
+      // Caveats:
+      //  - Couples to the bundled hljs API. Remark uses an old hljs whose
+      //    signature is `highlight(lang, code, ignoreIllegals)`. Newer hljs
+      //    is `highlight(code, {language, ignoreIllegals})`. If remark ever
+      //    upgrades, this call will throw — we log loudly below rather than
+      //    silently swallowing so we notice.
+      //  - Runs once after first render. If slides are ever re-rendered
+      //    after load (they currently aren't), call this again.
+      function fixMultilineHighlighting() {
+        const hljs = remark.highlighter.engine;
+        const HI_CLASS = "remark-code-span-highlighted";
+        const HI_OPEN = `<span class="${HI_CLASS}">`;
+        const HI_CLOSE = "</span>";
+        document.querySelectorAll("pre code.hljs").forEach((code) => {
+          const lang = [...code.classList]
+            .map((c) => c.replace(/^language-/, ""))
+            .find(
+              (c) => c !== "hljs" && c !== "remark-code" && hljs.getLanguage(c),
+            );
+          if (!lang) return;
+          const lineEls = code.querySelectorAll(".remark-code-line");
+          if (lineEls.length < 2) return;
+          // Capture text + remark's code-span-highlighted ranges (in global text
+          // offsets including `\n` between lines) before we blow away the DOM.
+          const ranges = [];
+          const textParts = [];
+          let pos = 0;
+          lineEls.forEach((line, idx) => {
+            if (idx > 0) {
+              textParts.push("\n");
+              pos++;
+            }
+            const walk = (node, hi) => {
+              if (node.nodeType === 3) {
+                if (hi && node.data.length)
+                  ranges.push([pos, pos + node.data.length]);
+                textParts.push(node.data);
+                pos += node.data.length;
+              } else if (node.nodeType === 1) {
+                const h = hi || node.classList.contains(HI_CLASS);
+                for (const c of node.childNodes) walk(c, h);
+              }
+            };
+            for (const c of line.childNodes) walk(c, false);
+          });
+          const text = textParts.join("");
+          ranges.sort((a, b) => a[0] - b[0]);
+          const merged = [];
+          for (const r of ranges) {
+            if (merged.length && merged[merged.length - 1][1] >= r[0])
+              merged[merged.length - 1][1] = Math.max(
+                merged[merged.length - 1][1],
+                r[1],
+              );
+            else merged.push([...r]);
+          }
+          let html;
+          try {
+            html = hljs.highlight(lang, text, true).value;
+          } catch (e) {
+            console.error(
+              "fixMultilineHighlighting: hljs.highlight threw — bundled " +
+                "hljs API may have changed. See comment above this function.",
+              e,
+            );
+            return;
+          }
+          const split = [""];
+          const openTags = [];
+          let inHi = false;
+          let rangeIdx = 0;
+          let textPos = 0;
+          const shouldBeHi = () => {
+            while (rangeIdx < merged.length && merged[rangeIdx][1] <= textPos)
+              rangeIdx++;
+            return (
+              rangeIdx < merged.length &&
+              merged[rangeIdx][0] <= textPos &&
+              textPos < merged[rangeIdx][1]
+            );
+          };
+          const append = (s) => (split[split.length - 1] += s);
+          // Hi is always emitted as the outermost layer: when crossing a hi
+          // boundary while inside hljs spans, close hljs, toggle hi, reopen
+          // hljs. Keeps each hi range as one `.remark-code-span-highlighted`
+          // element (so code-span numbering matches source), and keeps nesting
+          // well-formed (browser won't auto-close anything).
+          const closeOpenTags = () => {
+            for (let j = 0; j < openTags.length; j++) append("</span>");
+          };
+          const reopenOpenTags = () => {
+            for (const t of openTags) append(t);
+          };
+          const toggleHi = (want) => {
+            if (want === inHi) return;
+            closeOpenTags();
+            append(want ? HI_OPEN : HI_CLOSE);
+            reopenOpenTags();
+            inHi = want;
+          };
+          let i = 0;
+          while (i < html.length) {
+            const ch = html[i];
+            if (ch === "\n") {
+              // Toggle hi for the \n position itself so we don't reopen hi on
+              // the next line if the range ended at end-of-line.
+              toggleHi(shouldBeHi());
+              closeOpenTags();
+              if (inHi) append(HI_CLOSE);
+              split.push("");
+              if (inHi) append(HI_OPEN);
+              reopenOpenTags();
+              textPos++;
+              i++;
+            } else if (ch === "<") {
+              const end = html.indexOf(">", i);
+              const tag = html.substring(i, end + 1);
+              if (tag.startsWith("</")) openTags.pop();
+              else if (!tag.endsWith("/>")) openTags.push(tag);
+              append(tag);
+              i = end + 1;
+            } else {
+              toggleHi(shouldBeHi());
+              if (ch === "&") {
+                const end = html.indexOf(";", i);
+                append(html.substring(i, end + 1));
+                i = end + 1;
+              } else {
+                append(ch);
+                i++;
+              }
+              textPos++;
+            }
+          }
+          if (inHi) {
+            closeOpenTags();
+            append(HI_CLOSE);
+            reopenOpenTags();
+          }
+          lineEls.forEach((el, idx) => {
+            if (split[idx] !== undefined) el.innerHTML = split[idx];
+          });
+        });
+      }
+      fixMultilineHighlighting();
+
+      // Remark only highlights fenced/indented blocks. Run hljs over inline
+      // `code` spans too, defaulting to OCaml since that's nearly all inline
+      // code in this deck.
+      function highlightInlineCode() {
+        const hljs = remark.highlighter.engine;
+        document
+          .querySelectorAll(".remark-inline-code:not([data-hljs])")
+          .forEach((el) => {
+            el.innerHTML = hljs.highlight("ocaml", el.textContent, true).value;
+            el.dataset.hljs = "1";
+          });
+      }
+      highlightInlineCode();
+
+      function refreshCodeSpanLayer() {
+        assignCodeSpanAnchors();
+        // Defer arrow drawing one frame so layout is settled after slide swap.
+        requestAnimationFrame(drawArrows);
+      }
+      slideshow.on("afterShowSlide", () => {
+        highlightInlineCode();
+        refreshCodeSpanLayer();
+      });
+      requestAnimationFrame(refreshCodeSpanLayer);
+      window.addEventListener("resize", () =>
+        requestAnimationFrame(drawArrows),
+      );
+
+      var morphSnapshots = {};
+
+      // Resolve a morph element's key from `data-morph` or a class of the
+      // form `morph-<key>` (excluding the `morph-element` marker class).
+      // Resolve a border-radius value to pixels (the spec keeps `%` in the
+      // computed value, but our keyframe compensation needs concrete px).
+      // Uses the element's offset size as the basis.
+      function resolveRadiusPx(el, cs) {
+        // borderTopLeftRadius can be "Npx", "N%", or "Hpx Vpx" for elliptical
+        // corners. Percentages resolve per-axis (h against width, v against
+        // height), so we must track h and v separately — otherwise an oval
+        // (e.g. 60×200 with border-radius: 50%) collapses to a single radius
+        // and renders as a rounded rectangle in the morph-from snapshot.
+        const parts = cs.borderTopLeftRadius.split(" ");
+        const resolve = (s, dim) =>
+          s.endsWith("%") ? (parseFloat(s) / 100) * dim : parseFloat(s);
+        const h = resolve(parts[0], el.offsetWidth);
+        const v = parts[1]
+          ? resolve(parts[1], el.offsetHeight)
+          : resolve(parts[0], el.offsetHeight);
+        return { h, v };
+      }
+
+      function morphKey(el) {
+        if (el.dataset.morph) return el.dataset.morph;
+        for (const c of el.classList) {
+          if (c.startsWith("morph-") && c !== "morph-element")
+            return c.slice("morph-".length);
+        }
+        return null;
+      }
+
+      // Wrap a morph element's content in an inline-block span so we can
+      // counter-scale it (cancels the parent's FLIP scale visually). Lazy:
+      // wraps once, then reuses.
+      function ensureMorphWrap(el) {
+        let wrap = el._morphWrap;
+        if (wrap && wrap.parentNode === el) return wrap;
+        wrap = document.createElement("div");
+        // Full-bleed flex wrap that re-centers its content the same way the
+        // user's morph-element typically does, so wrapping doesn't disturb
+        // layout. Block-level children (remark's <p> around $$math$$) and
+        // inline text both center.
+        wrap.style.display = "flex";
+        wrap.style.alignItems = "center";
+        wrap.style.justifyContent = "center";
+        wrap.style.flexDirection = "column";
+        wrap.style.width = "100%";
+        wrap.style.height = "100%";
+        wrap.style.transformOrigin = "center";
+        while (el.firstChild) wrap.appendChild(el.firstChild);
+        el.appendChild(wrap);
+        el._morphWrap = wrap;
+        return wrap;
+      }
+
+      // Find the DOM container for a remark slide. Remark inserts duplicate
+      // `.remark-slide-container` elements for presenter/preview modes, so
+      // restrict to the main `.remark-slides-area`.
+      function slideContainer(slide) {
+        const all = document.querySelectorAll(
+          ".remark-slides-area .remark-slide-container",
+        );
+        return all[slide.getSlideIndex()];
+      }
+
+      // Remark scales the slide-scaler down to fit the viewport (e.g.
+      // scale(0.847)). getBoundingClientRect returns screen-space rects (post-
+      // scaler), but transforms on the morph element apply in its *local*
+      // (pre-scaler) coordinate space. So FLIP translate must be divided by
+      // the scaler's scale.
+      function scalerScale() {
+        const scaler = document.querySelector(".remark-slide-scaler");
+        if (!scaler) return 1;
+        const m = (scaler.style.transform || "").match(/scale\(([0-9.]+)\)/);
+        return m ? parseFloat(m[1]) : 1;
+      }
+
+      // Wrap all morph elements as soon as remark has rendered the slides,
+      // so the wrap exists before we ever measure rects.
+      function wrapAll() {
+        document.querySelectorAll(".morph-element").forEach(ensureMorphWrap);
+      }
+      if (document.readyState === "complete") wrapAll();
+      else window.addEventListener("load", wrapAll);
+
+      slideshow.on("hideSlide", function (slide) {
+        const container = slideContainer(slide);
+        if (!container) return;
+        container.querySelectorAll(".morph-element").forEach((el) => {
+          ensureMorphWrap(el);
+          const key = morphKey(el);
+          if (!key) return;
+          el.dataset.morph = key; // normalize so the rest of the code works
+          // getBoundingClientRect reflects the live WAAPI transform, so this
+          // captures the visually-current position even mid-animation.
+          // Read first, cancel after — cancelling reverts the transform.
+          const rect = el.getBoundingClientRect();
+          const cs = getComputedStyle(el);
+          if (el._morphAnim) {
+            el._morphAnim.cancel();
+            el._morphAnim = null;
+          }
+          if (el._morphTextAnim) {
+            el._morphTextAnim.cancel();
+            el._morphTextAnim = null;
+          }
+          if (rect.width > 0 && rect.height > 0) {
+            morphSnapshots[el.dataset.morph] = {
+              rect,
+              bg: cs.backgroundColor,
+              color: cs.color,
+              radiusPx: resolveRadiusPx(el, cs),
+              fontSize: cs.fontSize,
+            };
+          }
+        });
+      });
+
+      slideshow.on("afterShowSlide", function (slide) {
+        const container = slideContainer(slide);
+        if (!container) return;
+        container.querySelectorAll(".morph-element").forEach((el) => {
+          const key = morphKey(el);
+          if (!key) return;
+          el.dataset.morph = key;
+          const from = morphSnapshots[key];
+          if (!from) return;
+          ensureMorphWrap(el);
+          const to = el.getBoundingClientRect();
+          const sx = from.rect.width / to.width;
+          const sy = from.rect.height / to.height;
+          if (!isFinite(sx) || !isFinite(sy)) return;
+          const k = scalerScale();
+          const dx =
+            (from.rect.left + from.rect.width / 2 - (to.left + to.width / 2)) /
+            k;
+          const dy =
+            (from.rect.top + from.rect.height / 2 - (to.top + to.height / 2)) /
+            k;
+
+          if (el._morphAnim) el._morphAnim.cancel();
+          if (el._morphTextAnim) el._morphTextAnim.cancel();
+          const toCS = getComputedStyle(el);
+          // Pre-apply frame-0 transform synchronously so a paint between
+          // slide change and animation start never shows the element at rest.
+          el.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+          // Compensate border-radius for the parent's scale: visual radii
+          // = stored radii × parent scale per axis. To keep the visual radius
+          // matching the outgoing slide at frame 0, set independent horizontal
+          // and vertical radii via `border-radius: <h> / <v>` — otherwise a
+          // non-uniform morph (sx ≠ sy) makes the corners visually pop.
+          const toR_px = resolveRadiusPx(el, toCS);
+          const fromR = `${from.radiusPx.h / sx}px / ${from.radiusPx.v / sy}px`;
+          const toR = `${toR_px.h}px / ${toR_px.v}px`;
+          // Clear the inline transform when the animation is done so the
+          // element settles into its natural rest state.
+          const clearStyle = () => {
+            el.style.transform = "";
+          };
+          el._morphAnim = el.animate(
+            [
+              {
+                transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
+                backgroundColor: from.bg,
+                color: from.color,
+                borderRadius: fromR,
+              },
+              {
+                transform: "none",
+                backgroundColor: toCS.backgroundColor,
+                color: toCS.color,
+                borderRadius: toR,
+              },
+            ],
+            { duration: 400, easing: "ease-in-out" },
+          );
+          el._morphAnim.addEventListener("finish", clearStyle);
+          el._morphAnim.addEventListener("cancel", clearStyle);
+
+          // Image-bearing morphs let the image scale with the parent FLIP.
+          if (el.querySelector("img")) return;
+          // Animate wrap font-size and counter-scaleX so glyphs keep natural
+          // aspect ratio under non-uniform box morphs. Note: morphing between
+          // *different* text content with very different lengths produces
+          // mid-animation distortion — only same-text size morphs are
+          // really supported.
+          const wrap = ensureMorphWrap(el);
+          const fromFS = parseFloat(from.fontSize);
+          const toFS = parseFloat(toCS.fontSize);
+          el._morphTextAnim = wrap.animate(
+            [
+              {
+                fontSize: `${fromFS / sy}px`,
+                transform: `scaleX(${sy / sx})`,
+              },
+              { fontSize: `${toFS}px`, transform: "none" },
+            ],
+            { duration: 400, easing: "ease-in-out" },
+          );
+        });
+      });
+    </script>
+
+    <script>
+      // ---- Overview ----
+      // Press `o` to toggle an overview grid of all slides; click a tile to
+      // jump to that slide. Adapted from the remark "tile" plugin.
+      window.addEventListener("load", function () {
+        // Smallest tile width before the grid wraps to fewer columns. The
+        // grid uses `auto-fill, minmax(OVERVIEW_MIN, 1fr)` so tiles always fill
+        // the row — actual rendered width grows beyond OVERVIEW_MIN as needed.
+        const OVERVIEW_MIN = 220;
+        const slideShow = document.querySelector("div.remark-slides-area");
+        const overviewEl = document.createElement("div");
+        overviewEl.id = "overview-mode";
+        overviewEl.style.setProperty("--overview-min", OVERVIEW_MIN + "px");
+
+        const header = document.createElement("h1");
+        header.id = "overview-header";
+        header.textContent = "Overview";
+        overviewEl.appendChild(header);
+
+        const grid = document.createElement("div");
+        grid.id = "overview-grid";
+        overviewEl.appendChild(grid);
+
+        // Read slide dimensions from the inline width/height that remark sets
+        // on the scaler (e.g. "1210px" / "681px"). offsetWidth/Height can race
+        // with remark's own sizing pass — if we measure before remark finishes,
+        // overview-scale's denominator disagrees with the cloned scaler's actual
+        // rendered size and tiles render too small.
+        const origScaler = slideShow.querySelector(".remark-slide-scaler");
+        const readSlideSize = () => ({
+          w: parseFloat(origScaler.style.width) || origScaler.offsetWidth,
+          h: parseFloat(origScaler.style.height) || origScaler.offsetHeight,
+        });
+        let { w: slideWidth, h: slideHeight } = readSlideSize();
+        const slidesClone = slideShow.cloneNode(true);
+        const cloneContainers = slidesClone.querySelectorAll(
+          ".remark-slide-container",
+        );
+        const tiles = []; // .overview-tile elements, one per slide
+        cloneContainers.forEach((container, i) => {
+          const bg = document.createElement("div");
+          bg.className = "overview-tile";
+          const tile = document.createElement("div");
+          tile.className = "overview-frame";
+          const inner = document.createElement("div");
+          inner.className = "overview-container";
+          // Inline aspect-ratio (not via CSS var) — Firefox doesn't resolve
+          // `aspect-ratio: var(--slide-ar)` reliably, so set it per-element.
+          inner.style.aspectRatio = `${slideWidth} / ${slideHeight}`;
+
+          const scaler = container.querySelector(".remark-slide-scaler");
+          if (scaler) {
+            // top/left/transform live in CSS now so a single --overview-scale
+            // var can re-scale every cloned slide on viewport resize.
+            scaler.style.top = "";
+            scaler.style.left = "";
+            scaler.style.transform = "";
+            scaler.parentElement.classList.add("remark-visible");
+          }
+
+          inner.appendChild(container);
+          tile.appendChild(inner);
+          bg.appendChild(tile);
+          grid.appendChild(bg);
+          tiles.push(bg);
+
+          bg.addEventListener("click", () => {
+            toggleOverview();
+            slideshow.gotoSlide(i + 1);
+          });
+        });
+
+        document.body.appendChild(overviewEl);
+        overviewEl.style.display = "none";
+
+        // Keep --overview-scale in sync with the actual rendered column width.
+        // Observing one overview-container is enough — they're all the same width.
+        // While overview is `display: none` the probe has zero width and RO
+        // doesn't fire for display-none elements, so we also recompute on toggle.
+        const probe = grid.querySelector(".overview-container");
+        const updateScale = () => {
+          if (!probe) return;
+          const w = probe.clientWidth;
+          if (w <= 0) return;
+          // Re-read slide size in case remark resized the original scaler
+          // (e.g. window resize) after the clones were built.
+          const s = readSlideSize();
+          if (s.w > 0) slideWidth = s.w;
+          if (s.h > 0) slideHeight = s.h;
+          overviewEl.style.setProperty("--overview-scale", w / slideWidth);
+        };
+        if (probe) new ResizeObserver(updateScale).observe(probe);
+
+        function toggleOverview() {
+          const showing = overviewEl.style.display === "none";
+          overviewEl.style.display = showing ? "" : "none";
+          slideShow.style.display = showing ? "none" : "";
+          if (!showing) return;
+          // Now that the grid has a real layout, lock in the tile scale.
+          updateScale();
+
+          focusTile(currentSlideIndex());
+        }
+
+        function currentSlideIndex() {
+          const visible = slideShow.querySelector(
+            ".remark-slide-container.remark-visible",
+          );
+          const liveContainers = slideShow.querySelectorAll(
+            ".remark-slide-container",
+          );
+          return Array.from(liveContainers).indexOf(visible);
+        }
+
+        let focusedIndex = 0;
+        function focusTile(i) {
+          if (i < 0) i = 0;
+          if (i >= tiles.length) i = tiles.length - 1;
+          focusedIndex = i;
+          tiles.forEach((bg, j) => {
+            bg.querySelector(".overview-frame").classList.toggle(
+              "current-overview-tile",
+              j === i,
+            );
+          });
+          const t = tiles[i];
+          if (t) t.scrollIntoView({ block: "nearest" });
+          slideshow.gotoSlide(i + 1);
+        }
+
+        // Number of grid columns, derived from tile layout (first row of tiles
+        // shares an offsetTop). Recomputed each call since the grid is
+        // responsive.
+        function overviewColumns() {
+          if (tiles.length === 0) return 1;
+          const top0 = tiles[0].offsetTop;
+          let n = 0;
+          for (const bg of tiles) {
+            if (bg.offsetTop !== top0) break;
+            n++;
+          }
+          return n || 1;
+        }
+
+        // Capture-phase so we intercept arrow keys before remark advances.
+        document.addEventListener(
+          "keydown",
+          (event) => {
+            if (overviewEl.style.display === "none") return;
+            const tag = (event.target.tagName || "").toLowerCase();
+            if (tag === "input" || tag === "textarea") return;
+            const cols = overviewColumns();
+            let next = focusedIndex;
+            switch (event.key) {
+              case "ArrowLeft":
+                next = focusedIndex - 1;
+                break;
+              case "ArrowRight":
+                next = focusedIndex + 1;
+                break;
+              case "ArrowUp":
+                next = focusedIndex - cols;
+                break;
+              case "ArrowDown":
+                next = focusedIndex + cols;
+                break;
+              case "Home":
+                next = 0;
+                break;
+              case "End":
+                next = tiles.length - 1;
+                break;
+              case "Enter":
+              case " ":
+                toggleOverview();
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+              default:
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            focusTile(next);
+          },
+          true,
+        );
+
+        document.body.addEventListener("keyup", (event) => {
+          const tag = (event.target.tagName || "").toLowerCase();
+          if (tag === "input" || tag === "textarea") return;
+          if (event.key !== "o" && event.key !== "O") return;
+          toggleOverview();
+        });
+      });
+    </script>
+  </body>
+</html>
