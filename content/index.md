@@ -37,13 +37,15 @@
 
 I'm a PhD student in the [PLSE lab](https://nus-plse.github.io/) at NUS.
 
-My research focuses on new ways to specify and verify [higher-order](https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/FM2024_TR.pdf), [effectful](https://www.comp.nus.edu.sg/~yahuis/ICFP24/ICFP2024.pdf) [programs](https://www.comp.nus.edu.sg/~yahuis/APLAS2022.pdf). I previously also worked on [specification and testing techniques for distributed systems](https://dariusf.github.io/cpluscal.pdf).
+My [research](/thesis) focuses on new ways to specify and verify [higher-order](https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/FM2024_TR.pdf), [effectful](https://www.comp.nus.edu.sg/~yahuis/ICFP24/ICFP2024.pdf) [programs](https://www.comp.nus.edu.sg/~yahuis/APLAS2022.pdf). I previously also worked on [specifying and testing distributed systems](https://dariusf.github.io/cpluscal.pdf).
+
+<!-- I'm a postdoc in the [PLSE lab](https://nus-plse.github.io/) at NUS. -->
+
+<!-- I completed my PhD in the [PLSE lab](https://nus-plse.github.io/) at NUS. -->
+
+<!-- My [dissertation](/thesis) was on relational verification of [higher-order](https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/FM2024_TR.pdf), [effectful](https://www.comp.nus.edu.sg/~yahuis/ICFP24/ICFP2024.pdf) [programs](https://www.comp.nus.edu.sg/~yahuis/APLAS2022.pdf). I previously also worked on [specifying and testing distributed systems](https://dariusf.github.io/cpluscal.pdf). -->
 
 I am more generally interested in all aspects of programming languages and formal verification. My goal is to build better tools for developers and lower the barrier to engineering reliable software.
-
-<!-- making reasoning tractable -->
-
-<!-- I previously dabbled in static analysis and logic/answer set programming. -->
 
 <!--
 Separately, [game development](/other#games).
