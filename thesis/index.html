@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-		<meta property="og:title" content="Darius Foo">
-		<meta property="og:type" content="article">
-		<meta property="og:url" content="https://dariusf.github.io">
-		<meta property="og:image" content="https://dariusf.github.io/avatar.png">
+		<meta property="og:title" content="Darius Foo" />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content="https://dariusf.github.io" />
+		<meta property="og:image" content="https://dariusf.github.io/avatar.png" />
 
 		<title>PhD Thesis</title>
 		<meta name="description" content="PhD student, programming languages and formal verification">
@@ -24,7 +24,8 @@
 
 		
 		
-		<style>/* This is an arbitrary CSS string added to the bundle */
+		
+		<style>
 :root {
 	/* --font-family: -apple-system, system-ui, sans-serif; */
 	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
@@ -214,9 +215,6 @@ footer {
 	width: 1px;
 }
 
-p:has(img) {
-	text-align: center;
-}
 /* Fluid images via https://www.zachleat.com/web/fluid-images/ */
 img{
   max-width: 100%;
@@ -342,13 +340,15 @@ pre:not([class*="language-"]) {
 
 .scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
   display: none;
-}
+}</style>
+		
+		
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
-/* mathjax v4, where display math is not centered */
-mjx-container {
-	margin: auto;
-}
-header {
+		<style>
+		header {
 			/* display: flex; */
 			/* gap: 2em; */
 			border-right: 10px;
@@ -359,21 +359,7 @@ header {
 			padding-top: 1em;
 			/* padding: 1em; */
 		}
-.nav-item {
-				font-family: var(--heading-font);
-				padding-right: 5px;
-				display: inline-block;
-			}
-			
-			.nav-item a[href][aria-current="page"] {
-				text-decoration: underline;
-				text-decoration-thickness: 2px;
-			}</style>
-	</head>
-	<body>
-		<a href="#skip" class="visually-hidden">Skip to main content</a>
-
-		
+		</style>
 
 		<header>
 
@@ -389,9 +375,20 @@ header {
 				
 				
 			
+			<style>
+			.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
 			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}
+			</style>
 			<nav style="display: inline-block">
-				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul style="list-style: none; padding: 0; margin: 0;">
 					<li class="nav-item"><a href="/blog/">Blog</a></li>
 					<li class="nav-item"><a href="/research/">Research</a></li>
@@ -402,8 +399,7 @@ header {
 		</header>
 
 		<main id="skip">
-			
-<h1 id="automated-verification-of-effectful-higher-order-programs">Automated Verification of Effectful Higher-order Programs</h1>
+			<h1 id="automated-verification-of-effectful-higher-order-programs">Automated Verification of Effectful Higher-order Programs</h1>
 <p>Higher-order functions and computational effects (such as mutable state, exceptions, and algebraic effects) are ubiquitous in real-world programs. However, verifying programs which use them together remains challenging: these features interact in ways that require nonlocal reasoning, necessitating handcrafted auxiliary specifications (such as invariants or protocols). This creates a conundrum, where automated verifiers provide only partial support or none at all, while interactive verifiers rely on semantic, manual approaches with no clear route to automation.</p>
 <p>To address this problem, this dissertation introduces staged logic, a refinement-based logic for reasoning about effectful higher-order programs. Its central insight is that maintaining precision in specifications – by internalising effects in the logic rather than relying on auxiliary specifications – significantly simplifies proofs, which in turn enables automation via a syntactic proof search procedure. This is realised in Heifer, an automated SMT-based verifier for annotated OCaml programs, which has been evaluated on a range of challenging case studies. To validate its metatheory, two fragments of staged logic have also been mechanised in Rocq. Together, these efforts demonstrate that staged logic is a practical and effective foundation for the automated verification of effectful higher-order programs.</p>
 <!-- [Latest draft](/thesis.pdf) (updated 25 May 2026) -->
@@ -413,9 +409,8 @@ header {
 <!-- [Regex interpreter](https://github.com/dariusf/staged) -->
 <p><a href="https://github.com/hipsleek/Heifer/">Heifer</a></p>
 <p><a href="https://github.com/dariusf/staged">Mechanisation 1</a></p>
-<p>[Mechanisation 2] (https://github.com/dariusf/staged/tree/ctx-equiv)</p>
+<p><a href="https://github.com/dariusf/staged/tree/ctx-equiv">Mechanisation 2</a></p>
 <p><a href="https://github.com/dariusf/staged-lean">Heifer 2</a></p>
-
 
 		</main>
 
@@ -423,7 +418,7 @@ header {
 			
 		</footer>
 
-		<!-- This page `/thesis/` was built on 2026-07-14T08:41:39.995Z -->
+		
 		
 	</body>
 </html>

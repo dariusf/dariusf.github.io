@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-		<meta property="og:title" content="Darius Foo">
-		<meta property="og:type" content="article">
-		<meta property="og:url" content="https://dariusf.github.io">
-		<meta property="og:image" content="https://dariusf.github.io/avatar.png">
+		<meta property="og:title" content="Darius Foo" />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content="https://dariusf.github.io" />
+		<meta property="og:image" content="https://dariusf.github.io/avatar.png" />
 
 		<title>ER Diagrams and Alloy</title>
 		<meta name="description" content="PhD student, programming languages and formal verification">
@@ -24,271 +24,8 @@
 
 		
 		
-		<style>@media (prefers-color-scheme: light) { /**
- * prism.js default theme for JavaScript, CSS and HTML
- * Based on dabblet (http://dabblet.com)
- * @author Lea Verou
- */
-
-code[class*="language-"],
-pre[class*="language-"] {
-	color: black;
-	background: none;
-	text-shadow: 0 1px white;
-	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-	font-size: 1em;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	word-wrap: normal;
-	line-height: 1.5;
-
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
-
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
-}
-
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
-	text-shadow: none;
-	background: #b3d4fc;
-}
-
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
-	text-shadow: none;
-	background: #b3d4fc;
-}
-
-@media print {
-	code[class*="language-"],
-	pre[class*="language-"] {
-		text-shadow: none;
-	}
-}
-
-/* Code blocks */
-pre[class*="language-"] {
-	padding: 1em;
-	margin: .5em 0;
-	overflow: auto;
-}
-
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-	background: #f5f2f0;
-}
-
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-	padding: .1em;
-	border-radius: .3em;
-	white-space: normal;
-}
-
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: slategray;
-}
-
-.token.punctuation {
-	color: #999;
-}
-
-.token.namespace {
-	opacity: .7;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-	color: #905;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-	color: #690;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-	color: #9a6e3a;
-	/* This background color was intended by the author of this theme. */
-	background: hsla(0, 0%, 100%, .5);
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-	color: #07a;
-}
-
-.token.function,
-.token.class-name {
-	color: #DD4A68;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-	color: #e90;
-}
-
-.token.important,
-.token.bold {
-	font-weight: bold;
-}
-.token.italic {
-	font-style: italic;
-}
-
-.token.entity {
-	cursor: help;
-}
- }
-@media (prefers-color-scheme: dark) { /**
- * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
- * Based on https://github.com/chriskempson/tomorrow-theme
- * @author Rose Pritchard
- */
-
-code[class*="language-"],
-pre[class*="language-"] {
-	color: #ccc;
-	background: none;
-	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-	font-size: 1em;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	word-wrap: normal;
-	line-height: 1.5;
-
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
-
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
-
-}
-
-/* Code blocks */
-pre[class*="language-"] {
-	padding: 1em;
-	margin: .5em 0;
-	overflow: auto;
-}
-
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-	background: #2d2d2d;
-}
-
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-	padding: .1em;
-	border-radius: .3em;
-	white-space: normal;
-}
-
-.token.comment,
-.token.block-comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: #999;
-}
-
-.token.punctuation {
-	color: #ccc;
-}
-
-.token.tag,
-.token.attr-name,
-.token.namespace,
-.token.deleted {
-	color: #e2777a;
-}
-
-.token.function-name {
-	color: #6196cc;
-}
-
-.token.boolean,
-.token.number,
-.token.function {
-	color: #f08d49;
-}
-
-.token.property,
-.token.class-name,
-.token.constant,
-.token.symbol {
-	color: #f8c555;
-}
-
-.token.selector,
-.token.important,
-.token.atrule,
-.token.keyword,
-.token.builtin {
-	color: #cc99cd;
-}
-
-.token.string,
-.token.char,
-.token.attr-value,
-.token.regex,
-.token.variable {
-	color: #7ec699;
-}
-
-.token.operator,
-.token.entity,
-.token.url {
-	color: #67cdcc;
-}
-
-.token.important,
-.token.bold {
-	font-weight: bold;
-}
-.token.italic {
-	font-style: italic;
-}
-
-.token.entity {
-	cursor: help;
-}
-
-.token.inserted {
-	color: green;
-}
- }
-/* This is an arbitrary CSS string added to the bundle */
+		
+		<style>
 :root {
 	/* --font-family: -apple-system, system-ui, sans-serif; */
 	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
@@ -478,9 +215,6 @@ footer {
 	width: 1px;
 }
 
-p:has(img) {
-	text-align: center;
-}
 /* Fluid images via https://www.zachleat.com/web/fluid-images/ */
 img{
   max-width: 100%;
@@ -606,13 +340,15 @@ pre:not([class*="language-"]) {
 
 .scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
   display: none;
-}
+}</style>
+		
+		
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
-/* mathjax v4, where display math is not centered */
-mjx-container {
-	margin: auto;
-}
-header {
+		<style>
+		header {
 			/* display: flex; */
 			/* gap: 2em; */
 			border-right: 10px;
@@ -623,21 +359,7 @@ header {
 			padding-top: 1em;
 			/* padding: 1em; */
 		}
-.nav-item {
-				font-family: var(--heading-font);
-				padding-right: 5px;
-				display: inline-block;
-			}
-			
-			.nav-item a[href][aria-current="page"] {
-				text-decoration: underline;
-				text-decoration-thickness: 2px;
-			}</style>
-	</head>
-	<body>
-		<a href="#skip" class="visually-hidden">Skip to main content</a>
-
-		
+		</style>
 
 		<header>
 
@@ -653,9 +375,20 @@ header {
 				
 				
 			
+			<style>
+			.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
 			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}
+			</style>
 			<nav style="display: inline-block">
-				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul style="list-style: none; padding: 0; margin: 0;">
 					<li class="nav-item"><a href="/blog/">Blog</a></li>
 					<li class="nav-item"><a href="/research/">Research</a></li>
@@ -668,7 +401,272 @@ header {
 		<main id="skip">
 			
 
-<h1 style="margin-top: 1rem; margin-bottom: 0.2em" id="er-diagrams-and-alloy">ER Diagrams and Alloy</h1>
+<style> @media (prefers-color-scheme: light) { /**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+ } </style>
+<style> @media (prefers-color-scheme: dark) { /**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+ } </style>
+
+<h1 style="margin-top: 1rem; margin-bottom: 0.2em">ER Diagrams and Alloy</h1>
 
 
 
@@ -695,45 +693,45 @@ sig e2 {}</code></pre>
 This means that <code>r1</code> is <em>one-to-many</em>: every <code>e1</code> is related to exactly one <code>e2</code>, but there may be <code>e2</code>s not related to any <code>e1</code>s.</p>
 <p>Here is an equivalent ER diagram<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>:</p>
 <div style="text-align: center" class="theme-affected scroll-when-overflowing">
-
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.43.0 (0)
+<!-- Generated by graphviz version 12.2.1 (20241206.2353)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="323pt" height="44pt" viewBox="0.00 0.00 322.83 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="326pt" height="44pt"
+ viewBox="0.00 0.00 325.99 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
 <title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-40 318.83,-40 318.83,4 -4,4"></polygon>
+<polygon fill="white" stroke="none" points="-4,4 -4,-40 321.99,-40 321.99,4 -4,4"/>
 <!-- e1 -->
 <g id="0_node1" class="node">
 <title>e1</title>
-<polygon fill="none" stroke="black" points="54,-36 0,-36 0,0 54,0 54,-36"></polygon>
-<text text-anchor="middle" x="27" y="-14.3" font-family="Times,serif" font-size="14.00">e1</text>
+<polygon fill="none" stroke="black" points="54,-36 0,-36 0,0 54,0 54,-36"/>
+<text text-anchor="middle" x="27" y="-13.32" font-family="Times,serif" font-size="14.00">e1</text>
 </g>
 <!-- r1 -->
 <g id="0_node3" class="node">
 <title>r1</title>
-<polygon fill="none" stroke="black" points="157.41,-36 128.09,-18 157.41,0 186.74,-18 157.41,-36"></polygon>
-<text text-anchor="middle" x="157.41" y="-14.3" font-family="Times,serif" font-size="14.00">r1</text>
+<polygon fill="none" stroke="black" points="159,-36 127.5,-18 159,0 190.49,-18 159,-36"/>
+<text text-anchor="middle" x="159" y="-13.32" font-family="Times,serif" font-size="14.00">r1</text>
 </g>
 <!-- e1&#45;&gt;r1 -->
 <g id="0_edge1" class="edge">
 <title>e1&#45;&gt;r1</title>
-<path fill="none" stroke="black" d="M54.3,-18C75.72,-18 105.92,-18 127.92,-18"></path>
-<text text-anchor="middle" x="91" y="-21.8" font-family="Times,serif" font-size="14.00">(1, 1)</text>
+<path fill="none" stroke="black" d="M54.31,-18C75.23,-18 104.56,-18 126.69,-18"/>
+<text text-anchor="middle" x="90.75" y="-21.95" font-family="Times,serif" font-size="14.00">(1, 1)</text>
 </g>
 <!-- e2 -->
 <g id="0_node2" class="node">
 <title>e2</title>
-<polygon fill="none" stroke="black" points="314.83,-36 260.83,-36 260.83,0 314.83,0 314.83,-36"></polygon>
-<text text-anchor="middle" x="287.83" y="-14.3" font-family="Times,serif" font-size="14.00">e2</text>
+<polygon fill="none" stroke="black" points="317.99,-36 263.99,-36 263.99,0 317.99,0 317.99,-36"/>
+<text text-anchor="middle" x="290.99" y="-13.32" font-family="Times,serif" font-size="14.00">e2</text>
 </g>
 <!-- r1&#45;&gt;e2 -->
 <g id="0_edge2" class="edge">
 <title>r1&#45;&gt;e2</title>
-<path fill="none" stroke="black" d="M186.91,-18C208.93,-18 239.17,-18 260.59,-18"></path>
-<text text-anchor="middle" x="223.83" y="-21.8" font-family="Times,serif" font-size="14.00">(0, n)</text>
+<path fill="none" stroke="black" d="M191.47,-18C213.56,-18 242.77,-18 263.63,-18"/>
+<text text-anchor="middle" x="227.24" y="-21.95" font-family="Times,serif" font-size="14.00">(0, n)</text>
 </g>
 </g>
 </svg>
@@ -746,45 +744,45 @@ To specify the converse cardinality, we can use a signature fact, using <code>~<
 sig e2 {}{ one this.~r1 }</code></pre>
 <p>This means that each e1 is associated with exactly one e2 <em>and vice versa</em>.</p>
 <div style="text-align: center" class="theme-affected scroll-when-overflowing">
-
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.43.0 (0)
+<!-- Generated by graphviz version 12.2.1 (20241206.2353)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="323pt" height="44pt" viewBox="0.00 0.00 322.83 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="326pt" height="44pt"
+ viewBox="0.00 0.00 325.99 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="1" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
 <title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-40 318.83,-40 318.83,4 -4,4"></polygon>
+<polygon fill="white" stroke="none" points="-4,4 -4,-40 321.99,-40 321.99,4 -4,4"/>
 <!-- e1 -->
 <g id="1_node1" class="node">
 <title>e1</title>
-<polygon fill="none" stroke="black" points="54,-36 0,-36 0,0 54,0 54,-36"></polygon>
-<text text-anchor="middle" x="27" y="-14.3" font-family="Times,serif" font-size="14.00">e1</text>
+<polygon fill="none" stroke="black" points="54,-36 0,-36 0,0 54,0 54,-36"/>
+<text text-anchor="middle" x="27" y="-13.32" font-family="Times,serif" font-size="14.00">e1</text>
 </g>
 <!-- r1 -->
 <g id="1_node3" class="node">
 <title>r1</title>
-<polygon fill="none" stroke="black" points="157.41,-36 128.09,-18 157.41,0 186.74,-18 157.41,-36"></polygon>
-<text text-anchor="middle" x="157.41" y="-14.3" font-family="Times,serif" font-size="14.00">r1</text>
+<polygon fill="none" stroke="black" points="159,-36 127.5,-18 159,0 190.49,-18 159,-36"/>
+<text text-anchor="middle" x="159" y="-13.32" font-family="Times,serif" font-size="14.00">r1</text>
 </g>
 <!-- e1&#45;&gt;r1 -->
 <g id="1_edge1" class="edge">
 <title>e1&#45;&gt;r1</title>
-<path fill="none" stroke="black" d="M54.3,-18C75.72,-18 105.92,-18 127.92,-18"></path>
-<text text-anchor="middle" x="91" y="-21.8" font-family="Times,serif" font-size="14.00">(1, 1)</text>
+<path fill="none" stroke="black" d="M54.31,-18C75.23,-18 104.56,-18 126.69,-18"/>
+<text text-anchor="middle" x="90.75" y="-21.95" font-family="Times,serif" font-size="14.00">(1, 1)</text>
 </g>
 <!-- e2 -->
 <g id="1_node2" class="node">
 <title>e2</title>
-<polygon fill="none" stroke="black" points="314.83,-36 260.83,-36 260.83,0 314.83,0 314.83,-36"></polygon>
-<text text-anchor="middle" x="287.83" y="-14.3" font-family="Times,serif" font-size="14.00">e2</text>
+<polygon fill="none" stroke="black" points="317.99,-36 263.99,-36 263.99,0 317.99,0 317.99,-36"/>
+<text text-anchor="middle" x="290.99" y="-13.32" font-family="Times,serif" font-size="14.00">e2</text>
 </g>
 <!-- r1&#45;&gt;e2 -->
 <g id="1_edge2" class="edge">
 <title>r1&#45;&gt;e2</title>
-<path fill="none" stroke="black" d="M186.91,-18C208.93,-18 239.17,-18 260.59,-18"></path>
-<text text-anchor="middle" x="223.83" y="-21.8" font-family="Times,serif" font-size="14.00">(1, 1)</text>
+<path fill="none" stroke="black" d="M191.47,-18C213.56,-18 242.77,-18 263.63,-18"/>
+<text text-anchor="middle" x="227.24" y="-21.95" font-family="Times,serif" font-size="14.00">(1, 1)</text>
 </g>
 </g>
 </svg>
@@ -826,46 +824,46 @@ sig e2 {}{ one this.~r1 }</code></pre>
 <h2 id="checking-properties">Checking properties</h2>
 <p>With this encoding, we can already reason mechanically about ER diagrams.
 For example, we can verify simple properties, such as: that the cardinality constraints we state do what we intend them to.</p>
-<p>Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.864ex" height="1.025ex" role="img" focusable="false" viewBox="0 -479 414 491" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-3-STX-I-1D450" d="M358 123C327 85 288 57 219 57C161 57 109 77 109 184C109 300 170 446 280 446C312 446 329 434 329 419C329 403 310 375 310 349C310 327 324 314 348 314C385 314 404 346 404 386C404 451 353 479 290 479C146 479 26 335 26 169C26 68 71-12 179-12C269-12 334 44 375 108Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="c"><g data-mml-node="mi" data-latex="c"><use data-c="1D450" xlink:href="#MJX-3-STX-I-1D450"></use></g></g></g></svg></mjx-container> means…</p>
+<p>Cardinality constraints essentially rule out some models. For example, in the following scenario, the constraint <img class="theme-affected" src="/math/8645165c5ee26b41ab32d5efc241ebc957ab49db.svg" alt="c" style="height:1.026ex;"> means…</p>
 <div style="text-align: center" class="theme-affected scroll-when-overflowing">
-
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.43.0 (0)
+<!-- Generated by graphviz version 12.2.1 (20241206.2353)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="256pt" height="44pt" viewBox="0.00 0.00 255.83 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="259pt" height="44pt"
+ viewBox="0.00 0.00 259.49 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="2" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
 <title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-40 251.83,-40 251.83,4 -4,4"></polygon>
+<polygon fill="white" stroke="none" points="-4,4 -4,-40 255.49,-40 255.49,4 -4,4"/>
 <!-- e1 -->
 <g id="2_node1" class="node">
 <title>e1</title>
-<polygon fill="none" stroke="black" points="54,-36 0,-36 0,0 54,0 54,-36"></polygon>
-<text text-anchor="middle" x="27" y="-14.3" font-family="Times,serif" font-size="14.00">e1</text>
+<polygon fill="none" stroke="black" points="54,-36 0,-36 0,0 54,0 54,-36"/>
+<text text-anchor="middle" x="27" y="-13.32" font-family="Times,serif" font-size="14.00">e1</text>
 </g>
 <!-- r1 -->
 <g id="2_node3" class="node">
 <title>r1</title>
-<polygon fill="none" stroke="black" points="127.41,-36 98.09,-18 127.41,0 156.74,-18 127.41,-36"></polygon>
-<text text-anchor="middle" x="127.41" y="-14.3" font-family="Times,serif" font-size="14.00">r1</text>
+<polygon fill="none" stroke="black" points="129,-36 97.5,-18 129,0 160.49,-18 129,-36"/>
+<text text-anchor="middle" x="129" y="-13.32" font-family="Times,serif" font-size="14.00">r1</text>
 </g>
 <!-- e1&#45;&gt;r1 -->
 <g id="2_edge1" class="edge">
 <title>e1&#45;&gt;r1</title>
-<path fill="none" stroke="black" d="M54.11,-18C67.55,-18 83.96,-18 97.75,-18"></path>
-<text text-anchor="middle" x="76" y="-21.8" font-family="Times,serif" font-size="14.00">c</text>
+<path fill="none" stroke="black" d="M54.27,-18C67.24,-18 82.97,-18 96.56,-18"/>
+<text text-anchor="middle" x="75.75" y="-21.95" font-family="Times,serif" font-size="14.00">c</text>
 </g>
 <!-- e2 -->
 <g id="2_node2" class="node">
 <title>e2</title>
-<polygon fill="none" stroke="black" points="247.83,-36 193.83,-36 193.83,0 247.83,0 247.83,-36"></polygon>
-<text text-anchor="middle" x="220.83" y="-14.3" font-family="Times,serif" font-size="14.00">e2</text>
+<polygon fill="none" stroke="black" points="251.49,-36 197.49,-36 197.49,0 251.49,0 251.49,-36"/>
+<text text-anchor="middle" x="224.49" y="-13.32" font-family="Times,serif" font-size="14.00">e2</text>
 </g>
 <!-- r1&#45;&gt;e2 -->
 <g id="2_edge2" class="edge">
 <title>r1&#45;&gt;e2</title>
-<path fill="none" stroke="black" d="M156.84,-18C168.58,-18 182.1,-18 193.6,-18"></path>
+<path fill="none" stroke="black" d="M161.39,-18C172.96,-18 185.93,-18 197.02,-18"/>
 </g>
 </g>
 </svg>
@@ -874,7 +872,7 @@ For example, we can verify simple properties, such as: that the cardinality cons
 <table>
 <thead>
 <tr>
-<th>Constraint <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.864ex" height="1.025ex" role="img" focusable="false" viewBox="0 -479 414 491" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-4-STX-I-1D450" d="M358 123C327 85 288 57 219 57C161 57 109 77 109 184C109 300 170 446 280 446C312 446 329 434 329 419C329 403 310 375 310 349C310 327 324 314 348 314C385 314 404 346 404 386C404 451 353 479 290 479C146 479 26 335 26 169C26 68 71-12 179-12C269-12 334 44 375 108Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="c"><g data-mml-node="mi" data-latex="c"><use data-c="1D450" xlink:href="#MJX-4-STX-I-1D450"></use></g></g></g></svg></mjx-container></th>
+<th>Constraint <img class="theme-affected" src="/math/8645165c5ee26b41ab32d5efc241ebc957ab49db.svg" alt="c" style="height:1.026ex;"></th>
 <th>Meaning</th>
 </tr>
 </thead>
@@ -902,7 +900,7 @@ For example, we can verify simple properties, such as: that the cardinality cons
 </tbody>
 </table>
 </div>
-<p>Given <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.864ex" height="1.025ex" role="img" focusable="false" viewBox="0 -479 414 491" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-5-STX-I-1D450" d="M358 123C327 85 288 57 219 57C161 57 109 77 109 184C109 300 170 446 280 446C312 446 329 434 329 419C329 403 310 375 310 349C310 327 324 314 348 314C385 314 404 346 404 386C404 451 353 479 290 479C146 479 26 335 26 169C26 68 71-12 179-12C269-12 334 44 375 108Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="c"><g data-mml-node="mi" data-latex="c"><use data-c="1D450" xlink:href="#MJX-5-STX-I-1D450"></use></g></g></g></svg></mjx-container> is (1, 1), all the models of a particular ER diagram should satisfy properties like:</p>
+<p>Given <img class="theme-affected" src="/math/8645165c5ee26b41ab32d5efc241ebc957ab49db.svg" alt="c" style="height:1.026ex;"> is (1, 1), all the models of a particular ER diagram should satisfy properties like:</p>
 <ol>
 <li>All <code>e1</code>s are related by <code>r1</code></li>
 <li>No <code>e1</code>s are related by <code>r1</code> multiple times</li>
@@ -942,40 +940,40 @@ check no_unrelated_e2 for 2</code></pre>
    Counterexample found. Assertion is invalid. 5ms.</code></pre>
 <p>The counterexample produced demonstrates rather obviously that it is possible to have an <code>e2</code> not related to an <code>e1</code>.</p>
 <div style="text-align: center" class="theme-affected scroll-when-overflowing">
-
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.43.0 (0)
+<!-- Generated by graphviz version 12.2.1 (20241206.2353)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="190pt" height="98pt" viewBox="0.00 0.00 189.99 98.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="197pt" height="98pt"
+ viewBox="0.00 0.00 197.24 98.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="3" class="graph" transform="scale(1 1) rotate(0) translate(4 94)">
 <title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-94 185.99,-94 185.99,4 -4,4"></polygon>
+<polygon fill="white" stroke="none" points="-4,4 -4,-94 193.24,-94 193.24,4 -4,4"/>
 <!-- e1_0 -->
 <g id="3_node1" class="node">
 <title>e1_0</title>
-<ellipse fill="none" stroke="black" cx="32.5" cy="-18" rx="32.49" ry="18"></ellipse>
-<text text-anchor="middle" x="32.5" y="-14.3" font-family="Times,serif" font-size="14.00">e1_0</text>
+<ellipse fill="none" stroke="black" cx="34.37" cy="-18" rx="34.37" ry="18"/>
+<text text-anchor="middle" x="34.37" y="-13.32" font-family="Times,serif" font-size="14.00">e1_0</text>
 </g>
 <!-- e2_0 -->
 <g id="3_node2" class="node">
 <title>e2_0</title>
-<ellipse fill="none" stroke="black" cx="149.49" cy="-18" rx="32.49" ry="18"></ellipse>
-<text text-anchor="middle" x="149.49" y="-14.3" font-family="Times,serif" font-size="14.00">e2_0</text>
+<ellipse fill="none" stroke="black" cx="154.87" cy="-18" rx="34.37" ry="18"/>
+<text text-anchor="middle" x="154.87" y="-13.32" font-family="Times,serif" font-size="14.00">e2_0</text>
 </g>
 <!-- e1_0&#45;&gt;e2_0 -->
 <g id="3_edge1" class="edge">
 <title>e1_0&#45;&gt;e2_0</title>
-<path fill="none" stroke="black" d="M65.22,-18C78.04,-18 93.02,-18 106.71,-18"></path>
-<polygon fill="black" stroke="black" points="106.87,-21.5 116.87,-18 106.87,-14.5 106.87,-21.5"></polygon>
-<text text-anchor="middle" x="90.99" y="-21.8" font-family="Times,serif" font-size="14.00">r1</text>
+<path fill="none" stroke="black" d="M69.01,-18C81.39,-18 95.63,-18 108.85,-18"/>
+<polygon fill="black" stroke="black" points="108.63,-21.5 118.63,-18 108.63,-14.5 108.63,-21.5"/>
+<text text-anchor="middle" x="94.62" y="-21.95" font-family="Times,serif" font-size="14.00">r1</text>
 </g>
 <!-- e2_1 -->
 <g id="3_node3" class="node">
 <title>e2_1</title>
-<ellipse fill="none" stroke="black" cx="32.5" cy="-72" rx="32.49" ry="18"></ellipse>
-<text text-anchor="middle" x="32.5" y="-68.3" font-family="Times,serif" font-size="14.00">e2_1</text>
+<ellipse fill="none" stroke="black" cx="34.37" cy="-72" rx="34.37" ry="18"/>
+<text text-anchor="middle" x="34.37" y="-67.33" font-family="Times,serif" font-size="14.00">e2_1</text>
 </g>
 </g>
 </svg>
@@ -992,63 +990,63 @@ Say we want a model where <code>e1</code> and <code>e2</code> are related:</p>
 <h2 id="minimum-and-maximum-cardinality">Minimum and maximum cardinality</h2>
 <p>Finding models can help us answer other kinds of questions, like:</p>
 <div style="text-align: center" class="theme-affected scroll-when-overflowing">
-
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.43.0 (0)
+<!-- Generated by graphviz version 12.2.1 (20241206.2353)
  -->
 <!-- Title: G Pages: 1 -->
-<svg width="323pt" height="98pt" viewBox="0.00 0.00 322.83 98.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="326pt" height="98pt"
+ viewBox="0.00 0.00 325.99 98.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="4" class="graph" transform="scale(1 1) rotate(0) translate(4 94)">
 <title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-94 318.83,-94 318.83,4 -4,4"></polygon>
+<polygon fill="white" stroke="none" points="-4,4 -4,-94 321.99,-94 321.99,4 -4,4"/>
 <!-- e1 -->
 <g id="4_node1" class="node">
 <title>e1</title>
-<polygon fill="none" stroke="black" points="54,-63 0,-63 0,-27 54,-27 54,-63"></polygon>
-<text text-anchor="middle" x="27" y="-41.3" font-family="Times,serif" font-size="14.00">e1</text>
+<polygon fill="none" stroke="black" points="54,-63 0,-63 0,-27 54,-27 54,-63"/>
+<text text-anchor="middle" x="27" y="-40.33" font-family="Times,serif" font-size="14.00">e1</text>
 </g>
 <!-- r1 -->
 <g id="4_node3" class="node">
 <title>r1</title>
-<polygon fill="none" stroke="black" points="157.41,-90 128.09,-72 157.41,-54 186.74,-72 157.41,-90"></polygon>
-<text text-anchor="middle" x="157.41" y="-68.3" font-family="Times,serif" font-size="14.00">r1</text>
+<polygon fill="none" stroke="black" points="159,-90 127.5,-72 159,-54 190.49,-72 159,-90"/>
+<text text-anchor="middle" x="159" y="-67.33" font-family="Times,serif" font-size="14.00">r1</text>
 </g>
 <!-- e1&#45;&gt;r1 -->
 <g id="4_edge1" class="edge">
 <title>e1&#45;&gt;r1:w</title>
-<path fill="none" stroke="black" d="M54.22,-56.14C74.1,-63.58 102.28,-72 128,-72"></path>
-<text text-anchor="middle" x="91" y="-73.8" font-family="Times,serif" font-size="14.00">(1, 1)</text>
+<path fill="none" stroke="black" d="M54.5,-56.29C74.25,-63.69 102.08,-72 127.5,-72"/>
+<text text-anchor="middle" x="90.75" y="-74.51" font-family="Times,serif" font-size="14.00">(1, 1)</text>
 </g>
 <!-- e2 -->
 <g id="4_node2" class="node">
 <title>e2</title>
-<polygon fill="none" stroke="black" points="314.83,-63 260.83,-63 260.83,-27 314.83,-27 314.83,-63"></polygon>
-<text text-anchor="middle" x="287.83" y="-41.3" font-family="Times,serif" font-size="14.00">e2</text>
+<polygon fill="none" stroke="black" points="317.99,-63 263.99,-63 263.99,-27 317.99,-27 317.99,-63"/>
+<text text-anchor="middle" x="290.99" y="-40.33" font-family="Times,serif" font-size="14.00">e2</text>
 </g>
 <!-- r2 -->
 <g id="4_node4" class="node">
 <title>r2</title>
-<polygon fill="none" stroke="black" points="157.41,-36 128.09,-18 157.41,0 186.74,-18 157.41,-36"></polygon>
-<text text-anchor="middle" x="157.41" y="-14.3" font-family="Times,serif" font-size="14.00">r2</text>
+<polygon fill="none" stroke="black" points="159,-36 127.5,-18 159,0 190.49,-18 159,-36"/>
+<text text-anchor="middle" x="159" y="-13.32" font-family="Times,serif" font-size="14.00">r2</text>
 </g>
 <!-- e2&#45;&gt;r2 -->
 <g id="4_edge3" class="edge">
 <title>e2&#45;&gt;r2:e</title>
-<path fill="none" stroke="black" d="M260.61,-33.86C240.73,-26.42 212.54,-18 186.83,-18"></path>
-<text text-anchor="middle" x="223.83" y="-30.8" font-family="Times,serif" font-size="14.00">(1, 1)</text>
+<path fill="none" stroke="black" d="M263.49,-33.71C243.75,-26.31 215.91,-18 190.49,-18"/>
+<text text-anchor="middle" x="227.24" y="-31.45" font-family="Times,serif" font-size="14.00">(1, 1)</text>
 </g>
 <!-- r1&#45;&gt;e2 -->
 <g id="4_edge2" class="edge">
 <title>r1:e&#45;&gt;e2</title>
-<path fill="none" stroke="black" d="M186.83,-72C212.54,-72 240.73,-63.58 260.61,-56.14"></path>
-<text text-anchor="middle" x="223.83" y="-73.8" font-family="Times,serif" font-size="14.00">(0, n)</text>
+<path fill="none" stroke="black" d="M190.49,-72C215.91,-72 243.75,-63.69 263.49,-56.29"/>
+<text text-anchor="middle" x="227.24" y="-74.51" font-family="Times,serif" font-size="14.00">(0, n)</text>
 </g>
 <!-- r2&#45;&gt;e1 -->
 <g id="4_edge4" class="edge">
 <title>r2:w&#45;&gt;e1</title>
-<path fill="none" stroke="black" d="M128,-18C102.28,-18 74.1,-26.42 54.22,-33.86"></path>
-<text text-anchor="middle" x="91" y="-30.8" font-family="Times,serif" font-size="14.00">(0, 1)</text>
+<path fill="none" stroke="black" d="M127.5,-18C102.08,-18 74.25,-26.31 54.5,-33.71"/>
+<text text-anchor="middle" x="90.75" y="-31.45" font-family="Times,serif" font-size="14.00">(0, 1)</text>
 </g>
 </g>
 </svg>
@@ -1160,7 +1158,7 @@ In Section 4.3.2, they give a translation scheme very briefly.</p>
 <tr>
 <td>Key attribute</td>
 <td>Separate uniqueness assumption</td>
-<td><code>fact {#employee = #employee.id}</code></td>
+<td>{% raw %}<code>fact {#employee = #employee.id}</code>{% endraw %}</td>
 </tr>
 </tbody>
 </table>
@@ -1205,7 +1203,7 @@ It seems better to use Alloy’s relations if aggregation isn’t required.</p>
 			
 		</footer>
 
-		<!-- This page `/blog/erd-alloy/` was built on 2026-07-14T08:41:39.997Z -->
+		
 		
 	</body>
 </html>

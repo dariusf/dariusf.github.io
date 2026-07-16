@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
-		<meta property="og:title" content="Darius Foo">
-		<meta property="og:type" content="article">
-		<meta property="og:url" content="https://dariusf.github.io">
-		<meta property="og:image" content="https://dariusf.github.io/avatar.png">
+		<meta property="og:title" content="Darius Foo" />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content="https://dariusf.github.io" />
+		<meta property="og:image" content="https://dariusf.github.io/avatar.png" />
 
 		<title>Work</title>
 		<meta name="description" content="PhD student, programming languages and formal verification">
@@ -24,7 +24,8 @@
 
 		
 		
-		<style>/* This is an arbitrary CSS string added to the bundle */
+		
+		<style>
 :root {
 	/* --font-family: -apple-system, system-ui, sans-serif; */
 	/* --font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
@@ -214,9 +215,6 @@ footer {
 	width: 1px;
 }
 
-p:has(img) {
-	text-align: center;
-}
 /* Fluid images via https://www.zachleat.com/web/fluid-images/ */
 img{
   max-width: 100%;
@@ -342,13 +340,15 @@ pre:not([class*="language-"]) {
 
 .scroll-when-overflowing::-webkit-scrollbar, pre::-webkit-scrollbar {
   display: none;
-}
+}</style>
+		
+		
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
-/* mathjax v4, where display math is not centered */
-mjx-container {
-	margin: auto;
-}
-header {
+		<style>
+		header {
 			/* display: flex; */
 			/* gap: 2em; */
 			border-right: 10px;
@@ -359,21 +359,7 @@ header {
 			padding-top: 1em;
 			/* padding: 1em; */
 		}
-.nav-item {
-				font-family: var(--heading-font);
-				padding-right: 5px;
-				display: inline-block;
-			}
-			
-			.nav-item a[href][aria-current="page"] {
-				text-decoration: underline;
-				text-decoration-thickness: 2px;
-			}</style>
-	</head>
-	<body>
-		<a href="#skip" class="visually-hidden">Skip to main content</a>
-
-		
+		</style>
 
 		<header>
 
@@ -389,9 +375,20 @@ header {
 				
 				
 			
+			<style>
+			.nav-item {
+				font-family: var(--heading-font);
+				padding-right: 5px;
+				display: inline-block;
+			}
 			
+			.nav-item a[href][aria-current="page"] {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+			}
+			</style>
 			<nav style="display: inline-block">
-				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul style="list-style: none; padding: 0; margin: 0;">
 					<li class="nav-item"><a href="/blog/">Blog</a></li>
 					<li class="nav-item"><a href="/research/">Research</a></li>
@@ -402,8 +399,7 @@ header {
 		</header>
 
 		<main id="skip">
-			
-<!-- <h3 style="margin: 0">Work</h3> -->
+			<!-- <h3 style="margin: 0">Work</h3> -->
 <!-- ### Work -->
 <p>My <a href="/resume.pdf">resume</a>.</p>
 <!-- My [resume](/resume.pdf) and extended [CV](/cv). -->
@@ -440,14 +436,13 @@ header {
 - [US20200042712A1](https://patents.google.com/patent/US20200042712A1/en)
 -->
 
-
 		</main>
 
 		<footer>
 			
 		</footer>
 
-		<!-- This page `/work/` was built on 2026-07-14T08:41:39.995Z -->
+		
 		
 	</body>
 </html>
