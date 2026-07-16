@@ -27,7 +27,9 @@ const FONT_SIZE = 12;
 const PT_PER_EX = 5.45;
 
 // dvisvgm needs ghostscript. mactex doesn't ship libgs, so brew install ghostscript
-const LIBGS = "/opt/homebrew/lib/libgs.dylib";
+// and point dvisvgm at it via the LIBGS env var. On Linux (e.g. CI) dvisvgm finds
+// libgs itself, so we only pass LIBGS when it names a file that actually exists.
+const LIBGS = process.env.LIBGS ?? "/opt/homebrew/lib/libgs.dylib";
 
 function wrapFormula(formula, defs) {
 	return `\\documentclass[${FONT_SIZE}pt]{article}

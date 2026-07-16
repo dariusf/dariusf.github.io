@@ -19,22 +19,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup GraphViz
-        run: sudo apt-get install graphviz
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - uses: xu-cheng/texlive-action@v3
         with:
-          node-version: "20"
-
-      - name: Cache npm
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-
-      - run: npm install
-      - run: npm run build
+          run: |
+            apk add --no-cache nodejs npm ghostscript graphviz
+            node --version
+            npm install
+            make build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
