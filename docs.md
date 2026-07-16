@@ -26,7 +26,13 @@ make build  # render site to _build/dist
 └── vite.config.js
 ```
 
-Site metadata is available to every page under the `data` variable.
+Site metadata is available to every page under the `data` variable:
+`data.site`,
+`data.posts`,
+`data.drafts`,
+`data.pages`,
+`data.all` (posts, drafts, and pages).
+
 Page-level metadata is available directly.
 
 ## LaTeX

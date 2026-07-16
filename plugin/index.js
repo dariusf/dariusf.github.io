@@ -1,15 +1,4 @@
 // A minimal static site generator on Vite.
-//
-// Vite provides the dev server, watcher, and full-reload websocket; pages are
-// rendered by plain functions in this file. There is no bundling and no module
-// graph: markdown-it renders markdown (with LaTeX math compiled to SVGs, see
-// latex-math.js), nunjucks renders templates, and the whole site is re-rendered
-// on any change (rendering is cheap; math is content-hash cached).
-//
-// Layout: posts/ -> /blog/*, drafts/ -> /drafts/* (unlisted), pages/ -> /*,
-// static/ -> copied to the site root, templates/ -> nunjucks search path.
-// Everything is available to templates under a single `data` object:
-// data.site (site.yaml), data.posts, data.drafts, data.pages, data.all.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -20,7 +9,7 @@ import { createMarkdown, slugify } from "./markdown.js";
 const OUT = "_build/dist";
 const MATH_CACHE = "_build/math-cache";
 
-// ---------------------------------------------------------------- scanning
+// scanning
 
 function parseFrontmatter(src) {
 	const m = src.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
@@ -57,8 +46,15 @@ function readPage(file, url, kind, layout) {
 	};
 }
 
-// A posts-style directory: foo.md -> <prefix>/foo/, or foo/index.md ->
-// <prefix>/foo/ with all other files in foo/ copied alongside as assets.
+/*
+  The posts directory. <prefix> is something like "/blog".
+  Each post is either:
+    foo.md            -> /blog/foo/
+    foo/index.md      -> /blog/foo/
+      (or foo/foo.md, if there's no index.md)
+
+  In the directory form, every other file under foo/ is copied alongside at the same relative path, e.g. foo/img/x.png -> /blog/foo/img/x.png.
+*/
 function scanPostsDir(dir, prefix, kind) {
 	if (!fs.existsSync(dir)) return [];
 	const pages = [];
@@ -113,7 +109,7 @@ function scanPagesDir(dir) {
 	return pages;
 }
 
-// --------------------------------------------------------------- rendering
+// rendering
 
 function nunjucksEnv(root) {
 	const env = new nunjucks.Environment(
@@ -155,7 +151,8 @@ export function createSite(root) {
 			.map((p) => {
 				const entry = { ...p.fm, url: p.url, title: p.title, date: p.date };
 				if (p.engine === "md") {
-					// rendered body, computed on demand (the feed includes full content)
+					// rendered body of markdown files, computed lazily
+					// (only the feed needs this)
 					let html;
 					Object.defineProperty(entry, "content", {
 						get: () =>
@@ -175,6 +172,7 @@ export function createSite(root) {
 	const pages = scanPagesDir(path.join(root, "pages"));
 	const all = [...posts, ...drafts, ...pages];
 
+	// Build metadata
 	const data = {
 		site: yamlLoad(fs.readFileSync(path.join(root, "site.yaml"), "utf8")),
 		posts: listing(posts),
@@ -207,6 +205,16 @@ function copyFile(src, dest) {
 	fs.copyFileSync(src, dest);
 }
 
+function renderPageSafe(site, page) {
+	try {
+		return site.renderPage(page);
+	} catch (e) {
+		console.error(`[ssg] failed to render ${page.inputPath}:`, e.message);
+		return `<pre>Failed to render ${page.inputPath}\n\n${e.stack ?? e}</pre>`;
+	}
+}
+
+// Generate pages, assets, math; used on hot-reload
 export function renderSite(root) {
 	const out = path.join(root, OUT);
 	const site = createSite(root);
@@ -227,15 +235,7 @@ export function renderSite(root) {
 	return site;
 }
 
-function renderPageSafe(site, page) {
-	try {
-		return site.renderPage(page);
-	} catch (e) {
-		console.error(`[ssg] failed to render ${page.inputPath}:`, e.message);
-		return `<pre>Failed to render ${page.inputPath}\n\n${e.stack ?? e}</pre>`;
-	}
-}
-
+// For production build; clean, renderSite, and copy all static files
 export function buildSite(root) {
 	const out = path.join(root, OUT);
 	fs.rmSync(out, { recursive: true, force: true });
@@ -245,7 +245,7 @@ export function buildSite(root) {
 	console.log(`[ssg] built ${site.pages.length} pages -> ${OUT}`);
 }
 
-// -------------------------------------------------------------- dev server
+// dev server
 
 const MIME = {
 	".html": "text/html",
@@ -287,7 +287,7 @@ export default function ssg() {
 			const onChange = (file) => {
 				if (!watched.some((w) => file.startsWith(w))) return;
 				console.log(`[ssg] ${path.relative(root, file)} changed, rebuilding`);
-				renderSite(root);
+				renderSite(root); // rebuild whole site on change
 				server.ws.send({ type: "full-reload" });
 			};
 			server.watcher.on("add", onChange);

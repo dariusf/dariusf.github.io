@@ -1,7 +1,6 @@
 // LaTeX math for markdown-it: $...$ and $$...$$ are compiled with real LaTeX
 // (latex + dvisvgm) into SVGs, emitted as <img> tags with baseline-correct
-// vertical alignment. JS reimplementation of pandoc-latex-math's lua filter.
-//
+// vertical alignment.
 // SVGs are cached by content hash in _build/math-cache/ and copied to /math/
 // in the output site.
 
@@ -21,8 +20,13 @@ const PREAMBLE = `
 `;
 
 const FONT_SIZE = 12;
+// The SVG's pt dimensions are at LaTeX's FONT_SIZE, whose x-height is ~5.45pt
+// (Charter's x-height ratio ~0.454 * 12pt). Sizing in ex ties the rendered math
+// to the surrounding font's x-height — the scheme MathJax uses, so sizes match
+// the old site. If FONT_SIZE or the preamble's font changes, retune PT_PER_EX.
+const PT_PER_EX = 5.45;
 
-// dvisvgm needs ghostscript; mactex doesn't ship libgs, homebrew does
+// dvisvgm needs ghostscript. mactex doesn't ship libgs, so brew install ghostscript
 const LIBGS = "/opt/homebrew/lib/libgs.dylib";
 
 function wrapFormula(formula, defs) {
@@ -130,11 +134,6 @@ function renderToImg(formula, display, cacheDir, defs, page) {
 	// explained (a warm cache prints nothing)
 	if (compiled)
 		console.log(`[latex-math] rendered${where}: ${formula.slice(0, 60)}`);
-	// The SVG's pt dimensions are at LaTeX's 12pt font size, whose x-height is
-	// ~5.45pt. Sizing in ex units ties the rendered size to the surrounding
-	// font's x-height — the same scheme MathJax uses, so sizes match the old
-	// site for both inline and display math.
-	const PT_PER_EX = 5.45;
 	let style = "";
 	if (height != null) {
 		style = `height:${(height / PT_PER_EX).toFixed(3)}ex;`;
