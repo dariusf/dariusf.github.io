@@ -1,7 +1,6 @@
 ---
 title: "Visualizing Z3's proofs"
 date: 2021-03-21
-math: true
 ---
 
 _A writeup of a presentation I gave in class._

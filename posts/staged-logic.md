@@ -2,7 +2,6 @@
 # title: "Staged logic"
 title: "Verifying effectful higher-order programs with staged logic"
 date: 2024-08-16
-math: true
 mathDefs: |
     \newcommand{\m}[1]{\mathit{#1}}
     \newcommand{\foldr}{\m{foldr}}

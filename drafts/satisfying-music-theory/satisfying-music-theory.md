@@ -1,7 +1,6 @@
 ---
 title: "Satisfying Music Theory I"
 date: 2022-12-30
-math: true
 # toc: true
 templateEngineOverride: md
 ---

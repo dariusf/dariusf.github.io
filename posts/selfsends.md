@@ -1,7 +1,6 @@
 ---
 title: "Self-send projection"
 date: 2023-11-28
-math: true
 mathDefs: |
     \newcommand{\m}[1]{\mathit{#1}}
     \newcommand{\kwproj}{\mathbin{\upharpoonright}}

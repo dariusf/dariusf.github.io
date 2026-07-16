@@ -1,7 +1,6 @@
 ---
 title: "The functorial approach to binding"
 date: 2025-11-27
-math: false
 ---
 
 I became aware of a very interesting library recently.

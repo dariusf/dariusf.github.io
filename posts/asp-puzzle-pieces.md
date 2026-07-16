@@ -1,7 +1,6 @@
 ---
 title: "Bags of puzzle pieces in ASP"
 date: 2017-11-25
-math: true
 ---
 
 Answer set programming is an offshoot of traditional logic programming with a number of nice properties: programs always terminate, are fully declarative (i.e. clause ordering doesn't matter and search is complete, unlike Prolog), and have a [well-defined semantics](https://en.wikipedia.org/wiki/Stable_model_semantics). Modelling a domain with relations is a wonderfully high-level way to reason about things, allowing complex rules to be represented [concisely](https://en.wikipedia.org/wiki/Answer_set_programming#Examples_of_ASP_programs).

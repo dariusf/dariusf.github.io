@@ -2,7 +2,6 @@
 title: "Getting started with setoid rewriting in Coq"
 # title: "The road to setoid hell is paved with typeclass error messages"
 date: 2024-10-04
-math: true
 ---
 
 An intuitive look at setoid rewriting

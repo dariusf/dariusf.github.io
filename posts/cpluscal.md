@@ -1,7 +1,6 @@
 ---
 title: "Choreographic PlusCal"
 date: 2023-12-31
-math: false
 ---
 
 Choreographic PlusCal is a refinement of PlusCal with features for specifying distributed protocols.

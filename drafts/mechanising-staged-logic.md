@@ -1,7 +1,6 @@
 ---
 title: "Mechanising staged logic"
 date: 2024-12-04
-math: true
 ---
 
 *Text version of a talk given at the inaugural [SG Programming Languages Summit](https://verse-lab.github.io/sg-pl-summit/)*.

@@ -1,7 +1,6 @@
 ---
 title: "Ordering events across live loops in Sonic Pi"
 date: 2023-06-03
-math: false
 ---
 
 Sonic Pi has an elegant and well-thought [temporal semantics](https://in-thread.sonic-pi.net/t/what-does-time-mean-in-sonic-pi/4509). Using the following program as an example,

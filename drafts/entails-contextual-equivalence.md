@@ -1,7 +1,6 @@
 ---
 title: "From entailment to contextual refinement"
 date: 2025-10-29
-math: true
 mathDefs: |
   \newcommand{\m}[1]{\mathit{#1}}
   \newcommand{\flow}{\varphi}

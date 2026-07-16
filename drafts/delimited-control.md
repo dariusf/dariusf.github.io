@@ -2,7 +2,6 @@
 # title: "Dipping your toes into delimited control"
 title: "A primer on delimited control"
 date: 2025-10-27
-math: true
 ---
 
 The literature on continuations and delimited control is vast.
