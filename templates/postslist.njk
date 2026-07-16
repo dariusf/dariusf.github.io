@@ -1,3 +1,5 @@
+{% extends "base.njk" %}
+{% block body %}
 {%- css %}
 {# .postlist {
 		counter-reset: start-from {{ (postslistCounter or postslist.length) + 1 }}
@@ -101,3 +103,4 @@ ul.blog-posts li span {
     {{ end }}
   </ul>
 #}
+{% endblock %}

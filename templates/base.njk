@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ metadata.language }}">
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
@@ -9,9 +9,9 @@
 		<meta property="og:url" content="https://dariusf.github.io" />
 		<meta property="og:image" content="https://dariusf.github.io/avatar.png" />
 
-		<title>{{ title or metadata.title }}</title>
-		<meta name="description" content="{{ description or metadata.description }}">
-		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
+		<title>{{ title or data.site.title }}</title>
+		<meta name="description" content="{{ description or data.site.description }}">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ data.site.title }}">
 
 
 		{#
@@ -53,21 +53,22 @@
 		#}
 
 		{#- Add an arbitrary string to the bundle #}
-		{%- css %}/* This is an arbitrary CSS string added to the bundle */{% endcss %}
+		{# {%- css %}/* This is an arbitrary CSS string added to the bundle */{% endcss %} #}
 		{#- Add the contents of a file to the bundle #}
-		{%- css %}{% include "static/css/index.css" %}{% endcss %}
+		{# {%- css %}{% include "static/css/index.css" %}{% endcss %} #}
+		<style>{% include "static/css/index.css" %}</style>
 		{#- Or you can add from node_modules #}
 		{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
 
 		{#- Render the CSS bundle using inlined CSS (for the fastest site performance in production) #}
-		<style>{% getBundle "css" %}</style>
+		{# <style>{% getBundle "css" %}</style> #}
 		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
 		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
 	</head>
 	<body>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
-		{% css %}
+		<style>
 		header {
 			/* display: flex; */
 			/* gap: 2em; */
@@ -79,7 +80,7 @@
 			padding-top: 1em;
 			/* padding: 1em; */
 		}
-		{% endcss %}
+		</style>
 
 		<header>
 
@@ -88,7 +89,7 @@
 			{# .home-link:link:not(:hover) {
 				text-decoration: none;
 			} #}
-			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">{{ metadata.title }}</a>
+			<a href="/" style="padding-right: 10px; color: var(--text-color); font-family: var(--heading-font); font-size: 1.5em;">{{ data.site.title }}</a>
 			{# .nav { #}
 				{# /* display: flex; */ #}
 				{# /* gap: .5em 1em; */ #}
@@ -97,7 +98,7 @@
 				{# list-style: none; #}
 				{# display: inline-block; #}
 			{# } #}
-			{% css %}
+			<style>
 			.nav-item {
 				font-family: var(--heading-font);
 				padding-right: 5px;
@@ -110,13 +111,13 @@
 				text-decoration: underline;
 				text-decoration-thickness: 2px;
 			}
-			{% endcss %}
+			</style>
 
 			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
 			<nav style="display: inline-block">
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul style="list-style: none; padding: 0; margin: 0;">
-				{%- for entry in collections.all | eleventyNavigation %}
+				{%- for entry in data.site.nav %}
 					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
 				{%- endfor %}
 				</ul>
@@ -124,14 +125,14 @@
 		</header>
 
 		<main id="skip">
-			{{ content | safe }}
+			{% block body %}{{ content | safe }}{% endblock %}
 		</main>
 
 		<footer>
 			{# <p><em>Built with <a href="https://www.11ty.dev/">{{ eleventy.generator }}</a></em></p> #}
 		</footer>
 
-		<!-- This page `{{ page.url }}` was built on {% currentBuildDate %} -->
-		<script type="module" src="{% getBundleFileUrl "js" %}"></script>
+		{# <!-- This page `{{ page.url }}` was built on {% currentBuildDate %} --> #}
+		{# <script type="module" src="{% getBundleFileUrl "js" %}"></script> #}
 	</body>
 </html>

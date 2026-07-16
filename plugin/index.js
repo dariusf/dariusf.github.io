@@ -109,7 +109,7 @@ function scanPagesDir(dir) {
 
 function nunjucksEnv(root) {
   const env = new nunjucks.Environment(
-    new nunjucks.FileSystemLoader(path.join(root, "templates"), { noCache: true }),
+    new nunjucks.FileSystemLoader([path.join(root, "templates"), root], { noCache: true }),
     { autoescape: true },
   );
   // "7 Mar 2025", like luxon's "d LLL yyyy" (Intl en-GB says "Sept", not "Sep")

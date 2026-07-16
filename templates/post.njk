@@ -1,9 +1,8 @@
----
-layout: layouts/base.njk
----
+{% extends "base.njk" %}
+{% block body %}
 {# Only include the syntax highlighter CSS on blog posts, included with the CSS per-page bundle #}
-{%- css %} @media (prefers-color-scheme: light) { {% include "node_modules/prismjs/themes/prism.css" %} } {% endcss %}
-{%- css %} @media (prefers-color-scheme: dark) { {% include "node_modules/prismjs/themes/prism-tomorrow.css" %} } {% endcss %}
+<style> @media (prefers-color-scheme: light) { {% include "node_modules/prismjs/themes/prism.css" %} } </style>
+<style> @media (prefers-color-scheme: dark) { {% include "node_modules/prismjs/themes/prism-tomorrow.css" %} } </style>
 {# {%- css %}{% include "static/css/prism-diff.css" %}{%- endcss %} #}
 <h1 style="margin-top: 1rem; margin-bottom: 0.2em">{{ title }}</h1>
 
@@ -47,3 +46,4 @@ layout: layouts/base.njk
 <div class="blog-content">
 {{ content | safe }}
 </div>
+{% endblock %}
