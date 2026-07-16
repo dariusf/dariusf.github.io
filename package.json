@@ -1,55 +1,17 @@
 {
-	"name": "eleventy-base-blog",
-	"version": "9.0.0",
-	"description": "A starter repository for a blog web site using the Eleventy site generator.",
-	"type": "module",
-	"scripts": {
-		"build": "npx @11ty/eleventy",
-		"build-nocolor": "cross-env NODE_DISABLE_COLORS=1 npx @11ty/eleventy",
-		"build-ghpages": "npx @11ty/eleventy",
-		"start": "npx @11ty/eleventy --serve --quiet",
-		"start-ghpages": "npx @11ty/eleventy --serve --quiet",
-		"debug": "cross-env DEBUG=Eleventy* npx @11ty/eleventy",
-		"debugstart": "cross-env DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
-		"benchmark": "cross-env DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/dariusf/dariusf.github.io.git"
-	},
-	"author": {
-		"name": "Zach Leatherman",
-		"email": "zachleatherman@gmail.com",
-		"url": "https://zachleat.com/"
-	},
-	"license": "MIT",
-	"engines": {
-		"node": ">=18"
-	},
-	"funding": {
-		"type": "opencollective",
-		"url": "https://opencollective.com/11ty"
-	},
-	"bugs": {
-		"url": "https://github.com/11ty/eleventy-base-blog/issues"
-	},
-	"homepage": "https://github.com/11ty/eleventy-base-blog#readme",
-	"devDependencies": {
-		"@11ty/eleventy": "^3.0.0",
-		"@11ty/eleventy-img": "^6.0.1",
-		"@11ty/eleventy-navigation": "^0.3.5",
-		"@11ty/eleventy-plugin-rss": "^2.0.2",
-		"@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
-		"cross-env": "^7.0.3",
-		"luxon": "^3.5.0",
-		"prismjs": "^1.29.0",
-		"zod": "^3.23.8",
-		"zod-validation-error": "^3.3.1"
-	},
-	"dependencies": {
-		"@mathjax/src": "^4.0.0",
-		"@mathjax/mathjax-stix2-font": "^4.0.0",
-		"markdown-it-footnote": "^4.0.0",
-		"markdown-it-mathjax3": "^4.3.2"
-	}
+  "name": "vite-ssg",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node plugin/build.js"
+  },
+  "dependencies": {
+    "js-yaml": "^5.2.0",
+    "markdown-it": "^14.2.0",
+    "markdown-it-footnote": "^4.0.0",
+    "nunjucks": "^3.2.4",
+    "prismjs": "^1.30.0",
+    "vite": "^8.1.2"
+  }
 }
