@@ -91,7 +91,7 @@ function renderLatex(formula, cacheDir, defs) {
 		}
 		const dvisvgm = run("dvisvgm", ["--no-fonts", "-o", "m.svg", "m.dvi"], {
 			cwd: tmp,
-			env: { ...process.env, LIBGS },
+			env: fs.existsSync(LIBGS) ? { ...process.env, LIBGS } : process.env,
 		});
 		if (!fs.existsSync(path.join(tmp, "m.svg"))) {
 			throw new Error(`dvisvgm failed:\n${dvisvgm.stderr}`);
