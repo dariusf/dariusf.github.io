@@ -28,16 +28,10 @@ const FONT_SIZE = 12;
 const LIBGS = "/opt/homebrew/lib/libgs.dylib";
 
 function wrapFormula(formula, defs) {
-  // MathJax let mathDefs redefine existing commands (e.g. \sb); \newcommand
-  // errors on those, so turn each definition into provide-then-renew
-  const defs1 = (defs ?? "").replace(
-    /\\newcommand\*?{(\\[a-zA-Z]+)}/g,
-    "\\providecommand{$1}{}\\renewcommand{$1}",
-  );
   return `\\documentclass[${FONT_SIZE}pt]{article}
 \\usepackage[utf8]{inputenc}
 ${PREAMBLE}
-${defs1}
+${defs ?? ""}
 \\begin{document}
 \\begin{preview}
 ${formula}
@@ -74,7 +68,7 @@ function renderLatex(formula, cacheDir, defs) {
 
   if (fs.existsSync(cached)) {
     const svg = fs.readFileSync(cached, "utf8");
-    return { file, depth: getDepth(svg), height: getHeight(svg) };
+    return { file, depth: getDepth(svg), height: getHeight(svg), compiled: false };
   }
 
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "latexmath-"));
@@ -96,7 +90,7 @@ function renderLatex(formula, cacheDir, defs) {
     if (depth != null) svg += `<!-- depth=${depth}pt -->\n`;
     fs.mkdirSync(cacheDir, { recursive: true });
     fs.writeFileSync(cached, svg);
-    return { file, depth, height: getHeight(svg) };
+    return { file, depth, height: getHeight(svg), compiled: true };
   } finally {
     fs.rmSync(tmp, { recursive: true, force: true });
   }
@@ -110,29 +104,26 @@ function escapeHtml(s) {
     .replace(/"/g, "&quot;");
 }
 
-function renderToImg(formula, display, cacheDir, defs) {
-  // align & friends are display environments of their own; wrapping them in
-  // \[...\] is an error (mathjax tolerated it)
-  const ownEnv = /^\s*\\begin{(align|gather|alignat|flalign|multline|eqnarray)\*?}/.test(
-    formula,
-  );
-  let wrapped;
-  if (!display) wrapped = `\\(${formula}\\)`;
-  else if (ownEnv) wrapped = formula;
-  else if (/\\\\/.test(formula) && !/\\begin{/.test(formula))
-    // bare \\ line breaks work in mathjax but not in \[...\]
-    wrapped = `\\[\\begin{gathered}${formula}\\end{gathered}\\]`;
-  else wrapped = `\\[${formula}\\]`;
+function renderToImg(formula, display, cacheDir, defs, page) {
+  // The delimiter picks the wrapper: $...$ -> \(...\), $$...$$ -> \[...\]. Both
+  // put you in math mode, so multi-line content inside $$ must use a *nestable*
+  // environment (aligned, gathered, array, cases, ...), never a top-level
+  // display environment (align, gather, ...) which refuses to nest. See README.
+  const wrapped = display ? `\\[${formula}\\]` : `\\(${formula}\\)`;
+  const where = page ? ` [${page}]` : "";
   let result;
   try {
     result = renderLatex(wrapped, cacheDir, defs);
   } catch (e) {
-    console.error(`[latex-math] failed: ${formula.slice(0, 60)}`);
+    console.error(`[latex-math] failed${where}: ${formula.slice(0, 60)}`);
     return `<span style="border: 2px dashed red">Failed to render math: ${escapeHtml(
       String(e),
     )}</span>`;
   }
-  const { file, depth, height } = result;
+  const { file, depth, height, compiled } = result;
+  // only a cache miss actually shells out to latex; log it so slow rebuilds are
+  // explained (a warm cache prints nothing)
+  if (compiled) console.log(`[latex-math] rendered${where}: ${formula.slice(0, 60)}`);
   // The SVG's pt dimensions are at LaTeX's 12pt font size, whose x-height is
   // ~5.45pt. Sizing in ex units ties the rendered size to the surrounding
   // font's x-height — the same scheme MathJax uses, so sizes match the old
@@ -238,7 +229,7 @@ export default function latexMathPlugin(md, { cacheDir }) {
   // per-page macros come from the page's mathDefs frontmatter, passed via
   // markdown-it's env
   md.renderer.rules.math_inline = (tokens, idx, options, env) =>
-    renderToImg(tokens[idx].content, false, cacheDir, env?.mathDefs);
+    renderToImg(tokens[idx].content, false, cacheDir, env?.mathDefs, env?.page);
   md.renderer.rules.math_block = (tokens, idx, options, env) =>
-    renderToImg(tokens[idx].content, true, cacheDir, env?.mathDefs);
+    renderToImg(tokens[idx].content, true, cacheDir, env?.mathDefs, env?.page);
 }

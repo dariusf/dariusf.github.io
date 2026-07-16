@@ -144,7 +144,7 @@ export function createSite(root) {
           // rendered body, computed on demand (the feed includes full content)
           let html;
           Object.defineProperty(entry, "content", {
-            get: () => (html ??= md.render(p.body, { mathDefs: p.fm.mathDefs })),
+            get: () => (html ??= md.render(p.body, { mathDefs: p.fm.mathDefs, page: p.url })),
           });
         }
         return entry;
@@ -170,7 +170,7 @@ export function createSite(root) {
     const ctx = { ...page.fm, page: { url: page.url, date: page.date }, data };
     let content;
     if (page.engine === "md") {
-      content = md.render(page.body, { mathDefs: page.fm.mathDefs });
+      content = md.render(page.body, { mathDefs: page.fm.mathDefs, page: page.url });
     } else {
       content = env.renderString(page.body, ctx);
     }

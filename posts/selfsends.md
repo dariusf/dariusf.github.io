@@ -13,7 +13,6 @@ mathDefs: |
     \newcommand{\lsend}[2]{\m{send}\ #1\ #2}
     \newcommand{\lrecv}[1]{\m{recv}\ #1}
     \newcommand{\s}[1]{\{#1\}}
-    \newcommand{\sb}[1]{\textbf{\{}#1\textbf{\}}}
 ---
 
 [Session types](https://wen.works/2020/12/17/an-introduction-to-session-types/) are a neat and fascinating formalism.

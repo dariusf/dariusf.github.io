@@ -9,7 +9,7 @@ mathDefs: |
   \newcommand{\sensr}[2]{\mathbf{ens}\ #1. #2}
   \newcommand{\defeq}{\triangleq}
   \newcommand{\entails}{\sqsubseteq}
-  \newcommand{\implies}{\Rightarrow}
+  \renewcommand{\implies}{\Rightarrow}
   \newcommand{\ctxrefines}{\preceq}
   \newcommand{\ctxequiv}{\equiv^{ctx}}
   \newcommand{\app}[2]{#1\ #2}
@@ -37,10 +37,10 @@ Like other logics, it comes with an entailment relation, initially defined as fo
 The symmetric version, *equivalence*, is typically defined in terms of entailment.
 
 $$
-\begin{align}
+\begin{aligned}
 \flow_1 \entails \flow_2 & \defeq m \vDash \flow_1 \implies m \vDash \flow_2 \\
 \flow_1 \equiv \flow_2 & \defeq \flow_1 \entails \flow_2 \wedge \flow_2 \entails \flow_1
-\end{align}
+\end{aligned}
 $$
 
 This definition is known under many names in different communities.
@@ -107,10 +107,10 @@ However, staged logic is equally viewed as an abstract programming language, and
 The solution is a stronger notion of equivalence: *contextual equivalence* (with the asymmetric version being called *contextual refinement*).
 
 $$
-\begin{align}
+\begin{aligned}
 e_1 \ctxrefines e_2 & \defeq \forall C. C[e_1] \entails C[e_2] \\
 e_1 \ctxequiv e_2 & \defeq e_1 \ctxrefines e_2 \wedge e_2 \ctxrefines e_1
-\end{align}
+\end{aligned}
 $$
 
 It seems [customary](https://www.google.com/search?q=%22contextual+equivalence%22+%22gold+standard%22) to call it the "gold standard" for a notion of equivalence, so I will repeat that here.

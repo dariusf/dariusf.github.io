@@ -10,12 +10,12 @@ mathDefs: |
     \newcommand{\res}{\m{res}}
     \newcommand{\inv}{\m{Inv}}
     \newcommand{\islist}{\m{isList}}
-    \newcommand{\list}{\m{List}}
+    \newcommand{\List}{\m{List}}
     \newcommand{\emp}{\m{emp}}
     \newcommand{\req}[1]{\mathbf{req}\ #1}
     \newcommand{\ens}[1]{\mathbf{ens}\ #1}
     \newcommand{\s}[1]{\{ #1 \}}
-    \newcommand{\sb}[1]{\textbf{\{}#1\textbf{\}}}
+    \newcommand{\sbold}[1]{\textbf{\{}#1\textbf{\}}}
 ---
 
 <!-- (23 Aug 2024) -->
@@ -233,10 +233,10 @@ $$\varphi ::= \req{P} \mid \ens{Q} \mid \varphi; \varphi \mid f(x, r) \mid \exis
 What is the semantics of such formulae? We defer a detailed answer to our paper[^2], but a first approximation is the following generalization, starting from the (partial correctness) semantics of Hoare triples.
 
 $$
-\begin{align*}
+\begin{aligned}
 \s{P}\ e\ \s{Q} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \wedge (s\vDash P) \Rightarrow \langle s',v \rangle \vDash Q \\
-\s{P}\ e\ \s{Q} \equiv & \ \sb{\ens{\emp}}\ e\ \sb{\req{P}; \ens{Q}} \\
-\end{align*}
+\s{P}\ e\ \s{Q} \equiv & \ \sbold{\ens{\emp}}\ e\ \sbold{\req{P}; \ens{Q}}
+\end{aligned}
 $$
 
 Suppose we redefined Hoare triples in terms of a new "bold" kind of triple, with the new formula type on both sides.
@@ -246,9 +246,9 @@ This is a specific case of this new kind of triple.
 The more general case could have its semantics defined as follows.
 
 $$
-\begin{align*}
-\sb{\ens{\emp}}\ e\ \sb{\varphi} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \Rightarrow \langle s, s', v \rangle \vDash \varphi
-\end{align*}
+\begin{aligned}
+\sbold{\ens{\emp}}\ e\ \sbold{\varphi} \equiv & \ \forall s, s'. \langle s, e \rangle \longrightarrow \langle s', v \rangle \Rightarrow \langle s, s', v \rangle \vDash \varphi
+\end{aligned}
 $$
 
 Now we can clearly see how this new kind of triple generalizes the standard one: where we previously had a precondition $P$ constraining the initial state $s$, and a postcondition $Q$ constraining the final state $s'$ and result $v$, we now have a formula constraining the same three things, with the ability to have an arbitrary number of assertions.
@@ -260,7 +260,7 @@ $$
 $$
 
 $$
-\frac{}{\sb{\varphi}\ !x\ \sb{\varphi; \exists y, r.\ \req{x\mapsto y}; \ens{r.\ x\mapsto y \wedge r=y} }} {\scriptsize \text{StDeref}}
+\frac{}{\sbold{\varphi}\ !x\ \sbold{\varphi; \exists y, r.\ \req{x\mapsto y}; \ens{r.\ x\mapsto y \wedge r=y} }} {\scriptsize \text{StDeref}}
 $$
 
 <!-- https://github.com/KaTeX/KaTeX/issues/471 -->
@@ -274,7 +274,7 @@ $$
 $$
 
 $$
-\frac{}{\sb{ \varphi }\ f(x)\ \sb{ \varphi; \exists r.\ f(x,r) }} {\scriptsize \text{StApp}}
+\frac{}{\sbold{ \varphi }\ f(x)\ \sbold{ \varphi; \exists r.\ f(x,r) }} {\scriptsize \text{StApp}}
 $$
 
 First, we have the standard separation logic rule for function application. The key part is that some *knowledge* or *specification* of $f$ is required to prove that it is safe to call in a state satisfying $P$. Once this is done via the entailment on the right, a postcondition $Q_f$ (with appropriate substitutions) and frame $F$ are produced, allowing us to continue.
@@ -565,7 +565,7 @@ The list is described using a shape predicate.
 $$
 \begin{array}{rl}
 & \m{foldr_ex1}(l,\res) \\
-\sqsubseteq & \exists \xs, \ys.\ \req{\list(l,\xs)}; \ens{\list(l,\ys){\wedge}\m{mapinc}(\xs){=}\ys{\wedge}\m{sum}(\xs){=}\res}
+\sqsubseteq & \exists \xs, \ys.\ \req{\List(l,\xs)}; \ens{\List(l,\ys){\wedge}\m{mapinc}(\xs){=}\ys{\wedge}\m{sum}(\xs){=}\res}
 \end{array}
 $$
 
@@ -576,9 +576,9 @@ $$
 \m{mapinc}(\xs, \ys) = \\
 \quad \phantom{\vee\ } (\xs{=}[]{\wedge}\ys) \\
 \quad \vee\ (\exists x, \xs_1, \ys.\ \xs{=}x{::}\xs_1{\wedge}\ys{=}(x{+}1){::}\ys_1) \wedge \m{mapinc}(\xs_1, \ys_1) \\ \\
-\list(l, \m{rs}) = \\
+\List(l, \m{rs}) = \\
 \quad \phantom{\vee\ } (\emp{\wedge}l{=}[]) \\
-\quad \vee\ (\exists x, \m{rs}_1, l_1.\ x{\mapsto}r * \list(l_1,\m{rs}_1){\wedge}l{=}x{::}l_1 {\wedge} \m{rs}{=}r{::}\m{rs}_1)
+\quad \vee\ (\exists x, \m{rs}_1, l_1.\ x{\mapsto}r * \List(l_1,\m{rs}_1){\wedge}l{=}x{::}l_1 {\wedge} \m{rs}{=}r{::}\m{rs}_1)
 \end{array}
 $$
 
