@@ -1,0 +1,26 @@
+---
+permalink: /feed/feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="pretty-atom-feed.xsl" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="{{ data.site.language }}">
+  <title>{{ data.site.title }}</title>
+  <subtitle>{{ data.site.description }}</subtitle>
+  <link href="{{ data.site.url }}/feed/feed.xml" rel="self" />
+  <link href="{{ data.site.url }}/" />
+  <updated>{{ data.posts[0].date | dateToRfc3339 }}</updated>
+  <id>{{ data.site.url }}/</id>
+  <author>
+    <name>{{ data.site.author.name }}</name>
+  </author>
+{%- for post in data.posts | head(10) %}
+  <entry>
+    <title>{{ post.title }}</title>
+    <link href="{{ post.url | htmlBaseUrl(data.site.url) }}" />
+    <updated>{{ post.date | dateToRfc3339 }}</updated>
+    <id>{{ post.url | htmlBaseUrl(data.site.url) }}</id>
+    <content type="html">{{ post.content }}</content>
+  </entry>
+{%- endfor %}
+</feed>

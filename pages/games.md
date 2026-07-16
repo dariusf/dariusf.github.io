@@ -1,8 +1,5 @@
 ---
 title: Games
-eleventyNavigation:
-  key: Games
-  order: 4
 ---
 
 <!-- <h3 style="margin: 0">Games</h3> -->

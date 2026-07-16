@@ -1,7 +1,6 @@
 ---
-eleventyNavigation:
-  key: Blog
-  order: 1
+title: Blog
+layout: base.njk
 ---
 
 {# ---js
@@ -16,5 +15,5 @@ const layout = 'layouts/base.njk';
 
 <div style="margin-top: 1em;"></div>
 
-{% set postslist = collections.posts %}
+{% set postslist = data.posts %}
 {% include "postslist.njk" %}

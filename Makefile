@@ -5,4 +5,4 @@ all:
 
 .PHONY: build
 build:
-	npx @11ty/eleventy
+	node plugin/build.js

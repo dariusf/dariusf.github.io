@@ -1,8 +1,5 @@
 ---
 title: Work
-eleventyNavigation:
-  key: "Work"
-  order: 3
 ---
 
 <!-- <h3 style="margin: 0">Work</h3> -->

@@ -149,7 +149,7 @@ export function createSite(root) {
         }
         return entry;
       })
-      .sort((a, b) => b.date - a.date);
+      .sort((a, b) => a.date - b.date);
   }
 
   const posts = scanPostsDir(path.join(root, "posts"), "/blog", "post");
