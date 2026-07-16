@@ -119,7 +119,7 @@ $$
 
 <style>
   .highlight {
-    color: red;
+    fill: red;
   }
   .trigger {
     text-decoration: underline;

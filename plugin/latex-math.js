@@ -18,8 +18,11 @@ const PREAMBLE = `
 \\usepackage[T2A,T1]{fontenc}
 \\usepackage[active,tightpage]{preview}
 \\usepackage[charter,cal=cmcal]{mathdesign}
-% mathjax extension used by some posts; here the class does nothing
-\\providecommand{\\class}[2]{#2}
+% \\class{name}{content} tagged DOM nodes under mathjax; reproduce that by
+% wrapping the glyphs in an SVG <g class="name"> via dvisvgm raw specials, so
+% per-subterm hover highlighting still works (see staged-logic)
+\\providecommand{\\class}[2]{%
+  \\special{dvisvgm:raw <g class="#1">}#2\\special{dvisvgm:raw </g>}}
 `;
 
 const FONT_SIZE = 12;
@@ -68,7 +71,7 @@ function renderLatex(formula, cacheDir, defs) {
 
   if (fs.existsSync(cached)) {
     const svg = fs.readFileSync(cached, "utf8");
-    return { file, depth: getDepth(svg), height: getHeight(svg), compiled: false };
+    return { file, svg, depth: getDepth(svg), height: getHeight(svg), compiled: false };
   }
 
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "latexmath-"));
@@ -90,7 +93,7 @@ function renderLatex(formula, cacheDir, defs) {
     if (depth != null) svg += `<!-- depth=${depth}pt -->\n`;
     fs.mkdirSync(cacheDir, { recursive: true });
     fs.writeFileSync(cached, svg);
-    return { file, depth, height: getHeight(svg), compiled: true };
+    return { file, svg, depth, height: getHeight(svg), compiled: true };
   } finally {
     fs.rmSync(tmp, { recursive: true, force: true });
   }
@@ -102,6 +105,19 @@ function escapeHtml(s) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+// Inline an SVG into the page so its <g class="..."> groups are reachable by
+// CSS/JS. Drops the trailing depth comment, adds the theme class, and swaps the
+// fixed pt width/height on the root <svg> for a CSS height in ex (the viewBox
+// keeps the aspect ratio) so it scales like the <img> variant.
+function inlineSvg(svg, heightEx) {
+  return svg
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(
+      /<svg\b([^>]*?)\s+width='[^']*'\s+height='[^']*'/,
+      `<svg$1 class="theme-affected"${heightEx ? ` style="height:${heightEx}"` : ""}`,
+    );
 }
 
 function renderToImg(formula, display, cacheDir, defs, page) {
@@ -120,7 +136,7 @@ function renderToImg(formula, display, cacheDir, defs, page) {
       String(e),
     )}</span>`;
   }
-  const { file, depth, height, compiled } = result;
+  const { file, svg, depth, height, compiled } = result;
   // only a cache miss actually shells out to latex; log it so slow rebuilds are
   // explained (a warm cache prints nothing)
   if (compiled) console.log(`[latex-math] rendered${where}: ${formula.slice(0, 60)}`);
@@ -129,17 +145,22 @@ function renderToImg(formula, display, cacheDir, defs, page) {
   // font's x-height — the same scheme MathJax uses, so sizes match the old
   // site for both inline and display math.
   const PT_PER_EX = 5.45;
+  const heightEx = height != null ? `${(height / PT_PER_EX).toFixed(3)}ex` : null;
   let style = "";
-  if (height != null) {
-    style = `height:${(height / PT_PER_EX).toFixed(3)}ex;`;
+  if (heightEx) {
+    style = `height:${heightEx};`;
     if (depth) style += ` vertical-align:${(-depth / PT_PER_EX).toFixed(3)}ex;`;
   }
   if (display) {
-    // same wrapper the old site's mathjax plugin produced; margin centers it
-    const img = `<img class="theme-affected" style="margin: auto;${
-      height != null ? ` height:${(height / PT_PER_EX).toFixed(3)}ex;` : ""
-    }" src="/math/${file}" alt="${escapeHtml(formula)}">`;
-    return `<div style="display: flex; align-items: center;">${img}</div>`;
+    // \class-tagged formulas (see PREAMBLE) carry <g class="..."> groups for
+    // hover highlighting, which a page can only reach if the SVG is inlined —
+    // an <img> is opaque. Everything else stays a cacheable <img>.
+    const inner = /<g class=/.test(svg)
+      ? inlineSvg(svg, heightEx)
+      : `<img class="theme-affected" style="margin: auto;${
+          heightEx ? ` height:${heightEx};` : ""
+        }" src="/math/${file}" alt="${escapeHtml(formula)}">`;
+    return `<div style="display: flex; align-items: center;">${inner}</div>`;
   }
   return `<img class="theme-affected" src="/math/${file}" alt="${escapeHtml(formula)}"${
     style ? ` style="${style}"` : ""
