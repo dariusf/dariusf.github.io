@@ -103,51 +103,19 @@ Here is a specification one might write today in a modern program logic[^1].
 
 $$
 \begin{array}{c}
-\forall \class{ppred}{P}, \class{foldrinv}{\inv}, f, \xs, l. \left\{ \begin{array}{l}
-    \class{triple}{(\forall x, a', \ys.\ \s{\class{ppred}{P\ x} * \class{preserve}{\inv\ \ys\ a'}}\ f(x, a')\ \s{r.\ \class{preserve}{\inv\ (x::\ys)\ r}})} \\
-    *\ \class{shape}{\islist\ l\ \xs} * \class{ppred}{\m{all}\ P\ \xs} * \class{foldrinv}{\inv\ []\ a}
+\forall P, \inv, f, \xs, l. \left\{ \begin{array}{l}
+    (\forall x, a', \ys.\ \s{P\ x * \inv\ \ys\ a'}\ f(x, a')\ \s{r.\ \inv\ (x::\ys)\ r}) \\
+    *\ \islist\ l\ \xs * \m{all}\ P\ \xs * \inv\ []\ a
  \end{array} \right\} \\
  \foldr\ f\ a\ l \\
- \{r.\ \class{shape}{\islist\ l\ \xs} * \class{foldrinv}{\inv\ \xs\ r} \}
+ \{r.\ \islist\ l\ \xs * \inv\ \xs\ r \}
 \end{array}
 $$
 
-1. <span class="trigger" data-id="inv">The most salient feature</span> of this specification is that it is parameterized over an *invariant* $\inv$, a (separation logic) *property* whose purpose is to describe the result of $\foldr$. It does this by relating the suffix of the list traversed so far - initially empty, and finally $\xs$ - with the result of the fold.
-2. Next, we use a <span class="trigger" data-id="finv">nested triple</span> to require that $f$ must preserve the invariant - assuming that the invariant holds of the portion of the list that has been folded $\ys$ and the result of the recursive call $a'$, $f$ must reestablish it for $x::\ys$ and its result $r$. This is fair, as $\foldr$ contains a call to $f$, and so we need the knowledge that $f$ preserves the invariant to ensure that $\foldr$ does. As the invariant is a separation logic property, it may also be seen as a way to describe the effect of $f$.
-3. Anticipating that some clients may want to operate only on certain kinds of lists, the specification is further <span class="trigger" data-id="ppred">parameterized</span> over a unary predicate $P$. A precondition $\m{all}\ P\ \xs$, which must be proved at each call site, allows $f$ to then rely on $P\ x$ in its precondition.
-4. <span class="trigger" data-id="shape">A shape predicate</span> $\islist$ relating the list structure $l$ to its content $\xs$ appears in both pre- and postcondition. This is to say that $\foldr$ should not change the list.
-
-<style>
-  .highlight {
-    color: red;
-  }
-  .trigger {
-    text-decoration: underline;
-    cursor: help;
-  }
-</style>
-<script>
-const foldrHighlightData = {
-  'inv': 'foldrinv',
-  'shape': 'shape',
-  'ppred': 'ppred',
-  'finv': 'preserve',
-};
-document.addEventListener('mouseover', function(event) {
-  let elt=event.target.closest('.trigger');
-  if (elt !== null) {
-    document.querySelectorAll('.' + foldrHighlightData[elt.dataset.id])
-      .forEach(a => a.classList.add('highlight'));
-  }
-});
-document.addEventListener('mouseout', function(event) {
-  let elt=event.target.closest('.trigger');
-  if (elt !== null) {
-    document.querySelectorAll('.' + foldrHighlightData[elt.dataset.id])
-      .forEach(a => a.classList.remove('highlight'));
-  }
-});
-</script>
+1. The most salient feature of this specification is that it is parameterized over an *invariant* $\inv$, a (separation logic) *property* whose purpose is to describe the result of $\foldr$. It does this by relating the suffix of the list traversed so far - initially empty, and finally $\xs$ - with the result of the fold.
+2. Next, we use a nested triple to require that $f$ must preserve the invariant - assuming that the invariant holds of the portion of the list that has been folded $\ys$ and the result of the recursive call $a'$, $f$ must reestablish it for $x::\ys$ and its result $r$. This is fair, as $\foldr$ contains a call to $f$, and so we need the knowledge that $f$ preserves the invariant to ensure that $\foldr$ does. As the invariant is a separation logic property, it may also be seen as a way to describe the effect of $f$.
+3. Anticipating that some clients may want to operate only on certain kinds of lists, the specification is further parameterized over a unary predicate $P$. A precondition $\m{all}\ P\ \xs$, which must be proved at each call site, allows $f$ to then rely on $P\ x$ in its precondition.
+4. A shape predicate $\islist$ relating the list structure $l$ to its content $\xs$ appears in both pre- and postcondition. This is to say that $\foldr$ should not change the list.
 
 This specification elegantly solves the problem for the client we presented earlier (using an invariant to relate the value of $\m{count}$ and $t$, and an identity $P$).
 We argue, however, that it is *imprecise*: there are many clients that *cannot be verified* using it *without significant changes*.

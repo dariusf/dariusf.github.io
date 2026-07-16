@@ -18,8 +18,6 @@ const PREAMBLE = `
 \\usepackage[T2A,T1]{fontenc}
 \\usepackage[active,tightpage]{preview}
 \\usepackage[charter,cal=cmcal]{mathdesign}
-% mathjax extension used by some posts; here the class does nothing
-\\providecommand{\\class}[2]{#2}
 `;
 
 const FONT_SIZE = 12;
