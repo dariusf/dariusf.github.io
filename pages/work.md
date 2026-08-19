@@ -10,7 +10,7 @@ My [resume](/resume.pdf).
 
 <!-- My [resume](/resume.pdf) and extended [CV](/cv). -->
 
-Much of my work can be found on [GitHub](https://www.github.com/dariusf).
+Much of my open source work can be found on [GitHub](https://www.github.com/dariusf).
 
 ### Teaching
 
@@ -32,10 +32,11 @@ Much of my work can be found on [GitHub](https://www.github.com/dariusf).
 - [Answer Set Programming: Into the Multiverse](/slides/asp), 2020, Veracode
 - [Coding like a DJ](https://github.com/dariusf/sonicpi-workshop), 2023, BTC
 - [Mechanising Staged Logic](/MechanizingStagedLogic.pdf), 2024, [SG PL Summit](https://verse-lab.github.io/sg-pl-summit/)
+- Other talks accompanying papers can be found on my [publications page](/research).
 
-### Writing
+<!-- ### Writing -->
 
-- Test Lean and Ship Healthy: A Handbook on Delivering High Quality Software in the DevOps World ([HTML](https://srcclr.github.io/test-lean/), [Kindle](https://www.amazon.com/dp/B0CKXYG3XT))
+<!-- - Test Lean and Ship Healthy: A Handbook on Delivering High Quality Software in the DevOps World ([HTML](https://srcclr.github.io/test-lean/), [Kindle](https://www.amazon.com/dp/B0CKXYG3XT)) -->
 
 <!--
 ## Patents
