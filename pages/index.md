@@ -35,17 +35,23 @@
 #}
 -->
 
-I'm a PhD student in the [PLSE lab](https://nus-plse.github.io/) at NUS.
+<!-- I completed my PhD in the [PLSE lab](https://nus-plse.github.io/) at NUS.-->
+I'm a postdoc in the [PLSE lab](https://nus-plse.github.io/) at NUS,
+where I completed my PhD.
+My [thesis](/thesis) was on relational verification of [higher-order](https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/FM2024_TR.pdf), [effectful](https://www.comp.nus.edu.sg/~yahuis/ICFP24/ICFP2024.pdf) programs.
+I previously also worked on [specifying and testing distributed systems](https://dariusf.github.io/cpluscal.pdf).
 
-My [research](/thesis) focuses on new ways to specify and verify [higher-order](https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/FM2024_TR.pdf), [effectful](https://www.comp.nus.edu.sg/~yahuis/ICFP24/ICFP2024.pdf) [programs](https://www.comp.nus.edu.sg/~yahuis/APLAS2022.pdf). I previously also worked on [specifying and testing distributed systems](https://dariusf.github.io/cpluscal.pdf).
+<!-- [verifying](https://www.comp.nus.edu.sg/~yahuis/APLAS2022.pdf) -->
 
-<!-- I'm a postdoc in the [PLSE lab](https://nus-plse.github.io/) at NUS. -->
+<!-- I previously also worked on [specifying and testing distributed systems](https://dariusf.github.io/cpluscal.pdf). -->
 
-<!-- I completed my PhD in the [PLSE lab](https://nus-plse.github.io/) at NUS. -->
-
-<!-- My [dissertation](/thesis) was on relational verification of [higher-order](https://raw.githubusercontent.com/hipsleek/Heifer/StagedSL/docs/FM2024_TR.pdf), [effectful](https://www.comp.nus.edu.sg/~yahuis/ICFP24/ICFP2024.pdf) [programs](https://www.comp.nus.edu.sg/~yahuis/APLAS2022.pdf). I previously also worked on [specifying and testing distributed systems](https://dariusf.github.io/cpluscal.pdf). -->
-
-I am more generally interested in all aspects of programming languages and formal verification. My goal is to build better tools for developers and lower the barrier to engineering reliable software.
+<!-- My goal is -->
+I'm deeply interested in the use of formal methods
+to build
+better tools for developers and lower the barrier to engineering reliable software.
+<!-- I'm convinced techniques from formal methods will play a part. -->
+<!-- I'm interested in the use of formal methods and programming languages as a means of building -->
+<!-- I am more generally interested in all aspects of programming languages and formal verification. -->
 
 <!--
 Separately, [game development](/other#games).
@@ -74,12 +80,12 @@ The use of logic to model and support creative practice
 
 Interested in how computers can support creative work
 
-My PhD focused on
 My PhD is on verification, the use logic and computers to help in the construction of software
 
 -->
 
 On weekends, I sing with [The Crescendos](https://www.instagram.com/the_crescendos/) and [Acappella Anonymous](https://www.instagram.com/acappellaanonymous/).
+I also enjoy [making games and writing interactive fiction](/games).
 
 Contact me at [darius.foo.tw@gmail.com](mailto:darius.foo.tw@gmail.com).
 
