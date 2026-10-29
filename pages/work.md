@@ -6,7 +6,9 @@ title: Work
 
 <!-- ### Work -->
 
-My [resume](/resume.pdf).
+My [CV](/cv.pdf).
+
+<!-- My [resume](/resume.pdf). -->
 
 <!-- My [resume](/resume.pdf) and extended [CV](/cv). -->
 
